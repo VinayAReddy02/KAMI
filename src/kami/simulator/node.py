@@ -1,13 +1,15 @@
 """Virtual sensor node fleet: replays public data over the bus like an ESP32 would.
 
 Assignment of real series to the 8 demo nodes (everything mixed here is `semi_synthetic`):
-  pressure  : BattLeDIM 2018 pressure sensors, 8 evenly spaced columns (metres), one per node.
-  flow      : BattLeDIM 2018 has only 3 flow sensors, so node i reuses flow sensor (i mod 3) (m3/h).
+  pressure  : BattLeDIM pressure sensors, mean of every third sensor starting at (node index mod 3), metres.
+              This matches how the training backgrounds were built (docs/scenarios.md).
+  flow      : BattLeDIM has only 3 flow sensors, so node i uses flow sensor (i mod 3), m3/h.
   turbidity : USGS station (i mod 3), FNU, shifted in time by a node-specific offset.
   tds       : 0.64 x USGS specific conductance of the same station (uS/cm -> mg/L proxy).
-USGS 15-min values are forward-filled to the 5-min BattLeDIM grid (at most 3 steps).
-The USGS data are real but come from rivers in Virginia and are paired with simulated network
-data, so the combined node series are semi-synthetic, not field data from one location.
+Nodes that share a sensor group are decorrelated by circularly shifting their infrastructure series by
+(i // 3) x 12 days. USGS 15-min values are forward-filled to the 5-min grid (at most 20 steps).
+The USGS data are real but come from rivers in Virginia and are paired with simulated network data,
+so the combined node series are semi-synthetic, not field data from one location.
 """
 from __future__ import annotations
 
@@ -19,10 +21,10 @@ import numpy as np
 import pandas as pd
 
 from .. import config
-from ..data.raw_loaders import USGS_STATIONS, load_battledim, load_usgs
+from ..data.loaders import FFILL_LIMIT_5MIN, TDS_FACTOR, _battledim_two_years, usgs_5min
+from ..data.raw_loaders import USGS_STATIONS
 from ..ingest.bus import Bus
 
-TDS_FACTOR = 0.64
 STEP_SECONDS = 300  # real-time spacing of BattLeDIM samples
 
 
@@ -30,34 +32,46 @@ def node_ids(n: int) -> list[str]:
     return [f"node-{i + 1}" for i in range(n)]
 
 
-def build_node_frames(n_nodes: int = 8, year: int = 2018) -> dict[str, pd.DataFrame]:
-    b = load_battledim(year)
+def build_node_frames(n_nodes: int = 8) -> dict[str, pd.DataFrame]:
+    b = _battledim_two_years()
     idx = b["pressure"].index
-    pcols = list(b["pressure"].columns)
-    pick = np.linspace(0, len(pcols) - 1, n_nodes).round().astype(int)
-    fcols = list(b["flow"].columns)
-    usgs = {}
-    for s in USGS_STATIONS:
-        u = load_usgs(s).drop_duplicates("ts").set_index("ts").sort_index()
-        u = u.reindex(pd.date_range(u.index.min(), u.index.max(), freq="5min")).ffill(limit=3)
-        usgs[s] = u
+    pcols, fcols = list(b["pressure"].columns), list(b["flow"].columns)
+    usgs = {s: usgs_5min(s)[0].reindex(idx) for s in USGS_STATIONS}
     frames = {}
     for i, nid in enumerate(node_ids(n_nodes)):
-        u = usgs[USGS_STATIONS[i % len(USGS_STATIONS)]]
-        off = (i * 4000) % max(1, len(u) - len(idx))
-        uu = u.iloc[off : off + len(idx)]
-        if len(uu) < len(idx):
-            uu = uu.reindex(range(len(idx)))
+        k = i % 3
+        shift = (i // 3) * 12 * 288
+        u = usgs[USGS_STATIONS[k]]
+        q_shift = (i * 4000) % len(idx)
         df = pd.DataFrame({
             "ts": idx,
-            "flow": b["flow"][fcols[i % len(fcols)]].to_numpy(),
-            "pressure": b["pressure"][pcols[pick[i]]].to_numpy(),
-            "turbidity": uu["turbidity"].to_numpy(),
-            "tds": uu["conductance"].to_numpy() * TDS_FACTOR,
+            "flow": np.roll(b["flow"][fcols[k]].to_numpy(), -shift),
+            "pressure": np.roll(b["pressure"][pcols[k::3]].mean(axis=1).to_numpy(), -shift),
+            "turbidity": np.roll(u["turbidity"].to_numpy(), -q_shift),
+            "tds": np.roll(u["tds"].to_numpy(), -q_shift),
         })
         df["source"] = "semi_synthetic"
         frames[nid] = df
     return frames
+
+
+def find_clean_start(frames: dict[str, pd.DataFrame], lookback: int = 400, horizon: int = 3000,
+                     max_missing: float = 0.02, first: int = 1000) -> int:
+    """First step >= max(lookback, first) where, for every node, at most `max_missing` of the quality values
+    in [s - lookback, s + horizon) are missing (the early 2018 period has the fewest background leaks)."""
+    n = min(len(f) for f in frames.values())
+    miss = np.zeros(n)
+    for f in frames.values():
+        miss = np.maximum(miss, 0)  # keep shape
+    cs = []
+    for f in frames.values():
+        bad = f[["flow", "pressure", "turbidity", "tds"]].isna().any(axis=1).to_numpy()[:n]
+        cs.append(np.concatenate([[0], np.cumsum(bad)]))
+    span = lookback + horizon
+    for s in range(max(lookback, first), n - horizon):
+        if all((c[s + horizon] - c[s - lookback]) / span <= max_missing for c in cs):
+            return s
+    raise RuntimeError("no clean stretch found")
 
 
 def _clean(v):
@@ -76,6 +90,7 @@ class NodeFleet:
         self.modifier = modifier  # callable(node_id, step, reading) -> reading
         self.paused = False
         self.published = 0
+        self.last_ts: str | None = None
         self._stop = threading.Event()
         self._thread: threading.Thread | None = None
 
@@ -86,6 +101,7 @@ class NodeFleet:
             if self.paused:
                 time.sleep(0.05)
                 continue
+            t_step = time.time()
             for nid, f in self.frames.items():
                 row = f.iloc[self.step]
                 r = {"node_id": nid, "ts": row["ts"].isoformat(), "flow": _clean(row["flow"]),
@@ -95,9 +111,12 @@ class NodeFleet:
                     r = self.modifier(nid, self.step, r)
                 self.bus.publish(config.TOPIC_READINGS.format(node_id=nid), r)
                 self.published += 1
+                self.last_ts = r["ts"]
             self.step += 1
             if self.speed > 0:
-                time.sleep(STEP_SECONDS / self.speed)
+                wait = STEP_SECONDS / self.speed - (time.time() - t_step)
+                if wait > 0:
+                    time.sleep(wait)
 
     def start(self):
         self._thread = threading.Thread(target=self._run, name="node-fleet", daemon=True)
@@ -130,8 +149,9 @@ def main():
                          "which hosts the in-process bus, worker and nodes in one process.")
     from ..ingest.bus import make_bus
 
+    frames = build_node_frames(a.nodes)
     bus = make_bus(mode)
-    fleet = NodeFleet(bus, build_node_frames(a.nodes), a.speed, max_steps=a.steps)
+    fleet = NodeFleet(bus, frames, a.speed, start=find_clean_start(frames), max_steps=a.steps)
     fleet.start()
     fleet.join()
     bus.close()

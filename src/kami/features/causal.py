@@ -70,3 +70,33 @@ def feature_names(signals=SIGNALS, windows=WINDOWS) -> list[str]:
         for w in windows:
             cols += [f"{s}_{k}{w}" for k in ("m", "sd", "roc", "sl", "dv")]
     return cols
+
+
+def compute_last(history: dict[str, np.ndarray], windows=WINDOWS) -> dict[str, float]:
+    """Features of the LAST step only, computed with plain numpy from the tail of each signal.
+
+    Must equal `compute_features(...)` at the last row (tested). `history[s]` holds the most recent values of
+    signal s (oldest first) and needs at least DAY + 1 entries for the 24 h lag feature. Used by the live
+    pipeline because it is much cheaper than recomputing rolling windows with pandas on every message.
+    """
+    out: dict[str, float] = {}
+    for s, x in history.items():
+        x = np.asarray(x, float)
+        n = len(x)
+        out[f"{s}_diff1"] = x[-1] - x[-2] if n >= 2 else np.nan
+        out[f"{s}_d24"] = x[-1] - x[-1 - DAY] if n > DAY else np.nan
+        for w in windows:
+            if n < w or np.isnan(x[-w:]).any():
+                for k in ("m", "sd", "roc", "sl", "dv"):
+                    out[f"{s}_{k}{w}"] = np.nan
+                continue
+            seg = x[-w:]
+            m = seg.mean()
+            sd = seg.std(ddof=1)
+            t = np.arange(w) - (w - 1) / 2.0
+            out[f"{s}_m{w}"] = m
+            out[f"{s}_sd{w}"] = sd
+            out[f"{s}_roc{w}"] = (x[-1] - x[-1 - w]) / w if n > w else np.nan
+            out[f"{s}_sl{w}"] = float(t @ seg / (t @ t))
+            out[f"{s}_dv{w}"] = (x[-1] - m) / (sd + EPS)
+    return out

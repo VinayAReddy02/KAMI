@@ -66,3 +66,12 @@ Decided decisions are not to be re-opened. Add new ones at the bottom with: what
 - **BattLeDIM (infrastructure only, 8 test events):** F-B event F1 0.897 vs voting 0.941; few events and a drifting background, so not evidence for the method.
 - Recurrence counts evidence flicker as separate episodes (for example 12 episodes in 7 days on drifting background), so it is a weak signal in this data.
 - Fusion is fitted on validation only (evidence probabilities on train are in-sample). The joint-model and baseline ablations are refit on train as in Steps 3 and 4.
+
+### Step 6 (2026-10-10)
+- Live nodes were rebuilt to match the training backgrounds (pressure = mean of a sensor group, one of 3 flow sensors, a USGS station with per-node time shifts) so the deployed scenario-trained modules see the same distributions. Step 1 check re-run and still passes.
+- The streaming processor uses a numpy last-row feature function (`compute_last`) instead of pandas rolling windows (about 10x cheaper). Equality with batch features is tested (rel 1e-3, abs 2e-4: the differences are float noise in near-constant windows, mostly the batch slope/std).
+- Temporal features in the live path use a 2,100-step history of the evidence stream (persistence is capped at about 7 days); the processor is primed with 400 steps of signal history and no evidence history (assumed zero).
+- Alerts are episodes per node: opened when the category leaves Normal, updated (category, priority) while active, closed after 1 h (12 steps) of Normal.
+- Frontend: hand-written SVG charts (no chart library), hash routing, OpenStreetMap tiles (needs internet; markers and the rest of the UI work without tiles), Okabe-Ito colours with distinct shapes, textures and text for every status.
+- Playwright screenshots skipped (not installed; CLAUDE.md allows public datasets only for downloads).
+- Live background alerts happen (real USGS storm and conductance events and drifting BattLeDIM background) even without injection; they are real features of the replayed data, not bugs.

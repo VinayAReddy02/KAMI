@@ -65,6 +65,10 @@ class EvidenceModule:
     def raw(self, df: pd.DataFrame) -> np.ndarray:
         return _raw(self.model, df[self.columns].to_numpy(float))
 
+    def predict_proba_array(self, X: np.ndarray) -> np.ndarray:
+        """Same as predict_proba for an already-built feature matrix (columns in `self.columns` order)."""
+        return self.calibrator.predict(_raw(self.model, np.asarray(X, float)))
+
     def predict_proba(self, df: pd.DataFrame) -> np.ndarray:
         """Calibrated probability using the calibrator fitted on all of validation (use for test / live)."""
         return self.calibrator.predict(self.raw(df))

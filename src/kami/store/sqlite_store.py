@@ -20,6 +20,8 @@ class SqliteStore(Store):
         with self._lock:
             self._db.executescript(
                 """
+                PRAGMA journal_mode=WAL;
+                PRAGMA synchronous=NORMAL;
                 CREATE TABLE IF NOT EXISTS readings(
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
                   node_id TEXT NOT NULL, ts TEXT NOT NULL,

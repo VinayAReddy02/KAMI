@@ -1,0 +1,58 @@
+{
+  "label": "Demo network, fictional layout",
+  "center": [
+    12.92,
+    79.13
+  ],
+  "zoom": 13,
+  "nodes": [
+    {
+      "id": "node-1",
+      "name": "Katpadi Intake",
+      "lat": 12.9692,
+      "lon": 79.145
+    },
+    {
+      "id": "node-2",
+      "name": "Gandhi Nagar Tank",
+      "lat": 12.942,
+      "lon": 79.156
+    },
+    {
+      "id": "node-3",
+      "name": "Sathuvachari Main",
+      "lat": 12.944,
+      "lon": 79.116
+    },
+    {
+      "id": "node-4",
+      "name": "Bagayam Booster",
+      "lat": 12.892,
+      "lon": 79.162
+    },
+    {
+      "id": "node-5",
+      "name": "Old Town Junction",
+      "lat": 12.919,
+      "lon": 79.13
+    },
+    {
+      "id": "node-6",
+      "name": "Fort Road Valve",
+      "lat": 12.906,
+      "lon": 79.144
+    },
+    {
+      "id": "node-7",
+      "name": "Viruthampet Outlet",
+      "lat": 12.968,
+      "lon": 79.113
+    },
+    {
+      "id": "node-8",
+      "name": "Thorapadi Reservoir",
+      "lat": 12.883,
+      "lon": 79.11
+    }
+  ]
+}
