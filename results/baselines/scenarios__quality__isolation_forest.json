@@ -1,0 +1,85 @@
+{
+  "dataset": "scenarios",
+  "domain": "quality",
+  "model": "isolation_forest",
+  "params": {
+    "n_estimators": 100,
+    "max_samples": 2048,
+    "quantile": 0.9
+  },
+  "val": {
+    "point": {
+      "precision": 0.13514236064697233,
+      "recall": 0.1002777226740726,
+      "f1": 0.11512839492114103
+    },
+    "event": {
+      "precision": 0.1643835616438356,
+      "recall": 0.6388888888888888,
+      "f1": 0.26148744670772145,
+      "events": 36,
+      "detected": 23,
+      "alert_segments": 219,
+      "false_alert_segments": 183
+    },
+    "false_alarms_per_day": 0.5301413267615551,
+    "latency_h": {
+      "median": 0.5,
+      "p90": 20.316666666666674,
+      "n": 23
+    },
+    "per_type_recall": {
+      "combined": {
+        "recall": 0.6666666666666666,
+        "events": 12
+      },
+      "quality_tds_shift": {
+        "recall": 0.6666666666666666,
+        "events": 12
+      },
+      "quality_turbidity_surge": {
+        "recall": 0.5833333333333334,
+        "events": 12
+      }
+    },
+    "scored_normal_days": 345.19097222222223
+  },
+  "test": {
+    "point": {
+      "precision": 0.1710208030962748,
+      "recall": 0.07377647918188458,
+      "f1": 0.1030837646715754
+    },
+    "event": {
+      "precision": 0.24203821656050956,
+      "recall": 0.6944444444444444,
+      "f1": 0.35896467031928964,
+      "events": 36,
+      "detected": 25,
+      "alert_segments": 157,
+      "false_alert_segments": 119
+    },
+    "false_alarms_per_day": 0.34675273429990794,
+    "latency_h": {
+      "median": 0.25,
+      "p90": 0.7666666666666669,
+      "n": 25
+    },
+    "per_type_recall": {
+      "combined": {
+        "recall": 0.8333333333333334,
+        "events": 12
+      },
+      "quality_tds_shift": {
+        "recall": 0.75,
+        "events": 12
+      },
+      "quality_turbidity_surge": {
+        "recall": 0.5,
+        "events": 12
+      }
+    },
+    "scored_normal_days": 343.18402777777777
+  },
+  "data_kind": "semi_synthetic_scenarios"
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "key": "1ab1559d4b0608ba",
+    "model": "fixed_threshold-infra",
+    "dataset": "battledim",
+    "count": 1
+  },
+  {
+    "key": "83e0071708fccb65",
+    "model": "isolation_forest-infra",
+    "dataset": "battledim",
+    "count": 2
+  },
+  {
+    "key": "f94f21f241b98fb0",
+    "model": "fixed_threshold-infra",
+    "dataset": "scenarios",
+    "count": 3
+  },
+  {
+    "key": "fcfdc9542ee0d47a",
+    "model": "fixed_threshold-quality",
+    "dataset": "scenarios",
+    "count": 4
+  },
+  {
+    "key": "0b90ede406b1c5d9",
+    "model": "isolation_forest-infra",
+    "dataset": "scenarios",
+    "count": 5
+  },
+  {
+    "key": "e4cb154e4fbe8147",
+    "model": "isolation_forest-quality",
+    "dataset": "scenarios",
+    "count": 6
+  },
+  {
+    "key": "02b19b3b76f7be09",
+    "model": "isolation_forest-joint",
+    "dataset": "scenarios",
+    "count": 7
+  }
+]

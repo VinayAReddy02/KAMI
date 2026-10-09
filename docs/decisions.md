@@ -44,3 +44,10 @@ Decided decisions are not to be re-opened. Add new ones at the bottom with: what
 - Missing data: USGS values forward-filled <= 20 steps, then NaN; `valid` = all four signals present; events are only injected where valid; negative turbidity set to NaN (4426 rows at 01654500).
 - Splits 60/20/20 by time per dataset; boundaries moved after any event they cut. Features use 12/72/288-step windows (1 h, 6 h, 24 h).
 - Known limitation: scenario backgrounds carry BattLeDIM's own unlabelled leaks and drift, so the test period (late 2019) has a shifted background. Reported as-is.
+
+### Step 3 (2026-10-10)
+- Baselines: fixed thresholds (mean +/- k std from train, k tuned on val from a grid) and Isolation Forest (on raw signals + domain causal features; n_estimators/max_samples/score-quantile tuned on val). One-Class SVM from CLAUDE.md not implemented (PLAN Step 3 lists only the two; OCSVM on ~400k rows is slow). Add later if wanted.
+- Metric conventions in `kami/eval/metrics.py` docstring: alerts merged across <= 12 steps; an alert is true if it overlaps an event window (+1 h grace); false alarms/day over scored normal days of that domain; latency only over detected events. Rows that are invalid, ambiguous or lack features are not scored.
+- Domain evaluation: infra detectors vs `infra_flag`, quality detectors vs `quality_flag`; the joint IF is scored against each. Combined events count in both domains.
+- BattLeDIM test split has only 8 events (1 burst, 7 leaks); fixed thresholds detect all of them partly because the late-2019 background drifts and keeps alerting (event precision ~0.41). Read these numbers with care.
+- Test access is guarded by `final_evaluation`; the baseline run regenerates `results/baselines/test_eval_log.json` on each full run (7 models).

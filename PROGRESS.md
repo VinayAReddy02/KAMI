@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-10
-**Current step:** 3
+**Current step:** 4
 **Mode:** unattended allowed; never wait for answers (see CLAUDE.md)
 
 ## Steps
@@ -12,7 +12,7 @@ Update this file after every task. A new session must be able to resume from her
 | 0 | Dataset recon | passed | scripts/check_step_0.py | step 0 |
 | 1 | Foundations | passed | scripts/check_step_1.py | step 1 |
 | 2 | Data pipeline, features, scenarios | passed | scripts/check_step_2.py | step 2 |
-| 3 | Baselines and harness | not started | scripts/check_step_3.py | |
+| 3 | Baselines and harness | passed | scripts/check_step_3.py | step 3 |
 | 4 | Evidence modules and temporal analysis | not started | scripts/check_step_4.py | |
 | 5 | Fusion and ablations | not started | scripts/check_step_5.py | |
 | 6 | Live pipeline and dashboard | not started | scripts/check_step_6.py | |
@@ -31,6 +31,7 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-10 Step 3: harness (metrics, guarded test access), fixed-threshold + Isolation Forest baselines, results/tables/baselines.md, check_step_3 PASS (~1 min)
 - 2026-10-10 Step 2: loaders, causal features, splits, scenario generator (180 events, 12 per type per split), check_step_2 PASS. Run `python scripts/build_datasets.py` to regenerate data/processed + results/splits.
 - 2026-10-10 Step 1: store/bus/worker/API/node fleet, check_step_1 PASS (8 nodes x 268 rows in 20 s), tests 5 passed 2 skipped (no Docker)
 - 2026-10-10 Step 0: BattLeDIM + USGS downloaded, loaders, docs/datasets.md, check_step_0 PASS
