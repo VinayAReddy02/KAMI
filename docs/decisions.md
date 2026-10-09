@@ -58,3 +58,11 @@ Decided decisions are not to be re-opened. Add new ones at the bottom with: what
 - BattLeDIM infra calibration is poor (Brier val 0.28, test 0.33; only 17 train events and a drifting background). Reported as is.
 - Temporal feature defaults (theta 0.5, k 3 steps, windows 2 h/6 h, gap 2 h, recurrence window 7 days) are fixed a priori, not tuned. Missing evidence counts as no evidence.
 - Evidence probabilities are stored only for val (cross-fitted) and test rows (`data/processed/evidence_*.parquet`); train rows are NaN because they are in-sample for the base model. Fusion (Step 5) is therefore tuned on val only.
+
+### Step 5 (2026-10-10)
+- **Selection:** validation macro-F1 (out-of-fold over 4 time blocks, scenarios): F-A 0.540, F-B 0.645 -> **F-B selected** (rule: best validation macro-F1; ties within 0.005 go to F-B). Test numbers are in `results/tables/fusion_ablation.md`.
+- F-B first used argmax of the pignistic probabilities; this made temporal reliability irrelevant (the sign of the N-vs-I margin depends only on p). It was changed to a discounted-belief decision `r*p >= gamma` after seeing validation and test output of the first version, and not changed afterwards. Disclose this in the paper.
+- **Honest outcome (scenarios, test):** the fusion designs reach higher point-level macro-F1 (F-B 0.571, F-A 0.570) than threshold voting (0.433), the single joint model (0.321) and the baselines (0.364 and 0.247), but they have **much lower event-level precision and many more false alarms** (F-B event F1 0.359, 2.19 false alarms/day) than simple threshold voting on the same evidence (event F1 0.840, 0.16 false alarms/day). The macro-F1 selection objective rewards minority-class recall and was not tuned for false alarms. Temporal features help a little (F-A macro-F1 0.570 vs 0.508 without; F-B 0.571 vs 0.566), within the noise of 60 test events.
+- **BattLeDIM (infrastructure only, 8 test events):** F-B event F1 0.897 vs voting 0.941; few events and a drifting background, so not evidence for the method.
+- Recurrence counts evidence flicker as separate episodes (for example 12 episodes in 7 days on drifting background), so it is a weak signal in this data.
+- Fusion is fitted on validation only (evidence probabilities on train are in-sample). The joint-model and baseline ablations are refit on train as in Steps 3 and 4.

@@ -1,0 +1,56 @@
+[
+  {
+    "node_id": "scn-node-1",
+    "ts": "2019-08-18 13:15:00",
+    "truth": "Infrastructure",
+    "category": "Infrastructure",
+    "confidence": 0.3604207262438771,
+    "priority": "Medium",
+    "explanation": "Infrastructure anomaly, priority Medium (confidence 0.36): infrastructure evidence 0.41, currently below threshold, suddenness 0.22, 12 episode(s) in the last 7 days."
+  },
+  {
+    "node_id": "scn-node-2",
+    "ts": "2019-10-30 21:50:00",
+    "truth": "Infrastructure",
+    "category": "Infrastructure",
+    "confidence": 0.8366688396526806,
+    "priority": "Critical",
+    "explanation": "Infrastructure anomaly, priority Critical (confidence 0.84): infrastructure evidence 0.93, above threshold for 7.8 h, suddenness 0.06, 8 episode(s) in the last 7 days."
+  },
+  {
+    "node_id": "scn-node-1",
+    "ts": "2019-08-21 09:10:00",
+    "truth": "Quality",
+    "category": "Quality",
+    "confidence": 0.5796467331615619,
+    "priority": "Medium",
+    "explanation": "Quality anomaly, priority Medium (confidence 0.58): quality evidence 0.78, above threshold for 0.4 h, suddenness 0.55, 4 episode(s) in the last 7 days."
+  },
+  {
+    "node_id": "scn-node-2",
+    "ts": "2019-09-07 18:25:00",
+    "truth": "Quality",
+    "category": "Quality",
+    "confidence": 0.5495476515148293,
+    "priority": "Medium",
+    "explanation": "Quality anomaly, priority Medium (confidence 0.55): quality evidence 0.75, above threshold for 0.8 h, suddenness 0.43, 2 episode(s) in the last 7 days."
+  },
+  {
+    "node_id": "scn-node-1",
+    "ts": "2019-10-26 00:05:00",
+    "truth": "Combined",
+    "category": "Combined",
+    "confidence": 0.5570956608924392,
+    "priority": "Critical",
+    "explanation": "Combined anomaly, priority Critical (confidence 0.56): infrastructure evidence 0.89, above threshold for 1.2 h, suddenness 0.50, 5 episode(s) in the last 7 days; quality evidence 0.66, above threshold for 0.1 h, suddenness 0.58, 2 episode(s) in the last 7 days."
+  },
+  {
+    "node_id": "scn-node-2",
+    "ts": "2019-09-14 13:35:00",
+    "truth": "Combined",
+    "category": "Combined",
+    "confidence": 0.5082612244005403,
+    "priority": "Critical",
+    "explanation": "Combined anomaly, priority Critical (confidence 0.51): infrastructure evidence 1.00, above threshold for 18.1 h, suddenness 0.00, 7 episode(s) in the last 7 days; quality evidence 0.51, above threshold for 0.2 h, suddenness 0.45, 3 episode(s) in the last 7 days."
+  }
+]

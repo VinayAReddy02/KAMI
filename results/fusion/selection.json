@@ -1,0 +1,14 @@
+{
+  "selected": "F-B",
+  "reason": "validation macro-F1 (out-of-fold, scenarios): F-A 0.5404, F-B 0.6453; ties within 0.005 go to F-B (fewer parameters, directly inspectable masses)",
+  "val_macro_f1": {
+    "F-A": 0.5404139369376608,
+    "F-B": 0.6452866690208321,
+    "F-A (no temporal)": 0.5404349706668582,
+    "F-B (no temporal)": 0.6405476469270553,
+    "threshold voting (no fusion)": 0.4315938976318968,
+    "single joint model (no separated evidence)": 0.46367656490347503,
+    "baseline: fixed_threshold": 0.3055342940931401,
+    "baseline: isolation_forest": 0.2393090438372351
+  }
+}

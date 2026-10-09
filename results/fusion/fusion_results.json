@@ -1,0 +1,4250 @@
+{
+  "selected": "F-B",
+  "selection_reason": "validation macro-F1 (out-of-fold, scenarios): F-A 0.5404, F-B 0.6453; ties within 0.005 go to F-B (fewer parameters, directly inspectable masses)",
+  "rows": [
+    {
+      "dataset": "scenarios",
+      "model": "F-A",
+      "val": {
+        "macro_f1": 0.5404139369376608,
+        "accuracy": 0.6755070915184891,
+        "confusion": [
+          [
+            52602,
+            12298,
+            12683,
+            485
+          ],
+          [
+            4145,
+            15009,
+            1108,
+            1085
+          ],
+          [
+            1102,
+            326,
+            5007,
+            920
+          ],
+          [
+            8,
+            333,
+            1038,
+            1348
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 109497,
+        "infra_domain": {
+          "point": {
+            "precision": 0.5588919632750597,
+            "recall": 0.7383484256874636,
+            "f1": 0.6362074519488886
+          },
+          "event": {
+            "precision": 0.23641304347826086,
+            "recall": 1.0,
+            "f1": 0.38241758241758245,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 368,
+            "false_alert_segments": 281
+          },
+          "false_alarms_per_day": 0.9473795113728152,
+          "latency_h": {
+            "median": 1.0833333333333333,
+            "p90": 16.958333333333336,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 296.6076388888889
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.351144715721889,
+            "recall": 0.8245387819877008,
+            "f1": 0.49253466050479916
+          },
+          "event": {
+            "precision": 0.1336405529953917,
+            "recall": 0.9444444444444444,
+            "f1": 0.23414865827594397,
+            "events": 36,
+            "detected": 34,
+            "alert_segments": 434,
+            "false_alert_segments": 376
+          },
+          "false_alarms_per_day": 1.0892521249308453,
+          "latency_h": {
+            "median": 0.375,
+            "p90": 5.9499999999999975,
+            "n": 34
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 345.19097222222223
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.506855151045701,
+            "recall": 0.8327977345763466,
+            "f1": 0.6301749148298401
+          },
+          "event": {
+            "precision": 0.2178988326848249,
+            "recall": 0.9833333333333333,
+            "f1": 0.35674566754845327,
+            "events": 60,
+            "detected": 59,
+            "alert_segments": 514,
+            "false_alert_segments": 402
+          },
+          "false_alarms_per_day": 1.4830148076036276,
+          "latency_h": {
+            "median": 0.16666666666666666,
+            "p90": 6.0000000000000036,
+            "n": 59
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 271.06944444444446
+        },
+        "event_category_accuracy": 0.85
+      },
+      "test": {
+        "macro_f1": 0.5704832886291131,
+        "accuracy": 0.6667312304002951,
+        "confusion": [
+          [
+            49000,
+            22947,
+            4637,
+            208
+          ],
+          [
+            2287,
+            18667,
+            396,
+            695
+          ],
+          [
+            1838,
+            1439,
+            2838,
+            371
+          ],
+          [
+            57,
+            744,
+            514,
+            1782
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 108420,
+        "infra_domain": {
+          "point": {
+            "precision": 0.4671632552878151,
+            "recall": 0.8705751332431787,
+            "f1": 0.6080422251545246
+          },
+          "event": {
+            "precision": 0.1565217391304348,
+            "recall": 1.0,
+            "f1": 0.27067669172932335,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 575,
+            "false_alert_segments": 485
+          },
+          "false_alarms_per_day": 1.6772737097432695,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 2.0,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 289.15972222222223
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.4811642338956385,
+            "recall": 0.5744547636439529,
+            "f1": 0.5236872146118722
+          },
+          "event": {
+            "precision": 0.22483221476510068,
+            "recall": 1.0,
+            "f1": 0.36712328767123287,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 298,
+            "false_alert_segments": 231
+          },
+          "false_alarms_per_day": 0.6731082489351154,
+          "latency_h": {
+            "median": 0.375,
+            "p90": 3.0,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 343.18402777777777
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.4968680980484449,
+            "recall": 0.867775388895915,
+            "f1": 0.6319158243731724
+          },
+          "event": {
+            "precision": 0.2053872053872054,
+            "recall": 1.0,
+            "f1": 0.3407821229050279,
+            "events": 60,
+            "detected": 60,
+            "alert_segments": 594,
+            "false_alert_segments": 472
+          },
+          "false_alarms_per_day": 1.7701843942077298,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 1.191666666666667,
+            "n": 60
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 266.6388888888889
+        },
+        "event_category_accuracy": 0.7833333333333333
+      },
+      "params": null
+    },
+    {
+      "dataset": "scenarios",
+      "model": "F-B",
+      "val": {
+        "macro_f1": 0.6452866690208321,
+        "accuracy": 0.8106797446505384,
+        "confusion": [
+          [
+            69851,
+            6067,
+            2005,
+            145
+          ],
+          [
+            7001,
+            13841,
+            135,
+            370
+          ],
+          [
+            2773,
+            269,
+            3900,
+            413
+          ],
+          [
+            194,
+            664,
+            694,
+            1175
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 109497,
+        "infra_domain": {
+          "point": {
+            "precision": 0.6995292887029289,
+            "recall": 0.6666943590595663,
+            "f1": 0.6827172572206389
+          },
+          "event": {
+            "precision": 0.2702702702702703,
+            "recall": 1.0,
+            "f1": 0.4255319148936171,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 481,
+            "false_alert_segments": 351
+          },
+          "false_alarms_per_day": 1.1833815248820574,
+          "latency_h": {
+            "median": 0.8333333333333333,
+            "p90": 11.0,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 296.6076388888889
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.6995586737580627,
+            "recall": 0.6131719896845864,
+            "f1": 0.6535229134732281
+          },
+          "event": {
+            "precision": 0.23904382470119523,
+            "recall": 0.9166666666666666,
+            "f1": 0.3792013789141051,
+            "events": 36,
+            "detected": 33,
+            "alert_segments": 251,
+            "false_alert_segments": 191
+          },
+          "false_alarms_per_day": 0.5533169038877432,
+          "latency_h": {
+            "median": 0.5833333333333334,
+            "p90": 3.15,
+            "n": 33
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 345.19097222222223
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.7231282431430689,
+            "recall": 0.6828406885360654,
+            "f1": 0.7024072528515554
+          },
+          "event": {
+            "precision": 0.2975352112676056,
+            "recall": 0.9666666666666667,
+            "f1": 0.4550181041686009,
+            "events": 60,
+            "detected": 58,
+            "alert_segments": 568,
+            "false_alert_segments": 399
+          },
+          "false_alarms_per_day": 1.4719475329200185,
+          "latency_h": {
+            "median": 0.5,
+            "p90": 4.766666666666672,
+            "n": 58
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 271.06944444444446
+        },
+        "event_category_accuracy": 0.8333333333333334
+      },
+      "test": {
+        "macro_f1": 0.5707127891793984,
+        "accuracy": 0.7449455819959417,
+        "confusion": [
+          [
+            61345,
+            13778,
+            1408,
+            261
+          ],
+          [
+            5151,
+            16379,
+            104,
+            411
+          ],
+          [
+            3639,
+            932,
+            1540,
+            375
+          ],
+          [
+            324,
+            911,
+            359,
+            1503
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 108420,
+        "infra_domain": {
+          "point": {
+            "precision": 0.5558321273516642,
+            "recall": 0.7638214939145652,
+            "f1": 0.6434363063727133
+          },
+          "event": {
+            "precision": 0.16083916083916083,
+            "recall": 1.0,
+            "f1": 0.27710843373493976,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 715,
+            "false_alert_segments": 600
+          },
+          "false_alarms_per_day": 2.0749777852494056,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 4.208333333333333,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 289.15972222222223
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.6336185203824861,
+            "recall": 0.39413544818950225,
+            "f1": 0.48597529593412253
+          },
+          "event": {
+            "precision": 0.34946236559139787,
+            "recall": 0.9166666666666666,
+            "f1": 0.5060155697098373,
+            "events": 36,
+            "detected": 33,
+            "alert_segments": 186,
+            "false_alert_segments": 121
+          },
+          "false_alarms_per_day": 0.3525805113469652,
+          "latency_h": {
+            "median": 0.8333333333333334,
+            "p90": 4.233333333333334,
+            "n": 33
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 343.18402777777777
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.5930823740154368,
+            "recall": 0.7118376122423169,
+            "f1": 0.6470562876316659
+          },
+          "event": {
+            "precision": 0.21954484605087016,
+            "recall": 0.9833333333333333,
+            "f1": 0.3589486765715134,
+            "events": 60,
+            "detected": 59,
+            "alert_segments": 747,
+            "false_alert_segments": 583
+          },
+          "false_alarms_per_day": 2.186477758099802,
+          "latency_h": {
+            "median": 0.08333333333333333,
+            "p90": 4.85,
+            "n": 59
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 266.6388888888889
+        },
+        "event_category_accuracy": 0.65
+      },
+      "params": [
+        0.8,
+        6,
+        0.0,
+        0.3
+      ]
+    },
+    {
+      "dataset": "scenarios",
+      "model": "F-A (no temporal)",
+      "val": {
+        "macro_f1": 0.5404349706668582,
+        "accuracy": 0.6870142560983405,
+        "confusion": [
+          [
+            54185,
+            12166,
+            10811,
+            906
+          ],
+          [
+            4084,
+            14502,
+            868,
+            1893
+          ],
+          [
+            1022,
+            236,
+            5038,
+            1059
+          ],
+          [
+            43,
+            453,
+            730,
+            1501
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 109497,
+        "infra_domain": {
+          "point": {
+            "precision": 0.5608570729918083,
+            "recall": 0.7621915759740799,
+            "f1": 0.6462053178376476
+          },
+          "event": {
+            "precision": 0.19077568134171907,
+            "recall": 1.0,
+            "f1": 0.3204225352112676,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 477,
+            "false_alert_segments": 386
+          },
+          "false_alarms_per_day": 1.3013825316366785,
+          "latency_h": {
+            "median": 0.625,
+            "p90": 11.0,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 296.6076388888889
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.365167061299658,
+            "recall": 0.8260265820273756,
+            "f1": 0.5064461201654099
+          },
+          "event": {
+            "precision": 0.11434511434511435,
+            "recall": 0.9722222222222222,
+            "f1": 0.20462397023651344,
+            "events": 36,
+            "detected": 35,
+            "alert_segments": 481,
+            "false_alert_segments": 426
+          },
+          "false_alarms_per_day": 1.2340994819695217,
+          "latency_h": {
+            "median": 0.16666666666666666,
+            "p90": 2.666666666666669,
+            "n": 35
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 345.19097222222223
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.5238921117158065,
+            "recall": 0.8361704158579656,
+            "f1": 0.6441808020394156
+          },
+          "event": {
+            "precision": 0.1950354609929078,
+            "recall": 1.0,
+            "f1": 0.3264094955489615,
+            "events": 60,
+            "detected": 60,
+            "alert_segments": 564,
+            "false_alert_segments": 454
+          },
+          "false_alarms_per_day": 1.6748475687861863,
+          "latency_h": {
+            "median": 0.16666666666666666,
+            "p90": 3.5583333333333367,
+            "n": 60
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 271.06944444444446
+        },
+        "event_category_accuracy": 0.8833333333333333
+      },
+      "test": {
+        "macro_f1": 0.5081297155806099,
+        "accuracy": 0.6273104593248479,
+        "confusion": [
+          [
+            46053,
+            24988,
+            4456,
+            1295
+          ],
+          [
+            2610,
+            17656,
+            327,
+            1452
+          ],
+          [
+            1861,
+            1249,
+            2324,
+            1052
+          ],
+          [
+            93,
+            673,
+            351,
+            1980
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 108420,
+        "infra_domain": {
+          "point": {
+            "precision": 0.43223756083027115,
+            "recall": 0.8655238246758412,
+            "f1": 0.5765496045676739
+          },
+          "event": {
+            "precision": 0.1264,
+            "recall": 1.0,
+            "f1": 0.22443181818181818,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 625,
+            "false_alert_segments": 546
+          },
+          "false_alarms_per_day": 1.8882297845769591,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 1.9583333333333335,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 289.15972222222223
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.43113998640175266,
+            "recall": 0.5955337576959199,
+            "f1": 0.5001752848378616
+          },
+          "event": {
+            "precision": 0.1619047619047619,
+            "recall": 1.0,
+            "f1": 0.2786885245901639,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 420,
+            "false_alert_segments": 352
+          },
+          "false_alarms_per_day": 1.0256887602820806,
+          "latency_h": {
+            "median": 0.3333333333333333,
+            "p90": 0.9583333333333334,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 343.18402777777777
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.4682109925090393,
+            "recall": 0.8556974832426963,
+            "f1": 0.6052487392514899
+          },
+          "event": {
+            "precision": 0.19173553719008266,
+            "recall": 1.0,
+            "f1": 0.3217753120665742,
+            "events": 60,
+            "detected": 60,
+            "alert_segments": 605,
+            "false_alert_segments": 489
+          },
+          "false_alarms_per_day": 1.8339410355245336,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 1.1666666666666667,
+            "n": 60
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 266.6388888888889
+        },
+        "event_category_accuracy": 0.7
+      },
+      "params": null
+    },
+    {
+      "dataset": "scenarios",
+      "model": "F-B (no temporal)",
+      "val": {
+        "macro_f1": 0.6405476469270553,
+        "accuracy": 0.8055197859302081,
+        "confusion": [
+          [
+            69163,
+            6859,
+            1898,
+            148
+          ],
+          [
+            6862,
+            14006,
+            124,
+            355
+          ],
+          [
+            2772,
+            263,
+            3892,
+            428
+          ],
+          [
+            201,
+            674,
+            711,
+            1141
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 109497,
+        "infra_domain": {
+          "point": {
+            "precision": 0.6775571751696406,
+            "recall": 0.6719282213176041,
+            "f1": 0.6747309585384166
+          },
+          "event": {
+            "precision": 0.25902335456475584,
+            "recall": 1.0,
+            "f1": 0.4114671163575042,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 471,
+            "false_alert_segments": 349
+          },
+          "false_alarms_per_day": 1.1766386102103648,
+          "latency_h": {
+            "median": 0.875,
+            "p90": 11.0,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 296.6076388888889
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.7096700011498218,
+            "recall": 0.61218012299147,
+            "f1": 0.6573299962724319
+          },
+          "event": {
+            "precision": 0.24180327868852458,
+            "recall": 0.9166666666666666,
+            "f1": 0.38266509433962265,
+            "events": 36,
+            "detected": 33,
+            "alert_segments": 244,
+            "false_alert_segments": 185
+          },
+          "false_alarms_per_day": 0.5359352210431021,
+          "latency_h": {
+            "median": 0.5833333333333334,
+            "p90": 3.833333333333334,
+            "n": 33
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 345.19097222222223
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.7080232138758648,
+            "recall": 0.6870724490120589,
+            "f1": 0.6973905180209274
+          },
+          "event": {
+            "precision": 0.2956989247311828,
+            "recall": 0.9666666666666667,
+            "f1": 0.4528676888131743,
+            "events": 60,
+            "detected": 58,
+            "alert_segments": 558,
+            "false_alert_segments": 393
+          },
+          "false_alarms_per_day": 1.4498129835528,
+          "latency_h": {
+            "median": 0.5,
+            "p90": 4.766666666666672,
+            "n": 58
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 271.06944444444446
+        },
+        "event_category_accuracy": 0.8333333333333334
+      },
+      "test": {
+        "macro_f1": 0.5663025947159168,
+        "accuracy": 0.7449455819959417,
+        "confusion": [
+          [
+            61448,
+            13747,
+            1346,
+            251
+          ],
+          [
+            5174,
+            16394,
+            89,
+            388
+          ],
+          [
+            3700,
+            949,
+            1482,
+            355
+          ],
+          [
+            346,
+            970,
+            338,
+            1443
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 108420,
+        "infra_domain": {
+          "point": {
+            "precision": 0.5564251963938893,
+            "recall": 0.7634635271656989,
+            "f1": 0.643706299569074
+          },
+          "event": {
+            "precision": 0.1589958158995816,
+            "recall": 1.0,
+            "f1": 0.27436823104693137,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 717,
+            "false_alert_segments": 603
+          },
+          "false_alarms_per_day": 2.0853526741756525,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 4.208333333333333,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 289.15972222222223
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.6356289529163739,
+            "recall": 0.3775435667327559,
+            "f1": 0.47371522094926344
+          },
+          "event": {
+            "precision": 0.3626373626373626,
+            "recall": 0.9166666666666666,
+            "f1": 0.5196850393700787,
+            "events": 36,
+            "detected": 33,
+            "alert_segments": 182,
+            "false_alert_segments": 116
+          },
+          "false_alarms_per_day": 0.338011068729322,
+          "latency_h": {
+            "median": 0.8333333333333334,
+            "p90": 4.233333333333334,
+            "n": 33
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 343.18402777777777
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.5935579571943208,
+            "recall": 0.7084861515113191,
+            "f1": 0.6459498414528682
+          },
+          "event": {
+            "precision": 0.2220744680851064,
+            "recall": 0.9833333333333333,
+            "f1": 0.3623225711554019,
+            "events": 60,
+            "detected": 59,
+            "alert_segments": 752,
+            "false_alert_segments": 585
+          },
+          "false_alarms_per_day": 2.1939785394311904,
+          "latency_h": {
+            "median": 0.08333333333333333,
+            "p90": 4.85,
+            "n": 59
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 266.6388888888889
+        },
+        "event_category_accuracy": 0.65
+      },
+      "params": [
+        1.0,
+        1.0,
+        0.0,
+        0.4
+      ]
+    },
+    {
+      "dataset": "scenarios",
+      "model": "threshold voting (no fusion)",
+      "val": {
+        "macro_f1": 0.4315938976318968,
+        "accuracy": 0.7665780797647425,
+        "confusion": [
+          [
+            77501,
+            54,
+            513,
+            0
+          ],
+          [
+            17234,
+            4065,
+            47,
+            1
+          ],
+          [
+            5212,
+            5,
+            2138,
+            0
+          ],
+          [
+            1275,
+            240,
+            978,
+            234
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 109497,
+        "infra_domain": {
+          "point": {
+            "precision": 0.9871711241574255,
+            "recall": 0.18858519564675583,
+            "f1": 0.3166742231367488
+          },
+          "event": {
+            "precision": 0.8347826086956521,
+            "recall": 0.9722222222222222,
+            "f1": 0.8982756316000534,
+            "events": 36,
+            "detected": 35,
+            "alert_segments": 115,
+            "false_alert_segments": 19
+          },
+          "false_alarms_per_day": 0.06405768938108003,
+          "latency_h": {
+            "median": 9.0,
+            "p90": 28.633333333333333,
+            "n": 35
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 296.6076388888889
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.8565584249552544,
+            "recall": 0.3322753421940091,
+            "f1": 0.4788108339884228
+          },
+          "event": {
+            "precision": 0.6979166666666666,
+            "recall": 0.8611111111111112,
+            "f1": 0.7709725315515962,
+            "events": 36,
+            "detected": 31,
+            "alert_segments": 96,
+            "false_alert_segments": 29
+          },
+          "false_alarms_per_day": 0.08401146708243222,
+          "latency_h": {
+            "median": 1.75,
+            "p90": 5.916666666666667,
+            "n": 31
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.75,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 345.19097222222223
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.9314803625377643,
+            "recall": 0.24525120111998472,
+            "f1": 0.38827322184162805
+          },
+          "event": {
+            "precision": 0.7777777777777778,
+            "recall": 0.9333333333333333,
+            "f1": 0.8484848484848485,
+            "events": 60,
+            "detected": 56,
+            "alert_segments": 198,
+            "false_alert_segments": 44
+          },
+          "false_alarms_per_day": 0.16232002869293435,
+          "latency_h": {
+            "median": 3.5416666666666665,
+            "p90": 16.041666666666668,
+            "n": 56
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.75,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 271.06944444444446
+        },
+        "event_category_accuracy": 0.7333333333333333
+      },
+      "test": {
+        "macro_f1": 0.4331451251534062,
+        "accuracy": 0.7590204759269508,
+        "confusion": [
+          [
+            76046,
+            110,
+            636,
+            0
+          ],
+          [
+            17178,
+            4796,
+            21,
+            50
+          ],
+          [
+            5651,
+            14,
+            821,
+            0
+          ],
+          [
+            1225,
+            642,
+            600,
+            630
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 108420,
+        "infra_domain": {
+          "point": {
+            "precision": 0.9801345722524831,
+            "recall": 0.24333784106276352,
+            "f1": 0.38988019372928884
+          },
+          "event": {
+            "precision": 0.8354430379746836,
+            "recall": 1.0,
+            "f1": 0.9103448275862069,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 158,
+            "false_alert_segments": 26
+          },
+          "false_alarms_per_day": 0.08991570402747424,
+          "latency_h": {
+            "median": 2.958333333333333,
+            "p90": 23.791666666666664,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 289.15972222222223
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.7436548223350253,
+            "recall": 0.21402483564645727,
+            "f1": 0.33238797504254114
+          },
+          "event": {
+            "precision": 0.684931506849315,
+            "recall": 0.75,
+            "f1": 0.7159904534606204,
+            "events": 36,
+            "detected": 27,
+            "alert_segments": 73,
+            "false_alert_segments": 23
+          },
+          "false_alarms_per_day": 0.06701943604115868,
+          "latency_h": {
+            "median": 1.9166666666666667,
+            "p90": 7.300000000000008,
+            "n": 27
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.6666666666666666,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.6666666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 343.18402777777777
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.9103365384615385,
+            "recall": 0.2394713544960162,
+            "f1": 0.37919295083608695
+          },
+          "event": {
+            "precision": 0.8,
+            "recall": 0.8833333333333333,
+            "f1": 0.8396039603960396,
+            "events": 60,
+            "detected": 53,
+            "alert_segments": 210,
+            "false_alert_segments": 42
+          },
+          "false_alarms_per_day": 0.15751640795916239,
+          "latency_h": {
+            "median": 2.5,
+            "p90": 14.583333333333337,
+            "n": 53
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.75,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.6666666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 266.6388888888889
+        },
+        "event_category_accuracy": 0.7
+      },
+      "params": null
+    },
+    {
+      "dataset": "scenarios",
+      "model": "single joint model (no separated evidence)",
+      "val": {
+        "macro_f1": 0.46367656490347503,
+        "accuracy": 0.7208599322355863,
+        "confusion": [
+          [
+            60755,
+            17048,
+            223,
+            42
+          ],
+          [
+            4578,
+            16550,
+            24,
+            195
+          ],
+          [
+            3968,
+            2033,
+            1343,
+            11
+          ],
+          [
+            434,
+            1877,
+            132,
+            284
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 109497,
+        "infra_domain": {
+          "point": {
+            "precision": 0.49700315457413247,
+            "recall": 0.7853285702417546,
+            "f1": 0.6087516501915833
+          },
+          "event": {
+            "precision": 0.24022346368715083,
+            "recall": 1.0,
+            "f1": 0.3873873873873874,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 358,
+            "false_alert_segments": 272
+          },
+          "false_alarms_per_day": 0.9170363953501983,
+          "latency_h": {
+            "median": 0.9583333333333333,
+            "p90": 12.75,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 296.6076388888889
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.7852706299911268,
+            "recall": 0.1755604046816108,
+            "f1": 0.28696498054474706
+          },
+          "event": {
+            "precision": 0.52,
+            "recall": 0.5,
+            "f1": 0.5098039215686274,
+            "events": 36,
+            "detected": 18,
+            "alert_segments": 75,
+            "false_alert_segments": 36
+          },
+          "false_alarms_per_day": 0.1042900970678469,
+          "latency_h": {
+            "median": 4.083333333333334,
+            "p90": 16.650000000000002,
+            "n": 18
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.5,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.6666666666666666,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.3333333333333333,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 345.19097222222223
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.5645842764448469,
+            "recall": 0.7142766235005886,
+            "f1": 0.6306696071132588
+          },
+          "event": {
+            "precision": 0.3216216216216216,
+            "recall": 0.9166666666666666,
+            "f1": 0.47617315387413606,
+            "events": 60,
+            "detected": 55,
+            "alert_segments": 370,
+            "false_alert_segments": 251
+          },
+          "false_alarms_per_day": 0.9259619818619664,
+          "latency_h": {
+            "median": 0.9166666666666666,
+            "p90": 13.033333333333337,
+            "n": 55
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.75,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 271.06944444444446
+        },
+        "event_category_accuracy": 0.48333333333333334
+      },
+      "test": {
+        "macro_f1": 0.3206088468919172,
+        "accuracy": 0.49501936912008854,
+        "confusion": [
+          [
+            35228,
+            41221,
+            282,
+            61
+          ],
+          [
+            4261,
+            17747,
+            20,
+            17
+          ],
+          [
+            3480,
+            2614,
+            392,
+            0
+          ],
+          [
+            67,
+            2727,
+            0,
+            303
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 108420,
+        "infra_domain": {
+          "point": {
+            "precision": 0.32144071726696555,
+            "recall": 0.8270622862143028,
+            "f1": 0.4629530679490605
+          },
+          "event": {
+            "precision": 0.2014388489208633,
+            "recall": 1.0,
+            "f1": 0.33532934131736525,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 417,
+            "false_alert_segments": 333
+          },
+          "false_alarms_per_day": 1.15161267081342,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 1.0,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 289.15972222222223
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.6465116279069767,
+            "recall": 0.0725242617134509,
+            "f1": 0.13041846500281476
+          },
+          "event": {
+            "precision": 0.37209302325581395,
+            "recall": 0.3055555555555556,
+            "f1": 0.33555767397521447,
+            "events": 36,
+            "detected": 11,
+            "alert_segments": 43,
+            "false_alert_segments": 27
+          },
+          "false_alarms_per_day": 0.07867499013527322,
+          "latency_h": {
+            "median": 2.4166666666666665,
+            "p90": 7.75,
+            "n": 11
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.3333333333333333,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.3333333333333333,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.25,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 343.18402777777777
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.36430931114645787,
+            "recall": 0.7531301378525357,
+            "f1": 0.4910732692862738
+          },
+          "event": {
+            "precision": 0.2890995260663507,
+            "recall": 0.95,
+            "f1": 0.443296997513865,
+            "events": 60,
+            "detected": 57,
+            "alert_segments": 422,
+            "false_alert_segments": 300
+          },
+          "false_alarms_per_day": 1.125117199708303,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 6.2333333333333325,
+            "n": 57
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 266.6388888888889
+        },
+        "event_category_accuracy": 0.43333333333333335
+      },
+      "params": null
+    },
+    {
+      "dataset": "scenarios",
+      "model": "baseline: fixed_threshold",
+      "val": {
+        "macro_f1": 0.3055342940931401,
+        "accuracy": 0.7448149264363407,
+        "confusion": [
+          [
+            77158,
+            410,
+            499,
+            1
+          ],
+          [
+            16818,
+            4195,
+            299,
+            35
+          ],
+          [
+            7154,
+            11,
+            190,
+            0
+          ],
+          [
+            2240,
+            463,
+            12,
+            12
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 109497,
+        "infra_domain": {
+          "point": {
+            "precision": 0.9176906573044665,
+            "recall": 0.19543906288942428,
+            "f1": 0.32224923803979316
+          },
+          "event": {
+            "precision": 0.6466666666666666,
+            "recall": 0.8611111111111112,
+            "f1": 0.7386391549987719,
+            "events": 36,
+            "detected": 31,
+            "alert_segments": 150,
+            "false_alert_segments": 53
+          },
+          "false_alarms_per_day": 0.17868723879985482,
+          "latency_h": {
+            "median": 9.833333333333334,
+            "p90": 38.916666666666664,
+            "n": 31
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.75,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 296.6076388888889
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.20419847328244276,
+            "recall": 0.021225947232691927,
+            "f1": 0.03845462713387242
+          },
+          "event": {
+            "precision": 0.16279069767441862,
+            "recall": 0.16666666666666666,
+            "f1": 0.16470588235294115,
+            "events": 36,
+            "detected": 6,
+            "alert_segments": 43,
+            "false_alert_segments": 36
+          },
+          "false_alarms_per_day": 0.1042900970678469,
+          "latency_h": {
+            "median": 13.833333333333332,
+            "p90": 23.0,
+            "n": 6
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.16666666666666666,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.16666666666666666,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.16666666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 345.19097222222223
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.8514770687122573,
+            "recall": 0.16599319100194088,
+            "f1": 0.2778251144956865
+          },
+          "event": {
+            "precision": 0.5967741935483871,
+            "recall": 0.6,
+            "f1": 0.5983827493261455,
+            "events": 60,
+            "detected": 36,
+            "alert_segments": 186,
+            "false_alert_segments": 75
+          },
+          "false_alarms_per_day": 0.276681867090229,
+          "latency_h": {
+            "median": 9.875,
+            "p90": 39.791666666666664,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.16666666666666666,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.16666666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 271.06944444444446
+        },
+        "event_category_accuracy": 0.4166666666666667
+      },
+      "test": {
+        "macro_f1": 0.36420969386496005,
+        "accuracy": 0.7816915698210662,
+        "confusion": [
+          [
+            74168,
+            2369,
+            252,
+            3
+          ],
+          [
+            11434,
+            10551,
+            17,
+            43
+          ],
+          [
+            6165,
+            276,
+            32,
+            13
+          ],
+          [
+            1720,
+            1377,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 108420,
+        "infra_domain": {
+          "point": {
+            "precision": 0.81813832695462,
+            "recall": 0.47613555007557073,
+            "f1": 0.6019510232815407
+          },
+          "event": {
+            "precision": 0.40327868852459015,
+            "recall": 1.0,
+            "f1": 0.5747663551401869,
+            "events": 36,
+            "detected": 36,
+            "alert_segments": 305,
+            "false_alert_segments": 182
+          },
+          "false_alarms_per_day": 0.6294099281923197,
+          "latency_h": {
+            "median": 1.4583333333333333,
+            "p90": 19.666666666666668,
+            "n": 36
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 289.15972222222223
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.125,
+            "recall": 0.004695815506626317,
+            "f1": 0.009051594086291864
+          },
+          "event": {
+            "precision": 0.11764705882352941,
+            "recall": 0.027777777777777776,
+            "f1": 0.0449438202247191,
+            "events": 36,
+            "detected": 1,
+            "alert_segments": 17,
+            "false_alert_segments": 15
+          },
+          "false_alarms_per_day": 0.04370832785292957,
+          "latency_h": {
+            "median": 1.0833333333333333,
+            "p90": 1.0833333333333333,
+            "n": 1
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.0,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.08333333333333333,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 343.18402777777777
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.8242817920042859,
+            "recall": 0.3891804729986088,
+            "f1": 0.5287257576082989
+          },
+          "event": {
+            "precision": 0.43450479233226835,
+            "recall": 0.7,
+            "f1": 0.5361869895803998,
+            "events": 60,
+            "detected": 42,
+            "alert_segments": 313,
+            "false_alert_segments": 177
+          },
+          "false_alarms_per_day": 0.6638191478278986,
+          "latency_h": {
+            "median": 2.2083333333333335,
+            "p90": 22.06666666666666,
+            "n": 42
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.3333333333333333,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.16666666666666666,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 266.6388888888889
+        },
+        "event_category_accuracy": 0.4166666666666667
+      },
+      "params": null
+    },
+    {
+      "dataset": "scenarios",
+      "model": "baseline: isolation_forest",
+      "val": {
+        "macro_f1": 0.2393090438372351,
+        "accuracy": 0.6743472423902025,
+        "confusion": [
+          [
+            72646,
+            564,
+            4748,
+            110
+          ],
+          [
+            19226,
+            509,
+            1578,
+            34
+          ],
+          [
+            6634,
+            37,
+            672,
+            12
+          ],
+          [
+            2328,
+            72,
+            315,
+            12
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 109497,
+        "infra_domain": {
+          "point": {
+            "precision": 0.46444444444444444,
+            "recall": 0.026044695522140067,
+            "f1": 0.049323473882945244
+          },
+          "event": {
+            "precision": 0.458128078817734,
+            "recall": 0.9166666666666666,
+            "f1": 0.6109286354135562,
+            "events": 36,
+            "detected": 33,
+            "alert_segments": 203,
+            "false_alert_segments": 110
+          },
+          "false_alarms_per_day": 0.3708603069430949,
+          "latency_h": {
+            "median": 13.666666666666666,
+            "p90": 58.88333333333334,
+            "n": 33
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.75,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 296.6076388888889
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.13514236064697233,
+            "recall": 0.1002777226740726,
+            "f1": 0.11512839492114103
+          },
+          "event": {
+            "precision": 0.1643835616438356,
+            "recall": 0.6388888888888888,
+            "f1": 0.26148744670772145,
+            "events": 36,
+            "detected": 23,
+            "alert_segments": 219,
+            "false_alert_segments": 183
+          },
+          "false_alarms_per_day": 0.5301413267615551,
+          "latency_h": {
+            "median": 0.5,
+            "p90": 20.316666666666674,
+            "n": 23
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.6666666666666666,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.6666666666666666,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.5833333333333334,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 345.19097222222223
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.37411981992381393,
+            "recall": 0.10312132107289446,
+            "f1": 0.16167814027736208
+          },
+          "event": {
+            "precision": 0.41836734693877553,
+            "recall": 0.8666666666666667,
+            "f1": 0.5643197458973003,
+            "events": 60,
+            "detected": 52,
+            "alert_segments": 392,
+            "false_alert_segments": 228
+          },
+          "false_alarms_per_day": 0.8411128759542962,
+          "latency_h": {
+            "median": 2.25,
+            "p90": 39.074999999999974,
+            "n": 52
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.5833333333333334,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 271.06944444444446
+        },
+        "event_category_accuracy": 0.43333333333333335
+      },
+      "test": {
+        "macro_f1": 0.2470760188500094,
+        "accuracy": 0.6869673491975651,
+        "confusion": [
+          [
+            73255,
+            989,
+            2538,
+            10
+          ],
+          [
+            20570,
+            596,
+            849,
+            30
+          ],
+          [
+            5833,
+            25,
+            626,
+            2
+          ],
+          [
+            2770,
+            248,
+            75,
+            4
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure",
+          "Quality",
+          "Combined"
+        ],
+        "scored_rows": 108420,
+        "infra_domain": {
+          "point": {
+            "precision": 0.46113445378151263,
+            "recall": 0.03492164505608146,
+            "f1": 0.0649264216520003
+          },
+          "event": {
+            "precision": 0.4249084249084249,
+            "recall": 0.9166666666666666,
+            "f1": 0.5806598407281001,
+            "events": 36,
+            "detected": 33,
+            "alert_segments": 273,
+            "false_alert_segments": 157
+          },
+          "false_alarms_per_day": 0.5429525204735944,
+          "latency_h": {
+            "median": 5.75,
+            "p90": 18.933333333333334,
+            "n": 33
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.9166666666666666,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 289.15972222222223
+        },
+        "quality_domain": {
+          "point": {
+            "precision": 0.1710208030962748,
+            "recall": 0.07377647918188458,
+            "f1": 0.1030837646715754
+          },
+          "event": {
+            "precision": 0.24203821656050956,
+            "recall": 0.6944444444444444,
+            "f1": 0.35896467031928964,
+            "events": 36,
+            "detected": 25,
+            "alert_segments": 157,
+            "false_alert_segments": 119
+          },
+          "false_alarms_per_day": 0.34675273429990794,
+          "latency_h": {
+            "median": 0.25,
+            "p90": 0.7666666666666669,
+            "n": 25
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.75,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.5,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 343.18402777777777
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.4097129506008011,
+            "recall": 0.07762109523207285,
+            "f1": 0.1305156831472621
+          },
+          "event": {
+            "precision": 0.4425,
+            "recall": 0.8333333333333334,
+            "f1": 0.5780535597648596,
+            "events": 60,
+            "detected": 50,
+            "alert_segments": 400,
+            "false_alert_segments": 223
+          },
+          "false_alarms_per_day": 0.8363371184498385,
+          "latency_h": {
+            "median": 0.5833333333333333,
+            "p90": 11.783333333333337,
+            "n": 50
+          },
+          "per_type_recall": {
+            "combined": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "infra_burst": {
+              "recall": 0.8333333333333334,
+              "events": 12
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 12
+            },
+            "quality_tds_shift": {
+              "recall": 0.75,
+              "events": 12
+            },
+            "quality_turbidity_surge": {
+              "recall": 0.5833333333333334,
+              "events": 12
+            }
+          },
+          "scored_normal_days": 266.6388888888889
+        },
+        "event_category_accuracy": 0.4166666666666667
+      },
+      "params": null
+    },
+    {
+      "dataset": "battledim",
+      "model": "F-A",
+      "val": {
+        "macro_f1": 0.5180869142338261,
+        "accuracy": 0.5213113929146538,
+        "confusion": [
+          [
+            11985,
+            13625,
+            0,
+            0
+          ],
+          [
+            5400,
+            8734,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.3906256988237399,
+            "recall": 0.6179425498797226,
+            "f1": 0.4786671416436028
+          },
+          "event": {
+            "precision": 0.4528301886792453,
+            "recall": 1.0,
+            "f1": 0.6233766233766235,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 53,
+            "false_alert_segments": 29
+          },
+          "false_alarms_per_day": 0.3261226083561109,
+          "latency_h": {
+            "median": 5.333333333333333,
+            "p90": 41.88333333333333,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.3906256988237399,
+            "recall": 0.6179425498797226,
+            "f1": 0.4786671416436028
+          },
+          "event": {
+            "precision": 0.4528301886792453,
+            "recall": 1.0,
+            "f1": 0.6233766233766235,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 53,
+            "false_alert_segments": 29
+          },
+          "false_alarms_per_day": 0.3261226083561109,
+          "latency_h": {
+            "median": 5.333333333333333,
+            "p90": 41.88333333333333,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "event_category_accuracy": 1.0
+      },
+      "test": {
+        "macro_f1": 0.4238834750424677,
+        "accuracy": 0.5527375201288245,
+        "confusion": [
+          [
+            20382,
+            3659,
+            0,
+            0
+          ],
+          [
+            14117,
+            1586,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.30238322211630125,
+            "recall": 0.10099980895370311,
+            "f1": 0.1514225701737636
+          },
+          "event": {
+            "precision": 0.33125,
+            "recall": 1.0,
+            "f1": 0.4976525821596244,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 160,
+            "false_alert_segments": 107
+          },
+          "false_alarms_per_day": 1.2818102408385674,
+          "latency_h": {
+            "median": 18.041666666666664,
+            "p90": 50.983333333333334,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.30238322211630125,
+            "recall": 0.10099980895370311,
+            "f1": 0.1514225701737636
+          },
+          "event": {
+            "precision": 0.33125,
+            "recall": 1.0,
+            "f1": 0.4976525821596244,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 160,
+            "false_alert_segments": 107
+          },
+          "false_alarms_per_day": 1.2818102408385674,
+          "latency_h": {
+            "median": 18.041666666666664,
+            "p90": 50.983333333333334,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "event_category_accuracy": 1.0
+      },
+      "params": null
+    },
+    {
+      "dataset": "battledim",
+      "model": "F-B",
+      "val": {
+        "macro_f1": 0.49574813969139375,
+        "accuracy": 0.5680354267310789,
+        "confusion": [
+          [
+            18812,
+            6798,
+            0,
+            0
+          ],
+          [
+            10370,
+            3764,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.3563718992615035,
+            "recall": 0.2663081930097637,
+            "f1": 0.3048266925817946
+          },
+          "event": {
+            "precision": 0.5833333333333334,
+            "recall": 0.625,
+            "f1": 0.603448275862069,
+            "events": 8,
+            "detected": 5,
+            "alert_segments": 36,
+            "false_alert_segments": 15
+          },
+          "false_alarms_per_day": 0.1686841077704022,
+          "latency_h": {
+            "median": 9.5,
+            "p90": 47.93333333333334,
+            "n": 5
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 0.6,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 0.6666666666666666,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.3563718992615035,
+            "recall": 0.2663081930097637,
+            "f1": 0.3048266925817946
+          },
+          "event": {
+            "precision": 0.5833333333333334,
+            "recall": 0.625,
+            "f1": 0.603448275862069,
+            "events": 8,
+            "detected": 5,
+            "alert_segments": 36,
+            "false_alert_segments": 15
+          },
+          "false_alarms_per_day": 0.1686841077704022,
+          "latency_h": {
+            "median": 9.5,
+            "p90": 47.93333333333334,
+            "n": 5
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 0.6,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 0.6666666666666666,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "event_category_accuracy": 0.625
+      },
+      "test": {
+        "macro_f1": 0.36522993038950174,
+        "accuracy": 0.4316374798711755,
+        "confusion": [
+          [
+            2150,
+            21891,
+            0,
+            0
+          ],
+          [
+            698,
+            15005,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.40668365134431916,
+            "recall": 0.9555498949245367,
+            "f1": 0.5705431662198901
+          },
+          "event": {
+            "precision": 0.8125,
+            "recall": 1.0,
+            "f1": 0.896551724137931,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 16,
+            "false_alert_segments": 3
+          },
+          "false_alarms_per_day": 0.03593860488332432,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 1.799999999999999,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.40668365134431916,
+            "recall": 0.9555498949245367,
+            "f1": 0.5705431662198901
+          },
+          "event": {
+            "precision": 0.8125,
+            "recall": 1.0,
+            "f1": 0.896551724137931,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 16,
+            "false_alert_segments": 3
+          },
+          "false_alarms_per_day": 0.03593860488332432,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 1.799999999999999,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "event_category_accuracy": 1.0
+      },
+      "params": [
+        0.4,
+        6,
+        0.3,
+        0.2
+      ]
+    },
+    {
+      "dataset": "battledim",
+      "model": "F-A (no temporal)",
+      "val": {
+        "macro_f1": 0.3456936745952517,
+        "accuracy": 0.35295893719806765,
+        "confusion": [
+          [
+            4920,
+            20690,
+            0,
+            0
+          ],
+          [
+            5026,
+            9108,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.30565809785891673,
+            "recall": 0.6444035658695344,
+            "f1": 0.4146408085222617
+          },
+          "event": {
+            "precision": 0.8333333333333334,
+            "recall": 0.625,
+            "f1": 0.7142857142857143,
+            "events": 8,
+            "detected": 5,
+            "alert_segments": 6,
+            "false_alert_segments": 1
+          },
+          "false_alarms_per_day": 0.011245607184693479,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 0.0,
+            "n": 5
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 0.8,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 0.3333333333333333,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.30565809785891673,
+            "recall": 0.6444035658695344,
+            "f1": 0.4146408085222617
+          },
+          "event": {
+            "precision": 0.8333333333333334,
+            "recall": 0.625,
+            "f1": 0.7142857142857143,
+            "events": 8,
+            "detected": 5,
+            "alert_segments": 6,
+            "false_alert_segments": 1
+          },
+          "false_alarms_per_day": 0.011245607184693479,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 0.0,
+            "n": 5
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 0.8,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 0.3333333333333333,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "event_category_accuracy": 0.625
+      },
+      "test": {
+        "macro_f1": 0.3769067962687152,
+        "accuracy": 0.6048963365539453,
+        "confusion": [
+          [
+            24041,
+            0,
+            0,
+            0
+          ],
+          [
+            15703,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "event": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "events": 8,
+            "detected": 0,
+            "alert_segments": 0,
+            "false_alert_segments": 0
+          },
+          "false_alarms_per_day": 0.0,
+          "latency_h": {
+            "median": null,
+            "p90": null,
+            "n": 0
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 0.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 0.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "event": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "events": 8,
+            "detected": 0,
+            "alert_segments": 0,
+            "false_alert_segments": 0
+          },
+          "false_alarms_per_day": 0.0,
+          "latency_h": {
+            "median": null,
+            "p90": null,
+            "n": 0
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 0.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 0.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "event_category_accuracy": 0.0
+      },
+      "params": null
+    },
+    {
+      "dataset": "battledim",
+      "model": "F-B (no temporal)",
+      "val": {
+        "macro_f1": 0.32126296968153073,
+        "accuracy": 0.33564814814814814,
+        "confusion": [
+          [
+            9563,
+            16047,
+            0,
+            0
+          ],
+          [
+            10357,
+            3777,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.1905266343825666,
+            "recall": 0.26722796094523843,
+            "f1": 0.22245126332528414
+          },
+          "event": {
+            "precision": 0.9047619047619048,
+            "recall": 0.625,
+            "f1": 0.7392996108949417,
+            "events": 8,
+            "detected": 5,
+            "alert_segments": 21,
+            "false_alert_segments": 2
+          },
+          "false_alarms_per_day": 0.022491214369386957,
+          "latency_h": {
+            "median": 23.333333333333332,
+            "p90": 100.88333333333334,
+            "n": 5
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 0.6,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 0.6666666666666666,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.1905266343825666,
+            "recall": 0.26722796094523843,
+            "f1": 0.22245126332528414
+          },
+          "event": {
+            "precision": 0.9047619047619048,
+            "recall": 0.625,
+            "f1": 0.7392996108949417,
+            "events": 8,
+            "detected": 5,
+            "alert_segments": 21,
+            "false_alert_segments": 2
+          },
+          "false_alarms_per_day": 0.022491214369386957,
+          "latency_h": {
+            "median": 23.333333333333332,
+            "p90": 100.88333333333334,
+            "n": 5
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 0.6,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 0.6666666666666666,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "event_category_accuracy": 0.625
+      },
+      "test": {
+        "macro_f1": 0.5874553013088128,
+        "accuracy": 0.5900764895330113,
+        "confusion": [
+          [
+            13310,
+            10731,
+            0,
+            0
+          ],
+          [
+            5561,
+            10142,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.4858908637953337,
+            "recall": 0.6458638476724193,
+            "f1": 0.5545713035870516
+          },
+          "event": {
+            "precision": 0.38461538461538464,
+            "recall": 1.0,
+            "f1": 0.5555555555555556,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 156,
+            "false_alert_segments": 96
+          },
+          "false_alarms_per_day": 1.1500353562663783,
+          "latency_h": {
+            "median": 0.4166666666666667,
+            "p90": 17.48333333333333,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.4858908637953337,
+            "recall": 0.6458638476724193,
+            "f1": 0.5545713035870516
+          },
+          "event": {
+            "precision": 0.38461538461538464,
+            "recall": 1.0,
+            "f1": 0.5555555555555556,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 156,
+            "false_alert_segments": 96
+          },
+          "false_alarms_per_day": 1.1500353562663783,
+          "latency_h": {
+            "median": 0.4166666666666667,
+            "p90": 17.48333333333333,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "event_category_accuracy": 1.0
+      },
+      "params": [
+        1.0,
+        1.0,
+        0.0,
+        0.5
+      ]
+    },
+    {
+      "dataset": "battledim",
+      "model": "threshold voting (no fusion)",
+      "val": {
+        "macro_f1": 0.3361194904090905,
+        "accuracy": 0.3603059581320451,
+        "confusion": [
+          [
+            3367,
+            22243,
+            0,
+            0
+          ],
+          [
+            3181,
+            10953,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.32994939149295094,
+            "recall": 0.7749398613272959,
+            "f1": 0.4628354109444327
+          },
+          "event": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 32,
+            "false_alert_segments": 8
+          },
+          "false_alarms_per_day": 0.08996485747754783,
+          "latency_h": {
+            "median": 0.041666666666666664,
+            "p90": 13.55833333333333,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.32994939149295094,
+            "recall": 0.7749398613272959,
+            "f1": 0.4628354109444327
+          },
+          "event": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 32,
+            "false_alert_segments": 8
+          },
+          "false_alarms_per_day": 0.08996485747754783,
+          "latency_h": {
+            "median": 0.041666666666666664,
+            "p90": 13.55833333333333,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "event_category_accuracy": 1.0
+      },
+      "test": {
+        "macro_f1": 0.2832073872346565,
+        "accuracy": 0.39510366344605474,
+        "confusion": [
+          [
+            0,
+            24041,
+            0,
+            0
+          ],
+          [
+            0,
+            15703,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.39510366344605474,
+            "recall": 1.0,
+            "f1": 0.566414774469313
+          },
+          "event": {
+            "precision": 0.8888888888888888,
+            "recall": 1.0,
+            "f1": 0.9411764705882353,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 9,
+            "false_alert_segments": 1
+          },
+          "false_alarms_per_day": 0.011979534961108108,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 1.4999999999999991,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.39510366344605474,
+            "recall": 1.0,
+            "f1": 0.566414774469313
+          },
+          "event": {
+            "precision": 0.8888888888888888,
+            "recall": 1.0,
+            "f1": 0.9411764705882353,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 9,
+            "false_alert_segments": 1
+          },
+          "false_alarms_per_day": 0.011979534961108108,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 1.4999999999999991,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "event_category_accuracy": 1.0
+      },
+      "params": null
+    },
+    {
+      "dataset": "battledim",
+      "model": "single joint model (no separated evidence)",
+      "val": {
+        "macro_f1": 0.46164762857599734,
+        "accuracy": 0.46167975040257647,
+        "confusion": [
+          [
+            9021,
+            16589,
+            0,
+            0
+          ],
+          [
+            4806,
+            9328,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.35991820040899797,
+            "recall": 0.6599688693929532,
+            "f1": 0.46580609722603683
+          },
+          "event": {
+            "precision": 0.3404255319148936,
+            "recall": 1.0,
+            "f1": 0.5079365079365079,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 141,
+            "false_alert_segments": 93
+          },
+          "false_alarms_per_day": 1.0458414681764936,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 4.699999999999999,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.35991820040899797,
+            "recall": 0.6599688693929532,
+            "f1": 0.46580609722603683
+          },
+          "event": {
+            "precision": 0.3404255319148936,
+            "recall": 1.0,
+            "f1": 0.5079365079365079,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 141,
+            "false_alert_segments": 93
+          },
+          "false_alarms_per_day": 1.0458414681764936,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 4.699999999999999,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "event_category_accuracy": 1.0
+      },
+      "test": {
+        "macro_f1": 0.32033945827089694,
+        "accuracy": 0.3934933574879227,
+        "confusion": [
+          [
+            1300,
+            22741,
+            0,
+            0
+          ],
+          [
+            1364,
+            14339,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.38670442286947143,
+            "recall": 0.9131376170158568,
+            "f1": 0.5433188716063885
+          },
+          "event": {
+            "precision": 0.5531914893617021,
+            "recall": 1.0,
+            "f1": 0.7123287671232876,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 47,
+            "false_alert_segments": 21
+          },
+          "false_alarms_per_day": 0.25157023418327024,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 1.4999999999999991,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.38670442286947143,
+            "recall": 0.9131376170158568,
+            "f1": 0.5433188716063885
+          },
+          "event": {
+            "precision": 0.5531914893617021,
+            "recall": 1.0,
+            "f1": 0.7123287671232876,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 47,
+            "false_alert_segments": 21
+          },
+          "false_alarms_per_day": 0.25157023418327024,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 1.4999999999999991,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "event_category_accuracy": 1.0
+      },
+      "params": null
+    },
+    {
+      "dataset": "battledim",
+      "model": "baseline: fixed_threshold",
+      "val": {
+        "macro_f1": 0.5082232601911854,
+        "accuracy": 0.5407860305958132,
+        "confusion": [
+          [
+            15860,
+            9750,
+            0,
+            0
+          ],
+          [
+            8501,
+            5633,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.36618344926217256,
+            "recall": 0.3985425215791708,
+            "f1": 0.3816783548463597
+          },
+          "event": {
+            "precision": 0.3515981735159817,
+            "recall": 1.0,
+            "f1": 0.5202702702702703,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 219,
+            "false_alert_segments": 142
+          },
+          "false_alarms_per_day": 1.596876220226474,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 15.74166666666666,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.36618344926217256,
+            "recall": 0.3985425215791708,
+            "f1": 0.3816783548463597
+          },
+          "event": {
+            "precision": 0.3515981735159817,
+            "recall": 1.0,
+            "f1": 0.5202702702702703,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 219,
+            "false_alert_segments": 142
+          },
+          "false_alarms_per_day": 1.596876220226474,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 15.74166666666666,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "event_category_accuracy": 1.0
+      },
+      "test": {
+        "macro_f1": 0.4912594061421943,
+        "accuracy": 0.4925774959742351,
+        "confusion": [
+          [
+            8777,
+            15264,
+            0,
+            0
+          ],
+          [
+            4903,
+            10800,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.4143646408839779,
+            "recall": 0.6877666687894033,
+            "f1": 0.5171546915028611
+          },
+          "event": {
+            "precision": 0.40816326530612246,
+            "recall": 1.0,
+            "f1": 0.5797101449275363,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 147,
+            "false_alert_segments": 87
+          },
+          "false_alarms_per_day": 1.0422195416164053,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 6.05,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.4143646408839779,
+            "recall": 0.6877666687894033,
+            "f1": 0.5171546915028611
+          },
+          "event": {
+            "precision": 0.40816326530612246,
+            "recall": 1.0,
+            "f1": 0.5797101449275363,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 147,
+            "false_alert_segments": 87
+          },
+          "false_alarms_per_day": 1.0422195416164053,
+          "latency_h": {
+            "median": 0.0,
+            "p90": 6.05,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "event_category_accuracy": 1.0
+      },
+      "params": null
+    },
+    {
+      "dataset": "battledim",
+      "model": "baseline: isolation_forest",
+      "val": {
+        "macro_f1": 0.47164870631316635,
+        "accuracy": 0.6219806763285024,
+        "confusion": [
+          [
+            22960,
+            2650,
+            0,
+            0
+          ],
+          [
+            12374,
+            1760,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.39909297052154197,
+            "recall": 0.12452242818734965,
+            "f1": 0.1898188093183779
+          },
+          "event": {
+            "precision": 0.3886792452830189,
+            "recall": 1.0,
+            "f1": 0.5597826086956521,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 265,
+            "false_alert_segments": 162
+          },
+          "false_alarms_per_day": 1.8217883639203436,
+          "latency_h": {
+            "median": 3.041666666666667,
+            "p90": 9.783333333333333,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.39909297052154197,
+            "recall": 0.12452242818734965,
+            "f1": 0.1898188093183779
+          },
+          "event": {
+            "precision": 0.3886792452830189,
+            "recall": 1.0,
+            "f1": 0.5597826086956521,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 265,
+            "false_alert_segments": 162
+          },
+          "false_alarms_per_day": 1.8217883639203436,
+          "latency_h": {
+            "median": 3.041666666666667,
+            "p90": 9.783333333333333,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 5
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 3
+            }
+          },
+          "scored_normal_days": 88.92361111111111
+        },
+        "event_category_accuracy": 1.0
+      },
+      "test": {
+        "macro_f1": 0.4737929981804952,
+        "accuracy": 0.5788798309178744,
+        "confusion": [
+          [
+            20384,
+            3657,
+            0,
+            0
+          ],
+          [
+            13080,
+            2623,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes_present": [
+          "Normal",
+          "Infrastructure"
+        ],
+        "scored_rows": 39744,
+        "infra_domain": {
+          "point": {
+            "precision": 0.4176751592356688,
+            "recall": 0.16703814557727822,
+            "f1": 0.23863894827821497
+          },
+          "event": {
+            "precision": 0.4092526690391459,
+            "recall": 1.0,
+            "f1": 0.5808080808080809,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 281,
+            "false_alert_segments": 166
+          },
+          "false_alarms_per_day": 1.9886028035439458,
+          "latency_h": {
+            "median": 7.708333333333334,
+            "p90": 23.05833333333333,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "any_alert": {
+          "point": {
+            "precision": 0.4176751592356688,
+            "recall": 0.16703814557727822,
+            "f1": 0.23863894827821497
+          },
+          "event": {
+            "precision": 0.4092526690391459,
+            "recall": 1.0,
+            "f1": 0.5808080808080809,
+            "events": 8,
+            "detected": 8,
+            "alert_segments": 281,
+            "false_alert_segments": 166
+          },
+          "false_alarms_per_day": 1.9886028035439458,
+          "latency_h": {
+            "median": 7.708333333333334,
+            "p90": 23.05833333333333,
+            "n": 8
+          },
+          "per_type_recall": {
+            "infra_burst": {
+              "recall": 1.0,
+              "events": 1
+            },
+            "infra_leak": {
+              "recall": 1.0,
+              "events": 7
+            }
+          },
+          "scored_normal_days": 83.47569444444444
+        },
+        "event_category_accuracy": 1.0
+      },
+      "params": null
+    }
+  ]
+}

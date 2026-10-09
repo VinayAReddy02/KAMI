@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-10
-**Current step:** 5
+**Current step:** 6
 **Mode:** unattended allowed; never wait for answers (see CLAUDE.md)
 
 ## Steps
@@ -14,7 +14,7 @@ Update this file after every task. A new session must be able to resume from her
 | 2 | Data pipeline, features, scenarios | passed | scripts/check_step_2.py | step 2 |
 | 3 | Baselines and harness | passed | scripts/check_step_3.py | step 3 |
 | 4 | Evidence modules and temporal analysis | passed | scripts/check_step_4.py | step 4 |
-| 5 | Fusion and ablations | not started | scripts/check_step_5.py | |
+| 5 | Fusion and ablations | passed | scripts/check_step_5.py | step 5 |
 | 6 | Live pipeline and dashboard | not started | scripts/check_step_6.py | |
 | 7 | Hardening and documentation | not started | scripts/check_step_7.py | |
 
@@ -22,6 +22,7 @@ Status values: not started, in progress, passed, blocked.
 
 ## Needs user (read this first in the morning)
 - Revisit original dataset: no real labelled infrastructure data is used; BattLeDIM is simulated (semi_synthetic). Babela et al. 2026 dataset not confirmed.
+- Fusion result is mixed: better point-level macro-F1 than voting/baselines but far more false alarms than threshold voting (see results/SUMMARY.md). Worth discussing how to reframe the contribution.
 - Quality data are USGS river stations (real, unlabelled), a stand-in for a drinking-water network.
 
 ## Environment findings
@@ -31,6 +32,7 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-10 Step 5: F-A and F-B fusion, 8-row ablations x 2 data kinds, confusion matrices, F-B selected; fusion does NOT beat plain threshold voting on event F1 (documented in decisions.md and results/SUMMARY.md). check_step_5 PASS
 - 2026-10-10 Step 4: calibrated evidence modules (battledim infra, scenarios infra/quality), temporal features + hand-computed tests, check_step_4 PASS
 - 2026-10-10 Step 3: harness (metrics, guarded test access), fixed-threshold + Isolation Forest baselines, results/tables/baselines.md, check_step_3 PASS (~1 min)
 - 2026-10-10 Step 2: loaders, causal features, splits, scenario generator (180 events, 12 per type per split), check_step_2 PASS. Run `python scripts/build_datasets.py` to regenerate data/processed + results/splits.
