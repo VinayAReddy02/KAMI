@@ -1,0 +1,196 @@
+{
+  "dataset": "battledim",
+  "domain": "infra",
+  "data_kind": "battledim_simulated_labels",
+  "model_selected": "logreg_C0.1",
+  "validation_average_precision_by_candidate": {
+    "logreg_C0.1": 0.46402077474228853,
+    "logreg_C1": 0.4636723345274259,
+    "hgb_d3": 0.3511551795768909,
+    "hgb_d6": 0.3555720710132808
+  },
+  "calibration": "isotonic fitted on validation; validation numbers are cross-fitted over 4 time blocks",
+  "tau": 0.15,
+  "n_features": 36,
+  "val": {
+    "point": {
+      "precision": 0.32994939149295094,
+      "recall": 0.7749398613272959,
+      "f1": 0.4628354109444327
+    },
+    "event": {
+      "precision": 0.75,
+      "recall": 1.0,
+      "f1": 0.8571428571428571,
+      "events": 8,
+      "detected": 8,
+      "alert_segments": 32,
+      "false_alert_segments": 8
+    },
+    "false_alarms_per_day": 0.08996485747754783,
+    "latency_h": {
+      "median": 0.041666666666666664,
+      "p90": 13.55833333333333,
+      "n": 8
+    },
+    "per_type_recall": {
+      "infra_burst": {
+        "recall": 1.0,
+        "events": 5
+      },
+      "infra_leak": {
+        "recall": 1.0,
+        "events": 3
+      }
+    },
+    "scored_normal_days": 88.92361111111111,
+    "brier": 0.2804257382319094,
+    "average_precision": 0.2802483476850921
+  },
+  "test": {
+    "point": {
+      "precision": 0.39510366344605474,
+      "recall": 1.0,
+      "f1": 0.566414774469313
+    },
+    "event": {
+      "precision": 0.8888888888888888,
+      "recall": 1.0,
+      "f1": 0.9411764705882353,
+      "events": 8,
+      "detected": 8,
+      "alert_segments": 9,
+      "false_alert_segments": 1
+    },
+    "false_alarms_per_day": 0.011979534961108108,
+    "latency_h": {
+      "median": 0.0,
+      "p90": 1.4999999999999991,
+      "n": 8
+    },
+    "per_type_recall": {
+      "infra_burst": {
+        "recall": 1.0,
+        "events": 1
+      },
+      "infra_leak": {
+        "recall": 1.0,
+        "events": 7
+      }
+    },
+    "scored_normal_days": 83.47569444444444,
+    "brier": 0.3322956613036648,
+    "average_precision": 0.49509586291244334
+  },
+  "reliability_val": [
+    {
+      "bin": 0,
+      "mean_pred": 0.022091534593335915,
+      "frac_pos": 0.4717858287912793,
+      "n": 6238
+    },
+    {
+      "bin": 1,
+      "mean_pred": 0.1527629105687417,
+      "frac_pos": 0.7443181818181818,
+      "n": 528
+    },
+    {
+      "bin": 2,
+      "mean_pred": 0.21508439556909703,
+      "frac_pos": 0.6380985426786954,
+      "n": 2882
+    },
+    {
+      "bin": 3,
+      "mean_pred": 0.36413124543019304,
+      "frac_pos": 0.36186561829878483,
+      "n": 16788
+    },
+    {
+      "bin": 4,
+      "mean_pred": 0.42149702880128515,
+      "frac_pos": 0.2151536258803498,
+      "n": 12921
+    },
+    {
+      "bin": 5,
+      "mean_pred": 0.5352941909941549,
+      "frac_pos": 0.391304347826087,
+      "n": 23
+    },
+    {
+      "bin": 6,
+      "mean_pred": 0.6362528649156851,
+      "frac_pos": 0.16470588235294117,
+      "n": 170
+    },
+    {
+      "bin": 7,
+      "mean_pred": 0.7449726973130141,
+      "frac_pos": 0.3798449612403101,
+      "n": 129
+    },
+    {
+      "bin": 8,
+      "mean_pred": 0.848061361576011,
+      "frac_pos": 0.24324324324324326,
+      "n": 37
+    },
+    {
+      "bin": 9,
+      "mean_pred": 0.9456207153745328,
+      "frac_pos": 0.32142857142857145,
+      "n": 28
+    }
+  ],
+  "reliability_test": [
+    {
+      "bin": 3,
+      "mean_pred": 0.3776552816369928,
+      "frac_pos": 0.2829025373488262,
+      "n": 16868
+    },
+    {
+      "bin": 4,
+      "mean_pred": 0.46555954899591717,
+      "frac_pos": 0.3939091362955567,
+      "n": 2003
+    },
+    {
+      "bin": 5,
+      "mean_pred": 0.5475193543412551,
+      "frac_pos": 0.3634453781512605,
+      "n": 1428
+    },
+    {
+      "bin": 6,
+      "mean_pred": 0.6444995515195615,
+      "frac_pos": 0.3205882352941177,
+      "n": 340
+    },
+    {
+      "bin": 7,
+      "mean_pred": 0.7576353851103915,
+      "frac_pos": 0.3110236220472441,
+      "n": 762
+    },
+    {
+      "bin": 8,
+      "mean_pred": 0.858488841403189,
+      "frac_pos": 0.3418451400329489,
+      "n": 1214
+    },
+    {
+      "bin": 9,
+      "mean_pred": 0.9716794860214985,
+      "frac_pos": 0.5173682059664896,
+      "n": 17129
+    }
+  ],
+  "best_baseline_val": {
+    "model": "isolation_forest",
+    "val_event_f1": 0.5597826086956521
+  },
+  "val_event_f1_ge_best_baseline": true
+}

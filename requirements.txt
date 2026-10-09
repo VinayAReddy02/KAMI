@@ -11,3 +11,5 @@ websockets
 psycopg[binary]
 pytest
 pyarrow
+matplotlib
+joblib

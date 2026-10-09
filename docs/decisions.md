@@ -51,3 +51,10 @@ Decided decisions are not to be re-opened. Add new ones at the bottom with: what
 - Domain evaluation: infra detectors vs `infra_flag`, quality detectors vs `quality_flag`; the joint IF is scored against each. Combined events count in both domains.
 - BattLeDIM test split has only 8 events (1 burst, 7 leaks); fixed thresholds detect all of them partly because the late-2019 background drifts and keeps alerting (event precision ~0.41). Read these numbers with care.
 - Test access is guarded by `final_evaluation`; the baseline run regenerates `results/baselines/test_eval_log.json` on each full run (7 models).
+
+### Step 4 (2026-10-10)
+- Evidence modules are **supervised** (use the domain flags on train), selected on val among logistic regression and gradient boosting by average precision (scenarios: HGB depth 3 for both domains; battledim infra: logistic regression C=0.1), isotonic calibration on val, with val numbers cross-fitted over 4 time blocks. The baselines are unsupervised, so the val-F1 comparison favours the modules by construction; it shows what labelled training buys, not that the method is better than unsupervised detection. Say so in the paper.
+- Val event F1 (module vs best baseline): battledim infra 0.857 vs 0.560; scenarios infra 0.893 vs 0.730; scenarios quality 0.771 vs 0.261 (all modules >= baseline, no explanation needed).
+- BattLeDIM infra calibration is poor (Brier val 0.28, test 0.33; only 17 train events and a drifting background). Reported as is.
+- Temporal feature defaults (theta 0.5, k 3 steps, windows 2 h/6 h, gap 2 h, recurrence window 7 days) are fixed a priori, not tuned. Missing evidence counts as no evidence.
+- Evidence probabilities are stored only for val (cross-fitted) and test rows (`data/processed/evidence_*.parquet`); train rows are NaN because they are in-sample for the base model. Fusion (Step 5) is therefore tuned on val only.
