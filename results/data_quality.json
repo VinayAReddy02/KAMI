@@ -1,0 +1,36 @@
+{
+  "battledim_network": {
+    "rows_in": 210240,
+    "duplicate_ts": 0,
+    "nan_pressure": 0,
+    "nan_flow": 0,
+    "events": 33,
+    "ambiguous_rows": 9368
+  },
+  "scenario_background": {
+    "01654000": {
+      "rows_in": 69167,
+      "duplicate_ts": 8,
+      "invalid_turbidity_le0": 0,
+      "nan_turbidity_after_fill": 25596,
+      "nan_tds_after_fill": 2451
+    },
+    "01646305": {
+      "rows_in": 67503,
+      "duplicate_ts": 8,
+      "invalid_turbidity_le0": 83,
+      "nan_turbidity_after_fill": 19293,
+      "nan_tds_after_fill": 11163
+    },
+    "01654500": {
+      "rows_in": 66691,
+      "duplicate_ts": 8,
+      "invalid_turbidity_le0": 4426,
+      "nan_turbidity_after_fill": 26520,
+      "nan_tds_after_fill": 11298
+    }
+  },
+  "scenario_seed": 42,
+  "scenario_events_per_type_per_split_per_node": 4,
+  "scenario_hash": "23ee6883c4f3443671864bab94388561bd5a3135e71abab415c27d8f0b87d57c"
+}

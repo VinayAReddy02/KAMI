@@ -10,3 +10,4 @@ httpx
 websockets
 psycopg[binary]
 pytest
+pyarrow

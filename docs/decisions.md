@@ -37,3 +37,10 @@ Decided decisions are not to be re-opened. Add new ones at the bottom with: what
 - Tool versions: Python 3.12.6, Node 24.14.1, npm 11.11.0, git 2.54.0, Docker absent -> fallback profile (SQLite + in-process bus). Why in-process bus forces a single-process stack; alternatives (a local TCP broker) rejected as out of scope.
 - Node assignment: pressure = 8 evenly spaced BattLeDIM 2018 sensors; flow = 3 BattLeDIM flow sensors reused (i mod 3); turbidity/TDS = USGS station (i mod 3) with per-node time offset, TDS = 0.64 x conductance. Node series are `semi_synthetic`.
 - Readings keep BattLeDIM 2018 timestamps (replayed), 5-min step; speed 600 = 0.5 s per step.
+
+### Step 2 (2026-10-10)
+- **Two evaluation datasets, reported separately:** (a) `battledim_network`: real leak labels on simulated data, infra signals only (flow = PUMP_1, pressure = mean of 33 sensors), 33 events; (b) `scenarios`: semi-synthetic, 3 nodes, 180 events, all 4 signals. There is no labelled real quality data, so quality is only evaluated on scenarios (real USGS background, injected events).
+- **BattLeDIM label rule** (see docs/scenarios.md): window from 50%-of-peak to +7 days; "onset of a new leak" framing because every 2019 row has an active leak. Alternatives (label full leak duration, per-sensor labels) rejected: they would label ~all of 2019 or need the pipe-to-sensor topology.
+- Missing data: USGS values forward-filled <= 20 steps, then NaN; `valid` = all four signals present; events are only injected where valid; negative turbidity set to NaN (4426 rows at 01654500).
+- Splits 60/20/20 by time per dataset; boundaries moved after any event they cut. Features use 12/72/288-step windows (1 h, 6 h, 24 h).
+- Known limitation: scenario backgrounds carry BattLeDIM's own unlabelled leaks and drift, so the test period (late 2019) has a shifted background. Reported as-is.
