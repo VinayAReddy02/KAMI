@@ -32,3 +32,8 @@ Decided decisions are not to be re-opened. Add new ones at the bottom with: what
 - **BattLeDIM leaks overlap continuously** (2019: an active leak in every row), so Step 2 must label event windows from each leak's start time (and peak/end), not "any leak flow > 0". Proposal for Step 2: label an event while that leak's flow exceeds a small detectable fraction of its peak.
 - Only 2 flow-sensor-years of 3 sensors exist, so flow is sparse vs 33 pressure sensors; node assignment (Step 1) must document this.
 - Git repo and `.venv` created in Step 0 (needed to run the check script); pandas installed there.
+
+### Step 1 (2026-10-10)
+- Tool versions: Python 3.12.6, Node 24.14.1, npm 11.11.0, git 2.54.0, Docker absent -> fallback profile (SQLite + in-process bus). Why in-process bus forces a single-process stack; alternatives (a local TCP broker) rejected as out of scope.
+- Node assignment: pressure = 8 evenly spaced BattLeDIM 2018 sensors; flow = 3 BattLeDIM flow sensors reused (i mod 3); turbidity/TDS = USGS station (i mod 3) with per-node time offset, TDS = 0.64 x conductance. Node series are `semi_synthetic`.
+- Readings keep BattLeDIM 2018 timestamps (replayed), 5-min step; speed 600 = 0.5 s per step.

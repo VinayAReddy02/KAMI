@@ -1,0 +1,13 @@
+# Dev only: anonymous local access, not for deployment.
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    ports: ["1883:1883"]
+    command: mosquitto -c /mosquitto-no-auth.conf
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    ports: ["5432:5432"]
+    environment:
+      POSTGRES_USER: kami
+      POSTGRES_PASSWORD: kami
+      POSTGRES_DB: kami

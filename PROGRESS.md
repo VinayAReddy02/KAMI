@@ -3,14 +3,14 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-10
-**Current step:** 1
+**Current step:** 2
 **Mode:** unattended allowed; never wait for answers (see CLAUDE.md)
 
 ## Steps
 | Step | Name | Status | Check script | Commit |
 |---|---|---|---|---|
 | 0 | Dataset recon | passed | scripts/check_step_0.py | step 0 |
-| 1 | Foundations | not started | scripts/check_step_1.py | |
+| 1 | Foundations | passed | scripts/check_step_1.py | step 1 |
 | 2 | Data pipeline, features, scenarios | not started | scripts/check_step_2.py | |
 | 3 | Baselines and harness | not started | scripts/check_step_3.py | |
 | 4 | Evidence modules and temporal analysis | not started | scripts/check_step_4.py | |
@@ -25,8 +25,11 @@ Status values: not started, in progress, passed, blocked.
 - Quality data are USGS river stations (real, unlabelled), a stand-in for a drinking-water network.
 
 ## Environment findings
-- (fill in at Step 1: versions, Docker available or not, mode used)
+- Python 3.12.6, Node v24.14.1, npm 11.11.0, git 2.54.0. **Docker not installed** -> mode = fallback (SQLite + in-process bus). MQTT/Timescale code is implemented but its tests are skipped here (reason shown in pytest output); never run against real brokers.
+- In fallback mode the API, worker and nodes must share one process (check script and run_demo do this).
+- Disk: ~58 GB free on D:.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-10 Step 1: store/bus/worker/API/node fleet, check_step_1 PASS (8 nodes x 268 rows in 20 s), tests 5 passed 2 skipped (no Docker)
 - 2026-10-10 Step 0: BattLeDIM + USGS downloaded, loaders, docs/datasets.md, check_step_0 PASS

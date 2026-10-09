@@ -1,0 +1,12 @@
+numpy
+pandas
+scipy
+scikit-learn
+pyyaml
+paho-mqtt
+fastapi
+uvicorn[standard]
+httpx
+websockets
+psycopg[binary]
+pytest
