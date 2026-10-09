@@ -1,0 +1,12 @@
+# USGS NWIS continuous (instantaneous values) water quality
+- URL: https://waterservices.usgs.gov/nwis/iv/ (RDB format), query: parameterCd=63680,00095, startDT=2021-01-01, endDT=2022-12-31
+- Downloaded: 2026-10-10
+- Licence: U.S. Government public domain (USGS data, cite the source).
+- Stations (Fairfax County, Virginia, USA streams; used as stand-in water-quality series, NOT a drinking-water network):
+  - 01654000 Accotink Creek near Annandale, VA
+  - 01646305 Dead Run at Whann Avenue near McLean, VA
+  - 01654500 Long Branch near Annandale, VA
+- Variables: 63680 turbidity, Formazin Nephelometric Units (FNU); 00095 specific conductance, uS/cm at 25C (used as a TDS proxy, TDS ~ 0.64 x conductance by convention).
+- Sampling: 15 min. Approval flag columns (`*_cd`) A = approved, P = provisional.
+- Labels: NONE. Real turbidity/conductance events (storm surges, road-salt) are unlabelled; quality events are labelled only in the semi-synthetic scenario generator (Step 2).
+- Citation: U.S. Geological Survey, National Water Information System data, https://doi.org/10.5066/F7P55KJN

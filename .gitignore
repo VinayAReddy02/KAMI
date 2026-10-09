@@ -1,0 +1,11 @@
+data/raw/*/*
+!data/raw/*/SOURCE.md
+data/processed/
+.venv/
+node_modules/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+dist/
