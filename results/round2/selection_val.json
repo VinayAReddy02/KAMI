@@ -1,0 +1,210 @@
+{
+  "cap_false_alarms_per_day": 0.5,
+  "tie": 0.005,
+  "selected": "F-B",
+  "selection_reason": "best constrained validation event F1",
+  "designs": {
+    "F-A": {
+      "oof_event_f1": 0.8407643312101911,
+      "oof_event_precision": 0.7764705882352941,
+      "oof_event_recall": 0.9166666666666666,
+      "oof_false_alarms_per_day": 0.14018547932571604,
+      "feasible_at_cap": true,
+      "oof_macro_f1": 0.42896617955904187,
+      "oof_category_accuracy_event": 0.7,
+      "oof_point_accuracy": 0.7605687827063755,
+      "fold_params": [
+        [
+          0.98,
+          0.98
+        ],
+        [
+          0.98,
+          0.98
+        ],
+        [
+          0.98,
+          0.98
+        ],
+        [
+          0.98,
+          0.98
+        ]
+      ],
+      "final_params": [
+        0.98,
+        0.95
+      ],
+      "in_sample_event_f1": 0.8857672121025008,
+      "in_sample_fa_per_day": 0.11436183839729466
+    },
+    "F-B": {
+      "oof_event_f1": 0.879788639365918,
+      "oof_event_precision": 0.8604651162790697,
+      "oof_event_recall": 0.9,
+      "oof_false_alarms_per_day": 0.08853819746887329,
+      "feasible_at_cap": true,
+      "oof_macro_f1": 0.3810205530951467,
+      "oof_category_accuracy_event": 0.6833333333333333,
+      "oof_point_accuracy": 0.7539110660566043,
+      "fold_params": [
+        [
+          0.4,
+          6,
+          0.0,
+          0.98,
+          0.5
+        ],
+        [
+          0.4,
+          6,
+          0.3,
+          0.98,
+          0.8
+        ],
+        [
+          0.4,
+          6,
+          0.3,
+          0.98,
+          0.8
+        ],
+        [
+          0.4,
+          6,
+          0.3,
+          0.98,
+          0.8
+        ]
+      ],
+      "final_params": [
+        0.4,
+        6,
+        0.3,
+        0.98,
+        0.8
+      ],
+      "in_sample_event_f1": 0.9,
+      "in_sample_fa_per_day": 0.059025464979248855
+    },
+    "F-A (no temporal)": {
+      "oof_event_f1": 0.8368121442125238,
+      "oof_event_precision": 0.7819148936170213,
+      "oof_event_recall": 0.9,
+      "oof_false_alarms_per_day": 0.1512527540093252,
+      "feasible_at_cap": true,
+      "oof_macro_f1": 0.3952780506030279,
+      "oof_category_accuracy_event": 0.7,
+      "oof_point_accuracy": 0.7635277678840516,
+      "fold_params": [
+        [
+          0.98,
+          0.98
+        ],
+        [
+          0.98,
+          0.98
+        ],
+        [
+          0.98,
+          0.98
+        ],
+        [
+          0.98,
+          0.95
+        ]
+      ],
+      "final_params": [
+        0.98,
+        0.98
+      ],
+      "in_sample_event_f1": 0.8445945945945946,
+      "in_sample_fa_per_day": 0.07747092278526413
+    },
+    "F-B (no temporal)": {
+      "oof_event_f1": 0.8755295541658261,
+      "oof_event_precision": 0.824468085106383,
+      "oof_event_recall": 0.9333333333333333,
+      "oof_false_alarms_per_day": 0.12174002151970077,
+      "feasible_at_cap": true,
+      "oof_macro_f1": 0.4170524591392449,
+      "oof_category_accuracy_event": 0.7166666666666667,
+      "oof_point_accuracy": 0.7613724576929048,
+      "fold_params": [
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.98,
+          0.8
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.98,
+          0.8
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.98,
+          0.8
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.98,
+          0.8
+        ]
+      ],
+      "final_params": [
+        1.0,
+        1.0,
+        0.0,
+        0.98,
+        0.8
+      ],
+      "in_sample_event_f1": 0.8755295541658261,
+      "in_sample_fa_per_day": 0.12174002151970077
+    },
+    "threshold voting (no fusion)": {
+      "oof_event_f1": 0.8551605442908622,
+      "oof_event_precision": 0.8287292817679558,
+      "oof_event_recall": 0.8833333333333333,
+      "oof_false_alarms_per_day": 0.11436183839729466,
+      "feasible_at_cap": true,
+      "oof_macro_f1": 0.38549957223805364,
+      "oof_category_accuracy_event": 0.6666666666666666,
+      "oof_point_accuracy": 0.7571714293542289,
+      "fold_params": [
+        [
+          0.98,
+          0.8
+        ],
+        [
+          0.98,
+          0.75
+        ],
+        [
+          0.98,
+          0.85
+        ],
+        [
+          0.98,
+          0.8
+        ]
+      ],
+      "final_params": [
+        0.98,
+        0.8
+      ],
+      "in_sample_event_f1": 0.8755295541658261,
+      "in_sample_fa_per_day": 0.12174002151970077
+    }
+  },
+  "validation_rows": 126144,
+  "validation_events": 60
+}

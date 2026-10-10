@@ -6,6 +6,7 @@ so Step 5 can show each design was evaluated on test exactly once.
 from __future__ import annotations
 
 import contextlib
+import datetime
 import hashlib
 import json
 from pathlib import Path
@@ -32,7 +33,8 @@ def final_evaluation(model_id: str, dataset: str, log_path: Path = LOG):
     log = _read_log(log_path)
     if any(r["key"] == key for r in log):
         raise TestSplitLocked(f"test split already evaluated for {model_id} on {dataset}")
-    log.append({"key": key, "model": model_id, "dataset": dataset, "count": len(log) + 1})
+    log.append({"key": key, "model": model_id, "dataset": dataset, "count": len(log) + 1,
+                "utc": datetime.datetime.now(datetime.timezone.utc).isoformat()})
     log_path.parent.mkdir(parents=True, exist_ok=True)
     log_path.write_text(json.dumps(log, indent=2), encoding="utf-8")
     _active["on"] = True

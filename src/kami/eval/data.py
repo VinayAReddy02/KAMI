@@ -14,6 +14,9 @@ RES = ROOT / "results"
 DATASETS = {
     "battledim": ("battledim_network_semi_synthetic.parquet", "battledim.json", ["infra"]),
     "scenarios": ("scenarios_semi_synthetic.parquet", "scenarios.json", ["infra", "quality"]),
+    # Round 2: same train/validation rows as "scenarios"; the test period holds the fresh test_v2 events.
+    # ("scenarios" keeps the Round-1 test period, now called test_v1 and exposed.)
+    "scenarios_v2": ("scenarios_v2_semi_synthetic.parquet", "scenarios.json", ["infra", "quality"]),
 }
 RAW_SIGNALS = ["flow", "pressure", "turbidity", "tds"]
 DOMAIN_SIGNALS = {"infra": ["flow", "pressure"], "quality": ["turbidity", "tds"], "joint": RAW_SIGNALS}
