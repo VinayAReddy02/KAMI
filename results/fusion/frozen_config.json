@@ -1,0 +1,313 @@
+{
+  "created_utc": "2026-10-10T16:33:06.434005+00:00",
+  "git_commit": "b88f6d5619e14d7fddabd133bf1afe6818bc9056",
+  "git_commit_utc": "2026-10-10T16:33:05+00:00",
+  "git_tracked_inputs_clean": true,
+  "selected_design": "F-B",
+  "selection_reason": "best constrained validation event-counted F1",
+  "false_alarm_cap_per_day": 0.5,
+  "tuning_objective": "maximise out-of-fold event-counted F1 (each detected event counted once) subject to false alarms/day <= cap; if infeasible the fewest false alarms; exact ties go to the setting with fewer rows in alert",
+  "designs": {
+    "F-A": {
+      "final_params": [
+        0.98,
+        0.95
+      ],
+      "oof_event_f1": 0.8407643312101911,
+      "oof_false_alarms_per_day": 0.14018547932571604,
+      "feasible_at_cap": true
+    },
+    "F-B": {
+      "final_params": [
+        0.4,
+        6.0,
+        0.3,
+        0.98,
+        0.8
+      ],
+      "oof_event_f1": 0.843957014573826,
+      "oof_false_alarms_per_day": 0.06271455654045191,
+      "feasible_at_cap": true
+    },
+    "F-A (no temporal)": {
+      "final_params": [
+        0.98,
+        0.98
+      ],
+      "oof_event_f1": 0.8275586961477093,
+      "oof_false_alarms_per_day": 0.1438745708869191,
+      "feasible_at_cap": true
+    },
+    "F-B (no temporal)": {
+      "final_params": [
+        1.0,
+        1.0,
+        0.0,
+        0.98,
+        0.9
+      ],
+      "oof_event_f1": 0.8548514142499104,
+      "oof_false_alarms_per_day": 0.029512732489624428,
+      "feasible_at_cap": true
+    },
+    "threshold voting (no fusion)": {
+      "final_params": [
+        0.98,
+        0.9
+      ],
+      "oof_event_f1": 0.8548514142499104,
+      "oof_false_alarms_per_day": 0.029512732489624428,
+      "feasible_at_cap": true
+    }
+  },
+  "battledim_designs": {
+    "F-A": {
+      "final_params": [
+        0.1,
+        0.1
+      ],
+      "oof_event_f1": 0.9411764705882353,
+      "oof_false_alarms_per_day": 0.011245607184693479,
+      "feasible_at_cap": true
+    },
+    "F-B": {
+      "final_params": [
+        0.7,
+        6.0,
+        0.0,
+        0.1,
+        0.1
+      ],
+      "oof_event_f1": 0.5714285714285715,
+      "oof_false_alarms_per_day": 0.2024209293244826,
+      "feasible_at_cap": true
+    },
+    "F-A (no temporal)": {
+      "final_params": [
+        0.1,
+        0.1
+      ],
+      "oof_event_f1": 0.9411764705882353,
+      "oof_false_alarms_per_day": 0.011245607184693479,
+      "feasible_at_cap": true
+    },
+    "F-B (no temporal)": {
+      "final_params": [
+        1.0,
+        1.0,
+        0.0,
+        0.2,
+        0.1
+      ],
+      "oof_event_f1": 0.5714285714285715,
+      "oof_false_alarms_per_day": 0.2024209293244826,
+      "feasible_at_cap": true
+    },
+    "threshold voting (no fusion)": {
+      "final_params": [
+        0.15,
+        0.05
+      ],
+      "oof_event_f1": 0.5714285714285715,
+      "oof_false_alarms_per_day": 0.2024209293244826,
+      "feasible_at_cap": true
+    }
+  },
+  "baselines": {
+    "battledim__infra__fixed_threshold.json": {
+      "params": {
+        "k": 4
+      },
+      "val_event_f1": 0.3673469387755102,
+      "val_false_alarms_per_day": 0.044982428738773915
+    },
+    "battledim__infra__isolation_forest.json": {
+      "params": {
+        "n_estimators": 100,
+        "max_samples": 256,
+        "quantile": 0.999
+      },
+      "val_event_f1": 0.5279999999999999,
+      "val_false_alarms_per_day": 0.6634908238969153
+    },
+    "battledim__infra__ocsvm.json": {
+      "params": {
+        "nu": 0.05,
+        "gamma_mult": 0.1,
+        "quantile": 0.999,
+        "fit_rows": 20000
+      },
+      "val_event_f1": 0.5174825174825174,
+      "val_false_alarms_per_day": 0.77594689574385
+    },
+    "scenarios__infra__fixed_threshold.json": {
+      "params": {
+        "k": 3
+      },
+      "val_event_f1": 0.5306122448979591,
+      "val_false_alarms_per_day": 0.0
+    },
+    "scenarios__infra__isolation_forest-joint.json": {
+      "params": {
+        "n_estimators": 100,
+        "max_samples": 2048,
+        "quantile": 0.99
+      },
+      "val_event_f1": 0.5301152424440096,
+      "val_false_alarms_per_day": 0.2157732694941643
+    },
+    "scenarios__infra__isolation_forest.json": {
+      "params": {
+        "n_estimators": 100,
+        "max_samples": 256,
+        "quantile": 0.999
+      },
+      "val_event_f1": 0.5871659698236684,
+      "val_false_alarms_per_day": 0.3626882852392243
+    },
+    "scenarios__infra__ocsvm.json": {
+      "params": {
+        "nu": 0.05,
+        "gamma_mult": 0.1,
+        "quantile": 0.999,
+        "fit_rows": 20000
+      },
+      "val_event_f1": 0.5846962616822431,
+      "val_false_alarms_per_day": 0.3428537696402042
+    },
+    "scenarios__quality__fixed_threshold.json": {
+      "params": {
+        "k": 5
+      },
+      "val_event_f1": 0.16470588235294115,
+      "val_false_alarms_per_day": 0.1042900970678469
+    },
+    "scenarios__quality__isolation_forest-joint.json": {
+      "params": {
+        "n_estimators": 100,
+        "max_samples": 2048,
+        "quantile": 0.99
+      },
+      "val_event_f1": 0.13930348258706468,
+      "val_false_alarms_per_day": 0.2983855554996731
+    },
+    "scenarios__quality__isolation_forest.json": {
+      "params": {
+        "n_estimators": 300,
+        "max_samples": 256,
+        "quantile": 0.99
+      },
+      "val_event_f1": 0.17073170731707316,
+      "val_false_alarms_per_day": 0.09559925564552632
+    },
+    "scenarios__quality__ocsvm.json": {
+      "params": {
+        "nu": 0.05,
+        "gamma_mult": 0.1,
+        "quantile": 0.95,
+        "fit_rows": 20000
+      },
+      "val_event_f1": 0.22489959839357432,
+      "val_false_alarms_per_day": 0.45771764824221695
+    }
+  },
+  "joint_model": {
+    "type": "HistGradientBoostingClassifier",
+    "max_depth": 6,
+    "max_iter": 150,
+    "class_weight": "balanced",
+    "random_state": 0,
+    "tuned_for_cap": false
+  },
+  "bootstrap": {
+    "resamples": 1000,
+    "seed": 12345
+  },
+  "verdict_rule": {
+    "headline_set": "test_v3",
+    "metric": "event-counted F1 (the objective tuned on validation): recall = detected events / events, precision = detected events / (detected events + false alarms), each detected event counted once",
+    "comparison": "paired bootstrap of F1(selected fusion design) minus F1(threshold voting): the same resampled events and days are applied to both models (1000 resamples, seed 12345)",
+    "beats": "the 95% interval of the difference lies entirely above 0 AND the fusion design's false alarms/day on that test set are within the cap",
+    "worse": "the 95% interval of the difference lies entirely below 0",
+    "otherwise": "no detectable difference",
+    "also_reported": "the same paired difference for segment-based F1, false alarms/day and category accuracy, and the cap status of both models; these do not change the verdict"
+  },
+  "headline_test_set": "test_v3",
+  "test_sets": {
+    "test_v3": {
+      "seed": 20261011,
+      "role": "headline: frozen first, every model evaluated once"
+    },
+    "test_v2": {
+      "seed": 20261010,
+      "role": "secondary: baselines were scored on it once before the freeze (results/round2/incident_test_v2); other models never evaluated on it"
+    },
+    "test_v1": {
+      "seed": 42,
+      "role": "exposed in Round 1, reference only"
+    }
+  },
+  "reporting_rule": "Both test_v3 and test_v2 tables are reported whatever they show; the verdict uses test_v3 only; no pooling.",
+  "files_sha256": {
+    "data/processed/battledim_network_semi_synthetic.parquet": "d0e74355e0b5ddfaa74d72a9b71a1e99993db5891fed0407137a14ca3600e38b",
+    "data/processed/evidence_scenarios.parquet": "860b5c9ef3537aa5c4eab350ab6aeaffd605fee15ae82b234fa5edb55d8835b3",
+    "data/processed/models/evidence_battledim_infra.joblib": "08096eafbdc377bf1e6a4cfcaa76804695f43146344deb614d2f2903c6257fad",
+    "data/processed/models/evidence_scenarios_infra.joblib": "45cb0a87702f912a51da3cb241a4be293a8df1e2901d8f43c1eef3143caeeb4d",
+    "data/processed/models/evidence_scenarios_quality.joblib": "da36bf2111a8e3540080083c7b905ce6b9464c9c8e2914e36fa1b307f5802b4b",
+    "data/processed/scenarios_semi_synthetic.parquet": "7a38e9db6d398dcc09bc9c9cea11dde607eca573a0bb0b81973f6a463f08c105",
+    "data/processed/scenarios_v2_semi_synthetic.parquet": "9743ebbb5746d7c6cf8fce4db747e655d62ee0a9f50bd1263edf2adcfb32c5a5",
+    "data/processed/scenarios_v3_semi_synthetic.parquet": "5744668d3df1f65986a0f9d9e70df6dd99706f30fbe263fd938a26af9af0234a",
+    "results/baselines/battledim__infra__fixed_threshold.json": "127809330e845eeab1b05857df6d26b01e32d2660f5929c125f68c14bc7bb66f",
+    "results/baselines/battledim__infra__isolation_forest.json": "96189fb5723784cc5203c9cb7a70bc8195032cc845f23c30ed4cc915eda09154",
+    "results/baselines/battledim__infra__ocsvm.json": "70f2e3376fa3935fe95e8de54a10e11591135bd6148cfe08a40f74dec4fd6d96",
+    "results/baselines/provenance.json": "586880d06c3c84a0fd0db7ce840c108ee6bc99b5e0a7dadc9f748fac776ec1c1",
+    "results/baselines/scenarios__infra__fixed_threshold.json": "4a832a5b558c9c148f9eae979fae1c080a929200fdc7d3245dbff03821abd788",
+    "results/baselines/scenarios__infra__isolation_forest-joint.json": "88d065cf0424a7473d6da0287adb704a440eb5252a99ffb84425f331a9fb907f",
+    "results/baselines/scenarios__infra__isolation_forest.json": "f783862b5b229a814891b0d5dd45663fc4069e1d18b6622a5c265e3edf8740c4",
+    "results/baselines/scenarios__infra__ocsvm.json": "29dbdbd3d49343359ee822810b5a0be6b76673bfa6c47e160f775bdd47381eef",
+    "results/baselines/scenarios__quality__fixed_threshold.json": "8b92a4e0130fe977a4f6dd04e08c884e3e5884af994998ffb16e5abc6256069f",
+    "results/baselines/scenarios__quality__isolation_forest-joint.json": "dce843767c67418ade0cc522ac595240d01c96644a6f11f22b27396bfa5c4e33",
+    "results/baselines/scenarios__quality__isolation_forest.json": "e7228617beaca09bee7f774843ffefd69b396c02f7f72575289b8f507b9140d0",
+    "results/baselines/scenarios__quality__ocsvm.json": "331ca4ea029b3020a2c9f524085c78fb3da7e03c8d2a45177b85141aafad84f1",
+    "results/round2/selection_val.json": "f23986831dd8861172cff434b12d4946d8cfba28b0d5d1ece93d64d16055cde4",
+    "results/splits/battledim.json": "8d379c193ca831d80e89f22767ce904ad5d4c06b9fc27e609ef25ce2b50a41ef",
+    "results/splits/battledim_events.csv": "676cb0d5aa806948abf6ea3a4ff66dab8e23c7d0d4b35af8c9529c6a05aed560",
+    "results/splits/scenario_events.csv": "c3eb2a30c8712460a5bd6a67b99fa81292279ae4c76e657c8214757e04ee8546",
+    "results/splits/scenario_events_v2_test.csv": "d375dc412074d04101cde512fc480448a108a8bd45323b84fe85d675f078c9b9",
+    "results/splits/scenario_events_v3_test.csv": "98d36b59263b2c2dc816323d0cdc259503de60a3687bda6907796a692bb55c07",
+    "results/splits/scenarios.json": "8d379c193ca831d80e89f22767ce904ad5d4c06b9fc27e609ef25ce2b50a41ef",
+    "results/splits/test_v2_info.json": "d0ad0af02989021446242963f31829ae58b00f8a511e27c3005f3b0ea301df72",
+    "results/splits/test_v3_info.json": "201f3ce2e113aecdc410f7a296b70812597c35c31ed7d43c2ae6d9489cf01ae0",
+    "src/kami/data/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/kami/data/loaders.py": "4aaee6a9c609a1d87cb0738233a07f4cc18ea156d3546f04c47653fec827abaf",
+    "src/kami/data/raw_loaders.py": "594e0b4570b04a1d1b1bdfe0430f8e149ed661b9106911475c26e40fb2359f42",
+    "src/kami/data/splits.py": "5fb3d1933b104ebd73ae1caf5dd0545032cba2269b2f6c39ec6c541a155e8e8e",
+    "src/kami/eval/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/kami/eval/access.py": "576bab202c0e8c8d28a358105f5533820a2b1ffcf73e086c18982208649893c0",
+    "src/kami/eval/bootstrap.py": "8a2bf647f8fb4717ef259deabb65cd508609167b5b597b1613fa647cd1a11cf7",
+    "src/kami/eval/data.py": "37c02ed0263806557988daf88a9548d63b734890df5782d71166fb9579a6d155",
+    "src/kami/eval/fast_eval.py": "84407464d956a7605ebb9243046b1a455967f2428bfa90e4779df04c1ef52d54",
+    "src/kami/eval/final_models.py": "ce7b9b30473ef64ed9275e19a96dbdf15633d32f90a7a2d6e36d176bc0e2a769",
+    "src/kami/eval/freeze.py": "7968f9ed33a9e96c59a8165d792342ad7c490e5aae60535c5f623d9d3faef116",
+    "src/kami/eval/fusion_tune.py": "fe04c57a5bbcf7a51407528959bc490091aa6e60ab07fb282e2ea2fbb1f2f786",
+    "src/kami/eval/hashing.py": "e54c490b43b17ef986a1750599dd4578548e2979e43f9b2fdc7906ecfd0ffc68",
+    "src/kami/eval/metrics.py": "f814c28925af64fcdfb3e996068ee1e935152612fd106225d6209a949f8f798a",
+    "src/kami/eval/round2_data.py": "d8d3dd86d7d12e339ed3c4b0f941ef89f32c9dd105816d10dd76ccb31440f892",
+    "src/kami/eval/run_baselines.py": "f8ae071bf6e0d8503adcf0287158dcae22b7ba9880fdf2666d420070b460c8e7",
+    "src/kami/eval/run_evidence.py": "f13052b5f83f26c351d3244b11c0f0b66c71b72c0ad7f98670b6b49cf8222fa7",
+    "src/kami/eval/run_final.py": "20e0d0a3b575975c7b59509623ac9ad25c2c91c86e21e9d2a38ea2150eac9a74",
+    "src/kami/eval/run_fusion.py": "b5a7e13f2d71aae547f69b43eaeca6d75f771a3531872be548fd42089b3ebc7f",
+    "src/kami/eval/run_round2_select.py": "d15ca1c72f247a5d91d1bace032800831a5d118de7390bd9447d852394d2dd7e",
+    "src/kami/eval/run_temporal_ablation.py": "f61f68e5789204196837af59dbb0c0e2889bf43c27f07721214a568638716f43",
+    "src/kami/eval/verdict.py": "90c485ba8b77ea88893023abfd47153365705b38108faee852d38323419b3012",
+    "src/kami/features/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/kami/features/causal.py": "dc0bd15f6e8fc05c0dfc517673098298ef1ec3895c46c66d9a95e5102721714b",
+    "src/kami/features/temporal.py": "b451ba4a80b6ddf2d30547a276bdf218f07e42adcb99ba381fdc47c774e45e08",
+    "src/kami/models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/kami/models/baselines.py": "0813ebfaa1081ca5316747eaf17261036f8ee475700e9817fd1ad5d2eb488b50",
+    "src/kami/models/evidence.py": "930ab9744a5e5b3cacc4c850a46138e19c7f0937ab94277081686e716d966aac",
+    "src/kami/models/fusion.py": "347022b839af2d11e447a5516667c8d4a003de4ff8d2585b213af9f181dc48f8",
+    "src/kami/simulator/scenarios.py": "74420391476e047b830f46404349510023cb2d7e15973730dad5e8a132849edc"
+  },
+  "files_list_sha256": "d886c064f743562d5108c2864317cada543dd7649051aaa2a4ad9f5b75643085"
+}
