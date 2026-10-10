@@ -4,6 +4,8 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import IsolationForest
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import OneClassSVM
 
 SEED = 0
 
@@ -61,6 +63,52 @@ class IsoForest:
         ok = np.isfinite(X).all(axis=1)
         if ok.any():
             s[ok] = -self.model.score_samples(X[ok])
+        return s
+
+    def predict(self, df: pd.DataFrame) -> np.ndarray:
+        return self.score(df) > self.threshold
+
+
+class OCSVMDetector:
+    """One-Class SVM (RBF) on the same standardised features as the Isolation Forest.
+
+    Fitted on a fixed-seed subsample of at most `max_fit` NORMAL training rows; gamma = gamma_mult / n_features;
+    alert above a quantile of the fitted rows' anomaly scores (quantile tuned on validation).
+    """
+
+    name = "ocsvm"
+    MAX_FIT = 20_000
+
+    def __init__(self, columns: list[str], nu: float = 0.05, gamma_mult: float = 1.0, quantile: float = 0.99,
+                 max_fit: int = MAX_FIT):
+        self.columns, self.nu, self.gamma_mult, self.quantile, self.max_fit = columns, nu, gamma_mult, quantile, max_fit
+        self.scaler = StandardScaler()
+        self.model: OneClassSVM | None = None
+        self.threshold = np.inf
+        self._fit_scores: np.ndarray | None = None
+
+    def fit(self, train_normal: pd.DataFrame) -> "OCSVMDetector":
+        tr = train_normal
+        if len(tr) > self.max_fit:
+            tr = tr.sample(self.max_fit, random_state=SEED)
+        X = self.scaler.fit_transform(tr[self.columns].to_numpy(float))
+        self.model = OneClassSVM(kernel="rbf", nu=self.nu, gamma=self.gamma_mult / len(self.columns)).fit(X)
+        self._fit_scores = -self.model.decision_function(X)
+        self.set_quantile(self.quantile)
+        return self
+
+    def set_quantile(self, q: float) -> None:
+        self.quantile = q
+        self.threshold = float(np.quantile(self._fit_scores, q))
+
+    def score(self, df: pd.DataFrame, chunk: int = 20_000) -> np.ndarray:
+        X = df[self.columns].to_numpy(float)
+        s = np.full(len(df), -np.inf)
+        ok = np.isfinite(X).all(axis=1)
+        idx = np.where(ok)[0]
+        for i in range(0, len(idx), chunk):
+            j = idx[i:i + chunk]
+            s[j] = -self.model.decision_function(self.scaler.transform(X[j]))
         return s
 
     def predict(self, df: pd.DataFrame) -> np.ndarray:

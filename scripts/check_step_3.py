@@ -46,7 +46,7 @@ check("all metrics in [0,1] and none NaN", not bad)
 if bad:
     print(bad[:5])
 log = json.loads((ROOT / "results" / "baselines" / "test_eval_log.json").read_text(encoding="utf-8"))
-check("test split opened once per model and dataset", len({r["key"] for r in log}) == len(log) == 7)
+check("test split opened once per model and dataset", len({r["key"] for r in log}) == len(log) == 10)
 p = subprocess.run([sys.executable, "-m", "pytest", "tests/step3", "-q"], cwd=ROOT)
 check("pytest tests/step3", p.returncode == 0)
 sys.exit(0 if ok else 1)

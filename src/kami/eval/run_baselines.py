@@ -10,7 +10,7 @@ import time
 
 import numpy as np
 
-from ..models.baselines import FixedThreshold, IsoForest
+from ..models.baselines import FixedThreshold, IsoForest, OCSVMDetector
 from .access import SplitData, final_evaluation
 from .data import DATASETS, DOMAIN_SIGNALS, RES, domain_features, load_dataset, scored_mask
 from .metrics import domain_events, evaluate
@@ -21,9 +21,18 @@ IF_GRID = [(100, 256), (300, 256), (100, 2048)]
 LOG = RES / "baselines" / "test_eval_log.json"
 
 
+# Explicit list on purpose: never loop over every registered dataset (a held-out test set was scored that way once).
+BASELINE_DATASETS = ("battledim", "scenarios")
+FA_CAP = 0.5  # Round 2: same constraint as the fusion tuning (false alarms per day)
+OC_GRID = [(0.01, 0.1), (0.01, 1.0), (0.05, 0.1), (0.05, 1.0)]  # (nu, gamma_mult)
+
+
 def _key(m: dict):
-    """Selection key on validation: event F1, then fewer false alarms per day."""
-    return (m["event"]["f1"], -m["false_alarms_per_day"])
+    """Selection key on validation: event F1 subject to false alarms/day <= FA_CAP; if the cap cannot be met the
+    lowest false-alarm setting wins."""
+    if m["false_alarms_per_day"] <= FA_CAP:
+        return (1, m["event"]["f1"], -m["false_alarms_per_day"])
+    return (0, -m["false_alarms_per_day"], m["event"]["f1"])
 
 
 def _eval(df, pred, domain, mask, events=None):
@@ -92,6 +101,30 @@ def run_dataset(name: str) -> list[dict]:
         m = IsoForest(cols, n_est, ms, q).fit(tr)
         models.append((mid, scored_against, m, {"n_estimators": n_est, "max_samples": ms, "quantile": q}, rs))
 
+    # ---- one-class SVM per domain (Round 2) ----
+    import time as _t
+
+    for d in domains:
+        cols = domain_features(d, full.columns)
+        flag = f"{d}_flag"
+        m_tr = masks[d].loc[train.index].to_numpy() & ~train[flag].to_numpy(bool)  # normal rows only
+        trn = train[m_tr]
+        t0 = _t.time()
+        best = None
+        mv = masks[d].loc[val.index].to_numpy()
+        for nu, gm in OC_GRID:
+            m = OCSVMDetector(cols, nu, gm).fit(trn)
+            sc = m.score(val)
+            for q in Q_GRID:
+                m.set_quantile(q)
+                r = _eval(val, sc > m.threshold, d, mv, events_for(val, d))
+                if best is None or _key(r) > _key(best[1]):
+                    best = ((nu, gm, q), r)
+        (nu, gm, q), r = best
+        print(f"  ocsvm-{d} tuned in {_t.time() - t0:.0f}s: nu={nu} gamma_mult={gm} q={q} val event F1 {r['event']['f1']:.3f}", flush=True)
+        m = OCSVMDetector(cols, nu, gm, q).fit(trn)
+        models.append((f"ocsvm-{d}", [d], m, {"nu": nu, "gamma_mult": gm, "quantile": q, "fit_rows": min(len(trn), m.max_fit)}, {d: r}))
+
     # ---- final evaluation: test split opened once per model and dataset ----
     for mid, scored_against, m, params, val_res in models:
         with final_evaluation(mid, name, LOG):
@@ -146,7 +179,7 @@ def main():
     if LOG.exists():
         LOG.unlink()  # this run's own log: regenerated on every full run
     rows = []
-    for name in DATASETS:
+    for name in BASELINE_DATASETS:
         rows += run_dataset(name)
         print(f"{name} done at {time.time() - t0:.0f}s", flush=True)
     write_outputs(rows)

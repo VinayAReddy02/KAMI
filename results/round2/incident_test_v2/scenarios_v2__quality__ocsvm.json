@@ -1,0 +1,86 @@
+{
+  "dataset": "scenarios_v2",
+  "domain": "quality",
+  "model": "ocsvm",
+  "params": {
+    "nu": 0.05,
+    "gamma_mult": 0.1,
+    "quantile": 0.95,
+    "fit_rows": 20000
+  },
+  "val": {
+    "point": {
+      "precision": 0.11886304909560723,
+      "recall": 0.050188454671692126,
+      "f1": 0.07057674872724737
+    },
+    "event": {
+      "precision": 0.15053763440860216,
+      "recall": 0.4444444444444444,
+      "f1": 0.22489959839357432,
+      "events": 36,
+      "detected": 16,
+      "alert_segments": 186,
+      "false_alert_segments": 158
+    },
+    "false_alarms_per_day": 0.45771764824221695,
+    "latency_h": {
+      "median": 0.5416666666666666,
+      "p90": 18.291666666666668,
+      "n": 16
+    },
+    "per_type_recall": {
+      "combined": {
+        "recall": 0.4166666666666667,
+        "events": 12
+      },
+      "quality_tds_shift": {
+        "recall": 0.4166666666666667,
+        "events": 12
+      },
+      "quality_turbidity_surge": {
+        "recall": 0.5,
+        "events": 12
+      }
+    },
+    "scored_normal_days": 345.19097222222223
+  },
+  "test": {
+    "point": {
+      "precision": 0.11827284105131414,
+      "recall": 0.021114959222433248,
+      "f1": 0.0358327803583278
+    },
+    "event": {
+      "precision": 0.17687074829931973,
+      "recall": 0.5833333333333334,
+      "f1": 0.2714392244593587,
+      "events": 36,
+      "detected": 21,
+      "alert_segments": 147,
+      "false_alert_segments": 121
+    },
+    "false_alarms_per_day": 0.35034030703033103,
+    "latency_h": {
+      "median": 0.25,
+      "p90": 4.0,
+      "n": 21
+    },
+    "per_type_recall": {
+      "combined": {
+        "recall": 0.5833333333333334,
+        "events": 12
+      },
+      "quality_tds_shift": {
+        "recall": 0.3333333333333333,
+        "events": 12
+      },
+      "quality_turbidity_surge": {
+        "recall": 0.8333333333333334,
+        "events": 12
+      }
+    },
+    "scored_normal_days": 345.37847222222223
+  },
+  "data_kind": "semi_synthetic_scenarios"
+}

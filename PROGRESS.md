@@ -21,6 +21,8 @@ Update this file after every task. A new session must be able to resume from her
 Status values: not started, in progress, passed, blocked.
 
 ## Needs user (read this first in the morning)
+- **Round 2 incident:** test_v2 was scored by the baselines before the freeze (my mistake). I added test_v3 (seed 20261011) as the clean headline set and kept test_v2 as a secondary table. Say if you would rather have test_v2 as the headline. Details in docs/decisions.md.
+- Optional: LeakDB was skipped (13.9 GB archive, 30-minute sampling does not fit the 5-minute design).
 - Revisit original dataset: no real labelled infrastructure data is used; BattLeDIM is simulated (semi_synthetic). Babela et al. 2026 dataset not confirmed.
 - Fusion result is mixed: better point-level macro-F1 than voting/baselines but far more false alarms than threshold voting (see results/SUMMARY.md). Worth discussing how to reframe the contribution.
 - Quality data are USGS river stations (real, unlabelled), a stand-in for a drinking-water network.
@@ -42,4 +44,11 @@ Status values: not started, in progress, passed, blocked.
 - 2026-10-10 Step 0: BattLeDIM + USGS downloaded, loaders, docs/datasets.md, check_step_0 PASS
 
 ## Round 2 (pending)
-See PLAN_ROUND2.md. Status: in progress. R0 done (tag round1, results_round1/).
+See PLAN_ROUND2.md. Status: in progress (paused for usage limit, resume from the checkpoint steps below).
+- Done: R0 (tag round1, results_round1/), R1 (test_v2 built, seed 20261010), R2 tuning and selection on validation (F-B selected; results/round2/selection_val.json; NOT yet frozen), R3 (temporal ablation, 5 seeds: no detectable difference; results/round2/temporal_ablation.json), R4 (One-Class SVM baseline added, baselines re-tuned under the 0.5/day cap), R5 skipped (LeakDB: 13.9 GB, 30-min sampling).
+- **INCIDENT, read docs/decisions.md "INCIDENT (2026-10-10, during R4)":** the baseline runner scored test_v2 before the freeze (my bug; numbers not viewed; evidence in results/round2/incident_test_v2/; lock hardened). Decision recorded: generate test_v3 (seed 20261011) as the clean headline set, report test_v2 as secondary.
+- Next: build test_v3; update run_final.py (headline scenarios_v3, secondary scenarios_v2, v1 exposed, BattLeDIM); freeze; dry run on validation; commit; real run (R6); make_summary (R7); check_round2 + all checks (R8). Do not open the files in results/round2/incident_test_v2/ by hand.
+- Written but not yet run: src/kami/eval/run_final.py, freeze.py, bootstrap.py, final_models.py, scripts/make_summary.py (Round 2 version; needs results/round2/final_results.json).
+
+## WhatsApp add-on (pending, after Round 2)
+See PLAN_WHATSAPP.md. Status: not started.

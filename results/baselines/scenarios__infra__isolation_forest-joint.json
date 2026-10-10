@@ -4,41 +4,41 @@
   "model": "isolation_forest-joint",
   "params": {
     "n_estimators": 100,
-    "max_samples": 256,
-    "quantile": 0.95
+    "max_samples": 2048,
+    "quantile": 0.99
   },
   "val": {
     "point": {
-      "precision": 0.3113344988344988,
-      "recall": 0.08876796543989367,
-      "f1": 0.13814726226646842
+      "precision": 0.4675040961223375,
+      "recall": 0.03555703248317687,
+      "f1": 0.06608762787106737
     },
     "event": {
-      "precision": 0.35802469135802467,
-      "recall": 0.8888888888888888,
-      "f1": 0.5104510451045103,
+      "precision": 0.452991452991453,
+      "recall": 0.6388888888888888,
+      "f1": 0.5301152424440096,
       "events": 36,
-      "detected": 32,
-      "alert_segments": 324,
-      "false_alert_segments": 208
+      "detected": 23,
+      "alert_segments": 117,
+      "false_alert_segments": 64
     },
-    "false_alarms_per_day": 0.701263125856034,
+    "false_alarms_per_day": 0.2157732694941643,
     "latency_h": {
-      "median": 14.083333333333332,
-      "p90": 66.85000000000001,
-      "n": 32
+      "median": 16.416666666666668,
+      "p90": 71.93333333333334,
+      "n": 23
     },
     "per_type_recall": {
       "combined": {
-        "recall": 0.8333333333333334,
+        "recall": 0.5833333333333334,
         "events": 12
       },
       "infra_burst": {
-        "recall": 0.9166666666666666,
+        "recall": 0.6666666666666666,
         "events": 12
       },
       "infra_leak": {
-        "recall": 0.9166666666666666,
+        "recall": 0.6666666666666666,
         "events": 12
       }
     },
@@ -46,36 +46,36 @@
   },
   "test": {
     "point": {
-      "precision": 0.30757863626767995,
-      "recall": 0.05795083923315567,
-      "f1": 0.0975266909869808
+      "precision": 0.5209080047789725,
+      "recall": 0.017341500278418583,
+      "f1": 0.03356557219292505
     },
     "event": {
-      "precision": 0.3885542168674699,
-      "recall": 0.9444444444444444,
-      "f1": 0.5505900075320111,
+      "precision": 0.5319148936170213,
+      "recall": 0.7222222222222222,
+      "f1": 0.6126295947219603,
       "events": 36,
-      "detected": 34,
-      "alert_segments": 332,
-      "false_alert_segments": 203
+      "detected": 26,
+      "alert_segments": 94,
+      "false_alert_segments": 44
     },
-    "false_alarms_per_day": 0.7020341506760489,
+    "false_alarms_per_day": 0.15216503758495642,
     "latency_h": {
-      "median": 3.9583333333333335,
-      "p90": 41.44999999999998,
-      "n": 34
+      "median": 8.625,
+      "p90": 25.791666666666668,
+      "n": 26
     },
     "per_type_recall": {
       "combined": {
-        "recall": 1.0,
+        "recall": 0.6666666666666666,
         "events": 12
       },
       "infra_burst": {
-        "recall": 0.8333333333333334,
+        "recall": 0.75,
         "events": 12
       },
       "infra_leak": {
-        "recall": 1.0,
+        "recall": 0.75,
         "events": 12
       }
     },

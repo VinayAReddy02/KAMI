@@ -95,4 +95,4 @@ def test_baseline_run_opened_test_once_per_model():
 
     log = json.loads(LOG.read_text(encoding="utf-8"))
     keys = [r["key"] for r in log]
-    assert len(keys) == len(set(keys)) and len(keys) == 7
+    assert len(keys) == len(set(keys)) and len(keys) == 10

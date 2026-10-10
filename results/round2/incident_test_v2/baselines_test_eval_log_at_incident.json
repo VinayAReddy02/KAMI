@@ -1,0 +1,121 @@
+[
+  {
+    "key": "1ab1559d4b0608ba",
+    "model": "fixed_threshold-infra",
+    "dataset": "battledim",
+    "count": 1,
+    "utc": "2026-10-10T06:42:48.198937+00:00"
+  },
+  {
+    "key": "83e0071708fccb65",
+    "model": "isolation_forest-infra",
+    "dataset": "battledim",
+    "count": 2,
+    "utc": "2026-10-10T06:42:48.232270+00:00"
+  },
+  {
+    "key": "f48306e42d059474",
+    "model": "ocsvm-infra",
+    "dataset": "battledim",
+    "count": 3,
+    "utc": "2026-10-10T06:42:48.367029+00:00"
+  },
+  {
+    "key": "f94f21f241b98fb0",
+    "model": "fixed_threshold-infra",
+    "dataset": "scenarios",
+    "count": 4,
+    "utc": "2026-10-10T06:44:23.381458+00:00"
+  },
+  {
+    "key": "fcfdc9542ee0d47a",
+    "model": "fixed_threshold-quality",
+    "dataset": "scenarios",
+    "count": 5,
+    "utc": "2026-10-10T06:44:23.464220+00:00"
+  },
+  {
+    "key": "0b90ede406b1c5d9",
+    "model": "isolation_forest-infra",
+    "dataset": "scenarios",
+    "count": 6,
+    "utc": "2026-10-10T06:44:23.547619+00:00"
+  },
+  {
+    "key": "e4cb154e4fbe8147",
+    "model": "isolation_forest-quality",
+    "dataset": "scenarios",
+    "count": 7,
+    "utc": "2026-10-10T06:44:23.947483+00:00"
+  },
+  {
+    "key": "02b19b3b76f7be09",
+    "model": "isolation_forest-joint",
+    "dataset": "scenarios",
+    "count": 8,
+    "utc": "2026-10-10T06:44:24.708169+00:00"
+  },
+  {
+    "key": "7f9caee6d3a7cac2",
+    "model": "ocsvm-infra",
+    "dataset": "scenarios",
+    "count": 9,
+    "utc": "2026-10-10T06:44:25.226292+00:00"
+  },
+  {
+    "key": "73472f11898391d6",
+    "model": "ocsvm-quality",
+    "dataset": "scenarios",
+    "count": 10,
+    "utc": "2026-10-10T06:44:31.290490+00:00"
+  },
+  {
+    "key": "f652d24d4865b5ca",
+    "model": "fixed_threshold-infra",
+    "dataset": "scenarios_v2",
+    "count": 11,
+    "utc": "2026-10-10T06:46:08.508445+00:00"
+  },
+  {
+    "key": "2c4915e4cab7acc8",
+    "model": "fixed_threshold-quality",
+    "dataset": "scenarios_v2",
+    "count": 12,
+    "utc": "2026-10-10T06:46:08.587706+00:00"
+  },
+  {
+    "key": "444c56d7c8e5355b",
+    "model": "isolation_forest-infra",
+    "dataset": "scenarios_v2",
+    "count": 13,
+    "utc": "2026-10-10T06:46:08.666771+00:00"
+  },
+  {
+    "key": "7995a671769225bf",
+    "model": "isolation_forest-quality",
+    "dataset": "scenarios_v2",
+    "count": 14,
+    "utc": "2026-10-10T06:46:09.075063+00:00"
+  },
+  {
+    "key": "afb164f69e66baba",
+    "model": "isolation_forest-joint",
+    "dataset": "scenarios_v2",
+    "count": 15,
+    "utc": "2026-10-10T06:46:09.833440+00:00"
+  },
+  {
+    "key": "93565915031eea9d",
+    "model": "ocsvm-infra",
+    "dataset": "scenarios_v2",
+    "count": 16,
+    "utc": "2026-10-10T06:46:10.350118+00:00"
+  },
+  {
+    "key": "895c606588fe2b6a",
+    "model": "ocsvm-quality",
+    "dataset": "scenarios_v2",
+    "count": 17,
+    "utc": "2026-10-10T06:46:16.505899+00:00"
+  }
+]

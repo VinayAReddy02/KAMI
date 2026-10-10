@@ -85,3 +85,6 @@ Steps 0 to 7 pass their check scripts, `pytest -q` passes, `npm run build` passe
 
 ## Round 2 (added after the review)
 Round 1 is finished. When PROGRESS.md says Round 2 is pending, read PLAN_ROUND2.md and work through it in order, with all the rules above. "Stop after Step 7" now means: stop after Round 2 (task R8). The paper is still written later with the user.
+
+## WhatsApp add-on (after Round 2)
+When PROGRESS.md says Round 2 is done and the WhatsApp add-on is pending, read PLAN_WHATSAPP.md. It is outbound alerts only, and it is the single exception to the "no keys" rule: credentials only in git-ignored `.env`, never printed or committed.

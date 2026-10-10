@@ -3,36 +3,36 @@
   "domain": "infra",
   "model": "fixed_threshold",
   "params": {
-    "k": 1.5
+    "k": 4
   },
   "val": {
     "point": {
-      "precision": 0.36618344926217256,
-      "recall": 0.3985425215791708,
-      "f1": 0.3816783548463597
+      "precision": 0.8,
+      "recall": 0.0011320220744304515,
+      "f1": 0.0022608449908153175
     },
     "event": {
-      "precision": 0.3515981735159817,
-      "recall": 1.0,
-      "f1": 0.5202702702702703,
+      "precision": 0.6923076923076923,
+      "recall": 0.25,
+      "f1": 0.3673469387755102,
       "events": 8,
-      "detected": 8,
-      "alert_segments": 219,
-      "false_alert_segments": 142
+      "detected": 2,
+      "alert_segments": 13,
+      "false_alert_segments": 4
     },
-    "false_alarms_per_day": 1.596876220226474,
+    "false_alarms_per_day": 0.044982428738773915,
     "latency_h": {
-      "median": 0.0,
-      "p90": 15.74166666666666,
-      "n": 8
+      "median": 42.5,
+      "p90": 75.3,
+      "n": 2
     },
     "per_type_recall": {
       "infra_burst": {
-        "recall": 1.0,
+        "recall": 0.2,
         "events": 5
       },
       "infra_leak": {
-        "recall": 1.0,
+        "recall": 0.3333333333333333,
         "events": 3
       }
     },
@@ -40,24 +40,24 @@
   },
   "test": {
     "point": {
-      "precision": 0.4143646408839779,
-      "recall": 0.6877666687894033,
-      "f1": 0.5171546915028611
+      "precision": 0.6666666666666666,
+      "recall": 0.005858753104502325,
+      "f1": 0.01161542831891926
     },
     "event": {
-      "precision": 0.40816326530612246,
-      "recall": 1.0,
-      "f1": 0.5797101449275363,
+      "precision": 0.5686274509803921,
+      "recall": 0.75,
+      "f1": 0.6468401486988847,
       "events": 8,
-      "detected": 8,
-      "alert_segments": 147,
-      "false_alert_segments": 87
+      "detected": 6,
+      "alert_segments": 51,
+      "false_alert_segments": 22
     },
-    "false_alarms_per_day": 1.0422195416164053,
+    "false_alarms_per_day": 0.26354976914437833,
     "latency_h": {
-      "median": 0.0,
-      "p90": 6.05,
-      "n": 8
+      "median": 51.75,
+      "p90": 125.58333333333334,
+      "n": 6
     },
     "per_type_recall": {
       "infra_burst": {
@@ -65,7 +65,7 @@
         "events": 1
       },
       "infra_leak": {
-        "recall": 1.0,
+        "recall": 0.7142857142857143,
         "events": 7
       }
     },

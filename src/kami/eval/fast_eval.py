@@ -74,3 +74,24 @@ class AnyEvaluator:
             for d, c in zip(days, cnt):
                 acc[d] = acc.get(d, 0) + int(c)
         return acc
+
+
+TYPE_CAT = {"infra_leak": 1, "infra_burst": 1, "quality_turbidity_surge": 2, "quality_tds_shift": 2, "combined": 3}
+
+
+def category_correct(self: AnyEvaluator, pred_cat: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Per event (same order as `__call__(details=True)['detected']`): is the modal non-Normal predicted category inside
+    the event window equal to the true category? Also returns the event types."""
+    pred_cat = np.asarray(pred_cat, int)
+    ok, types = [], []
+    for n in self.nodes:
+        pc = np.where(n["sc"], pred_cat[n["pos"]], 0)
+        for a, b, typ in n["spans"]:
+            w = pc[a:b + 1]
+            w = w[w > 0]
+            ok.append(bool(w.size and np.bincount(w).argmax() == TYPE_CAT[typ]))
+            types.append(typ)
+    return np.array(ok, bool), np.array(types)
+
+
+AnyEvaluator.category_correct = category_correct

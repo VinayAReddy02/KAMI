@@ -1,0 +1,9 @@
+  ocsvm-infra tuned in 10s: nu=0.05 gamma_mult=0.1 q=0.999 val event F1 0.517
+battledim done at 20s
+  ocsvm-infra tuned in 20s: nu=0.05 gamma_mult=0.1 q=0.999 val event F1 0.585
+  ocsvm-quality tuned in 24s: nu=0.05 gamma_mult=0.1 q=0.95 val event F1 0.225
+scenarios done at 126s
+  ocsvm-infra tuned in 21s: nu=0.05 gamma_mult=0.1 q=0.999 val event F1 0.585
+  ocsvm-quality tuned in 21s: nu=0.05 gamma_mult=0.1 q=0.95 val event F1 0.225
+scenarios_v2 done at 232s
+wrote 19 result files in 232s
