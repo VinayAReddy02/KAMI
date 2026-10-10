@@ -26,7 +26,7 @@ def bootstrap_any(details: dict, cat_ok: np.ndarray | None = None, n: int = N_BO
     for _ in range(n):
         ie = rng.integers(0, E, E) if E else np.array([], int)
         is_ = rng.integers(0, S, S) if S else np.array([], int)
-        id_ = rng.integers(0, D, D)
+        id_ = rng.integers(0, D, D) if D else np.array([], int)
         r = det[ie].mean() if E else 0.0
         p = seg_tp[is_].mean() if S else 0.0
         rec.append(r)

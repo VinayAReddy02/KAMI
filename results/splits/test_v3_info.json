@@ -1,0 +1,19 @@
+{
+  "seed_v3": 20261011,
+  "hash_v3": "3da90074be8da4c1bd3047b4e35533eda6684dd89ae6bd3b5604a2d1295e989d",
+  "same_seed_identical": true,
+  "events_per_type": {
+    "combined": 12,
+    "infra_burst": 12,
+    "infra_leak": 12,
+    "quality_tds_shift": 12,
+    "quality_turbidity_surge": 12
+  },
+  "no_straddle": true,
+  "v1_same_node_type_start": 1,
+  "v1_identical_events": 0,
+  "train_val_identical_to_v1": true,
+  "test_events_differ_from_v1": true,
+  "v2_same_node_type_start": 0,
+  "v2_identical_events": 0
+}

@@ -16,8 +16,10 @@ CONFIG = RES / "fusion" / "frozen_config.json"
 GLOBS = [
     "src/kami/models/*.py", "src/kami/features/*.py", "src/kami/eval/*.py", "src/kami/simulator/scenarios.py",
     "results/round2/selection_val.json", "results/baselines/*.json", "results/evidence/*.json",
-    "data/processed/models/*.joblib", "data/processed/scenarios_v2_semi_synthetic.parquet",
-    "results/splits/*.json", "results/splits/scenario_events_v2_test.csv",
+    "data/processed/models/*.joblib", "data/processed/scenarios_semi_synthetic.parquet",
+    "data/processed/scenarios_v2_semi_synthetic.parquet", "data/processed/scenarios_v3_semi_synthetic.parquet",
+    "data/processed/battledim_network_semi_synthetic.parquet", "data/processed/evidence_*.parquet",
+    "results/splits/*.json", "results/splits/*.csv",
 ]
 
 
@@ -59,7 +61,13 @@ def build() -> dict:
                         "oof_false_alarms_per_day": v["oof_false_alarms_per_day"], "feasible_at_cap": v["feasible_at_cap"]}
                     for k, v in sel["designs"].items()},
         "baselines": base,
-        "test_v2_seed": 20261010,
+        "headline_test_set": "test_v3",
+        "test_sets": {"test_v3": {"seed": 20261011, "role": "headline: frozen first, every model evaluated once"},
+                      "test_v2": {"seed": 20261010, "role": "secondary: baselines were scored on it once before the freeze "
+                                                            "(results/round2/incident_test_v2); other models never opened it"},
+                      "test_v1": {"seed": 42, "role": "exposed in Round 1, reference only"}},
+        "reporting_rule": "Both test_v3 and test_v2 tables are reported whatever they show; the verdict uses test_v3 only; "
+                          "no pooling.",
         "files_sha256": files,
         "files_list_sha256": hashlib.sha256("\n".join(f"{k} {v}" for k, v in sorted(files.items())).encode()).hexdigest(),
     }

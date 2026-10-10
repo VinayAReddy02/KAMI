@@ -1,0 +1,31 @@
+{
+  "what": "The baseline runner looped over every registered dataset, which then included the held-out set scenarios_v2, and scored the baselines on test_v2 before the configuration was frozen.",
+  "dataset": "scenarios_v2 (test_v2, seed 20261010)",
+  "models": [
+    "fixed_threshold-infra",
+    "fixed_threshold-quality",
+    "isolation_forest-infra",
+    "isolation_forest-quality",
+    "isolation_forest-joint",
+    "ocsvm-infra",
+    "ocsvm-quality"
+  ],
+  "accesses": 7,
+  "first_access_utc": "2026-10-10T06:46:08.508445+00:00",
+  "last_access_utc": "2026-10-10T06:46:16.505899+00:00",
+  "fusion_or_voting_models_involved": false,
+  "numbers_inspected_before_decision": false,
+  "consequence": "For test_v2 the baselines were not frozen before first access and are evaluated twice. test_v3 (seed 20261011) was generated as the clean headline set; test_v2 is reported as secondary.",
+  "evidence_files": [
+    "baselines_test_eval_log_at_incident.json",
+    "run_baselines_stdout.txt",
+    "scenarios_v2__infra__fixed_threshold.json",
+    "scenarios_v2__infra__isolation_forest-joint.json",
+    "scenarios_v2__infra__isolation_forest.json",
+    "scenarios_v2__infra__ocsvm.json",
+    "scenarios_v2__quality__fixed_threshold.json",
+    "scenarios_v2__quality__isolation_forest-joint.json",
+    "scenarios_v2__quality__isolation_forest.json",
+    "scenarios_v2__quality__ocsvm.json"
+  ]
+}

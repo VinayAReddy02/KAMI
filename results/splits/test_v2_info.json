@@ -1,7 +1,6 @@
 {
   "seed_v2": 20261010,
   "hash_v2": "e116e2a619cd60e6e13fc33a817a571ca22b8ac36f861eabad9b3ba52a630ced",
-  "hash_v2_repeat": "e116e2a619cd60e6e13fc33a817a571ca22b8ac36f861eabad9b3ba52a630ced",
   "same_seed_identical": true,
   "events_per_type": {
     "combined": 12,
@@ -11,7 +10,10 @@
     "quality_turbidity_surge": 12
   },
   "no_straddle": true,
-  "v1_v2_test_events_overlap": 0,
+  "v1_same_node_type_start": 0,
+  "v1_identical_events": 0,
   "train_val_identical_to_v1": true,
-  "test_events_differ_from_v1": true
+  "test_events_differ_from_v1": true,
+  "v3_same_node_type_start": 0,
+  "v3_identical_events": 0
 }

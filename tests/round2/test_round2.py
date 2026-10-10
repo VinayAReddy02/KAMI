@@ -142,12 +142,23 @@ def test_freeze_detects_changes(tmp_path, monkeypatch):
         freeze.verify()
 
 
-def test_v2_dataset_properties():
+def test_held_out_dataset_properties():
     import json
 
     from kami.eval.data import RES
 
-    info = json.loads((RES / "splits" / "test_v2_info.json").read_text(encoding="utf-8"))
-    assert info["seed_v2"] == 20261010 and info["same_seed_identical"] and info["no_straddle"]
-    assert info["v1_v2_test_events_overlap"] == 0 and info["train_val_identical_to_v1"] and info["test_events_differ_from_v1"]
-    assert set(info["events_per_type"].values()) == {12}
+    seeds = {"v2": 20261010, "v3": 20261011}
+    hashes = {}
+    for v, seed in seeds.items():
+        info = json.loads((RES / "splits" / f"test_{v}_info.json").read_text(encoding="utf-8"))
+        assert info[f"seed_{v}"] == seed and info["same_seed_identical"] and info["no_straddle"]
+        assert info["train_val_identical_to_v1"] and info["test_events_differ_from_v1"]
+        assert info["v1_identical_events"] == 0
+        assert set(info["events_per_type"].values()) == {12}
+        hashes[v] = info[f"hash_{v}"]
+    assert hashes["v2"] != hashes["v3"]
+    v3 = json.loads((RES / "splits" / "test_v3_info.json").read_text(encoding="utf-8"))
+    assert v3["v2_identical_events"] == 0 and v3["v2_same_node_type_start"] == 0
+    # one v3 event happens to start at the same time on the same node as a v1 event of the same type (chance,
+    # about 1 in 100 for a pair of seeds); it is a different event (kind, size, length). Recorded, seed not re-rolled.
+    assert v3["v1_same_node_type_start"] <= 1
