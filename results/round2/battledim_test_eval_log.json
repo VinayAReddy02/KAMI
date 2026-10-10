@@ -1,0 +1,83 @@
+[
+  {
+    "key": "5be2d965e0610518",
+    "model": "F-A",
+    "dataset": "battledim",
+    "count": 1,
+    "utc": "2026-10-10T16:36:00.730557+00:00",
+    "completed_utc": "2026-10-10T16:36:00.814272+00:00",
+    "rows": 42048
+  },
+  {
+    "key": "09e0816990b885e3",
+    "model": "F-B",
+    "dataset": "battledim",
+    "count": 2,
+    "utc": "2026-10-10T16:36:00.823316+00:00",
+    "completed_utc": "2026-10-10T16:36:00.868135+00:00",
+    "rows": 42048
+  },
+  {
+    "key": "55d7afd83095b8a4",
+    "model": "F-A (no temporal)",
+    "dataset": "battledim",
+    "count": 3,
+    "utc": "2026-10-10T16:36:00.881299+00:00",
+    "completed_utc": "2026-10-10T16:36:00.913371+00:00",
+    "rows": 42048
+  },
+  {
+    "key": "1b4a462f58c74491",
+    "model": "F-B (no temporal)",
+    "dataset": "battledim",
+    "count": 4,
+    "utc": "2026-10-10T16:36:00.927405+00:00",
+    "completed_utc": "2026-10-10T16:36:00.956622+00:00",
+    "rows": 42048
+  },
+  {
+    "key": "2ab45130e440b819",
+    "model": "threshold voting (no fusion)",
+    "dataset": "battledim",
+    "count": 5,
+    "utc": "2026-10-10T16:36:00.968287+00:00",
+    "completed_utc": "2026-10-10T16:36:01.006000+00:00",
+    "rows": 42048
+  },
+  {
+    "key": "6accee76c659156c",
+    "model": "single joint model (no separated evidence)",
+    "dataset": "battledim",
+    "count": 6,
+    "utc": "2026-10-10T16:36:01.020061+00:00",
+    "completed_utc": "2026-10-10T16:36:01.124917+00:00",
+    "rows": 42048
+  },
+  {
+    "key": "651427788e675f12",
+    "model": "baseline: fixed_threshold",
+    "dataset": "battledim",
+    "count": 7,
+    "utc": "2026-10-10T16:36:01.135946+00:00",
+    "completed_utc": "2026-10-10T16:36:01.164529+00:00",
+    "rows": 42048
+  },
+  {
+    "key": "876a977007425df2",
+    "model": "baseline: isolation_forest",
+    "dataset": "battledim",
+    "count": 8,
+    "utc": "2026-10-10T16:36:01.177070+00:00",
+    "completed_utc": "2026-10-10T16:36:01.352905+00:00",
+    "rows": 42048
+  },
+  {
+    "key": "06ea2a28ec99ceaa",
+    "model": "baseline: ocsvm",
+    "dataset": "battledim",
+    "count": 9,
+    "utc": "2026-10-10T16:36:01.361407+00:00",
+    "completed_utc": "2026-10-10T16:36:04.096350+00:00",
+    "rows": 42048
+  }
+]

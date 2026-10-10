@@ -1,0 +1,83 @@
+[
+  {
+    "key": "517adfddd5ce64db",
+    "model": "F-A",
+    "dataset": "scenarios_v2",
+    "count": 1,
+    "utc": "2026-10-10T16:35:23.935553+00:00",
+    "completed_utc": "2026-10-10T16:35:24.738041+00:00",
+    "rows": 126144
+  },
+  {
+    "key": "264cfa9420edee97",
+    "model": "F-B",
+    "dataset": "scenarios_v2",
+    "count": 2,
+    "utc": "2026-10-10T16:35:24.797198+00:00",
+    "completed_utc": "2026-10-10T16:35:24.931305+00:00",
+    "rows": 126144
+  },
+  {
+    "key": "2f22389e9ceaa718",
+    "model": "F-A (no temporal)",
+    "dataset": "scenarios_v2",
+    "count": 3,
+    "utc": "2026-10-10T16:35:24.989753+00:00",
+    "completed_utc": "2026-10-10T16:35:25.164289+00:00",
+    "rows": 126144
+  },
+  {
+    "key": "949ca42bdfb5c32c",
+    "model": "F-B (no temporal)",
+    "dataset": "scenarios_v2",
+    "count": 4,
+    "utc": "2026-10-10T16:35:25.226011+00:00",
+    "completed_utc": "2026-10-10T16:35:25.346379+00:00",
+    "rows": 126144
+  },
+  {
+    "key": "d6373b8b391994f0",
+    "model": "threshold voting (no fusion)",
+    "dataset": "scenarios_v2",
+    "count": 5,
+    "utc": "2026-10-10T16:35:25.413193+00:00",
+    "completed_utc": "2026-10-10T16:35:25.549126+00:00",
+    "rows": 126144
+  },
+  {
+    "key": "0c5e13f76ba9c3bb",
+    "model": "single joint model (no separated evidence)",
+    "dataset": "scenarios_v2",
+    "count": 6,
+    "utc": "2026-10-10T16:35:25.606395+00:00",
+    "completed_utc": "2026-10-10T16:35:27.104333+00:00",
+    "rows": 126144
+  },
+  {
+    "key": "97ce39e7ec0b59b1",
+    "model": "baseline: fixed_threshold",
+    "dataset": "scenarios_v2",
+    "count": 7,
+    "utc": "2026-10-10T16:35:27.140555+00:00",
+    "completed_utc": "2026-10-10T16:35:27.215804+00:00",
+    "rows": 126144
+  },
+  {
+    "key": "3113682586e46571",
+    "model": "baseline: isolation_forest",
+    "dataset": "scenarios_v2",
+    "count": 8,
+    "utc": "2026-10-10T16:35:27.243874+00:00",
+    "completed_utc": "2026-10-10T16:35:28.385889+00:00",
+    "rows": 126144
+  },
+  {
+    "key": "d9a416b7ae175463",
+    "model": "baseline: ocsvm",
+    "dataset": "scenarios_v2",
+    "count": 9,
+    "utc": "2026-10-10T16:35:28.417046+00:00",
+    "completed_utc": "2026-10-10T16:35:42.947594+00:00",
+    "rows": 126144
+  }
+]

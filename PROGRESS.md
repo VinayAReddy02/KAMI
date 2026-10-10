@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-10
-**Current step:** done (stopped after Step 7)
+**Current step:** Round 2 done (stopped after R8). WhatsApp add-on not started.
 **Mode:** unattended allowed; never wait for answers (see CLAUDE.md)
 
 ## Steps
@@ -21,10 +21,14 @@ Update this file after every task. A new session must be able to resume from her
 Status values: not started, in progress, passed, blocked.
 
 ## Needs user (read this first in the morning)
-- **Round 2 incident:** test_v2 was scored by the baselines before the freeze (my mistake). I added test_v3 (seed 20261011) as the clean headline set and kept test_v2 as a secondary table. Say if you would rather have test_v2 as the headline. Details in docs/decisions.md.
+- **Round 2 outcome to frame in the paper:** fusion does not beat threshold voting on event F1 on the headline set; its measurable advantage is category accuracy. F-A (not selected) has the best category accuracy (0.850 on test_v3). Decide how to present this, and whether F-A should be the design you describe.
+- **Objective has no term for time in alert.** On BattLeDIM every tuned rule alerts on about 100% of rows and still scores 0.94. If you want BattLeDIM to mean anything, the objective needs a cap on time in alert (a method change, so yours to make).
+- **Detection is slow at the tuned thresholds** (median 3.4 h, 90th percentile 25 h; alerts cover about 22% of event rows). Thresholds sit at the strict end of the tuning grid.
+- **The live demo still runs the Round 1 fusion rule**, not the frozen Round 2 rule (PLAN_ROUND2 said not to change the dashboard). Say if you want it switched.
+- **Review coverage:** the pre-freeze code review ran five of six reviewers; the crash-safety reviewer did not run. I covered that part with the rehearsal mode instead.
+- Round 2 incident and the test_v3 choice: see the Round 2 section below (already approved by you).
 - Optional: LeakDB was skipped (13.9 GB archive, 30-minute sampling does not fit the 5-minute design).
 - Revisit original dataset: no real labelled infrastructure data is used; BattLeDIM is simulated (semi_synthetic). Babela et al. 2026 dataset not confirmed.
-- Fusion result is mixed: better point-level macro-F1 than voting/baselines but far more false alarms than threshold voting (see results/SUMMARY.md). Worth discussing how to reframe the contribution.
 - Quality data are USGS river stations (real, unlabelled), a stand-in for a drinking-water network.
 
 ## Environment findings
@@ -43,14 +47,13 @@ Status values: not started, in progress, passed, blocked.
 - 2026-10-10 Step 1: store/bus/worker/API/node fleet, check_step_1 PASS (8 nodes x 268 rows in 20 s), tests 5 passed 2 skipped (no Docker)
 - 2026-10-10 Step 0: BattLeDIM + USGS downloaded, loaders, docs/datasets.md, check_step_0 PASS
 
-## Round 2 (pending)
-See PLAN_ROUND2.md. Status: in progress, paused at the usage limit (2026-10-10). NOT frozen yet; R6 not run.
-- Done and committed: R0, R1 (test_v2 seed 20261010), R2 tuning and selection on validation (F-B selected; now also tuned on BattLeDIM validation; results/round2/selection_val.json), R3 (temporal: no detectable difference), R4 (One-Class SVM, baselines re-tuned under the cap), R5 skipped (LeakDB).
-- INCIDENT (docs/decisions.md): baselines were scored on test_v2 before the freeze (my mistake, numbers not viewed, evidence in results/round2/incident_test_v2/). User approved in chat: test_v3 (seed 20261011) is the headline set, test_v2 secondary. test_v3 is built and has never been opened; no fusion, voting or joint model has opened test_v2.
-- Written and dry-run on validation: src/kami/eval/run_final.py (preflight, resume), freeze.py, bootstrap.py, final_models.py, scripts/make_summary.py (Round 2), scripts/check_round2.py, scripts/make_incident_record.py. Round-1 check_step_0,2,3,4,5 pass.
-- A read-only code review of the final-evaluation code was started (workflow run id wf_b84533fb-ce8) and stopped at the usage limit; its findings were NOT yet read or applied. Resume it or re-run it before freezing.
-- Next, in order: (1) read and apply the review findings; (2) pytest tests/round2; (3) python -m kami.eval.run_final --dry-run (needs a freeze: python -c "from kami.eval.freeze import build; build()"); (4) commit all code; (5) build the freeze again and commit results/fusion/frozen_config.json; (6) python -m kami.eval.run_final (one time); (7) scripts/make_summary.py; (8) decisions.md results + README scope notes; (9) scripts/check_round2.py and R8 checks; commit as round 2: <summary>. Do not open results/round2/incident_test_v2/*.json other than incident.json.
-- Known points to report: event metrics do not penalise alert duration (alert-time columns added); F-B without temporal features is the threshold-voting rule; tuned thresholds sit at grid edges; the live demo still uses the Round-1 fusion rule.
+## Round 2 (done, 2026-10-10)
+See PLAN_ROUND2.md, docs/decisions.md (Round 2) and results/SUMMARY.md. Status: R0 to R8 done; `scripts/check_round2.py` passes with one documented exception (below).
+- **Result (test_v3, frozen rule):** no detectable difference between the selected fusion design F-B and threshold voting on event F1 (0.708 vs 0.667, paired difference +0.041 [-0.017, +0.101]; both 0.09 false alarms/day). F-B is detectably better on category accuracy (0.700 vs 0.617). On the secondary set test_v2 F-B beats voting (+0.101 [+0.027, +0.180]).
+- R0 tag round1 + results_round1/. R1 test_v2 (seed 20261010) and test_v3 (seed 20261011). R2 validation-only tuning, objective = event-counted F1 with at most 0.5 false alarms/day, frozen at `b88f6d5` / `d8e12bc`. R3 temporal ablation (5 seeds): helps F-A category accuracy, hurts F-B event F1 on validation. R4 One-Class SVM added, all baselines re-tuned with the same objective. R5 skipped (LeakDB). R6 final run, once per model, predictions stored. R7 SUMMARY regenerated by script.
+- **Documented exception:** the baselines were scored on test_v2 before the freeze (my mistake; evidence in results/round2/incident_test_v2/). test_v3 is the headline set for that reason; the user approved this.
+- **Also on record:** a dry run loaded and featurised the test_v3 file before the freeze (no model or metric used its test rows); the user decided test_v3 stays the headline. Metric definitions changed before the freeze after a code review (event-counted F1, new category-accuracy rule), so Round 2 numbers are not comparable with results_round1/.
+- To re-check: `python scripts/check_round2.py` (add `--quick` to skip the Round 1 checks). The final evaluation cannot be repeated; `python -m kami.eval.run_final` only recomputes numbers from the stored predictions.
 
 ## WhatsApp add-on (pending, after Round 2)
 See PLAN_WHATSAPP.md. Status: not started.

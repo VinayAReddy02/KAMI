@@ -1,0 +1,9 @@
+node_id,event_id,type,start,end
+battledim-network,leak-p586,infra_leak,2019-08-18 21:20:00,2019-08-25 21:20:00
+battledim-network,leak-p800,infra_leak,2019-09-01 10:00:00,2019-09-08 10:00:00
+battledim-network,leak-p721,infra_leak,2019-09-08 03:00:00,2019-09-15 03:00:00
+battledim-network,leak-p426,infra_burst,2019-10-25 13:25:00,2019-11-01 13:25:00
+battledim-network,leak-p123,infra_leak,2019-11-07 21:40:00,2019-11-14 21:40:00
+battledim-network,leak-p762,infra_leak,2019-11-17 03:20:00,2019-11-24 03:20:00
+battledim-network,leak-p455,infra_leak,2019-11-24 22:25:00,2019-12-01 22:25:00
+battledim-network,leak-p879,infra_leak,2019-12-19 21:20:00,2019-12-26 21:20:00

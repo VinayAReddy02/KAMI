@@ -133,6 +133,33 @@ def final_table(res, models, flag=None):
     return "\n".join(out)
 
 
+def observations(res, sel):
+    """Plain sentences computed from one result set: how slow and how partial detection is, how close the best baseline
+    comes, and which model names the category best."""
+    good = {m: r for m, r in res.items() if ok(r)}
+    if sel not in good or VOTE not in good:
+        return ""
+    s, t = good[sel], good[VOTE]
+    out = [f"Detection is slow and partial at these strict thresholds: {sel} first alerts a median of "
+           f"{f2(s['event']['latency_median_h'])} h after an event starts (90th percentile {f2(s['event']['latency_p90_h'])} h) and "
+           f"alerts on {pct(s['point_any_alert']['recall'])} of the rows inside events; threshold voting: "
+           f"{f2(t['event']['latency_median_h'])} h, {f2(t['event']['latency_p90_h'])} h and {pct(t['point_any_alert']['recall'])}."]
+    base = {m: r for m, r in good.items() if m.startswith("baseline")}
+    if base:
+        b = max(base, key=lambda m: base[m]["event"]["f1_event_counted"])
+        rb = base[b]
+        out.append(f"The best baseline on event F1 is {b.replace('baseline: ', '')} at "
+                   f"{ci(rb['event']['f1_event_counted'], rb['ci95']['f1_event_counted'])} with {f2(rb['event']['fa_per_day'])} false "
+                   f"alarms/day and category accuracy {f3(rb['category_accuracy_event'])}; threshold voting is at "
+                   f"{ci(t['event']['f1_event_counted'], t['ci95']['f1_event_counted'])}.")
+    c = max(good, key=lambda m: good[m]["category_accuracy_event"])
+    out.append(f"The highest category accuracy per event belongs to {c} "
+               f"({ci(good[c]['category_accuracy_event'], good[c]['ci95']['category_accuracy'])}; event F1 "
+               f"{f3(good[c]['event']['f1_event_counted'])}, {f2(good[c]['event']['fa_per_day'])} false alarms/day)"
+               + ("." if c == sel else f", which is not the selected design ({sel} was selected on validation event F1)."))
+    return " ".join(out)
+
+
 def detail_table(res, models, flag=None):
     out = ["| Model | Segment-based F1 [95% CI] | Segment-based precision [95% CI] | Detected / events | True / false segments | "
            "Row-level alert P / R / F1 | Infrastructure-stream event F1 | Quality-stream event F1 |", "|---|---|---|---|---|---|---|---|"]
@@ -326,7 +353,8 @@ def main(final_path=None, out_path=None):
         f"Threshold voting is tuned the same way and is the comparison, not a candidate.", "", validation_table(sel["designs"]), "",
         "Parameter order: F-B = (r_min, tau, lambda, gamma_infra, gamma_quality); F-A and voting = (infrastructure threshold, quality "
         "threshold). " + same_rule_note(sel["designs"]), "",
-        "## 2. Final evaluation on test_v3 (headline)", "", READING, "", final_table(r3, models), "", detail_table(r3, models), "",
+        "## 2. Final evaluation on test_v3 (headline)", "", READING, "", final_table(r3, models), "",
+        observations(r3, fin["selected_design"]), "", detail_table(r3, models), "",
         "## 3. Category separation on test_v3 (Infrastructure vs Quality vs Combined)", "",
         "Category accuracy per event = share of events for which the set of streams the model reports during the event equals the "
         "streams the event contains (Infrastructure reported if any row in the event window is predicted Infrastructure or "

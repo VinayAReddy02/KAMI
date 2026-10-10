@@ -46,7 +46,7 @@ or `python scripts/reproduce_all.py` for all of the above. `scripts/check_step_N
 Seeds are fixed. Re-running reproduces the numbers (the scenario hash is stored in `results/data_quality.json`).
 
 ### Round 2: frozen method, fresh test sets
-Round 1 results are kept in `results_round1/` (git tag `round1`). Round 2 re-tunes the decision rules on validation only (event F1 with at most 0.5 false alarms per day), freezes the configuration, and evaluates it once on fresh scenario test sets with bootstrap confidence intervals. See `PLAN_ROUND2.md`, `docs/decisions.md` (Round 2) and `results/SUMMARY.md`.
+Round 1 results are kept in `results_round1/` (git tag `round1`). Round 2 re-tunes the decision rules on validation only (event F1, each detected event counted once, with at most 0.5 false alarms per day), freezes the configuration, and evaluates it once on fresh scenario test sets with bootstrap confidence intervals. See `PLAN_ROUND2.md`, `docs/decisions.md` (Round 2) and `results/SUMMARY.md`.
 
 ```powershell
 .\.venv\Scripts\python scripts\build_test_set.py --version v2 --seed 20261010   # held-out test events (secondary set)
@@ -54,14 +54,15 @@ Round 1 results are kept in `results_round1/` (git tag `round1`). Round 2 re-tun
 .\.venv\Scripts\python -m kami.eval.run_round2_select        # validation-only tuning and selection
 .\.venv\Scripts\python -m kami.eval.run_temporal_ablation    # with/without temporal features, 5 seeds, validation
 .\.venv\Scripts\python -c "from kami.eval.freeze import build; build()"   # results/fusion/frozen_config.json
-.\.venv\Scripts\python -m kami.eval.run_final --dry-run      # whole pipeline on validation, no test access
+.\.venv\Scripts\python -m kami.eval.run_final --dry-run      # whole pipeline on validation rows; reads no held-out file
+.\.venv\Scripts\python -m kami.eval.run_final --rehearse     # real code path on the two exposed test sets, throw-away logs
 .\.venv\Scripts\python -m kami.eval.run_final                # one-time final evaluation (logged)
 .\.venv\Scripts\python scripts\make_summary.py
 .\.venv\Scripts\python scripts\check_round2.py              # add --quick to skip the Round 1 checks
 ```
-Test-set roles: `test_v3` is the headline set (frozen first, each model evaluated once). `test_v2` is secondary: the baselines were scored on it once before the freeze by mistake (`results/round2/incident_test_v2/`). `test_v1` (Round 1) and the BattLeDIM test split are exposed and shown for reference only.
+Test-set roles: `test_v3` is the headline set (frozen first, each model evaluated once; its file was loaded once by a dry run before the freeze, with no model or metric using its test rows). `test_v2` is secondary: the baselines were scored on it once before the freeze by mistake (`results/round2/incident_test_v2/`). `test_v1` (Round 1) and the BattLeDIM test split are exposed and shown for reference only.
 
-The final evaluation is deliberately not repeatable: each model's access to a held-out test set is logged in `results/round2/*_eval_log.json`, the runner refuses to start if any frozen file changed, and a second run skips models that were already evaluated. The validation-side commands above are reproducible.
+The final evaluation is deliberately not repeatable: each model's access to a held-out test set is logged in `results/round2/*_eval_log.json`, the runner refuses to start if any frozen file changed, and a second run reuses the stored predictions in `results/round2/predictions/` and opens nothing again (every number can be recomputed from them). The validation-side commands above are reproducible.
 
 ## Repository layout
 ```
@@ -77,4 +78,5 @@ PROGRESS.md  PLAN.md  PLAN_ROUND2.md  CLAUDE.md
 
 ## Honest scope notes
 - Infrastructure data are a hydraulic simulation (BattLeDIM), quality data are real river records (USGS) without event labels, so fusion is tested on semi-synthetic scenarios.
-- The selected fusion design gives better point-level category scores than simple threshold voting but more false alarms. See `docs/decisions.md` (Step 5) and `results/SUMMARY.md`.
+- Round 2 result (fresh test set, frozen method): the selected fusion design does not beat simple threshold voting on event F1 by a detectable margin (0.708 vs 0.667 with overlapping uncertainty), with the same false alarms per day. It is detectably better at naming the right category (Infrastructure, Quality or Combined). See `results/SUMMARY.md` and `docs/decisions.md` (Round 2).
+- The event metrics do not penalise how long an alert lasts, detection at the tuned thresholds is slow (median about 3.4 h), and the BattLeDIM scores are uninformative because every tuned rule alerts almost all the time there. The live demo still runs the Round 1 fusion rule.
