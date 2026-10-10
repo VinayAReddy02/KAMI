@@ -9,6 +9,6 @@
     "threshold voting (no fusion)": 0.4315938976318968,
     "single joint model (no separated evidence)": 0.46367656490347503,
     "baseline: fixed_threshold": 0.3055342940931401,
-    "baseline: isolation_forest": 0.2393090438372351
+    "baseline: isolation_forest": 0.23669748539946714
   }
 }

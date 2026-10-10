@@ -77,16 +77,29 @@ def headline(fin):
     ])
 
 
+def pct(x):
+    return "n/a" if x is None else f"{100 * x:.1f}%"
+
+
 def final_table(res, models, flag=None):
-    out = ["| Model | Event F1 [95% CI] | Event precision [95% CI] | Event recall [95% CI] | False alarms/day [95% CI] | Latency median (h) |",
-           "|---|---|---|---|---|---|"]
+    out = ["| Model | Event F1 [95% CI] | Event precision [95% CI] | Event recall [95% CI] | False alarms/day [95% CI] | "
+           "Latency median (h) | Rows in alert | Normal rows in alert |",
+           "|---|---|---|---|---|---|---|---|"]
     for m in models:
         r = res[m]
         e, c = r["event"], r["ci95"]
         name = m + (" †" if flag and flag(m) else "")
         out.append(f"| {name} | {ci(e['f1'], c['f1'])} | {ci(e['precision'], c['precision'])} | {ci(e['recall'], c['recall'])} | "
-                   f"{ci2(e['fa_per_day'], c['fa_per_day'])} | {f3(e['latency_median_h'])} |")
+                   f"{ci2(e['fa_per_day'], c['fa_per_day'])} | {f3(e['latency_median_h'])} | {pct(r['alert_row_fraction'])} | "
+                   f"{pct(r['normal_rows_in_alert_fraction'])} |")
     return "\n".join(out)
+
+
+READING = ("How to read the tables: an alert segment is a run of alerting rows (gaps up to 1 h merged). Event recall = events with "
+           "any alert inside them; event precision = alert segments that overlap an event; false alarms/day = segments that "
+           "overlap no event, per day of normal data. These event metrics do not penalise how long an alert lasts: a model "
+           "that alerts almost all the time has few, long segments and can score well. The last two columns show that directly "
+           "(share of scored rows in alert, and share of normal rows in alert).")
 
 
 def category_table(res, models, flag=None):
@@ -105,10 +118,20 @@ def category_table(res, models, flag=None):
     return "\n".join(out)
 
 
-def validation_table(sel):
+def same_rule_note(designs):
+    """F-B without temporal features has reliability 1, i.e. the rule p >= threshold: the voting rule."""
+    nt, vote = designs["F-B (no temporal)"]["final_params"][3:], designs[VOTE]["final_params"]
+    base = ("Note: F-B without temporal features has reliability fixed at 1, so its rule is `p >= threshold` per stream, which is "
+            "the threshold-voting rule; the two differ only in the threshold grid searched. ")
+    if [float(x) for x in nt] == [float(x) for x in vote]:
+        return base + f"Here both froze to the same thresholds {vote}, so their rows below are identical by construction."
+    return base + f"Here they froze to different thresholds ({nt} vs {vote})."
+
+
+def validation_table(designs):
     out = ["| Design | OOF event F1 | OOF false alarms/day | Feasible at cap | OOF macro-F1 | OOF category acc. | Frozen parameters |",
            "|---|---|---|---|---|---|---|"]
-    for k, v in sel["designs"].items():
+    for k, v in designs.items():
         out.append(f"| {k} | {v['oof_event_f1']:.3f} | {v['oof_false_alarms_per_day']:.2f} | {'yes' if v['feasible_at_cap'] else 'NO'} | "
                    f"{v['oof_macro_f1']:.3f} | {v['oof_category_accuracy_event']:.3f} | {v['final_params']} |")
     return "\n".join(out)
@@ -178,8 +201,10 @@ def main():
         "## 1. Validation: constrained tuning and selection", "",
         f"Objective: maximise event F1 subject to at most {sel['cap_false_alarms_per_day']} false alarms per day, out-of-fold over "
         f"four validation time blocks. Selected: **{sel['selected']}** ({sel['selection_reason']}). Frozen at commit "
-        f"`{fin['frozen_commit'][:10]}` before any test_v3 access.", "", validation_table(sel), "",
-        "## 2. Final evaluation on test_v3 (headline)", "", final_table(r3, models), "",
+        f"`{fin['frozen_commit'][:10]}` before any test_v3 access.", "", validation_table(sel["designs"]), "",
+        "Parameter order: F-B = (r_min, tau, lambda, gamma_infra, gamma_quality); F-A and voting = (infra threshold, quality threshold). "
+        + same_rule_note(sel["designs"]), "",
+        "## 2. Final evaluation on test_v3 (headline)", "", READING, "", final_table(r3, models), "",
         "## 3. Category separation on test_v3 (Infrastructure vs Quality vs Combined)", "",
         "Category accuracy per event = share of events whose most frequent alert category inside the event window is the true "
         "category (an undetected event counts as wrong). Row recall = share of labelled rows of that category predicted as it.", "",
@@ -190,6 +215,8 @@ def main():
         category_table(r2, models, is_base), "",
         "## 6. BattLeDIM test (real labels on simulated data; previously exposed for F-B; 8 events)", "",
         fin["notes"]["battledim_test_previously_exposed"], "", final_table(bd, order(list(bd))), "",
+        f"BattLeDIM validation tuning ({sel['battledim']['validation_events']} validation events; {sel['battledim']['note']}):", "",
+        validation_table(sel["battledim"]["designs"]), "",
         "## 7. test_v1 (exposed, for reference only)", "", final_table(fin["results"]["test_v1_exposed"], models), "",
         "## 8. Baselines per domain (validation-tuned under the same cap, including One-Class SVM; evaluated on exposed splits)", "",
         body("tables/baselines.md"), "",

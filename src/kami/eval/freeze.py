@@ -23,10 +23,13 @@ GLOBS = [
 ]
 
 
+VOLATILE = {"test_eval_log.json"}  # access logs of the Round-1 runners: rewritten (new timestamps) on every re-run, not inputs
+
+
 def _files() -> list:
     out = []
     for g in GLOBS:
-        out += sorted(ROOT.glob(g))
+        out += [p for p in ROOT.glob(g) if p.name not in VOLATILE]
     return sorted(set(out))
 
 
@@ -60,6 +63,12 @@ def build() -> dict:
         "designs": {k: {"final_params": v["final_params"], "oof_event_f1": v["oof_event_f1"],
                         "oof_false_alarms_per_day": v["oof_false_alarms_per_day"], "feasible_at_cap": v["feasible_at_cap"]}
                     for k, v in sel["designs"].items()},
+        "battledim_designs": {k: {"final_params": v["final_params"], "oof_event_f1": v["oof_event_f1"],
+                                  "oof_false_alarms_per_day": v["oof_false_alarms_per_day"], "feasible_at_cap": v["feasible_at_cap"]}
+                              for k, v in sel["battledim"]["designs"].items()},
+        "joint_model": {"type": "HistGradientBoostingClassifier", "max_depth": 6, "max_iter": 150, "class_weight": "balanced",
+                        "random_state": 0, "tuned_for_cap": False},
+        "bootstrap": {"resamples": 1000, "seed": 12345},
         "baselines": base,
         "headline_test_set": "test_v3",
         "test_sets": {"test_v3": {"seed": 20261011, "role": "headline: frozen first, every model evaluated once"},

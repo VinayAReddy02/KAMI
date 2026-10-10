@@ -21,15 +21,15 @@ DESIGNS = {"F-A": lambda: FusionADesign(True), "F-B": lambda: FusionBDesign(True
 BASELINES = ("fixed_threshold", "isolation_forest", "ocsvm")
 
 
-def fusion_models(frozen: dict, val_frame: pd.DataFrame) -> dict:
-    """Fusion designs and voting with their frozen parameters. F-A's regression is fitted on the validation frame
-    (the same rows and procedure as in R2)."""
+def fusion_models(frozen: dict, val_frame: pd.DataFrame, key: str = "designs") -> dict:
+    """Fusion designs and voting with their frozen parameters (`key` = "designs" for the scenarios, "battledim_designs"
+    for BattLeDIM). F-A's regression is fitted on the given validation frame (the same rows and procedure as in R2)."""
     val = val_frame.reset_index(drop=True)
     out = {}
     for name, mk in DESIGNS.items():
         d = mk()
         d.fit(val, val.y.to_numpy())
-        params = tuple(frozen["designs"][name]["final_params"])
+        params = tuple(frozen[key][name]["final_params"])
         out[name] = (lambda df, d=d, p=params: d.decide(df, p))
     return out
 

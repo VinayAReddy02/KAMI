@@ -215,8 +215,8 @@
     }
   ],
   "best_baseline_val": {
-    "model": "isolation_forest",
-    "val_event_f1": 0.26148744670772145
+    "model": "ocsvm",
+    "val_event_f1": 0.22489959839357432
   },
   "val_event_f1_ge_best_baseline": true
 }

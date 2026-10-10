@@ -44,11 +44,13 @@ Status values: not started, in progress, passed, blocked.
 - 2026-10-10 Step 0: BattLeDIM + USGS downloaded, loaders, docs/datasets.md, check_step_0 PASS
 
 ## Round 2 (pending)
-See PLAN_ROUND2.md. Status: in progress (paused for usage limit, resume from the checkpoint steps below).
-- Done: R0 (tag round1, results_round1/), R1 (test_v2 built, seed 20261010), R2 tuning and selection on validation (F-B selected; results/round2/selection_val.json; NOT yet frozen), R3 (temporal ablation, 5 seeds: no detectable difference; results/round2/temporal_ablation.json), R4 (One-Class SVM baseline added, baselines re-tuned under the 0.5/day cap), R5 skipped (LeakDB: 13.9 GB, 30-min sampling).
-- **INCIDENT, read docs/decisions.md "INCIDENT (2026-10-10, during R4)":** the baseline runner scored test_v2 before the freeze (my bug; numbers not viewed; evidence in results/round2/incident_test_v2/; lock hardened). Decision recorded: generate test_v3 (seed 20261011) as the clean headline set, report test_v2 as secondary.
-- Next: build test_v3; update run_final.py (headline scenarios_v3, secondary scenarios_v2, v1 exposed, BattLeDIM); freeze; dry run on validation; commit; real run (R6); make_summary (R7); check_round2 + all checks (R8). Do not open the files in results/round2/incident_test_v2/ by hand.
-- Written but not yet run: src/kami/eval/run_final.py, freeze.py, bootstrap.py, final_models.py, scripts/make_summary.py (Round 2 version; needs results/round2/final_results.json).
+See PLAN_ROUND2.md. Status: in progress, paused at the usage limit (2026-10-10). NOT frozen yet; R6 not run.
+- Done and committed: R0, R1 (test_v2 seed 20261010), R2 tuning and selection on validation (F-B selected; now also tuned on BattLeDIM validation; results/round2/selection_val.json), R3 (temporal: no detectable difference), R4 (One-Class SVM, baselines re-tuned under the cap), R5 skipped (LeakDB).
+- INCIDENT (docs/decisions.md): baselines were scored on test_v2 before the freeze (my mistake, numbers not viewed, evidence in results/round2/incident_test_v2/). User approved in chat: test_v3 (seed 20261011) is the headline set, test_v2 secondary. test_v3 is built and has never been opened; no fusion, voting or joint model has opened test_v2.
+- Written and dry-run on validation: src/kami/eval/run_final.py (preflight, resume), freeze.py, bootstrap.py, final_models.py, scripts/make_summary.py (Round 2), scripts/check_round2.py, scripts/make_incident_record.py. Round-1 check_step_0,2,3,4,5 pass.
+- A read-only code review of the final-evaluation code was started (workflow run id wf_b84533fb-ce8) and stopped at the usage limit; its findings were NOT yet read or applied. Resume it or re-run it before freezing.
+- Next, in order: (1) read and apply the review findings; (2) pytest tests/round2; (3) python -m kami.eval.run_final --dry-run (needs a freeze: python -c "from kami.eval.freeze import build; build()"); (4) commit all code; (5) build the freeze again and commit results/fusion/frozen_config.json; (6) python -m kami.eval.run_final (one time); (7) scripts/make_summary.py; (8) decisions.md results + README scope notes; (9) scripts/check_round2.py and R8 checks; commit as round 2: <summary>. Do not open results/round2/incident_test_v2/*.json other than incident.json.
+- Known points to report: event metrics do not penalise alert duration (alert-time columns added); F-B without temporal features is the threshold-voting rule; tuned thresholds sit at grid edges; the live demo still uses the Round-1 fusion rule.
 
 ## WhatsApp add-on (pending, after Round 2)
 See PLAN_WHATSAPP.md. Status: not started.

@@ -44,6 +44,6 @@ after = summ.read_text(encoding="utf-8")
 check("results/SUMMARY.md exists and is reproduced exactly by scripts/make_summary.py", bool(after) and before == after)
 for table in ("baselines.md", "fusion_ablation.md", "confusion_matrices.md"):
     check(f"results/tables/{table} present", (ROOT / "results" / "tables" / table).is_file())
-check("SUMMARY.md has a limitations section", "## 4. Limitations" in after)
+check("SUMMARY.md has a limitations section", bool(re.search(r"^## \d+\. Limitations", after, re.M)))
 check("README and architecture docs exist", (ROOT / "README.md").is_file() and "mermaid" in (ROOT / "docs" / "architecture.md").read_text(encoding="utf-8"))
 sys.exit(0 if ok else 1)

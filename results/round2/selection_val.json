@@ -50,28 +50,28 @@
       "fold_params": [
         [
           0.4,
-          6,
+          6.0,
           0.0,
           0.98,
           0.5
         ],
         [
           0.4,
-          6,
+          6.0,
           0.3,
           0.98,
           0.8
         ],
         [
           0.4,
-          6,
+          6.0,
           0.3,
           0.98,
           0.8
         ],
         [
           0.4,
-          6,
+          6.0,
           0.3,
           0.98,
           0.8
@@ -79,7 +79,7 @@
       ],
       "final_params": [
         0.4,
-        6,
+        6.0,
         0.3,
         0.98,
         0.8
@@ -206,5 +206,212 @@
     }
   },
   "validation_rows": 126144,
-  "validation_events": 60
+  "validation_events": 60,
+  "battledim": {
+    "note": "same procedure and cap on the BattLeDIM validation split (infrastructure stream only; 8 validation events, so these out-of-fold numbers are very noisy); no selection here",
+    "designs": {
+      "F-A": {
+        "oof_event_f1": 0.9411764705882353,
+        "oof_event_precision": 0.8888888888888888,
+        "oof_event_recall": 1.0,
+        "oof_false_alarms_per_day": 0.011245607184693479,
+        "feasible_at_cap": true,
+        "oof_macro_f1": 0.2623334199487731,
+        "oof_category_accuracy_event": 1.0,
+        "oof_point_accuracy": 0.35562600644122383,
+        "fold_params": [
+          [
+            0.1,
+            0.1
+          ],
+          [
+            0.1,
+            0.1
+          ],
+          [
+            0.1,
+            0.1
+          ],
+          [
+            0.1,
+            0.1
+          ]
+        ],
+        "final_params": [
+          0.1,
+          0.1
+        ],
+        "in_sample_event_f1": 0.8421052631578948,
+        "in_sample_fa_per_day": 0.033736821554080434
+      },
+      "F-B": {
+        "oof_event_f1": 0.5652173913043478,
+        "oof_event_precision": 0.3939393939393939,
+        "oof_event_recall": 1.0,
+        "oof_false_alarms_per_day": 0.22491214369386958,
+        "feasible_at_cap": true,
+        "oof_macro_f1": 0.33009088617713017,
+        "oof_category_accuracy_event": 1.0,
+        "oof_point_accuracy": 0.339850040257649,
+        "fold_params": [
+          [
+            0.4,
+            6.0,
+            0.0,
+            0.1,
+            0.1
+          ],
+          [
+            0.7,
+            6.0,
+            0.0,
+            0.1,
+            0.1
+          ],
+          [
+            0.7,
+            6.0,
+            0.0,
+            0.1,
+            0.1
+          ],
+          [
+            0.7,
+            6.0,
+            0.0,
+            0.1,
+            0.1
+          ]
+        ],
+        "final_params": [
+          0.7,
+          6.0,
+          0.0,
+          0.1,
+          0.1
+        ],
+        "in_sample_event_f1": 0.8571428571428571,
+        "in_sample_fa_per_day": 0.1012104646622413
+      },
+      "F-A (no temporal)": {
+        "oof_event_f1": 0.9411764705882353,
+        "oof_event_precision": 0.8888888888888888,
+        "oof_event_recall": 1.0,
+        "oof_false_alarms_per_day": 0.011245607184693479,
+        "feasible_at_cap": true,
+        "oof_macro_f1": 0.2623334199487731,
+        "oof_category_accuracy_event": 1.0,
+        "oof_point_accuracy": 0.35562600644122383,
+        "fold_params": [
+          [
+            0.1,
+            0.1
+          ],
+          [
+            0.1,
+            0.1
+          ],
+          [
+            0.1,
+            0.1
+          ],
+          [
+            0.1,
+            0.1
+          ]
+        ],
+        "final_params": [
+          0.1,
+          0.1
+        ],
+        "in_sample_event_f1": 0.9411764705882353,
+        "in_sample_fa_per_day": 0.011245607184693479
+      },
+      "F-B (no temporal)": {
+        "oof_event_f1": 0.5714285714285715,
+        "oof_event_precision": 0.4,
+        "oof_event_recall": 1.0,
+        "oof_false_alarms_per_day": 0.2024209293244826,
+        "feasible_at_cap": true,
+        "oof_macro_f1": 0.33122918786753697,
+        "oof_category_accuracy_event": 1.0,
+        "oof_point_accuracy": 0.3407055152979066,
+        "fold_params": [
+          [
+            1.0,
+            1.0,
+            0.0,
+            0.3,
+            0.1
+          ],
+          [
+            1.0,
+            1.0,
+            0.0,
+            0.2,
+            0.1
+          ],
+          [
+            1.0,
+            1.0,
+            0.0,
+            0.2,
+            0.1
+          ],
+          [
+            1.0,
+            1.0,
+            0.0,
+            0.2,
+            0.1
+          ]
+        ],
+        "final_params": [
+          1.0,
+          1.0,
+          0.0,
+          0.2,
+          0.1
+        ],
+        "in_sample_event_f1": 0.8474576271186441,
+        "in_sample_fa_per_day": 0.1012104646622413
+      },
+      "threshold voting (no fusion)": {
+        "oof_event_f1": 0.5652173913043478,
+        "oof_event_precision": 0.3939393939393939,
+        "oof_event_recall": 1.0,
+        "oof_false_alarms_per_day": 0.22491214369386958,
+        "feasible_at_cap": true,
+        "oof_macro_f1": 0.33009088617713017,
+        "oof_category_accuracy_event": 1.0,
+        "oof_point_accuracy": 0.339850040257649,
+        "fold_params": [
+          [
+            0.25,
+            0.05
+          ],
+          [
+            0.15,
+            0.05
+          ],
+          [
+            0.15,
+            0.05
+          ],
+          [
+            0.15,
+            0.05
+          ]
+        ],
+        "final_params": [
+          0.15,
+          0.05
+        ],
+        "in_sample_event_f1": 0.8571428571428571,
+        "in_sample_fa_per_day": 0.08996485747754783
+      }
+    },
+    "validation_rows": 42048,
+    "validation_events": 8
+  }
 }

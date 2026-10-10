@@ -15,7 +15,7 @@ Two data kinds, reported separately. `scenarios` = semi-synthetic events on real
 | threshold voting (no fusion) | 0.432 | 0.433 | 0.759 | 0.800 | 0.883 | 0.840 | 0.16 | 2.50 | 0.700 | 0.910 | 0.716 |
 | single joint model (no separated evidence) | 0.464 | 0.321 | 0.495 | 0.289 | 0.950 | 0.443 | 1.13 | 0.00 | 0.433 | 0.335 | 0.336 |
 | baseline: fixed_threshold | 0.306 | 0.364 | 0.782 | 0.435 | 0.700 | 0.536 | 0.66 | 2.21 | 0.417 | 0.575 | 0.045 |
-| baseline: isolation_forest | 0.239 | 0.247 | 0.687 | 0.443 | 0.833 | 0.578 | 0.84 | 0.58 | 0.417 | 0.581 | 0.359 |
+| baseline: isolation_forest | 0.237 | 0.246 | 0.686 | 0.446 | 0.750 | 0.560 | 0.72 | 2.08 | 0.333 | 0.581 | 0.293 |
 
 ## battledim
 
@@ -27,6 +27,6 @@ Two data kinds, reported separately. `scenarios` = semi-synthetic events on real
 | F-B (no temporal) | 0.321 | 0.587 | 0.590 | 0.385 | 1.000 | 0.556 | 1.15 | 0.42 | 1.000 | 0.556 | n/a |
 | threshold voting (no fusion) | 0.336 | 0.283 | 0.395 | 0.889 | 1.000 | 0.941 | 0.01 | 0.00 | 1.000 | 0.941 | n/a |
 | single joint model (no separated evidence) | 0.462 | 0.320 | 0.393 | 0.553 | 1.000 | 0.712 | 0.25 | 0.00 | 1.000 | 0.712 | n/a |
-| baseline: fixed_threshold | 0.508 | 0.491 | 0.493 | 0.408 | 1.000 | 0.580 | 1.04 | 0.00 | 1.000 | 0.580 | n/a |
-| baseline: isolation_forest | 0.472 | 0.474 | 0.579 | 0.409 | 1.000 | 0.581 | 1.99 | 7.71 | 1.000 | 0.581 | n/a |
+| baseline: fixed_threshold | 0.393 | 0.383 | 0.606 | 0.569 | 0.750 | 0.647 | 0.26 | 51.75 | 0.750 | 0.647 | n/a |
+| baseline: isolation_forest | 0.404 | 0.391 | 0.602 | 0.393 | 1.000 | 0.564 | 0.81 | 32.38 | 1.000 | 0.564 | n/a |
 

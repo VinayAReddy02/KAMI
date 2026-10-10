@@ -29,9 +29,8 @@ from .access import SplitData, final_evaluation
 from .bootstrap import bootstrap_any
 from .data import LOCKED_LOGS, RES, load_dataset
 from .fast_eval import AnyEvaluator
-from .final_models import baseline_models, joint_model, scenario_models
+from .final_models import baseline_models, fusion_models, joint_model, scenario_models
 from .freeze import verify
-from .fusion_tune import FusionBDesign, VotingDesign
 from .metrics import domain_events, evaluate
 from .round2_data import any_events_from_frame, attach_evidence, load_modules
 from .run_evidence import events_for
@@ -52,8 +51,9 @@ NOTES = {
                "were scored on this set once before the freeze by mistake, so their rows here are a second access; all other "
                "models open it here for the first time.",
     "test_v1_exposed": "Round-1 scenario test events; exposed for F-B. Reference only.",
-    "battledim_test_previously_exposed": "BattLeDIM test split (8 events); exposed for F-B, cannot be refreshed. "
-                                         "Infrastructure evidence only; F-A is not evaluated on it.",
+    "battledim_test_previously_exposed": "BattLeDIM test split (8 events); exposed for F-B in Round 1, cannot be refreshed. "
+                                         "Infrastructure evidence only. Decision parameters were tuned on the BattLeDIM "
+                                         "validation split with the same procedure and cap.",
 }
 
 
@@ -76,6 +76,10 @@ def full_metrics(df, events, pred, mask, kind: str, seed: int = BOOT_SEED) -> di
         "per_category_point_recall": {CATS[i]: (float(cm[i, i] / cm[i].sum()) if cm[i].sum() else None) for i in range(4)},
         "macro_f1": macro_f1(y[mask], pred[mask]), "point_accuracy": float((y[mask] == pred[mask]).mean()),
         "confusion": cm.tolist(), "scored_rows": int(mask.sum()),
+        # Event metrics do not penalise alert duration (one continuous alert is a single "true" segment), so the share
+        # of time spent in alert is reported next to them.
+        "alert_row_fraction": float((pred[mask] > 0).mean()),
+        "normal_rows_in_alert_fraction": float((pred[mask & (y == 0)] > 0).mean()) if (mask & (y == 0)).any() else None,
     }
     infra_events = events if kind == "battledim" else domain_events(df, "infra")
     out["infra_domain_event_f1"] = evaluate(df, np.isin(pred, [1, 3]), "infra", events=infra_events, scored=mask)["event"]["f1"]
@@ -85,14 +89,11 @@ def full_metrics(df, events, pred, mask, kind: str, seed: int = BOOT_SEED) -> di
     return out
 
 
-def battledim_models(frozen: dict, full) -> dict:
-    """Frozen rules applied to the infrastructure-only BattLeDIM data: F-B, F-B without temporal features, threshold
-    voting, the joint model and the baselines. F-A is skipped (its regression would need refitting on BattLeDIM)."""
-    out = {}
-    for name, d in (("F-B", FusionBDesign(True)), ("F-B (no temporal)", FusionBDesign(False)),
-                    ("threshold voting (no fusion)", VotingDesign())):
-        params = tuple(frozen["designs"][name]["final_params"])
-        out[name] = (lambda df, d=d, p=params: d.decide(df, p))
+def battledim_models(frozen: dict, full, val_frame) -> dict:
+    """The same rules on the infrastructure-only BattLeDIM data, with the parameters frozen from the BattLeDIM
+    validation tuning (thresholds do not transfer between differently calibrated evidence modules), plus the joint model
+    and the baselines."""
+    out = fusion_models(frozen, val_frame, "battledim_designs")
     out["single joint model (no separated evidence)"] = joint_model(full, "battledim")
     out.update(baseline_models("battledim", full, ["infra"]))
     return out
@@ -155,8 +156,8 @@ def run(dry: bool, out_path: Path | None = None) -> None:
     val_frame = build_frame("scenarios")
     val_frame = val_frame[val_frame.split == "val"]  # the only rows used to fit F-A's regression (validation)
     sc_models = scenario_models(frozen, val_frame)
-    bd_feat = load_dataset("battledim")
-    bd_models = battledim_models(frozen, bd_feat)
+    bd_frame = build_frame("battledim")
+    bd_models = battledim_models(frozen, load_dataset("battledim"), bd_frame[bd_frame.split == "val"])
     print(f"models built: {len(sc_models)} scenario, {len(bd_models)} BattLeDIM ({time.time() - t0:.0f}s)", flush=True)
 
     def scenario_prepare(dataset):
@@ -172,7 +173,7 @@ def run(dry: bool, out_path: Path | None = None) -> None:
 
     def battledim_prepare(raw):
         if isinstance(raw, str):
-            return SplitData(build_frame("battledim"), "battledim")
+            return SplitData(bd_frame, "battledim")
         df = raw.reset_index(drop=True)
         return df, events_for("battledim", df, "infra"), fusion_mask_named(df, "battledim")
 

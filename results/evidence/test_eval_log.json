@@ -3,18 +3,21 @@
     "key": "71b7780a551a0e1c",
     "model": "evidence-infra",
     "dataset": "battledim",
-    "count": 1
+    "count": 1,
+    "utc": "2026-10-10T07:09:52.060257+00:00"
   },
   {
     "key": "db79e498735062c1",
     "model": "evidence-infra",
     "dataset": "scenarios",
-    "count": 2
+    "count": 2,
+    "utc": "2026-10-10T07:10:00.423879+00:00"
   },
   {
     "key": "7f0f97062b947d33",
     "model": "evidence-quality",
     "dataset": "scenarios",
-    "count": 3
+    "count": 3,
+    "utc": "2026-10-10T07:10:07.378520+00:00"
   }
 ]

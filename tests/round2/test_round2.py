@@ -162,3 +162,40 @@ def test_held_out_dataset_properties():
     # one v3 event happens to start at the same time on the same node as a v1 event of the same type (chance,
     # about 1 in 100 for a pair of seeds); it is a different event (kind, size, length). Recorded, seed not re-rolled.
     assert v3["v1_same_node_type_start"] <= 1
+
+
+def _evidence_frame(n=600, seed=0, quality=True):
+    rng = np.random.default_rng(seed)
+    p_i = rng.random(n)
+    p_q = rng.random(n) if quality else np.zeros(n)
+    d = {"p_infra": p_i, "p_quality": p_q}
+    for s, p in (("infra", p_i), ("quality", p_q)):
+        d[f"{s}_persist_steps"] = (rng.integers(0, 60, n) * (p >= 0.5)).astype(float)
+        d[f"{s}_persist_frac"] = rng.random(n) * (p >= 0.5)
+        d[f"{s}_suddenness"] = rng.random(n) * (p >= 0.5)
+        d[f"{s}_recurrence"] = rng.integers(0, 4, n).astype(float) if (quality or s == "infra") else np.zeros(n)
+    return pd.DataFrame(d)
+
+
+def test_fb_without_temporal_is_exactly_threshold_voting():
+    df = _evidence_frame()
+    for gi, gq in ((0.3, 0.7), (0.98, 0.8), (0.5, 0.5)):
+        a = FusionBDesign(False).decide(df, (1.0, 1.0, 0.0, gi, gq))
+        b = VotingDesign().decide(df, (gi, gq))
+        assert (a == b).all()
+    # with temporal reliability the rule differs (transients are discounted)
+    c = FusionBDesign(True).decide(df, (0.4, 6, 0.0, 0.5, 0.5))
+    assert (c != VotingDesign().decide(df, (0.5, 0.5))).any()
+
+
+def test_fusion_a_works_on_single_stream_data():
+    """BattLeDIM has no quality stream: p_quality = 0 everywhere and only classes Normal/Infrastructure exist."""
+    from kami.eval.fusion_tune import FusionADesign
+
+    df = _evidence_frame(quality=False)
+    y = (df.p_infra.to_numpy() > 0.6).astype(int)
+    for temporal in (True, False):
+        d = FusionADesign(temporal).fit(df, y)
+        out = d.decide(df, (0.5, 0.5))
+        assert set(np.unique(out)) <= {0, 1}
+        assert (out == y).mean() > 0.9

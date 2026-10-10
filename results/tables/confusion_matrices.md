@@ -69,10 +69,10 @@ Categories: Normal, Infrastructure, Quality, Combined
 
 | truth \ pred | Normal | Infrastructure | Quality | Combined |
 |---|---|---|---|---|
-| Normal | 73255 | 989 | 2538 | 10 |
-| Infrastructure | 20570 | 596 | 849 | 30 |
-| Quality | 5833 | 25 | 626 | 2 |
-| Combined | 2770 | 248 | 75 | 4 |
+| Normal | 73116 | 988 | 2677 | 11 |
+| Infrastructure | 20535 | 592 | 884 | 34 |
+| Quality | 5848 | 27 | 611 | 0 |
+| Combined | 2789 | 249 | 56 | 3 |
 
 ## battledim / F-A
 
@@ -132,8 +132,8 @@ Categories: Normal, Infrastructure, Quality, Combined
 
 | truth \ pred | Normal | Infrastructure | Quality | Combined |
 |---|---|---|---|---|
-| Normal | 8777 | 15264 | 0 | 0 |
-| Infrastructure | 4903 | 10800 | 0 | 0 |
+| Normal | 23995 | 46 | 0 | 0 |
+| Infrastructure | 15611 | 92 | 0 | 0 |
 | Quality | 0 | 0 | 0 | 0 |
 | Combined | 0 | 0 | 0 | 0 |
 
@@ -141,8 +141,8 @@ Categories: Normal, Infrastructure, Quality, Combined
 
 | truth \ pred | Normal | Infrastructure | Quality | Combined |
 |---|---|---|---|---|
-| Normal | 20384 | 3657 | 0 | 0 |
-| Infrastructure | 13080 | 2623 | 0 | 0 |
+| Normal | 23662 | 379 | 0 | 0 |
+| Infrastructure | 15441 | 262 | 0 | 0 |
 | Quality | 0 | 0 | 0 | 0 |
 | Combined | 0 | 0 | 0 | 0 |
 
