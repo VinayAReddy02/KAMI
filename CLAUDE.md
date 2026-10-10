@@ -82,3 +82,6 @@ Dark **operations-console** look, light theme available via a toggle, map-centre
 
 ## Definition of done (this overnight run)
 Steps 0 to 7 pass their check scripts, `pytest -q` passes, `npm run build` passes, `results/SUMMARY.md` consolidates every table, and `PROGRESS.md` is current.
+
+## Round 2 (added after the review)
+Round 1 is finished. When PROGRESS.md says Round 2 is pending, read PLAN_ROUND2.md and work through it in order, with all the rules above. "Stop after Step 7" now means: stop after Round 2 (task R8). The paper is still written later with the user.

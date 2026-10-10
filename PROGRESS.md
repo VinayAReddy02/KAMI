@@ -40,3 +40,6 @@ Status values: not started, in progress, passed, blocked.
 - 2026-10-10 Step 2: loaders, causal features, splits, scenario generator (180 events, 12 per type per split), check_step_2 PASS. Run `python scripts/build_datasets.py` to regenerate data/processed + results/splits.
 - 2026-10-10 Step 1: store/bus/worker/API/node fleet, check_step_1 PASS (8 nodes x 268 rows in 20 s), tests 5 passed 2 skipped (no Docker)
 - 2026-10-10 Step 0: BattLeDIM + USGS downloaded, loaders, docs/datasets.md, check_step_0 PASS
+
+## Round 2 (pending)
+See PLAN_ROUND2.md. Status: in progress. R0 done (tag round1, results_round1/).

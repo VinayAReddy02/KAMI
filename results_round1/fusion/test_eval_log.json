@@ -1,0 +1,104 @@
+[
+  {
+    "key": "bdfd699c526a3095",
+    "model": "F-A",
+    "dataset": "scenarios",
+    "count": 1
+  },
+  {
+    "key": "44a5e8cf59a940e4",
+    "model": "F-B",
+    "dataset": "scenarios",
+    "count": 2
+  },
+  {
+    "key": "d34e903ccbe00cc6",
+    "model": "F-A (no temporal)",
+    "dataset": "scenarios",
+    "count": 3
+  },
+  {
+    "key": "128b0e84c4574e0b",
+    "model": "F-B (no temporal)",
+    "dataset": "scenarios",
+    "count": 4
+  },
+  {
+    "key": "408614f3e68fbe11",
+    "model": "threshold voting (no fusion)",
+    "dataset": "scenarios",
+    "count": 5
+  },
+  {
+    "key": "432193821bc0d7a0",
+    "model": "single joint model (no separated evidence)",
+    "dataset": "scenarios",
+    "count": 6
+  },
+  {
+    "key": "98c256dbad39d2ab",
+    "model": "baseline: fixed_threshold",
+    "dataset": "scenarios",
+    "count": 7
+  },
+  {
+    "key": "51f424f104131cc2",
+    "model": "baseline: isolation_forest",
+    "dataset": "scenarios",
+    "count": 8
+  },
+  {
+    "key": "5be2d965e0610518",
+    "model": "F-A",
+    "dataset": "battledim",
+    "count": 9
+  },
+  {
+    "key": "09e0816990b885e3",
+    "model": "F-B",
+    "dataset": "battledim",
+    "count": 10
+  },
+  {
+    "key": "55d7afd83095b8a4",
+    "model": "F-A (no temporal)",
+    "dataset": "battledim",
+    "count": 11
+  },
+  {
+    "key": "1b4a462f58c74491",
+    "model": "F-B (no temporal)",
+    "dataset": "battledim",
+    "count": 12
+  },
+  {
+    "key": "2ab45130e440b819",
+    "model": "threshold voting (no fusion)",
+    "dataset": "battledim",
+    "count": 13
+  },
+  {
+    "key": "6accee76c659156c",
+    "model": "single joint model (no separated evidence)",
+    "dataset": "battledim",
+    "count": 14
+  },
+  {
+    "key": "651427788e675f12",
+    "model": "baseline: fixed_threshold",
+    "dataset": "battledim",
+    "count": 15
+  },
+  {
+    "key": "876a977007425df2",
+    "model": "baseline: isolation_forest",
+    "dataset": "battledim",
+    "count": 16
+  },
+  {
+    "key": "55919875293abb1f",
+    "model": "sample-assessments-F-B",
+    "dataset": "scenarios",
+    "count": 17
+  }
+]

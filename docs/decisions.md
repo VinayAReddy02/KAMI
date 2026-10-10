@@ -75,3 +75,8 @@ Decided decisions are not to be re-opened. Add new ones at the bottom with: what
 - Frontend: hand-written SVG charts (no chart library), hash routing, OpenStreetMap tiles (needs internet; markers and the rest of the UI work without tiles), Okabe-Ito colours with distinct shapes, textures and text for every status.
 - Playwright screenshots skipped (not installed; CLAUDE.md allows public datasets only for downloads).
 - Live background alerts happen (real USGS storm and conductance events and drifting BattLeDIM background) even without injection; they are real features of the replayed data, not bugs.
+
+## Round 2 (started 2026-10-10)
+### R0: freeze of Round 1
+- Git tag `round1` marks the Round 1 state; `results_round1/` is a copy of `results/` at that point.
+- **Exposed test data.** The scenario test split of Round 1 is now called `test_v1` and is **exposed for F-B**: its decision rule was changed after validation and test output had been viewed (Step 5). The BattLeDIM test split is likewise exposed for F-B and **cannot be refreshed** (only one real label set exists). Any number on these splits is reported as "exposed, for reference only".

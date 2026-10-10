@@ -1,0 +1,83 @@
+{
+  "dataset": "scenarios",
+  "domain": "quality",
+  "model": "fixed_threshold",
+  "params": {
+    "k": 5
+  },
+  "val": {
+    "point": {
+      "precision": 0.20419847328244276,
+      "recall": 0.021225947232691927,
+      "f1": 0.03845462713387242
+    },
+    "event": {
+      "precision": 0.16279069767441862,
+      "recall": 0.16666666666666666,
+      "f1": 0.16470588235294115,
+      "events": 36,
+      "detected": 6,
+      "alert_segments": 43,
+      "false_alert_segments": 36
+    },
+    "false_alarms_per_day": 0.1042900970678469,
+    "latency_h": {
+      "median": 13.833333333333332,
+      "p90": 23.0,
+      "n": 6
+    },
+    "per_type_recall": {
+      "combined": {
+        "recall": 0.16666666666666666,
+        "events": 12
+      },
+      "quality_tds_shift": {
+        "recall": 0.16666666666666666,
+        "events": 12
+      },
+      "quality_turbidity_surge": {
+        "recall": 0.16666666666666666,
+        "events": 12
+      }
+    },
+    "scored_normal_days": 345.19097222222223
+  },
+  "test": {
+    "point": {
+      "precision": 0.125,
+      "recall": 0.004695815506626317,
+      "f1": 0.009051594086291864
+    },
+    "event": {
+      "precision": 0.11764705882352941,
+      "recall": 0.027777777777777776,
+      "f1": 0.0449438202247191,
+      "events": 36,
+      "detected": 1,
+      "alert_segments": 17,
+      "false_alert_segments": 15
+    },
+    "false_alarms_per_day": 0.04370832785292957,
+    "latency_h": {
+      "median": 1.0833333333333333,
+      "p90": 1.0833333333333333,
+      "n": 1
+    },
+    "per_type_recall": {
+      "combined": {
+        "recall": 0.0,
+        "events": 12
+      },
+      "quality_tds_shift": {
+        "recall": 0.0,
+        "events": 12
+      },
+      "quality_turbidity_surge": {
+        "recall": 0.08333333333333333,
+        "events": 12
+      }
+    },
+    "scored_normal_days": 343.18402777777777
+  },
+  "data_kind": "semi_synthetic_scenarios"
+}
