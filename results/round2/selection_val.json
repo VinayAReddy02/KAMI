@@ -2,7 +2,8 @@
   "cap_false_alarms_per_day": 0.5,
   "tie": 0.005,
   "selected": "F-B",
-  "selection_reason": "best constrained validation event F1",
+  "selection_reason": "best constrained validation event-counted F1",
+  "objective": "maximise out-of-fold event-counted F1 (each detected event counted once) subject to false alarms/day <= cap; if infeasible the fewest false alarms; exact ties go to the setting with fewer rows in alert",
   "designs": {
     "F-A": {
       "oof_event_f1": 0.8407643312101911,
@@ -10,9 +11,17 @@
       "oof_event_recall": 0.9166666666666666,
       "oof_false_alarms_per_day": 0.14018547932571604,
       "feasible_at_cap": true,
+      "oof_f1_event_counted": 0.7189542483660131,
+      "oof_precision_event_counted": 0.5913978494623656,
+      "oof_true_segments": 132,
+      "oof_false_segments": 38,
+      "oof_detected_events": 55,
+      "oof_events": 60,
+      "oof_alert_row_fraction": 0.09178333652976794,
+      "oof_normal_rows_in_alert_fraction": 0.01943177742480914,
       "oof_macro_f1": 0.42896617955904187,
-      "oof_category_accuracy_event": 0.7,
       "oof_point_accuracy": 0.7605687827063755,
+      "oof_category_accuracy_event": 0.8166666666666667,
       "fold_params": [
         [
           0.98,
@@ -36,24 +45,33 @@
         0.95
       ],
       "in_sample_event_f1": 0.8857672121025008,
-      "in_sample_fa_per_day": 0.11436183839729466
+      "in_sample_fa_per_day": 0.11436183839729466,
+      "in_sample_alert_row_fraction": 0.1001031991744066
     },
     "F-B": {
-      "oof_event_f1": 0.879788639365918,
-      "oof_event_precision": 0.8604651162790697,
-      "oof_event_recall": 0.9,
-      "oof_false_alarms_per_day": 0.08853819746887329,
+      "oof_event_f1": 0.843957014573826,
+      "oof_event_precision": 0.8731343283582089,
+      "oof_event_recall": 0.8166666666666667,
+      "oof_false_alarms_per_day": 0.06271455654045191,
       "feasible_at_cap": true,
-      "oof_macro_f1": 0.3810205530951467,
-      "oof_category_accuracy_event": 0.6833333333333333,
-      "oof_point_accuracy": 0.7539110660566043,
+      "oof_f1_event_counted": 0.7777777777777778,
+      "oof_precision_event_counted": 0.7424242424242424,
+      "oof_true_segments": 117,
+      "oof_false_segments": 17,
+      "oof_detected_events": 49,
+      "oof_events": 60,
+      "oof_alert_row_fraction": 0.05659515785820616,
+      "oof_normal_rows_in_alert_fraction": 0.004342368191832762,
+      "oof_macro_f1": 0.3700773949381437,
+      "oof_point_accuracy": 0.7537832086723837,
+      "oof_category_accuracy_event": 0.7166666666666667,
       "fold_params": [
         [
           0.4,
-          6.0,
+          24.0,
           0.0,
-          0.98,
-          0.5
+          0.95,
+          0.6
         ],
         [
           0.4,
@@ -64,9 +82,9 @@
         ],
         [
           0.4,
-          6.0,
+          24.0,
           0.3,
-          0.98,
+          0.95,
           0.8
         ],
         [
@@ -85,17 +103,26 @@
         0.8
       ],
       "in_sample_event_f1": 0.9,
-      "in_sample_fa_per_day": 0.059025464979248855
+      "in_sample_fa_per_day": 0.059025464979248855,
+      "in_sample_alert_row_fraction": 0.05818424249066184
     },
     "F-A (no temporal)": {
-      "oof_event_f1": 0.8368121442125238,
-      "oof_event_precision": 0.7819148936170213,
-      "oof_event_recall": 0.9,
-      "oof_false_alarms_per_day": 0.1512527540093252,
+      "oof_event_f1": 0.8275586961477093,
+      "oof_event_precision": 0.7784090909090909,
+      "oof_event_recall": 0.8833333333333333,
+      "oof_false_alarms_per_day": 0.1438745708869191,
       "feasible_at_cap": true,
-      "oof_macro_f1": 0.3952780506030279,
-      "oof_category_accuracy_event": 0.7,
-      "oof_point_accuracy": 0.7635277678840516,
+      "oof_f1_event_counted": 0.6973684210526314,
+      "oof_precision_event_counted": 0.5760869565217391,
+      "oof_true_segments": 137,
+      "oof_false_segments": 39,
+      "oof_detected_events": 53,
+      "oof_events": 60,
+      "oof_alert_row_fraction": 0.06864114998584436,
+      "oof_normal_rows_in_alert_fraction": 0.006686478454680535,
+      "oof_macro_f1": 0.3824441158287935,
+      "oof_point_accuracy": 0.7610619469026548,
+      "oof_category_accuracy_event": 0.8,
       "fold_params": [
         [
           0.98,
@@ -111,7 +138,7 @@
         ],
         [
           0.98,
-          0.95
+          0.98
         ]
       ],
       "final_params": [
@@ -119,45 +146,54 @@
         0.98
       ],
       "in_sample_event_f1": 0.8445945945945946,
-      "in_sample_fa_per_day": 0.07747092278526413
+      "in_sample_fa_per_day": 0.07747092278526413,
+      "in_sample_alert_row_fraction": 0.05960893905769108
     },
     "F-B (no temporal)": {
-      "oof_event_f1": 0.8755295541658261,
-      "oof_event_precision": 0.824468085106383,
-      "oof_event_recall": 0.9333333333333333,
-      "oof_false_alarms_per_day": 0.12174002151970077,
+      "oof_event_f1": 0.8548514142499104,
+      "oof_event_precision": 0.9407407407407408,
+      "oof_event_recall": 0.7833333333333333,
+      "oof_false_alarms_per_day": 0.029512732489624428,
       "feasible_at_cap": true,
-      "oof_macro_f1": 0.4170524591392449,
-      "oof_category_accuracy_event": 0.7166666666666667,
-      "oof_point_accuracy": 0.7613724576929048,
+      "oof_f1_event_counted": 0.817391304347826,
+      "oof_precision_event_counted": 0.8545454545454545,
+      "oof_true_segments": 127,
+      "oof_false_segments": 8,
+      "oof_detected_events": 47,
+      "oof_events": 60,
+      "oof_alert_row_fraction": 0.04682320063563385,
+      "oof_normal_rows_in_alert_fraction": 0.001972639237587744,
+      "oof_macro_f1": 0.3186793095450914,
+      "oof_point_accuracy": 0.748769372676877,
+      "oof_category_accuracy_event": 0.7,
       "fold_params": [
         [
           1.0,
           1.0,
           0.0,
           0.98,
-          0.8
+          0.9
         ],
         [
           1.0,
           1.0,
           0.0,
           0.98,
-          0.8
+          0.9
         ],
         [
           1.0,
           1.0,
           0.0,
           0.98,
-          0.8
+          0.9
         ],
         [
           1.0,
           1.0,
           0.0,
           0.98,
-          0.8
+          0.9
         ]
       ],
       "final_params": [
@@ -165,47 +201,58 @@
         1.0,
         0.0,
         0.98,
-        0.8
+        0.9
       ],
-      "in_sample_event_f1": 0.8755295541658261,
-      "in_sample_fa_per_day": 0.12174002151970077
+      "in_sample_event_f1": 0.8548514142499104,
+      "in_sample_fa_per_day": 0.029512732489624428,
+      "in_sample_alert_row_fraction": 0.04682320063563385
     },
     "threshold voting (no fusion)": {
-      "oof_event_f1": 0.8551605442908622,
-      "oof_event_precision": 0.8287292817679558,
-      "oof_event_recall": 0.8833333333333333,
-      "oof_false_alarms_per_day": 0.11436183839729466,
+      "oof_event_f1": 0.8548514142499104,
+      "oof_event_precision": 0.9407407407407408,
+      "oof_event_recall": 0.7833333333333333,
+      "oof_false_alarms_per_day": 0.029512732489624428,
       "feasible_at_cap": true,
-      "oof_macro_f1": 0.38549957223805364,
-      "oof_category_accuracy_event": 0.6666666666666666,
-      "oof_point_accuracy": 0.7571714293542289,
+      "oof_f1_event_counted": 0.817391304347826,
+      "oof_precision_event_counted": 0.8545454545454545,
+      "oof_true_segments": 127,
+      "oof_false_segments": 8,
+      "oof_detected_events": 47,
+      "oof_events": 60,
+      "oof_alert_row_fraction": 0.04682320063563385,
+      "oof_normal_rows_in_alert_fraction": 0.001972639237587744,
+      "oof_macro_f1": 0.3186793095450914,
+      "oof_point_accuracy": 0.748769372676877,
+      "oof_category_accuracy_event": 0.7,
       "fold_params": [
         [
           0.98,
-          0.8
+          0.9
         ],
         [
           0.98,
-          0.75
+          0.9
         ],
         [
           0.98,
-          0.85
+          0.9
         ],
         [
           0.98,
-          0.8
+          0.9
         ]
       ],
       "final_params": [
         0.98,
-        0.8
+        0.9
       ],
-      "in_sample_event_f1": 0.8755295541658261,
-      "in_sample_fa_per_day": 0.12174002151970077
+      "in_sample_event_f1": 0.8548514142499104,
+      "in_sample_fa_per_day": 0.029512732489624428,
+      "in_sample_alert_row_fraction": 0.04682320063563385
     }
   },
   "validation_rows": 126144,
+  "validation_scored_rows": 109497,
   "validation_events": 60,
   "battledim": {
     "note": "same procedure and cap on the BattLeDIM validation split (infrastructure stream only; 8 validation events, so these out-of-fold numbers are very noisy); no selection here",
@@ -216,12 +263,20 @@
         "oof_event_recall": 1.0,
         "oof_false_alarms_per_day": 0.011245607184693479,
         "feasible_at_cap": true,
+        "oof_f1_event_counted": 0.9411764705882353,
+        "oof_precision_event_counted": 0.8888888888888888,
+        "oof_true_segments": 8,
+        "oof_false_segments": 1,
+        "oof_detected_events": 8,
+        "oof_events": 8,
+        "oof_alert_row_fraction": 1.0,
+        "oof_normal_rows_in_alert_fraction": 1.0,
         "oof_macro_f1": 0.2623334199487731,
-        "oof_category_accuracy_event": 1.0,
         "oof_point_accuracy": 0.35562600644122383,
+        "oof_category_accuracy_event": 1.0,
         "fold_params": [
           [
-            0.1,
+            0.2,
             0.1
           ],
           [
@@ -241,24 +296,33 @@
           0.1,
           0.1
         ],
-        "in_sample_event_f1": 0.8421052631578948,
-        "in_sample_fa_per_day": 0.033736821554080434
+        "in_sample_event_f1": 0.761904761904762,
+        "in_sample_fa_per_day": 0.056228035923467395,
+        "in_sample_alert_row_fraction": 0.9975845410628019
       },
       "F-B": {
-        "oof_event_f1": 0.5652173913043478,
-        "oof_event_precision": 0.3939393939393939,
+        "oof_event_f1": 0.5714285714285715,
+        "oof_event_precision": 0.4,
         "oof_event_recall": 1.0,
-        "oof_false_alarms_per_day": 0.22491214369386958,
+        "oof_false_alarms_per_day": 0.2024209293244826,
         "feasible_at_cap": true,
-        "oof_macro_f1": 0.33009088617713017,
+        "oof_f1_event_counted": 0.47058823529411764,
+        "oof_precision_event_counted": 0.3076923076923077,
+        "oof_true_segments": 12,
+        "oof_false_segments": 18,
+        "oof_detected_events": 8,
+        "oof_events": 8,
+        "oof_alert_row_fraction": 0.7636372785829307,
+        "oof_normal_rows_in_alert_fraction": 0.8283092541975791,
+        "oof_macro_f1": 0.3310139097903243,
+        "oof_point_accuracy": 0.3405293880837359,
         "oof_category_accuracy_event": 1.0,
-        "oof_point_accuracy": 0.339850040257649,
         "fold_params": [
           [
-            0.4,
+            0.7,
             6.0,
             0.0,
-            0.1,
+            0.2,
             0.1
           ],
           [
@@ -291,7 +355,8 @@
           0.1
         ],
         "in_sample_event_f1": 0.8571428571428571,
-        "in_sample_fa_per_day": 0.1012104646622413
+        "in_sample_fa_per_day": 0.1012104646622413,
+        "in_sample_alert_row_fraction": 0.8395984299516909
       },
       "F-A (no temporal)": {
         "oof_event_f1": 0.9411764705882353,
@@ -299,9 +364,17 @@
         "oof_event_recall": 1.0,
         "oof_false_alarms_per_day": 0.011245607184693479,
         "feasible_at_cap": true,
+        "oof_f1_event_counted": 0.9411764705882353,
+        "oof_precision_event_counted": 0.8888888888888888,
+        "oof_true_segments": 8,
+        "oof_false_segments": 1,
+        "oof_detected_events": 8,
+        "oof_events": 8,
+        "oof_alert_row_fraction": 1.0,
+        "oof_normal_rows_in_alert_fraction": 1.0,
         "oof_macro_f1": 0.2623334199487731,
-        "oof_category_accuracy_event": 1.0,
         "oof_point_accuracy": 0.35562600644122383,
+        "oof_category_accuracy_event": 1.0,
         "fold_params": [
           [
             0.1,
@@ -316,7 +389,7 @@
             0.1
           ],
           [
-            0.1,
+            0.4,
             0.1
           ]
         ],
@@ -325,7 +398,8 @@
           0.1
         ],
         "in_sample_event_f1": 0.9411764705882353,
-        "in_sample_fa_per_day": 0.011245607184693479
+        "in_sample_fa_per_day": 0.011245607184693479,
+        "in_sample_alert_row_fraction": 1.0
       },
       "F-B (no temporal)": {
         "oof_event_f1": 0.5714285714285715,
@@ -333,9 +407,17 @@
         "oof_event_recall": 1.0,
         "oof_false_alarms_per_day": 0.2024209293244826,
         "feasible_at_cap": true,
+        "oof_f1_event_counted": 0.47058823529411764,
+        "oof_precision_event_counted": 0.3076923076923077,
+        "oof_true_segments": 12,
+        "oof_false_segments": 18,
+        "oof_detected_events": 8,
+        "oof_events": 8,
+        "oof_alert_row_fraction": 0.7634108293075684,
+        "oof_normal_rows_in_alert_fraction": 0.8279968762202264,
         "oof_macro_f1": 0.33122918786753697,
-        "oof_category_accuracy_event": 1.0,
         "oof_point_accuracy": 0.3407055152979066,
+        "oof_category_accuracy_event": 1.0,
         "fold_params": [
           [
             1.0,
@@ -374,20 +456,29 @@
           0.1
         ],
         "in_sample_event_f1": 0.8474576271186441,
-        "in_sample_fa_per_day": 0.1012104646622413
+        "in_sample_fa_per_day": 0.1012104646622413,
+        "in_sample_alert_row_fraction": 0.8297604669887279
       },
       "threshold voting (no fusion)": {
-        "oof_event_f1": 0.5652173913043478,
-        "oof_event_precision": 0.3939393939393939,
+        "oof_event_f1": 0.5714285714285715,
+        "oof_event_precision": 0.4,
         "oof_event_recall": 1.0,
-        "oof_false_alarms_per_day": 0.22491214369386958,
+        "oof_false_alarms_per_day": 0.2024209293244826,
         "feasible_at_cap": true,
-        "oof_macro_f1": 0.33009088617713017,
+        "oof_f1_event_counted": 0.47058823529411764,
+        "oof_precision_event_counted": 0.3076923076923077,
+        "oof_true_segments": 12,
+        "oof_false_segments": 18,
+        "oof_detected_events": 8,
+        "oof_events": 8,
+        "oof_alert_row_fraction": 0.7636372785829307,
+        "oof_normal_rows_in_alert_fraction": 0.8283092541975791,
+        "oof_macro_f1": 0.3310139097903243,
+        "oof_point_accuracy": 0.3405293880837359,
         "oof_category_accuracy_event": 1.0,
-        "oof_point_accuracy": 0.339850040257649,
         "fold_params": [
           [
-            0.25,
+            0.3,
             0.05
           ],
           [
@@ -408,10 +499,39 @@
           0.05
         ],
         "in_sample_event_f1": 0.8571428571428571,
-        "in_sample_fa_per_day": 0.08996485747754783
+        "in_sample_fa_per_day": 0.08996485747754783,
+        "in_sample_alert_row_fraction": 0.8352455716586151
       }
     },
     "validation_rows": 42048,
+    "validation_scored_rows": 39744,
     "validation_events": 8
+  },
+  "tuning_inputs_sha256": {
+    "data/processed/battledim_network_semi_synthetic.parquet": "d0e74355e0b5ddfaa74d72a9b71a1e99993db5891fed0407137a14ca3600e38b",
+    "data/processed/evidence_scenarios.parquet": "860b5c9ef3537aa5c4eab350ab6aeaffd605fee15ae82b234fa5edb55d8835b3",
+    "data/processed/models/evidence_battledim_infra.joblib": "08096eafbdc377bf1e6a4cfcaa76804695f43146344deb614d2f2903c6257fad",
+    "data/processed/models/evidence_scenarios_infra.joblib": "45cb0a87702f912a51da3cb241a4be293a8df1e2901d8f43c1eef3143caeeb4d",
+    "data/processed/models/evidence_scenarios_quality.joblib": "da36bf2111a8e3540080083c7b905ce6b9464c9c8e2914e36fa1b307f5802b4b",
+    "data/processed/scenarios_semi_synthetic.parquet": "7a38e9db6d398dcc09bc9c9cea11dde607eca573a0bb0b81973f6a463f08c105",
+    "results/splits/battledim.json": "8d379c193ca831d80e89f22767ce904ad5d4c06b9fc27e609ef25ce2b50a41ef",
+    "results/splits/battledim_events.csv": "676cb0d5aa806948abf6ea3a4ff66dab8e23c7d0d4b35af8c9529c6a05aed560",
+    "results/splits/scenarios.json": "8d379c193ca831d80e89f22767ce904ad5d4c06b9fc27e609ef25ce2b50a41ef",
+    "results/splits/test_v2_info.json": "d0ad0af02989021446242963f31829ae58b00f8a511e27c3005f3b0ea301df72",
+    "results/splits/test_v3_info.json": "201f3ce2e113aecdc410f7a296b70812597c35c31ed7d43c2ae6d9489cf01ae0",
+    "src/kami/data/splits.py": "5fb3d1933b104ebd73ae1caf5dd0545032cba2269b2f6c39ec6c541a155e8e8e",
+    "src/kami/eval/data.py": "37c02ed0263806557988daf88a9548d63b734890df5782d71166fb9579a6d155",
+    "src/kami/eval/fast_eval.py": "84407464d956a7605ebb9243046b1a455967f2428bfa90e4779df04c1ef52d54",
+    "src/kami/eval/fusion_tune.py": "fe04c57a5bbcf7a51407528959bc490091aa6e60ab07fb282e2ea2fbb1f2f786",
+    "src/kami/eval/metrics.py": "f814c28925af64fcdfb3e996068ee1e935152612fd106225d6209a949f8f798a",
+    "src/kami/eval/round2_data.py": "d8d3dd86d7d12e339ed3c4b0f941ef89f32c9dd105816d10dd76ccb31440f892",
+    "src/kami/eval/run_evidence.py": "f13052b5f83f26c351d3244b11c0f0b66c71b72c0ad7f98670b6b49cf8222fa7",
+    "src/kami/eval/run_fusion.py": "b5a7e13f2d71aae547f69b43eaeca6d75f771a3531872be548fd42089b3ebc7f",
+    "src/kami/eval/run_round2_select.py": "d15ca1c72f247a5d91d1bace032800831a5d118de7390bd9447d852394d2dd7e",
+    "src/kami/features/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/kami/features/causal.py": "dc0bd15f6e8fc05c0dfc517673098298ef1ec3895c46c66d9a95e5102721714b",
+    "src/kami/features/temporal.py": "b451ba4a80b6ddf2d30547a276bdf218f07e42adcb99ba381fdc47c774e45e08",
+    "src/kami/models/evidence.py": "930ab9744a5e5b3cacc4c850a46138e19c7f0937ab94277081686e716d966aac",
+    "src/kami/models/fusion.py": "347022b839af2d11e447a5516667c8d4a003de4ff8d2585b213af9f181dc48f8"
   }
 }

@@ -39,16 +39,43 @@ def domain_features(domain: str, available) -> list[str]:
     return [c for c in want if c in available]
 
 
-def load_dataset(name: str, refresh: bool = False) -> pd.DataFrame:
+def _cache_meta(name: str) -> dict:
+    """What a feature cache must have been built from to be trusted: the raw file, the feature code and the split file."""
+    from .hashing import sha256_file
+
     fname, split_file, _ = {**DATASETS, **LOCKED_DATASETS}[name]
+    return {"source": fname, "source_sha256": sha256_file(PROC / fname),
+            "features_code_sha256": sha256_file(ROOT / "src" / "kami" / "features" / "causal.py"),
+            "splits_sha256": sha256_file(RES / "splits" / split_file)}
+
+
+def load_dataset(name: str, refresh: bool = False) -> pd.DataFrame:
+    """Dataset with causal features and split labels. The feature cache is used only if it was built from the current
+    raw file, feature code and split file (recorded next to it); otherwise it is rebuilt. A held-out (locked) set can be
+    loaded only once the frozen configuration exists and matches the files on disk."""
+    import json
+
+    fname, split_file, _ = {**DATASETS, **LOCKED_DATASETS}[name]
+    if name in LOCKED_DATASETS:
+        from .access import TestSplitLocked
+        from .freeze import verify
+
+        try:
+            verify()
+        except (SystemExit, FileNotFoundError) as e:
+            raise TestSplitLocked(f"{name} cannot be loaded before the frozen configuration verifies: {e}") from None
     cache = PROC / f"{name}_features.parquet"
-    if cache.exists() and not refresh:
+    meta_path = PROC / f"{name}_features.meta.json"
+    want = _cache_meta(name)
+    have = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else None
+    if cache.exists() and have == want and not refresh:
         df = pd.read_parquet(cache)
     else:
         df = pd.read_parquet(PROC / fname).sort_values(["node_id", "ts"]).reset_index(drop=True)
         df = pd.concat([df, compute_features_by_node(df)], axis=1)
         df["split"] = assign_split(df.ts, load_splits(RES / "splits" / split_file)).to_numpy()
         df.to_parquet(cache)
+        meta_path.write_text(json.dumps(want, indent=2), encoding="utf-8")
     df.attrs["kami_dataset"] = name  # lets SplitData enforce the per-dataset lock
     return df
 

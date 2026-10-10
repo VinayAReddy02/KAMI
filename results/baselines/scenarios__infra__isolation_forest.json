@@ -20,7 +20,9 @@
       "events": 36,
       "detected": 34,
       "alert_segments": 223,
-      "false_alert_segments": 128
+      "false_alert_segments": 128,
+      "precision_event_counted": 0.20987654320987653,
+      "f1_event_counted": 0.3434343434343434
     },
     "false_alarms_per_day": 0.3626882852392243,
     "latency_h": {
@@ -57,7 +59,9 @@
       "events": 36,
       "detected": 33,
       "alert_segments": 303,
-      "false_alert_segments": 186
+      "false_alert_segments": 186,
+      "precision_event_counted": 0.1506849315068493,
+      "f1_event_counted": 0.2588235294117647
     },
     "false_alarms_per_day": 0.530780892363485,
     "latency_h": {

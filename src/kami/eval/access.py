@@ -57,6 +57,24 @@ def final_evaluation(model_id: str, dataset: str, log_path: Path = LOG):
         _active["on"], _active["dataset"] = False, None
 
 
+def mark_completed(model_id: str, dataset: str, log_path: Path, **extra) -> None:
+    """Record in the access log that the evaluation opened for (model_id, dataset) produced a saved result."""
+    key = hashlib.sha256(f"{model_id}|{dataset}".encode()).hexdigest()[:16]
+    log = _read_log(log_path)
+    for r in log:
+        if r["key"] == key:
+            r["completed_utc"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+            r.update(extra)
+    tmp = Path(str(log_path) + ".tmp")
+    tmp.write_text(json.dumps(log, indent=2), encoding="utf-8")
+    tmp.replace(log_path)
+
+
+def is_logged(model_id: str, dataset: str, log_path: Path) -> bool:
+    key = hashlib.sha256(f"{model_id}|{dataset}".encode()).hexdigest()[:16]
+    return any(r["key"] == key for r in _read_log(log_path))
+
+
 class SplitData:
     """Holds a frame with a `split` column; `.test()` only works inside `final_evaluation`."""
 

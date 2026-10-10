@@ -1,0 +1,13 @@
+{
+  "data/processed/battledim_network_semi_synthetic.parquet": "d0e74355e0b5ddfaa74d72a9b71a1e99993db5891fed0407137a14ca3600e38b",
+  "data/processed/scenarios_semi_synthetic.parquet": "7a38e9db6d398dcc09bc9c9cea11dde607eca573a0bb0b81973f6a463f08c105",
+  "results/splits/battledim.json": "8d379c193ca831d80e89f22767ce904ad5d4c06b9fc27e609ef25ce2b50a41ef",
+  "results/splits/battledim_events.csv": "676cb0d5aa806948abf6ea3a4ff66dab8e23c7d0d4b35af8c9529c6a05aed560",
+  "results/splits/scenarios.json": "8d379c193ca831d80e89f22767ce904ad5d4c06b9fc27e609ef25ce2b50a41ef",
+  "src/kami/data/splits.py": "5fb3d1933b104ebd73ae1caf5dd0545032cba2269b2f6c39ec6c541a155e8e8e",
+  "src/kami/eval/data.py": "37c02ed0263806557988daf88a9548d63b734890df5782d71166fb9579a6d155",
+  "src/kami/eval/metrics.py": "f814c28925af64fcdfb3e996068ee1e935152612fd106225d6209a949f8f798a",
+  "src/kami/eval/run_baselines.py": "f8ae071bf6e0d8503adcf0287158dcae22b7ba9880fdf2666d420070b460c8e7",
+  "src/kami/features/causal.py": "dc0bd15f6e8fc05c0dfc517673098298ef1ec3895c46c66d9a95e5102721714b",
+  "src/kami/models/baselines.py": "0813ebfaa1081ca5316747eaf17261036f8ee475700e9817fd1ad5d2eb488b50"
+}

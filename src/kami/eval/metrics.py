@@ -102,11 +102,14 @@ def evaluate(df: pd.DataFrame, pred: np.ndarray, domain: str, events: pd.DataFra
     ep = tp_seg / (tp_seg + fp_seg) if tp_seg + fp_seg else 0.0
     er = n_det / n_events if n_events else 0.0
     ef = 2 * ep * er / (ep + er) if ep + er else 0.0
+    ep_ev = n_det / (n_det + fp_seg) if n_det + fp_seg else 0.0
     days = normal_rows * STEP_MIN / 1440.0
     return {
         "point": {"precision": pp, "recall": pr_, "f1": pf},
         "event": {"precision": ep, "recall": er, "f1": ef, "events": n_events, "detected": n_det,
-                  "alert_segments": tp_seg + fp_seg, "false_alert_segments": fp_seg},
+                  "alert_segments": tp_seg + fp_seg, "false_alert_segments": fp_seg,
+                  # each detected event counted once (Round 2): detected events / (detected events + false alerts)
+                  "precision_event_counted": ep_ev, "f1_event_counted": 2 * ep_ev * er / (ep_ev + er) if ep_ev + er else 0.0},
         "false_alarms_per_day": fp_seg / days if days else 0.0,
         "latency_h": {"median": float(np.median(latencies)) if latencies else None,
                       "p90": float(np.percentile(latencies, 90)) if latencies else None, "n": len(latencies)},

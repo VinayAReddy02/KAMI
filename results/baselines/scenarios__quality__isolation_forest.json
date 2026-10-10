@@ -5,40 +5,42 @@
   "params": {
     "n_estimators": 300,
     "max_samples": 256,
-    "quantile": 0.9
+    "quantile": 0.99
   },
   "val": {
     "point": {
-      "precision": 0.12301286903860711,
-      "recall": 0.0967070025788534,
-      "f1": 0.10828520657485562
+      "precision": 0.2130242825607064,
+      "recall": 0.01914302717714739,
+      "f1": 0.03512923188933382
     },
     "event": {
-      "precision": 0.13580246913580246,
-      "recall": 0.3888888888888889,
-      "f1": 0.20130718954248367,
+      "precision": 0.175,
+      "recall": 0.16666666666666666,
+      "f1": 0.17073170731707316,
       "events": 36,
-      "detected": 14,
-      "alert_segments": 162,
-      "false_alert_segments": 140
+      "detected": 6,
+      "alert_segments": 40,
+      "false_alert_segments": 33,
+      "precision_event_counted": 0.15384615384615385,
+      "f1_event_counted": 0.16
     },
-    "false_alarms_per_day": 0.4055725997082935,
+    "false_alarms_per_day": 0.09559925564552632,
     "latency_h": {
-      "median": 5.625,
-      "p90": 28.57500000000001,
-      "n": 14
+      "median": 13.708333333333332,
+      "p90": 23.125,
+      "n": 6
     },
     "per_type_recall": {
       "combined": {
-        "recall": 0.3333333333333333,
+        "recall": 0.16666666666666666,
         "events": 12
       },
       "quality_tds_shift": {
-        "recall": 0.5833333333333334,
+        "recall": 0.16666666666666666,
         "events": 12
       },
       "quality_turbidity_surge": {
-        "recall": 0.25,
+        "recall": 0.16666666666666666,
         "events": 12
       }
     },
@@ -46,36 +48,38 @@
   },
   "test": {
     "point": {
-      "precision": 0.15668849391955098,
-      "recall": 0.06991547532088073,
-      "f1": 0.09668807273252039
+      "precision": 0.19718309859154928,
+      "recall": 0.004382761139517896,
+      "f1": 0.008574928542262147
     },
     "event": {
-      "precision": 0.21875,
-      "recall": 0.4444444444444444,
-      "f1": 0.2931937172774869,
+      "precision": 0.16666666666666666,
+      "recall": 0.027777777777777776,
+      "f1": 0.04761904761904762,
       "events": 36,
-      "detected": 16,
-      "alert_segments": 96,
-      "false_alert_segments": 75
+      "detected": 1,
+      "alert_segments": 12,
+      "false_alert_segments": 10,
+      "precision_event_counted": 0.09090909090909091,
+      "f1_event_counted": 0.0425531914893617
     },
-    "false_alarms_per_day": 0.21854163926464787,
+    "false_alarms_per_day": 0.02913888523528638,
     "latency_h": {
-      "median": 0.45833333333333337,
-      "p90": 5.625,
-      "n": 16
+      "median": 1.0833333333333333,
+      "p90": 1.0833333333333333,
+      "n": 1
     },
     "per_type_recall": {
       "combined": {
-        "recall": 0.5833333333333334,
+        "recall": 0.0,
         "events": 12
       },
       "quality_tds_shift": {
-        "recall": 0.5,
+        "recall": 0.0,
         "events": 12
       },
       "quality_turbidity_surge": {
-        "recall": 0.25,
+        "recall": 0.08333333333333333,
         "events": 12
       }
     },

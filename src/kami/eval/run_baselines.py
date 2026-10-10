@@ -28,11 +28,11 @@ OC_GRID = [(0.01, 0.1), (0.01, 1.0), (0.05, 0.1), (0.05, 1.0)]  # (nu, gamma_mul
 
 
 def _key(m: dict):
-    """Selection key on validation: event F1 subject to false alarms/day <= FA_CAP; if the cap cannot be met the
-    lowest false-alarm setting wins."""
+    """Selection key on validation (same objective as the fusion tuning): event-counted F1 subject to false alarms/day
+    <= FA_CAP; if the cap cannot be met the lowest false-alarm setting wins."""
     if m["false_alarms_per_day"] <= FA_CAP:
-        return (1, m["event"]["f1"], -m["false_alarms_per_day"])
-    return (0, -m["false_alarms_per_day"], m["event"]["f1"])
+        return (1, m["event"]["f1_event_counted"], -m["false_alarms_per_day"])
+    return (0, -m["false_alarms_per_day"], m["event"]["f1_event_counted"])
 
 
 def _eval(df, pred, domain, mask, events=None):
@@ -93,7 +93,7 @@ def run_dataset(name: str) -> list[dict]:
                 pred = m.predict(val)
                 rs = {dd: _eval(val, pred, dd, masks[fd].loc[val.index].to_numpy(), events_for(val, dd))
                       for dd in scored_against}
-                agg = {"event": {"f1": float(np.mean([r["event"]["f1"] for r in rs.values()]))},
+                agg = {"event": {"f1_event_counted": float(np.mean([r["event"]["f1_event_counted"] for r in rs.values()]))},
                        "false_alarms_per_day": float(np.mean([r["false_alarms_per_day"] for r in rs.values()]))}
                 if best is None or _key(agg) > _key(best[1]):
                     best = ((n_est, ms, q), agg, rs)
@@ -183,6 +183,9 @@ def main():
         rows += run_dataset(name)
         print(f"{name} done at {time.time() - t0:.0f}s", flush=True)
     write_outputs(rows)
+    from .freeze import baseline_inputs  # hashes of the code and data these parameters were tuned with
+
+    (RES / "baselines" / "provenance.json").write_text(json.dumps(baseline_inputs(), indent=2), encoding="utf-8")
     print(f"wrote {len(rows)} result files in {time.time() - t0:.0f}s")
 
 

@@ -1,6 +1,7 @@
 """Round 2: decision rules for the fusion designs and their constrained tuning on VALIDATION ONLY.
 
-Objective (user decision): maximise event F1 (any alert vs any event) subject to false alarms per day <= CAP.
+Objective (user decision): maximise event-counted F1 (any alert vs any event; each detected event counts once)
+subject to false alarms per day <= CAP.
 If no setting satisfies the cap, the lowest-false-alarm setting is taken (and reported as infeasible).
 Tuning is out-of-fold over the contiguous validation time blocks used in Round 1: for each block, parameters are
 chosen on the other blocks and applied to the held-out block; the concatenated out-of-fold predictions give the
@@ -24,13 +25,21 @@ G19 = [round(float(x), 2) for x in np.arange(0.05, 0.96, 0.05)] + [0.98]
 
 
 def fusion_mask(df: pd.DataFrame) -> np.ndarray:
-    return (df.p_infra.notna() & df.p_quality.notna()).to_numpy()
+    """Rows that are scored: both evidence values present and not `ambiguous` (BattLeDIM only; always False for scenarios)."""
+    m = df.p_infra.notna() & df.p_quality.notna()
+    if "ambiguous" in df:
+        m &= ~df.ambiguous.astype(bool)
+    return m.to_numpy()
 
 
 def _key(m: dict):
+    """Objective (user decision, 2026-10-10): event-counted F1 subject to false alarms/day <= CAP. Event-counted means every
+    detected event counts once (precision = detected events / (detected events + false alarms)), so an alert that breaks
+    into several pieces is not rewarded. If nothing is feasible, the fewest false alarms win. Exact ties are broken
+    towards the setting that alerts on fewer rows (the stricter rule), never the more permissive one."""
     if m["fa_per_day"] <= CAP:
-        return (1, m["f1"], -m["fa_per_day"])
-    return (0, -m["fa_per_day"], m["f1"])
+        return (1, m["f1_event_counted"], -m["fa_per_day"], -m["alert_fraction"])
+    return (0, -m["fa_per_day"], m["f1_event_counted"], -m["alert_fraction"])
 
 
 class Design:
@@ -123,7 +132,7 @@ def best_params(design: Design, df: pd.DataFrame, events: pd.DataFrame) -> tuple
     ev = AnyEvaluator(df, events, fusion_mask(df))
     best = None
     for params in design.grid():
-        m = ev(design.decide(df, params))
+        m = ev(design.decide(df, params) > 0)
         if best is None or _key(m) > _key(best[1]):
             best = (params, m)
     return best
@@ -144,22 +153,24 @@ def oof_tune(design: Design, val: pd.DataFrame, events: pd.DataFrame) -> dict:
         fold_params.append(params)
         oof[te] = design.decide(val[te].reset_index(drop=True), params)
     ev = AnyEvaluator(val, events, fusion_mask(val))
-    oof_metrics = ev(oof)
+    oof_metrics = ev(oof > 0)
     design.fit(val, y)
     final_params, in_sample = best_params(design, val, events)
+    cat_ok, _ = ev.category_correct(oof)
     return {"oof_pred": oof, "oof": oof_metrics, "fold_params": fold_params, "final_params": final_params,
-            "in_sample": in_sample, "feasible": bool(oof_metrics["fa_per_day"] <= CAP)}
+            "in_sample": in_sample, "feasible": bool(oof_metrics["fa_per_day"] <= CAP),
+            "oof_category_accuracy": float(cat_ok.mean()) if len(cat_ok) else 0.0}
 
 
 def select(results: dict[str, dict], candidates: tuple[str, ...] = ("F-A", "F-B")) -> tuple[str, str]:
-    """Best constrained OOF validation event F1; ties within TIE go to the more interpretable design."""
+    """Best constrained OOF validation event-counted F1; ties within TIE go to the more interpretable design."""
     ranked = sorted(candidates, key=lambda n: _key(results[n]["oof"]), reverse=True)
     best = ranked[0]
     interp = {"F-A": 1, "F-B": 2}
-    reason = "best constrained validation event F1"
+    reason = "best constrained validation event-counted F1"
     for other in ranked[1:]:
         a, b = results[best]["oof"], results[other]["oof"]
         feasible_both = a["fa_per_day"] <= CAP and b["fa_per_day"] <= CAP
-        if feasible_both and abs(a["f1"] - b["f1"]) <= TIE and interp[other] > interp[best]:
+        if feasible_both and abs(a["f1_event_counted"] - b["f1_event_counted"]) <= TIE and interp[other] > interp[best]:
             best, reason = other, f"tie within {TIE}: more interpretable design"
     return best, reason
