@@ -12,6 +12,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+# Use the project's virtual environment if this was started with another Python.
+_venv_py = ROOT / ".venv" / "Scripts" / "python.exe"
+if _venv_py.is_file() and Path(sys.executable).resolve() != _venv_py.resolve():
+    import subprocess
+
+    raise SystemExit(subprocess.call([str(_venv_py), str(Path(__file__).resolve()), *sys.argv[1:]]))
+
 from kami import config  # noqa: E402
 from kami.live.launch import launch  # noqa: E402
 
