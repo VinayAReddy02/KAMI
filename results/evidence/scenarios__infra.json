@@ -25,7 +25,9 @@
       "events": 36,
       "detected": 35,
       "alert_segments": 121,
-      "false_alert_segments": 21
+      "false_alert_segments": 21,
+      "precision_event_counted": 0.625,
+      "f1_event_counted": 0.7608695652173912
     },
     "false_alarms_per_day": 0.059503546797060235,
     "latency_h": {
@@ -64,7 +66,9 @@
       "events": 36,
       "detected": 36,
       "alert_segments": 171,
-      "false_alert_segments": 39
+      "false_alert_segments": 39,
+      "precision_event_counted": 0.48,
+      "f1_event_counted": 0.6486486486486487
     },
     "false_alarms_per_day": 0.11129276775363396,
     "latency_h": {
@@ -215,8 +219,8 @@
     }
   ],
   "best_baseline_val": {
-    "model": "fixed_threshold",
-    "val_event_f1": 0.7302975106253795
+    "model": "isolation_forest",
+    "val_event_f1": 0.5871659698236684
   },
   "val_event_f1_ge_best_baseline": true
 }

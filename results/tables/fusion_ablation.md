@@ -14,8 +14,8 @@ Two data kinds, reported separately. `scenarios` = semi-synthetic events on real
 | F-B (no temporal) | 0.641 | 0.566 | 0.745 | 0.222 | 0.983 | 0.362 | 2.19 | 0.08 | 0.650 | 0.274 | 0.520 |
 | threshold voting (no fusion) | 0.432 | 0.433 | 0.759 | 0.800 | 0.883 | 0.840 | 0.16 | 2.50 | 0.700 | 0.910 | 0.716 |
 | single joint model (no separated evidence) | 0.464 | 0.321 | 0.495 | 0.289 | 0.950 | 0.443 | 1.13 | 0.00 | 0.433 | 0.335 | 0.336 |
-| baseline: fixed_threshold | 0.306 | 0.364 | 0.782 | 0.435 | 0.700 | 0.536 | 0.66 | 2.21 | 0.417 | 0.575 | 0.045 |
-| baseline: isolation_forest | 0.237 | 0.246 | 0.686 | 0.446 | 0.750 | 0.560 | 0.72 | 2.08 | 0.333 | 0.581 | 0.293 |
+| baseline: fixed_threshold | 0.244 | 0.276 | 0.736 | 0.899 | 0.500 | 0.642 | 0.05 | 5.54 | 0.333 | 0.879 | 0.045 |
+| baseline: isolation_forest | 0.231 | 0.223 | 0.704 | 0.459 | 0.700 | 0.555 | 0.57 | 5.79 | 0.383 | 0.581 | 0.048 |
 
 ## battledim
 

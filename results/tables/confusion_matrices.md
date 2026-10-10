@@ -60,19 +60,19 @@ Categories: Normal, Infrastructure, Quality, Combined
 
 | truth \ pred | Normal | Infrastructure | Quality | Combined |
 |---|---|---|---|---|
-| Normal | 74168 | 2369 | 252 | 3 |
-| Infrastructure | 11434 | 10551 | 17 | 43 |
-| Quality | 6165 | 276 | 32 | 13 |
-| Combined | 1720 | 1377 | 0 | 0 |
+| Normal | 76533 | 4 | 255 | 0 |
+| Infrastructure | 18802 | 3183 | 47 | 13 |
+| Quality | 6441 | 0 | 45 | 0 |
+| Combined | 2247 | 850 | 0 | 0 |
 
 ## scenarios / baseline: isolation_forest
 
 | truth \ pred | Normal | Infrastructure | Quality | Combined |
 |---|---|---|---|---|
-| Normal | 73116 | 988 | 2677 | 11 |
-| Infrastructure | 20535 | 592 | 884 | 34 |
-| Quality | 5848 | 27 | 611 | 0 |
-| Combined | 2789 | 249 | 56 | 3 |
+| Normal | 75641 | 999 | 152 | 0 |
+| Infrastructure | 21400 | 626 | 19 | 0 |
+| Quality | 6417 | 27 | 42 | 0 |
+| Combined | 2845 | 252 | 0 | 0 |
 
 ## battledim / F-A
 
