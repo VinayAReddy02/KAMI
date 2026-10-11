@@ -1,4 +1,4 @@
-import type { Alert, DemoStatus, Network, NodeState } from "./types";
+import type { Alert, DemoStatus, Network, NodeState, NotifyStatus } from "./types";
 
 const BASE = (import.meta.env.VITE_API_BASE as string | undefined) ?? "";
 
@@ -39,6 +39,7 @@ export const api = {
   alerts: (q = "") => getJson<Alert[]>(`/alerts${q}`),
   nodeState: (id: string, limit = 288) => getJson<NodeState>(`/nodes/${id}/state?limit=${limit}`),
   status: () => getJson<DemoStatus>("/demo/status"),
+  notifications: () => getJson<NotifyStatus>("/notifications/status"),
   inject: (type: string, node: string) => postJson<unknown>("/demo/inject", { type, node }),
   control: (b: { speed?: number; paused?: boolean }) => postJson<DemoStatus>("/demo/control", b),
 };

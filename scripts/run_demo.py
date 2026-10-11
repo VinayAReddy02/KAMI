@@ -55,10 +55,12 @@ def main() -> int:
     a = ap.parse_args()
     if a.check:
         return smoke(a.speed)
-    h = launch(speed=a.speed, port=a.port)
+    h = launch(speed=a.speed, port=a.port, notifications="auto")  # WhatsApp only if enabled in .env (docs/notifications.md)
     dist = ROOT / "frontend" / "dist"
     print(f"KAMI running in {h.stack.mode} mode. API: {h.url}  (docs: {h.url}/docs)")
     print(f"Dashboard: {h.url}/" if dist.is_dir() else "Frontend not built: run `npm run build` in frontend/ (or `npm run dev` for port 5173).")
+    st = h.stack.extras["notifications"].status()
+    print("Alerts: " + ("WhatsApp on" if st["mode"] == "twilio" else "dry run") + f" ({st['detail']}; {st['budget_remaining']} messages left in the budget)")
     print("Ctrl+C to stop.")
     try:
         while True:

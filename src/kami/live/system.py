@@ -27,7 +27,9 @@ class LiveSystem:
 
 
 def build_live(stack: Stack, speed: float = 600.0, n_nodes: int = 8, start: int | None = None,
-               max_steps: int | None = None) -> LiveSystem:
+               max_steps: int | None = None, notifications: str = "dry_run") -> LiveSystem:
+    """`notifications`: "dry_run" (default: alert messages only go to the dry-run log, whatever .env says) or "auto"
+    (WhatsApp is used if it is enabled and configured in .env, see docs/notifications.md)."""
     frames = build_node_frames(n_nodes)
     start = find_clean_start(frames) if start is None else start
     proc = LiveProcessor(stack.store)
@@ -43,6 +45,11 @@ def build_live(stack: Stack, speed: float = 600.0, n_nodes: int = 8, start: int 
             hub.push({"type": kind, "data": data})
 
     proc.listeners.append(push)
+    from ..notify import build_manager  # outbound alert push; listens to alert events, never blocks the processor
+
+    names = {n["id"]: n["name"] for n in load_nodes_config()["nodes"]}
+    stack.extras["notifications"] = build_manager(names, force_dry_run=notifications != "auto")
+    proc.listeners.append(stack.extras["notifications"].on_event)
     live = LiveSystem(proc, inj, fleet, frames, start)
     stack.extras["live"] = live
     return live

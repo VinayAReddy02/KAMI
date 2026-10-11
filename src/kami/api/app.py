@@ -1,4 +1,4 @@
-"""FastAPI app: /health, /nodes, /readings, /ws."""
+"""FastAPI app: /health, /nodes, /readings, live state, alerts, demo controls, /notifications/status, /ws."""
 from __future__ import annotations
 
 import asyncio
@@ -135,6 +135,14 @@ def create_app(stack: Stack) -> FastAPI:
         return {"speed": lv.fleet.speed, "paused": lv.fleet.paused, "step": lv.fleet.step, "ts": lv.fleet.last_ts,
                 "done": lv.fleet.done, "injections": lv.injector.status(), "mode": stack.mode,
                 "data_kind": "semi_synthetic", "method": lv.processor.fusion.describe()}
+
+    @app.get("/notifications/status")
+    def notifications_status():
+        """Alert push: mode (dry_run or twilio), counts, last send time, limits. Never any credential or number."""
+        mgr = stack.extras.get("notifications")
+        if mgr is None:
+            raise HTTPException(503, "notifications not running")
+        return mgr.status()
 
     @app.websocket("/ws")
     async def ws(sock: WebSocket):

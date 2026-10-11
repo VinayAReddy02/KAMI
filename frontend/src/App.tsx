@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AlertPushStatus } from "./components/AlertPushStatus";
 import { ControlBar } from "./components/ControlBar";
 import { LiveProvider, useLive } from "./live";
 import { Alerts } from "./pages/Alerts";
@@ -75,6 +76,10 @@ function Shell() {
         {page === "alerts" && <Alerts />}
         {page === "method" && <Method />}
       </main>
+      <footer className="footer">
+        <AlertPushStatus />
+        <span>Simulated data · demo network</span>
+      </footer>
     </>
   );
 }

@@ -13,6 +13,7 @@ export default defineConfig({
       "/nodes": API,
       "/alerts": API,
       "/demo": API,
+      "/notifications": API,
       "/health": API,
       "/readings": API,
       "/ws": { target: API, ws: true },
