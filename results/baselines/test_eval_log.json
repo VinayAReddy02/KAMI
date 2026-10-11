@@ -4,69 +4,69 @@
     "model": "fixed_threshold-infra",
     "dataset": "battledim",
     "count": 1,
-    "utc": "2026-10-11T19:37:29.385643+00:00"
+    "utc": "2026-10-11T18:20:10.088830+00:00"
   },
   {
     "key": "83e0071708fccb65",
     "model": "isolation_forest-infra",
     "dataset": "battledim",
     "count": 2,
-    "utc": "2026-10-11T19:37:29.418704+00:00"
+    "utc": "2026-10-11T18:20:10.121411+00:00"
   },
   {
     "key": "f48306e42d059474",
     "model": "ocsvm-infra",
     "dataset": "battledim",
     "count": 3,
-    "utc": "2026-10-11T19:37:29.530746+00:00"
+    "utc": "2026-10-11T18:20:10.239445+00:00"
   },
   {
     "key": "f94f21f241b98fb0",
     "model": "fixed_threshold-infra",
     "dataset": "scenarios",
     "count": 4,
-    "utc": "2026-10-11T19:38:53.229288+00:00"
+    "utc": "2026-10-11T18:21:34.032193+00:00"
   },
   {
     "key": "fcfdc9542ee0d47a",
     "model": "fixed_threshold-quality",
     "dataset": "scenarios",
     "count": 5,
-    "utc": "2026-10-11T19:38:53.311388+00:00"
+    "utc": "2026-10-11T18:21:34.166933+00:00"
   },
   {
     "key": "0b90ede406b1c5d9",
     "model": "isolation_forest-infra",
     "dataset": "scenarios",
     "count": 6,
-    "utc": "2026-10-11T19:38:53.390042+00:00"
+    "utc": "2026-10-11T18:21:34.247553+00:00"
   },
   {
     "key": "e4cb154e4fbe8147",
     "model": "isolation_forest-quality",
     "dataset": "scenarios",
     "count": 7,
-    "utc": "2026-10-11T19:38:53.779732+00:00"
+    "utc": "2026-10-11T18:21:34.594452+00:00"
   },
   {
     "key": "02b19b3b76f7be09",
     "model": "isolation_forest-joint",
     "dataset": "scenarios",
     "count": 8,
-    "utc": "2026-10-11T19:38:54.458782+00:00"
+    "utc": "2026-10-11T18:21:35.316926+00:00"
   },
   {
     "key": "7f9caee6d3a7cac2",
     "model": "ocsvm-infra",
     "dataset": "scenarios",
     "count": 9,
-    "utc": "2026-10-11T19:38:54.936048+00:00"
+    "utc": "2026-10-11T18:21:35.805431+00:00"
   },
   {
     "key": "73472f11898391d6",
     "model": "ocsvm-quality",
     "dataset": "scenarios",
     "count": 10,
-    "utc": "2026-10-11T19:39:00.888804+00:00"
+    "utc": "2026-10-11T18:21:42.322164+00:00"
   }
 ]

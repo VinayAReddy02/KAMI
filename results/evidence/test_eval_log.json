@@ -4,20 +4,20 @@
     "model": "evidence-infra",
     "dataset": "battledim",
     "count": 1,
-    "utc": "2026-10-11T19:39:12.227196+00:00"
+    "utc": "2026-10-11T18:21:53.890703+00:00"
   },
   {
     "key": "db79e498735062c1",
     "model": "evidence-infra",
     "dataset": "scenarios",
     "count": 2,
-    "utc": "2026-10-11T19:39:20.089852+00:00"
+    "utc": "2026-10-11T18:22:01.870096+00:00"
   },
   {
     "key": "7f0f97062b947d33",
     "model": "evidence-quality",
     "dataset": "scenarios",
     "count": 3,
-    "utc": "2026-10-11T19:39:27.099953+00:00"
+    "utc": "2026-10-11T18:22:09.758707+00:00"
   }
 ]

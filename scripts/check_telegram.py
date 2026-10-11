@@ -176,14 +176,32 @@ check("pytest tests/live/test_live_frozen.py passes (live path equals the batch 
 check("docs/notifications.md, scripts/send_test_alert.py and scripts/telegram_find_chat.py exist",
       all((ROOT / f).is_file() for f in ("docs/notifications.md", "scripts/send_test_alert.py", "scripts/telegram_find_chat.py")))
 
-# ---------------------------------------------------------------- nothing final was touched; everything earlier still passes
-check("no file under results/fusion/ or results/round2/ changed in this round (git diff against the round's base commit, and no untracked file)",
-      git("diff", "--quiet", ROUND_BASE, "--", "results/fusion", "results/round2", code=True) == 0
-      and git("status", "--porcelain", "--", "results/fusion", "results/round2") == "")
+# ---------------------------------------------------------------- everything earlier still passes; nothing final was touched
 if not args.quick:
     r = subprocess.run([sys.executable, "scripts/check_round2.py"], cwd=ROOT, capture_output=True, text=True, env=child_env)
     for ln in r.stdout.splitlines():
         if ln.startswith("FAIL"):
             print("     ", ln)
     check("scripts/check_round2.py still passes (Round 2 artefacts, every check_step_N.py, pytest -q, npm run build)", r.returncode == 0)
+
+# Compared with git after the earlier checks have run. One file needs care: results/fusion/test_eval_log.json is the Round 1
+# access log of the already exposed test_v1. scripts/check_step_5.py re-runs the Round 1 pipeline and rewrites the time
+# stamps in it on every run, so that file is compared without its "utc" fields. Every other file must be byte-identical.
+R1_LOG = "results/fusion/test_eval_log.json"
+
+
+def without_time(o):
+    if isinstance(o, dict):
+        return {k: without_time(v) for k, v in o.items() if k != "utc"}
+    return [without_time(x) for x in o] if isinstance(o, list) else o
+
+
+FINAL = ("results/fusion", "results/round2")
+changed = set(git("diff", "--name-only", ROUND_BASE, "--", *FINAL).split()) | {ln[3:] for ln in git("status", "--porcelain", "--", *FINAL).splitlines()}
+log_same = True
+if R1_LOG in changed:
+    log_same = without_time(json.loads(git("show", f"{ROUND_BASE}:{R1_LOG}"))) == without_time(json.loads((ROOT / R1_LOG).read_text(encoding="utf-8")))
+    print("    INFO the Round 1 access log has new time stamps from the Round 1 checks; its content is " + ("unchanged" if log_same else "DIFFERENT"))
+check(f"no file under results/fusion/ or results/round2/ changed in this round (git, against {ROUND_BASE}) {sorted(changed - {R1_LOG}) or ''}",
+      not (changed - {R1_LOG}) and log_same)
 sys.exit(0 if ok else 1)
