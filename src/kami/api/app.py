@@ -134,7 +134,7 @@ def create_app(stack: Stack) -> FastAPI:
         lv = live()
         return {"speed": lv.fleet.speed, "paused": lv.fleet.paused, "step": lv.fleet.step, "ts": lv.fleet.last_ts,
                 "done": lv.fleet.done, "injections": lv.injector.status(), "mode": stack.mode,
-                "data_kind": "semi_synthetic"}
+                "data_kind": "semi_synthetic", "method": lv.processor.fusion.describe()}
 
     @app.websocket("/ws")
     async def ws(sock: WebSocket):

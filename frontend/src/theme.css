@@ -216,6 +216,10 @@ td.expl { max-width: 460px; color: var(--muted); }
 
 /* method */
 .method { max-width: 780px; }
+.method-version { border-left: 3px solid var(--c-quality); padding: 0.35rem 0.7rem; }
+.method-version .muted { color: var(--muted); }
+.footer { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; padding: 0.6rem 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; }
+.footer strong { color: var(--text); font-weight: 600; }
 .pipeline li { margin: 0.4rem 0; }
 
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }

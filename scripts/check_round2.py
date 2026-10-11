@@ -91,7 +91,10 @@ check("R2 frozen config: recorded commit and creation time predate the first tes
       commit_time <= first3 and ts(frozen["created_utc"]) <= first3)
 check("R2 frozen config file was last committed before the first test_v3 access and is unmodified since",
       cfg_commit_time is not None and cfg_commit_time <= first3)
-paths = [p for p in TRACKED]
+# Round 3 adds live/notification code under src/kami that is not an input of the evaluation. The comparison therefore
+# covers the frozen inputs themselves (the folders hashed by eval/freeze.py), not the whole of src/kami.
+assert "src/kami" in TRACKED
+paths = ["src/kami/models", "src/kami/features", "src/kami/eval", "src/kami/data", "src/kami/simulator/scenarios.py"]     + [p for p in TRACKED if p != "src/kami"]
 check("R2 the tracked frozen inputs are byte-for-byte what the recorded commit contains (git diff against it is empty)",
       git("diff", "--quiet", frozen["git_commit"], "--", *paths, ":(exclude)results/baselines/test_eval_log.json", code=True) == 0)
 check("R6 final results were produced under this frozen configuration",

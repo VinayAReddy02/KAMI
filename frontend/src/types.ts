@@ -76,4 +76,14 @@ export interface DemoStatus {
   mode: string;
   data_kind: string;
   injections: { id: string; node_id: string; type: string; start_ts: string | null }[];
+  method?: { label: string; design: string; params: Record<string, number>; frozen_commit: string; source: string };
+}
+
+export interface NotifyStatus {
+  mode: "dry_run" | "twilio";
+  sent: number;
+  suppressed: number;
+  failed: number;
+  last_send_utc: string | null;
+  budget_remaining: number | null;
 }

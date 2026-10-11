@@ -3,7 +3,8 @@
 Per reading: update the node's signal buffer (forward-fill short gaps like the batch pipeline), compute the
 causal features of the last step (`compute_last`, tested equal to the batch features), evidence
 probabilities from the calibrated modules, causal temporal features of each evidence stream, then the
-selected fusion design. Deployed models are the scenario-trained modules (data/processed/models).
+fusion design and parameters frozen in Round 2 (`frozen.FrozenRule`, read from results/fusion/frozen_config.json).
+Deployed evidence models are the scenario-trained modules (data/processed/models).
 """
 from __future__ import annotations
 
@@ -20,6 +21,7 @@ from ..data.loaders import FFILL_LIMIT_5MIN
 from ..features.causal import DAY, compute_last
 from ..features.temporal import DEFAULT, temporal_features
 from ..models.fusion import CATS, PRIORITIES, assess
+from .frozen import FrozenRule
 
 ROOT = Path(__file__).resolve().parents[3]
 MODELS = ROOT / "data" / "processed" / "models"
@@ -28,6 +30,7 @@ BUF = 400  # >= 289 needed for the 24 h lag and the 288-step windows
 P_HIST = DEFAULT.rec_window + DEFAULT.gap + 8
 SERIES_KEEP = 600  # points kept per node for the charts
 CALM_STEPS = 12  # an alert closes after 1 h of Normal
+LABELS = {"infra": "infrastructure", "quality": "quality"}
 
 
 class _Node:
@@ -43,13 +46,13 @@ class _Node:
 
 
 class LiveProcessor:
-    def __init__(self, store=None, models_dir: Path = MODELS):
+    def __init__(self, store=None, models_dir: Path = MODELS, rule: FrozenRule | None = None):
         self.store = store
         ev = {d: joblib.load(models_dir / f"evidence_scenarios_{d}.joblib") for d in ("infra", "quality")}
         self.modules = {d: ev[d]["module"] for d in ev}
         self.columns = {d: ev[d]["columns"] for d in ev}
-        fz = joblib.load(models_dir / "fusion_selected.joblib")
-        self.design, self.fusion = fz["design"], fz["model"]
+        self.fusion = rule or FrozenRule()  # design and parameters frozen in Round 2 (read-only)
+        self.design = self.fusion.design_name
         self.nodes: dict[str, _Node] = {}
         self.alerts: list[dict] = []
         self.listeners: list[Callable[[str, dict], None]] = []
@@ -100,11 +103,16 @@ class LiveProcessor:
                 t = temporal_features(np.fromiter(n.p[d], float), DEFAULT).iloc[-1]
                 for k in ("suddenness", "persist_steps", "persist_frac", "recurrence"):
                     row[f"{d}_{k}"] = float(t[k])
-            if ready:
+            if ready and all(ev_ok.values()):
                 df = pd.DataFrame([row])
                 k = int(self.fusion.predict(df)[0])
                 proba = self.fusion.predict_proba(df)[0]
                 a = assess(row, proba, k)
+            elif ready:  # same as the batch frozen rule: a step is scored only when both evidence streams are present
+                gone = " and ".join(LABELS[d] for d in ("infra", "quality") if not ev_ok[d])
+                a = {"category": "Normal", "priority": "Low", "confidence": None,
+                     "explanation": f"Not assessed: {gone} evidence unavailable (missing readings). "
+                                    "The frozen rule scores a step only when both evidence streams are present."}
             else:
                 a = {"category": "Normal", "priority": "Low", "confidence": None,
                      "explanation": "Warming up: collecting 24 h of history before assessing."}

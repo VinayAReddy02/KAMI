@@ -28,7 +28,7 @@ KAMI is a context-aware, multi-stage **anomaly intelligence system for water net
 - **Dataset not obtainable?** Use the alternative named in `PLAN.md`, log it, and add "revisit original dataset" to the *Needs user* list in `PROGRESS.md`. The user will iterate on it later.
 - **Three failed attempts at the same problem:** stop working on it, write the error and what you tried in `PROGRESS.md`, then move to the next step that does not depend on it. If nothing independent remains, stop cleanly.
 - **After every task** update `PROGRESS.md`. After every step: run its check script, commit, then continue. A fresh session must be able to resume by reading `PROGRESS.md` alone.
-- **Stop after Step 7.** Do not start the paper. The paper is written later with the user.
+- **Stop at the end of the current round** (see *Current phase* below). Do not start the paper. The paper is written later with the user.
 - Keep conversational output short. The record lives in `PROGRESS.md`, `docs/decisions.md` and Git.
 
 ## Environment (Windows)
@@ -80,11 +80,22 @@ PROGRESS.md  PLAN.md  CLAUDE.md  README.md
 ## Dashboard design brief
 Dark **operations-console** look, light theme available via a toggle, map-centred. Status colours must work for colour-blind users: use colour **plus** icon **plus** text for every status. Include loading, empty and error states, keyboard focus styles and a responsive layout. If a `frontend-design` skill is available, use it. No default template look.
 
-## Definition of done (this overnight run)
+## Definition of done (Round 1, achieved 2026-10-10)
 Steps 0 to 7 pass their check scripts, `pytest -q` passes, `npm run build` passes, `results/SUMMARY.md` consolidates every table, and `PROGRESS.md` is current.
 
-## Round 2 (added after the review)
-Round 1 is finished. When PROGRESS.md says Round 2 is pending, read PLAN_ROUND2.md and work through it in order, with all the rules above. "Stop after Step 7" now means: stop after Round 2 (task R8). The paper is still written later with the user.
+## Working mode (user decision, 2026-10-11; applies to every session from now on)
+- **Model:** the user runs Claude Code on **Opus 5.5 at high effort**. Use that effort on correctness and judgement, not on volume of output.
+- **Single-agent execution.** Do all work yourself in the main session. Do **not** spawn subagents, parallel agents, background workflows or multi-reviewer runs (such as the six-reviewer code review used in Round 2) unless the user explicitly asks for it in that session. If you think a second opinion is needed, do a focused self-review and note it in `PROGRESS.md`.
+- **Use tokens reasonably:**
+  - Read only what the task needs: search with grep and read line ranges instead of whole large files; do not re-read a file you just wrote.
+  - Never dump large data, tables or logs into the conversation. Write them to files and print short summaries (counts, head/tail, the failing line).
+  - Run the narrowest test first (`pytest path::test_name`), and the full suite once at the end of a task group.
+  - Do not re-run long pipelines (dataset builds, tuning, final evaluation) unless their inputs changed. Reuse stored artefacts.
+  - Prefer small edits over rewriting whole files. Keep `PROGRESS.md` notes to one or two lines per task.
+- **Correctness still wins.** Saving tokens never justifies skipping a hard rule: no leakage, locked held-out sets, honest reporting, tests before commits.
 
-## WhatsApp add-on (after Round 2)
-When PROGRESS.md says Round 2 is done and the WhatsApp add-on is pending, read PLAN_WHATSAPP.md. It is outbound alerts only, and it is the single exception to the "no keys" rule: credentials only in git-ignored `.env`, never printed or committed.
+## Current phase and round history
+- **Round 1** (Steps 0 to 7, `PLAN.md`): done 2026-10-10.
+- **Round 2** (evaluation fixes, `PLAN_ROUND2.md`): done 2026-10-10. The frozen configuration (`results/fusion/frozen_config.json`) and the held-out results are final: never re-tune, re-freeze or re-run the final evaluation.
+- **Round 3, current** (WhatsApp alert push, `PLAN_WHATSAPP.md`): started 2026-10-10 but not committed; resume as described in `PLAN_WHATSAPP.md` and `PROGRESS.md`. Stop after W8. This round is the single exception to the "no keys" rule: credentials only in the git-ignored `.env`, never printed, logged or committed.
+- **After Round 3:** stop. The paper and any further rounds are planned with the user.
