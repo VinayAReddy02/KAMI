@@ -2,7 +2,7 @@
 
 `results/fusion/frozen_config.json` is only READ here. The decision code is the same class the batch evaluation used
 (`eval.fusion_tune`), so the live category equals the batch frozen rule on the same evidence (tested in
-tests/whatsapp/test_live_frozen.py). This is a deployment change: nothing is tuned, fitted or evaluated here.
+tests/live/test_live_frozen.py). This is a deployment change: nothing is tuned, fitted or evaluated here.
 """
 from __future__ import annotations
 

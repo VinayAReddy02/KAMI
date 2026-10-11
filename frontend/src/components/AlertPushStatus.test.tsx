@@ -9,7 +9,6 @@ const status = (over: Partial<NotifyStatus> = {}): NotifyStatus => ({
   suppressed: 1,
   failed: 0,
   last_send_utc: null,
-  budget_remaining: 78,
   ...over,
 });
 
@@ -28,14 +27,16 @@ describe("AlertPushStatus", () => {
     render(<AlertPushStatus />);
     expect(await screen.findByText("Alerts: dry run")).toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent("2 sent, 1 held back, 0 failed");
-    expect(screen.getByRole("status")).not.toHaveTextContent("left in budget");
+    expect(screen.getByRole("status")).toHaveClass("push-dry"); // colour class, plus the icon and the text
+    expect(screen.getByRole("status").querySelector(".push-icon")).not.toBeNull();
   });
 
-  it("says WhatsApp on with the remaining budget in Twilio mode", async () => {
-    mockFetch(status({ mode: "twilio" }));
+  it("says Telegram on when the bot is used", async () => {
+    mockFetch(status({ mode: "telegram" }));
     render(<AlertPushStatus />);
-    expect(await screen.findByText("Alerts: WhatsApp on")).toBeInTheDocument();
-    expect(screen.getByRole("status")).toHaveTextContent("78 left in budget");
+    expect(await screen.findByText("Alerts: Telegram on")).toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveClass("push-on");
+    expect(screen.getByRole("status")).toHaveTextContent("2 sent, 1 held back, 0 failed");
   });
 
   it("shows an error state when the status cannot be loaded", async () => {

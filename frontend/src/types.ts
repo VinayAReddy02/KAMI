@@ -80,10 +80,10 @@ export interface DemoStatus {
 }
 
 export interface NotifyStatus {
-  mode: "dry_run" | "twilio";
+  mode: "dry_run" | "telegram";
   sent: number;
   suppressed: number;
   failed: number;
   last_send_utc: string | null;
-  budget_remaining: number | null;
+  detail?: string;
 }

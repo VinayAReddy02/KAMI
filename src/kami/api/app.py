@@ -138,7 +138,7 @@ def create_app(stack: Stack) -> FastAPI:
 
     @app.get("/notifications/status")
     def notifications_status():
-        """Alert push: mode (dry_run or twilio), counts, last send time, limits. Never any credential or number."""
+        """Alert push: mode (dry_run or telegram), counts, last send time, limits. Never the bot token or the chat id."""
         mgr = stack.extras.get("notifications")
         if mgr is None:
             raise HTTPException(503, "notifications not running")

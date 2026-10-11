@@ -2,8 +2,8 @@
 
 Trigger   an alert episode OPENS with priority High or Critical, or an open episode ESCALATES to High or Critical
           (to a higher priority than the one already notified for that episode).
-Limits    at most one message per node per `cooldown_s` (10 minutes of wall-clock time), at most `hourly_cap`
-          messages in any 60 minutes overall, at most `max_total` messages in total (lifetime budget).
+Limits    at most one message per node per `cooldown_s` (10 minutes of wall-clock time) and at most `hourly_cap`
+          messages in any 60 minutes overall.
 No repeat an episode is never notified twice at the same priority; a change of category alone, a de-escalation and the
           closing of an episode send nothing.
 A trigger that a limit holds back is counted as suppressed and is not marked as notified, so a later change of the same
@@ -24,7 +24,7 @@ HOUR_S = 3600.0
 @dataclass(frozen=True)
 class Decision:
     send: bool
-    reason: str  # send: 'opened' | 'escalated'; no send: 'not_triggered' | 'cooldown' | 'hourly_cap' | 'budget'
+    reason: str  # send: 'opened' | 'escalated'; no send: 'not_triggered' | 'cooldown' | 'hourly_cap' (| 'on_hold' | 'queue_full')
 
     @property
     def suppressed(self) -> bool:
@@ -32,9 +32,8 @@ class Decision:
 
 
 class TriggerRule:
-    def __init__(self, cooldown_s: float = COOLDOWN_S, hourly_cap: int = HOURLY_CAP, max_total: int = 80, used_total: int = 0):
-        self.cooldown_s, self.hourly_cap, self.max_total = float(cooldown_s), int(hourly_cap), int(max_total)
-        self.used_total = int(used_total)  # messages already spent from the lifetime budget
+    def __init__(self, cooldown_s: float = COOLDOWN_S, hourly_cap: int = HOURLY_CAP):
+        self.cooldown_s, self.hourly_cap = float(cooldown_s), int(hourly_cap)
         self._notified: dict[tuple, int] = {}  # episode -> highest priority rank already notified
         self._seen: set[tuple] = set()  # episodes for which an earlier event was seen
         self._last_node: dict[str, float] = {}
@@ -49,10 +48,6 @@ class TriggerRule:
             self._recent.popleft()
         return len(self._recent)
 
-    @property
-    def budget_remaining(self) -> int:
-        return max(self.max_total - self.used_total, 0)
-
     def evaluate(self, event: dict, now: float) -> Decision:
         """Decide for one alert event of the live processor. Changes nothing except forgetting closed episodes."""
         key = self._key(event)
@@ -65,8 +60,6 @@ class TriggerRule:
         rank = PRIORITIES.index(event["priority"])
         if rank < MIN_RANK or rank <= self._notified.get(key, -1):
             return Decision(False, "not_triggered")
-        if self.budget_remaining <= 0:
-            return Decision(False, "budget")
         last = self._last_node.get(event["node_id"])
         if last is not None and now - last < self.cooldown_s:
             return Decision(False, "cooldown")
@@ -79,4 +72,3 @@ class TriggerRule:
         self._notified[self._key(event)] = PRIORITIES.index(event["priority"])
         self._last_node[event["node_id"]] = now
         self._recent.append(now)
-        self.used_total += 1

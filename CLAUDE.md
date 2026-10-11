@@ -8,18 +8,18 @@ KAMI is a context-aware, multi-stage **anomaly intelligence system for water net
 
 ## Read this first, every session
 1. `PROGRESS.md` (where we stopped, what needs the user)
-2. `PLAN.md` (the steps and their exit checks)
+2. The plan of the current round (see *Current phase* below; `PLAN.md` holds the Round 1 steps and their exit checks)
 3. `docs/decisions.md` (decisions already made; do not re-open them)
 4. `docs/reference/` as needed: `project/` (abstract, first-phase report), `faculty/Faculty_feedback.txt`, `related_works/related_works.md`, `senior_project/AI_water_prj.docx`, `paper_format/` (used later, not now)
 
 ## Hard rules
-1. **Stay in scope.** Only build what `PLAN.md` lists. No chatbot, RAG, voice, computer vision, routing, forecasting or WhatsApp. If you think something is missing, write it in `docs/decisions.md` under "Proposed"; do not build it.
+1. **Stay in scope.** Only build what the current round's plan lists. No chatbot, RAG, voice, computer vision, routing or forecasting. Alert push is outbound only, through a Telegram bot (WhatsApp was removed in Round 4). If you think something is missing, write it in `docs/decisions.md` under "Proposed"; do not build it.
 2. **Never fake results.** No invented numbers, no hardcoded metrics, no tests that pass trivially. Every number in `results/` must come from running code on data. If something fails, say so in `PROGRESS.md`.
 3. **Label synthetic data honestly.** Anything produced by the scenario generator or WNTR is `semi_synthetic` or `synthetic` in column names, file names and docs. Never present it as real field data.
 4. **No leakage.** Features use past observations only. Splits are chronological. Tune on the validation split only. The test split is evaluated once per final model.
 5. **Work only inside this folder.** Do not read, edit or copy anything from the senior's project (`D:\GYATT\5th sem\AI\Senior\...`). It is not needed for any step. Do not touch other folders.
 6. **Git:** commit after every finished step. **Never `git push`**, never force anything, never rewrite history, no remotes.
-7. **No secrets.** None are needed for this project. Do not create accounts or API keys.
+7. **Secrets.** Never create accounts or API keys. The only secrets are the user's Telegram bot token and chat id, and they live only in the git-ignored `.env` (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`). Never print, log, commit or copy them, never put them in tests, docs or error text, and never log a Telegram URL (it contains the token).
 8. **Deleting:** avoid it. Never run recursive deletes. If you must remove a generated file inside this folder, remove that single file.
 9. **Downloads:** public datasets only. Record URL, date and licence in `data/raw/<name>/SOURCE.md`. Check free disk space (keep at least 5 GB free) before large downloads. There is no download cap.
 
@@ -61,6 +61,8 @@ src/kami/
   ingest/      bus + worker (MQTT or in-process)
   store/       storage interface + backends
   api/         FastAPI app
+  live/        streaming processor on the frozen Round 2 rule
+  notify/      outbound alert push (dry run by default; Telegram bot from Round 4)
 frontend/      React app
 scripts/       check_step_N.py, run_demo.py
 tests/         step-wise tests
@@ -68,7 +70,7 @@ data/raw/      downloads (git-ignored) + SOURCE.md per dataset
 data/processed/ (git-ignored)
 results/       metrics JSON, tables (.md), figures, screenshots
 docs/          reference/, decisions.md, datasets.md, scenarios.md, architecture.md
-PROGRESS.md  PLAN.md  CLAUDE.md  README.md
+PROGRESS.md  CLAUDE.md  README.md  PLAN.md  PLAN_ROUND2.md  PLAN_WHATSAPP.md (superseded)  PLAN_ROUND4.md  PLAN_ROUND5.md
 ```
 
 ## Quality bar
@@ -97,5 +99,7 @@ Steps 0 to 7 pass their check scripts, `pytest -q` passes, `npm run build` passe
 ## Current phase and round history
 - **Round 1** (Steps 0 to 7, `PLAN.md`): done 2026-10-10.
 - **Round 2** (evaluation fixes, `PLAN_ROUND2.md`): done 2026-10-10. The frozen configuration (`results/fusion/frozen_config.json`) and the held-out results are final: never re-tune, re-freeze or re-run the final evaluation.
-- **Round 3, current** (WhatsApp alert push, `PLAN_WHATSAPP.md`): started 2026-10-10 but not committed; resume as described in `PLAN_WHATSAPP.md` and `PROGRESS.md`. Stop after W8. This round is the single exception to the "no keys" rule: credentials only in the git-ignored `.env`, never printed, logged or committed.
-- **After Round 3:** stop. The paper and any further rounds are planned with the user.
+- **Round 3** (WhatsApp alert push, `PLAN_WHATSAPP.md`, now superseded): done 2026-10-11. The user's real test failed: the Twilio trial only sends fixed templates (error 21654), so alerts could not carry their details. The W-1 work (live demo on the frozen rule) stays.
+- **Round 4** (WhatsApp replaced by a Telegram bot, `PLAN_ROUND4.md`): done 2026-10-12. All WhatsApp/Twilio code is removed; the alert push is a Telegram bot, dry run by default. No real Telegram request was made in that round; the user tests the bot with the planning assistant.
+- **Round 5** (Docker stack, Playwright, screenshots, accessibility, `PLAN_ROUND5.md`; was planned as Round 4): start only after the user has tested the bot and confirms Docker Desktop is installed and running. Stop after P4.
+- **After Round 5:** stop. The paper and any further rounds are planned with the user.

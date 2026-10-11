@@ -64,25 +64,26 @@ Test-set roles: `test_v3` is the headline set (frozen first, each model evaluate
 
 The final evaluation is deliberately not repeatable: each model's access to a held-out test set is logged in `results/round2/*_eval_log.json`, the runner refuses to start if any frozen file changed, and a second run reuses the stored predictions in `results/round2/predictions/` and opens nothing again (every number can be recomputed from them). The validation-side commands above are reproducible.
 
-## Alert push to WhatsApp (optional, dry run by default)
-When a node opens or escalates to a High or Critical alert, KAMI writes a short message (`[KAMI DEMO - simulated data]`, node, category, priority, confidence, explanation, time). By default this is a **dry run**: the message only goes to `results/notifications/dryrun_log.jsonl` and nothing is sent. To receive it on WhatsApp through your own Twilio sandbox, copy `.env.example` to `.env`, fill it in, set `KAMI_WHATSAPP_ENABLE=1`, then:
+## Alert push through a Telegram bot (optional, dry run by default)
+When a node opens or escalates to a High or Critical alert, KAMI writes a short message (`[KAMI DEMO - simulated data]`, node, category, priority, confidence, explanation, time). By default this is a **dry run**: the message only goes to `results/notifications/dryrun_log.jsonl` and nothing is sent. To receive it in Telegram, put the bot token in the git-ignored `.env` (`TELEGRAM_BOT_TOKEN`), press Start in the bot, then:
 ```powershell
-.\.venv\Scripts\python scripts\send_test_alert.py     # one labelled test message (dry run unless enabled)
-.\.venv\Scripts\python scripts\run_demo.py            # prints "Alerts: WhatsApp on" or "Alerts: dry run"
-.\.venv\Scripts\python scripts\check_whatsapp.py      # add-on checks; can never send (add --quick to skip the earlier checks)
+.\.venv\Scripts\python scripts\telegram_find_chat.py   # one-time: saves your chat id in .env (prints only your first name)
+.\.venv\Scripts\python scripts\send_test_alert.py      # one labelled test message (dry run unless KAMI_TELEGRAM_ENABLE=1)
+.\.venv\Scripts\python scripts\run_demo.py             # prints "Alerts: Telegram on" or "Alerts: dry run (<reason>)"
+.\.venv\Scripts\python scripts\check_telegram.py       # Round 4 checks; cannot reach Telegram (add --quick to skip the earlier checks)
 ```
-Limits: one message per node per 10 minutes, 30 per hour, 80 in total (`WHATSAPP_MAX_TOTAL`). Outbound only; `GET /notifications/status` and the dashboard footer show the mode and counts. Setup, sandbox limits and failure handling: `docs/notifications.md`. Credentials live only in the git-ignored `.env`.
+Limits: one message per node per 10 minutes, 30 per hour. Outbound only; `GET /notifications/status` and the dashboard footer show the mode and counts. Setup, message format and failure handling: `docs/notifications.md`. The token and the chat id live only in `.env` and are never logged.
 
 ## Repository layout
 ```
 src/kami/    data, features, simulator, models, eval, ingest, store, live, api, notify
 frontend/    React + TypeScript + Vite dashboard
-scripts/     check_step_N.py, check_round2.py, build_datasets.py, build_test_set.py, make_summary.py, run_demo.py, reproduce_all.py, check_whatsapp.py, send_test_alert.py
-tests/       step1 .. step6, round2, whatsapp
+scripts/     check_step_N.py, check_round2.py, build_datasets.py, build_test_set.py, make_summary.py, run_demo.py, reproduce_all.py, check_telegram.py, send_test_alert.py, telegram_find_chat.py
+tests/       step1 .. step6, round2, live, telegram
 config/      nodes.json (fictional demo coordinates)
 docs/        decisions.md, datasets.md, scenarios.md, fusion.md, architecture.md, notifications.md, reference/
 results/     metrics, tables, figures, round2/, SUMMARY.md   (results_round1/ = Round 1 snapshot)
-PROGRESS.md  PLAN.md  PLAN_ROUND2.md  PLAN_WHATSAPP.md  CLAUDE.md  .env.example
+PROGRESS.md  PLAN.md  PLAN_ROUND2.md  PLAN_ROUND4.md  PLAN_ROUND5.md  CLAUDE.md  .env.example   (the Round 3 plan is superseded and kept as history)
 ```
 
 ## Honest scope notes

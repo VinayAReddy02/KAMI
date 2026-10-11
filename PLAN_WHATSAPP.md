@@ -1,3 +1,5 @@
+> **SUPERSEDED (2026-10-12).** Kept as history of Round 3 only. The WhatsApp/Twilio code is removed in Round 4 and replaced by a Telegram bot (PLAN_ROUND4.md). Do not follow the tasks below.
+
 # KAMI add-on: WhatsApp alert push (Level A only)
 
 Do this ONLY after Round 2 (PLAN_ROUND2.md, task R8) is finished and committed. Same rules as CLAUDE.md, with the one exception below.

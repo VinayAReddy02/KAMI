@@ -6,7 +6,7 @@ removed from the environment of the test process, and dry-run logs go to a tempo
 import os
 import tempfile
 
-for _k in ("TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN", "TWILIO_WHATSAPP_FROM", "WHATSAPP_TO", "KAMI_WHATSAPP_ENABLE", "WHATSAPP_MAX_TOTAL"):
+for _k in ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID", "KAMI_TELEGRAM_ENABLE"):
     os.environ.pop(_k, None)
 _tmp = tempfile.mkdtemp(prefix="kami_tests_notify_")
 os.environ["KAMI_NOTIFY_ENV_FILE"] = os.path.join(_tmp, "no_such.env")

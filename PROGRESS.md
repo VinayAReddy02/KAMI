@@ -2,8 +2,8 @@
 
 Update this file after every task. A new session must be able to resume from here alone.
 
-**Last updated:** 2026-10-11
-**Current step:** Round 3 (WhatsApp alert push, PLAN_WHATSAPP.md) DONE on 2026-10-11, W-1 to W8 committed. Stopped as instructed. Nothing further is planned until the user says so.
+**Last updated:** 2026-10-12
+**Current step:** Round 4 (WhatsApp replaced by a Telegram bot, PLAN_ROUND4.md) DONE on 2026-10-12, T0 to T7 committed. Stopped as instructed. Next is the user's own bot test (see *Needs user*); Round 5 (PLAN_ROUND5.md) starts only after that and after Docker Desktop is confirmed.
 **Mode:** unattended allowed; never wait for answers. Opus 5.5 high effort, single-agent execution, token-efficient (see CLAUDE.md *Working mode*).
 
 ## Steps
@@ -28,7 +28,8 @@ Status values: not started, in progress, passed, blocked.
   - From now on: Opus 5.5 high effort, single-agent execution, token-efficient work (CLAUDE.md *Working mode*).
 - **Round 3, please confirm:** with the frozen rule the demo's injected combined event shows as Infrastructure (High/Critical), not Combined. I changed `scripts/check_step_6.py` so that it counts "alert with priority >= Medium within 60 s" and prints the Combined outcome as a known limitation (docs/decisions.md, Round 3, W-1). Say so if you would rather keep the old criterion failing. The injection size was not changed (no size inside the trained range helps).
 - **Round 3:** a missing quality stream now means "Not assessed" (Normal) in the live demo, as in the frozen rule, so a turbidity/TDS outage also hides infrastructure alerts at that node.
-- **Round 3, to try WhatsApp (optional):** create `.env` from `.env.example` with your Twilio details after W8, send "hi" to the sandbox number, then run `python scripts/send_test_alert.py`.
+- **Round 4 decided (2026-10-12):** WhatsApp is dropped. The user's real Twilio test failed with error 21654 ("ContentSid required"): the "Try out WhatsApp" trial only sends fixed Twilio templates, so alerts could not include node, category, priority or explanation. All WhatsApp/Twilio code is removed and the alert push is rebuilt for a Telegram bot (t.me/KAMI67_BOT).
+- **After Round 4 (user, with the planning assistant):** put `TELEGRAM_BOT_TOKEN` in `.env`, press Start in the bot, run `scripts/telegram_find_chat.py`, set `KAMI_TELEGRAM_ENABLE=1`, run `scripts/send_test_alert.py`.
 - **Detection is slow at the tuned thresholds** (median 3.4 h, 90th percentile 25 h; alerts cover about 22% of event rows). Thresholds sit at the strict end of the tuning grid.
 - **Review coverage:** the pre-freeze code review ran five of six reviewers; the crash-safety reviewer did not run. I covered that part with the rehearsal mode instead.
 - Round 2 incident and the test_v3 choice: see the Round 2 section below (already approved by you).
@@ -43,6 +44,15 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Round 4 T7: check_telegram.py (full: Round 4 checks, check_round2, every check_step_N, pytest -q, npm run build and test) all PASS, exit 0. Committed. Stopped.
+- 2026-10-12 Round 4 T6: docs/notifications.md rewritten for Telegram, README section, decisions.md (Round 4, T0 to T7). make_summary.py and SUMMARY.md had no mention, not touched.
+- 2026-10-12 Round 4 T5: tests/telegram (61 tests, mocked HTTP, real requests refused): trigger, escalation, cooldown, cap, fallback per setting, 401/400/403/404/429/5xx, retries, loop safety, secrets search (confirmed it fails on a planted leak), chat-id helper.
+- 2026-10-12 Round 4 T4: wiring (`allow_real_sending` only from run_demo.py and send_test_alert.py), GET /notifications/status mode dry_run or telegram, dashboard footer line with colour, icon and text.
+- 2026-10-12 Round 4 T3: scripts/telegram_find_chat.py written and tested with mocked HTTP. NOT run.
+- 2026-10-12 Round 4 T2: src/kami/notify rebuilt for Telegram (plain-text sendMessage, no lifetime budget, state file with counts).
+- 2026-10-12 Round 4 T1: old notifier, its check and tests removed with git rm; frozen-rule test moved to tests/live; six old keys removed from .env by name; old request counter file removed.
+- 2026-10-12 Round 4 T0: inventory (below) and scripts/check_telegram.py.
+- 2026-10-12 Planning update (by the user's planning assistant): WhatsApp dropped after the Twilio template-only failure; new Round 4 = Telegram bot (PLAN_ROUND4.md); Docker/Playwright round renumbered to Round 5 (PLAN_ROUND5.md); PLAN_WHATSAPP.md marked superseded; CLAUDE.md rules 1 and 7 updated.
 - 2026-10-11 Round 3 W8: check_whatsapp.py (full: add-on checks, check_round2, every check_step_N, pytest -q, npm run build) all PASS, exit 0. README, decisions.md, SUMMARY.md limitation line updated. Committed. Stopped.
 - 2026-10-11 Round 3 W7: docs/notifications.md (setup, sandbox limits, budget, failures), scripts/send_test_alert.py (dry run unless enabled).
 - 2026-10-11 Round 3 W6: tests/whatsapp (34 tests, mocked HTTP, real requests refused): trigger, escalation, cooldown, hourly cap, budget, fallback, retries, window closed, secrets search, loop safety. Found and fixed: message could be exactly 600 characters.
@@ -72,6 +82,24 @@ See PLAN_ROUND2.md, docs/decisions.md (Round 2) and results/SUMMARY.md. Status: 
 See PLAN_WHATSAPP.md, docs/notifications.md and docs/decisions.md (Round 3).
 - W-1: the live demo runs the frozen Round 2 rule (read-only from `results/fusion/frozen_config.json`); live category equals the batch frozen rule on a fixed validation sample. Known and reported: the injected combined event shows as Infrastructure; a missing quality stream means "Not assessed".
 - W0 to W7: outbound alert push, dry run by default (`results/notifications/dryrun_log.jsonl`). WhatsApp through Twilio only with `KAMI_WHATSAPP_ENABLE=1` and all four credentials in `.env`, and only from `scripts/run_demo.py` and `scripts/send_test_alert.py`. Limits: 10 min per node, 30 per hour, 80 requests in total (`results/notifications/state.json`).
-- **No real WhatsApp message has ever been sent** and `.env` does not exist. The Twilio path is tested with mocked HTTP only; the first real send is yours (`python scripts/send_test_alert.py` after filling `.env`).
+- **2026-10-11/12, user test:** the user created `.env` and ran `send_test_alert.py`; Twilio rejected each request with error 21654 (ContentSid required). No WhatsApp message was delivered. This led to the Round 4 decision.
 - To re-check: `python scripts/check_whatsapp.py` (add `--quick` to skip the earlier checks). It cannot send.
 - Not started: the paper and anything under "Proposed" in docs/decisions.md.
+
+## Round 4: WhatsApp replaced by a Telegram bot (current)
+See PLAN_ROUND4.md, docs/notifications.md and docs/decisions.md (Round 4). Status: DONE 2026-10-12 (base commit `38232dd`). Tasks T0 to T7; check script `scripts/check_telegram.py`. Code only, no real Telegram request; stop after T7.
+- **T0 inventory** (`git grep -i -E "whatsapp|twilio"` at `38232dd`; hits per file):
+  - code to remove or rewrite: `src/kami/notify/twilio.py` (17), `src/kami/notify/settings.py` (10), `src/kami/notify/manager.py` (6), `src/kami/notify/__init__.py` (6), `scripts/check_whatsapp.py` (19), `scripts/send_test_alert.py` (5), `scripts/run_demo.py` (2), `tests/whatsapp/test_notify.py` (69), `tests/conftest.py` (1)
+  - one-line mentions to fix: `src/kami/api/app.py` (1), `src/kami/live/system.py` (1), `src/kami/live/frozen.py` (1, test path in the docstring)
+  - frontend: `frontend/src/components/AlertPushStatus.tsx` (4), `AlertPushStatus.test.tsx` (3), `frontend/src/types.ts` (1)
+  - settings and docs: `.env.example` (9), `README.md` (8), `docs/notifications.md` (39)
+  - history, allowed to stay: `docs/decisions.md` (15), `PLAN_WHATSAPP.md` (19), `PROGRESS.md` (14), `CLAUDE.md` (4), `docs/reference/faculty/Faculty_feedback.txt` (3)
+  - no hits in `scripts/make_summary.py` or `results/SUMMARY.md` (nothing to regenerate)
+  - not tracked: `.env` (exists, old keys to remove by name), `results/notifications/state.json` (old request counter, to remove)
+
+- **Result:** alert push through a Telegram bot, dry run by default. Real sending only with `KAMI_TELEGRAM_ENABLE=1`, a token and a chat id in `.env`, and only from `scripts/run_demo.py` and `scripts/send_test_alert.py`. Limits: 10 minutes per node, 30 per hour, no total limit.
+- **No real Telegram request has been made** (not by me, not by any check or test), and `scripts/telegram_find_chat.py` has not been run. `.env` exists and now holds no setting of the old channel; the Telegram token is not in it yet.
+- To re-check: `python scripts/check_telegram.py` (add `--quick` to skip the earlier checks). It cannot reach Telegram.
+
+## Round 5: Docker stack and browser checks (pending)
+See PLAN_ROUND5.md (was planned as Round 4). Status: not started; waits for Round 4, the user's bot test and Docker Desktop. Playwright, Chromium and axe-core installs are approved.

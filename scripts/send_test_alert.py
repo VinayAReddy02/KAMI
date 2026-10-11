@@ -2,9 +2,9 @@
 
     python scripts/send_test_alert.py
 
-A WhatsApp message is sent only when KAMI_WHATSAPP_ENABLE=1 and all four credentials are set in .env
-(docs/notifications.md). In every other case nothing leaves this machine: the message is written to the dry-run log.
-A real send counts against the lifetime budget (WHATSAPP_MAX_TOTAL). No credential or number is printed.
+A Telegram message is sent only when KAMI_TELEGRAM_ENABLE=1 and both TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are set
+in .env (docs/notifications.md). In every other case nothing leaves this machine: the message is written to the
+dry-run log. The token and the chat id are never printed.
 """
 import sys
 from datetime import datetime
@@ -14,34 +14,33 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 
-def main(env=None, transport=None, out=print, check_delay: float = 15.0) -> int:
+def main(env=None, transport=None, out=print, **kw) -> int:
     from kami.notify import build_manager
     from kami.notify.settings import notify_dir
 
-    mgr = build_manager({"test": "TEST (no real node)"}, env=env, transport=transport, check_delay=check_delay)
+    mgr = build_manager({"test": "TEST (no real node)"}, allow_real_sending=True, env=env, transport=transport, **kw)
     now = datetime.now().isoformat(timespec="seconds")
     event = {"id": 0, "node_id": "test", "category": "TEST", "priority": "High", "max_priority": "High", "start_ts": now,
              "last_ts": now, "end_ts": None, "status": "active", "confidence": None,
              "explanation": "TEST MESSAGE from scripts/send_test_alert.py. This is not an alert: no sensor data and no model produced it."}
     try:
         mgr.on_event("alert", event)
-        idle = mgr.wait_idle(timeout=check_delay + 45)
+        idle = mgr.wait_idle(timeout=120)
         s = mgr.status()
     finally:
         mgr.stop()
     if s["mode"] == "dry_run":
         out(f"Dry run, nothing was sent ({s['detail']}).")
         out(f"The test message was written to {notify_dir(env) / 'dryrun_log.jsonl'}" if s["sent"] else f"Not written: {s['last_problem']}")
-        out("To send it to WhatsApp, follow docs/notifications.md (fill .env, set KAMI_WHATSAPP_ENABLE=1).")
+        out("To send it to Telegram, follow docs/notifications.md (token and chat id in .env, KAMI_TELEGRAM_ENABLE=1).")
         return 0 if s["sent"] == 1 else 1
     if not idle:
-        out("Still waiting for Twilio after the timeout; check the phone and try again later.")
+        out("Still waiting for Telegram after the timeout; try again later.")
         return 1
     if s["sent"] == 1:
-        out(f"Test message accepted by Twilio for WhatsApp delivery. {s['budget_remaining']} of {s['limits']['max_total']} messages left in the budget.")
+        out("Test message accepted by Telegram. Check the chat with the bot.")
         return 0
-    out(f"Not sent: {s['last_problem'] or 'held back (' + ', '.join(s['suppressed_by']) + ')'}")
-    out(f"{s['budget_remaining']} of {s['limits']['max_total']} messages left in the budget.")
+    out(f"Not sent. {s['last_problem'] or 'The message was held back.'}")
     return 1
 
 

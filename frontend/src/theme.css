@@ -220,6 +220,10 @@ td.expl { max-width: 460px; color: var(--muted); }
 .method-version .muted { color: var(--muted); }
 .footer { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; padding: 0.6rem 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; }
 .footer strong { color: var(--text); font-weight: 600; }
+.push-icon { display: inline-block; width: 1.2em; text-align: center; }
+.push-on .push-icon, .push-on strong { color: var(--c-normal); }
+.push-dry .push-icon { color: var(--muted); }
+.push-error .push-icon, .push-error strong { color: var(--c-infra); }
 .pipeline li { margin: 0.4rem 0; }
 
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
