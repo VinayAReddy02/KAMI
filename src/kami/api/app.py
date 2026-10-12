@@ -144,6 +144,36 @@ def create_app(stack: Stack) -> FastAPI:
             raise HTTPException(503, "notifications not running")
         return mgr.status()
 
+    @app.get("/complaints")
+    def complaints(limit: int = 200):
+        """Citizen pipe-damage tickets (Round 6), newest first. No chat id, no name, no file path."""
+        from ..citizen.tickets import public_view
+
+        return [public_view(t) for t in stack.store.read_complaints(min(max(limit, 1), 500))]
+
+    @app.get("/complaints/{ticket_id}/thumb")
+    def complaint_thumb(ticket_id: int):
+        """The small copy of a ticket photo (a re-encoded JPEG without metadata)."""
+        from pathlib import Path
+
+        from fastapi.responses import FileResponse
+
+        from ..citizen.settings import work_dir
+
+        svc = stack.extras.get("citizen")
+        uploads = svc.tickets.uploads if svc is not None else work_dir() / "uploads"
+        t = next((x for x in stack.store.read_complaints(500) if x["id"] == ticket_id), None)
+        name = Path(str(t.get("thumb_file", ""))).name if t else ""
+        if not name.endswith("_thumb.jpg") or not (uploads / name).is_file():
+            raise HTTPException(404, "no photo for this ticket")
+        return FileResponse(uploads / name, media_type="image/jpeg")
+
+    @app.get("/citizen/status")
+    def citizen_status():
+        """Citizen interface: on or off, counts, model names. Never the token, a chat id or a message."""
+        svc = stack.extras.get("citizen")
+        return svc.status() if svc is not None else {"enabled": False, "detail": "citizen interface not started", "data": "demo_fictional"}
+
     @app.websocket("/ws")
     async def ws(sock: WebSocket):
         await sock.accept()

@@ -1,0 +1,118 @@
+{
+ "label": "demo_fictional",
+ "note": "Fictional notices and FAQ entries for the KAMI demo. Every time, number and rule in them is invented, including the helpline number.",
+ "notices": [
+  {
+   "id": "supply_timings",
+   "title": "Piped water supply hours",
+   "text": "Piped water is supplied every day from 06:00 to 08:00 in the morning and from 17:00 to 19:00 in the evening.",
+   "keywords": "timing hours supply tap water when does water come arrive morning evening time",
+   "keywords_hi": "नल पानी सप्लाई आपूर्ति समय टाइम सुबह शाम nal paani pani supply timing samay"
+  },
+  {
+   "id": "tanker_schedule_info",
+   "title": "How the tanker schedule works",
+   "text": "Each ward has a tanker schedule with a time slot of 2 hours. Ask this bot for your ward number or ward name to hear the slot and the current status of the tanker.",
+   "keywords": "tanker schedule slot how works ask ward",
+   "keywords_hi": "टैंकर समय-सारणी शेड्यूल स्लॉट tanker schedule slot"
+  },
+  {
+   "id": "tanker_extra_request",
+   "title": "Asking for an extra tanker",
+   "text": "An extra tanker can be requested at the ward office. Requests made before 12:00 are planned for the next day.",
+   "keywords": "extra additional tanker request order book",
+   "keywords_hi": "अतिरिक्त एक्स्ट्रा टैंकर मंगवाना मंगाना अनुरोध बुक extra tanker mangwana mangana"
+  },
+  {
+   "id": "tanker_charges",
+   "title": "Tanker charges",
+   "text": "Tanker water delivered under the ward schedule is free of charge. Nobody is allowed to ask for payment at the tanker.",
+   "keywords": "tanker cost price charge fee free money payment",
+   "keywords_hi": "टैंकर पैसे पैसा शुल्क मुफ्त मुफ़्त फ्री कीमत भुगतान tanker free paise paisa muft charge"
+  },
+  {
+   "id": "tanker_containers",
+   "title": "What to bring to the tanker",
+   "text": "Bring your own clean containers with lids. Each household can collect up to 200 litres per delivery.",
+   "keywords": "container bucket how much litres limit household collect bring",
+   "keywords_hi": "टैंकर बर्तन बाल्टी कितना लीटर परिवार घर ले tanker bartan balti kitna litre parivar"
+  },
+  {
+   "id": "report_pipe",
+   "title": "How to report a damaged pipe",
+   "text": "Send a photo of the damaged pipe to this bot and share the location of the place. You get a ticket number. The photo is not analysed automatically; staff look at it.",
+   "keywords": "report damaged broken pipe photo complaint ticket location how",
+   "keywords_hi": "पाइप टूटी टूटा फूटी लीकेज शिकायत रिपोर्ट फोटो दर्ज pipe tooti tuti shikayat photo report"
+  },
+  {
+   "id": "ticket_followup",
+   "title": "What happens after a report",
+   "text": "A ticket is linked to the nearest sensor point and shown to the control room. Field staff visit within 2 working days.",
+   "keywords": "ticket after report follow up status visit staff when",
+   "keywords_hi": "टिकट शिकायत बाद कर्मचारी आएंगे ticket baad staff"
+  },
+  {
+   "id": "alert_levels",
+   "title": "What the alert priorities mean",
+   "text": "The network monitor uses 4 priority levels: Low, Medium, High and Critical. High and Critical alerts are sent to the control room at once. An alert means the sensors show unusual behaviour; it does not say what the reason is.",
+   "keywords": "alert priority level low medium high critical meaning mean",
+   "keywords_hi": "अलर्ट प्राथमिकता स्तर स्तरों कम मध्यम उच्च गंभीर alert priority level"
+  },
+  {
+   "id": "alert_categories",
+   "title": "What the alert categories mean",
+   "text": "Infrastructure means unusual flow or pressure. Quality means unusual turbidity or TDS. Combined means both at the same time.",
+   "keywords": "category infrastructure quality combined meaning turbidity tds flow pressure",
+   "keywords_hi": "अलर्ट श्रेणी इन्फ्रास्ट्रक्चर गुणवत्ता संयुक्त टर्बिडिटी टीडीएस category shreni"
+  },
+  {
+   "id": "cloudy_water",
+   "title": "If the tap water looks cloudy",
+   "text": "If tap water looks cloudy or smells unusual, do not drink it. Use stored drinking water and report it through this bot or the helpline.",
+   "keywords": "cloudy dirty muddy smell colour unsafe drink water looks",
+   "keywords_hi": "गंदा गंदला मटमैला बदबू रंग पीने ganda gandla badbu matmaila"
+  },
+  {
+   "id": "helpline",
+   "title": "Helpline",
+   "text": "The water helpline number in this demo is 1800-000-0000. It is a fictional number and cannot be called. The helpline hours are 08:00 to 20:00.",
+   "keywords": "helpline phone number call contact whom complaint",
+   "keywords_hi": "हेल्पलाइन फोन नंबर संपर्क कॉल helpline number phone sampark"
+  },
+  {
+   "id": "ward_office_hours",
+   "title": "Ward office hours",
+   "text": "Ward offices are open from 10:00 to 17:00, Monday to Saturday. They are closed on Sunday.",
+   "keywords": "ward office open hours timing closed sunday visit",
+   "keywords_hi": "वार्ड कार्यालय दफ्तर ऑफिस खुलता खुलने बंद रविवार office karyalaya daftar khulta"
+  },
+  {
+   "id": "bill_payment",
+   "title": "Paying the water bill",
+   "text": "Water bills can be paid at the ward office. The due date is the 15th of every month.",
+   "keywords": "bill pay payment due date water charges monthly",
+   "keywords_hi": "बिल भुगतान भरना जमा अंतिम तिथि तारीख bill bharna jama bhugtan"
+  },
+  {
+   "id": "new_connection",
+   "title": "New water connection",
+   "text": "Apply for a new water connection at the ward office with an identity proof and a property document. A new connection takes about 15 working days.",
+   "keywords": "new connection apply application documents how long",
+   "keywords_hi": "नया कनेक्शन आवेदन दस्तावेज़ naya connection aavedan"
+  },
+  {
+   "id": "tank_cleaning",
+   "title": "Cleaning the overhead tank",
+   "text": "Clean your overhead tank and sump every 6 months and keep them covered.",
+   "keywords": "clean overhead tank sump how often cleaning",
+   "keywords_hi": "टंकी सफाई साफ ओवरहेड महीने tanki safai saaf"
+  },
+  {
+   "id": "bot_languages",
+   "title": "Languages and voice notes",
+   "text": "This bot answers in Hindi and English. You can type or send a voice note of up to 60 seconds.",
+   "keywords": "language hindi english voice note speak type",
+   "keywords_hi": "भाषा हिंदी अंग्रेज़ी अंग्रेजी वॉइस नोट बोलकर bhasha hindi english voice"
+  }
+ ]
+}

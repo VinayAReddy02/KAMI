@@ -29,6 +29,7 @@ class TimescaleStore(Store):
                 """CREATE TABLE IF NOT EXISTS assessments(
                      node_id TEXT NOT NULL, ts TIMESTAMPTZ NOT NULL, body JSONB NOT NULL)"""
             )
+            c.execute("CREATE TABLE IF NOT EXISTS complaints(id BIGSERIAL PRIMARY KEY, body JSONB NOT NULL)")
 
     def write_reading(self, r: dict) -> None:
         with self._lock, self._conn.cursor() as c:
@@ -82,6 +83,17 @@ class TimescaleStore(Store):
         with self._lock, self._conn.cursor() as c:
             c.execute(q, args)
             return [r[0] for r in c.fetchall()]
+
+    def write_complaint(self, c: dict) -> int:
+        with self._lock, self._conn.cursor() as cur:
+            cur.execute("INSERT INTO complaints(body) VALUES (%s) RETURNING id", (json.dumps(c),))
+            return int(cur.fetchone()[0])
+
+    def read_complaints(self, limit=200):
+        with self._lock, self._conn.cursor() as cur:
+            cur.execute("SELECT id, body FROM complaints ORDER BY id DESC LIMIT %s", (limit,))
+            rows = cur.fetchall()
+        return [{**(b if isinstance(b, dict) else json.loads(b)), "id": int(i)} for i, b in rows]
 
     def close(self) -> None:
         self._conn.close()

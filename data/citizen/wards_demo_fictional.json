@@ -1,0 +1,103 @@
+{
+ "label": "demo_fictional",
+ "note": "Fictional wards for the KAMI demo. Ward N is linked to sensor node node-N of config/nodes.json and uses that node's locality name. The names are real localities near Vellore; the ward numbering, boundaries and everything attached to them are invented.",
+ "wards": [
+  {
+   "number": 1,
+   "node_id": "node-1",
+   "name_en": "Katpadi",
+   "name_hi": "काटपाडी",
+   "aliases": [
+    "katpadi",
+    "katpady",
+    "कटपाडी"
+   ]
+  },
+  {
+   "number": 2,
+   "node_id": "node-2",
+   "name_en": "Gandhi Nagar",
+   "name_hi": "गांधी नगर",
+   "aliases": [
+    "gandhi nagar",
+    "gandhinagar",
+    "गाँधी नगर",
+    "गांधीनगर"
+   ]
+  },
+  {
+   "number": 3,
+   "node_id": "node-3",
+   "name_en": "Sathuvachari",
+   "name_hi": "सत्तुवाचारी",
+   "aliases": [
+    "sathuvachari",
+    "sathuvachary",
+    "sattuvachari",
+    "सथुवाचारी",
+    "सतुवाचारी"
+   ]
+  },
+  {
+   "number": 4,
+   "node_id": "node-4",
+   "name_en": "Bagayam",
+   "name_hi": "बागायम",
+   "aliases": [
+    "bagayam",
+    "bagayem",
+    "बगायम"
+   ]
+  },
+  {
+   "number": 5,
+   "node_id": "node-5",
+   "name_en": "Old Town",
+   "name_hi": "ओल्ड टाउन",
+   "aliases": [
+    "old town",
+    "oldtown",
+    "purana shahar",
+    "पुराना शहर",
+    "ओल्ड टाऊन"
+   ]
+  },
+  {
+   "number": 6,
+   "node_id": "node-6",
+   "name_en": "Fort Road",
+   "name_hi": "फोर्ट रोड",
+   "aliases": [
+    "fort road",
+    "kila road",
+    "किला रोड",
+    "फ़ोर्ट रोड"
+   ]
+  },
+  {
+   "number": 7,
+   "node_id": "node-7",
+   "name_en": "Viruthampet",
+   "name_hi": "विरुदमपेट",
+   "aliases": [
+    "viruthampet",
+    "virudhampet",
+    "viruthampattu",
+    "विरुथमपेट",
+    "विरुदमपेठ"
+   ]
+  },
+  {
+   "number": 8,
+   "node_id": "node-8",
+   "name_en": "Thorapadi",
+   "name_hi": "तोरापाडी",
+   "aliases": [
+    "thorapadi",
+    "thorapady",
+    "torapadi",
+    "थोरापाडी"
+   ]
+  }
+ ]
+}

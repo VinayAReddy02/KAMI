@@ -125,6 +125,16 @@ main:focus { outline: none; }
 .node-marker .pin { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--panel-2); color: inherit; }
 .node-marker .pin-label { display: flex; flex-direction: column; line-height: 1.1; color: var(--text); font-size: 0.78rem; }
 .node-marker .pin-label small { color: var(--muted); font-size: 0.7rem; }
+.ticket-marker { display: inline-flex; align-items: center; gap: 0.3rem; padding: 2px 8px 2px 3px; border-radius: 6px; background: var(--panel);
+  border: 2px dashed var(--text); color: var(--text); box-shadow: var(--shadow); white-space: nowrap; cursor: pointer; }
+.ticket-marker .pin { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 4px; background: var(--panel-2); }
+.ticket-marker .pin-label { color: var(--text); font-size: 0.74rem; }
+.complaints .note { max-width: 860px; color: var(--muted); }
+.complaints .note strong { color: var(--text); }
+.complaints .thumb { display: block; border-radius: 6px; border: 1px solid var(--border); object-fit: cover; background: var(--panel-2); }
+.complaints td { vertical-align: middle; }
+.complaints .tag { margin-left: 0.4rem; font-size: 0.7rem; border: 1px solid var(--border); border-radius: 6px; padding: 0 0.35rem; color: var(--muted); }
+.muted { color: var(--muted); }
 .node-marker.cat-infrastructure { color: var(--c-infra); }
 .node-marker.cat-quality { color: var(--c-quality); }
 .node-marker.cat-combined { color: var(--c-combined); }

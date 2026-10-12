@@ -1,0 +1,531 @@
+{
+ "asr_tts": {
+  "tts": {
+   "piper (hi: pratham, en: lessac)": {
+    "load_s": 7.7,
+    "synth_ms_median": 57.3,
+    "audio_s_mean": 2.01
+   },
+   "piper (hi: priyamvada, en: lessac)": {
+    "load_s": 128.3,
+    "synth_ms_median": 55.9,
+    "audio_s_mean": 2.35
+   },
+   "mms-tts (hin, eng)": {
+    "load_s": 133.0,
+    "synth_ms_median": 79.9,
+    "audio_s_mean": 2.84
+   }
+  },
+  "asr": {
+   "large-v3-turbo": {
+    "load_s": 2.5,
+    "device": "cuda",
+    "vram_mb": 1568
+   },
+   "medium": {
+    "load_s": 632.6,
+    "device": "cuda",
+    "vram_mb": 1471
+   }
+  },
+  "wer": {
+   "large-v3-turbo | piper (hi: pratham, en: lessac)": {
+    "wer_hi": 0.308,
+    "wer_en": 0.042,
+    "wer_mean": 0.175,
+    "language_detected": "20/20",
+    "asr_ms_median": 415.7,
+    "asr_ms_p90": 474.1
+   },
+   "large-v3-turbo | piper (hi: priyamvada, en: lessac)": {
+    "wer_hi": 0.262,
+    "wer_en": 0.042,
+    "wer_mean": 0.152,
+    "language_detected": "20/20",
+    "asr_ms_median": 409.7,
+    "asr_ms_p90": 446.6
+   },
+   "large-v3-turbo | mms-tts (hin, eng)": {
+    "wer_hi": 0.323,
+    "wer_en": 0.183,
+    "wer_mean": 0.253,
+    "language_detected": "20/20",
+    "asr_ms_median": 413.7,
+    "asr_ms_p90": 672.5
+   },
+   "medium | piper (hi: pratham, en: lessac)": {
+    "wer_hi": 0.446,
+    "wer_en": 0.056,
+    "wer_mean": 0.251,
+    "language_detected": "20/20",
+    "asr_ms_median": 406.2,
+    "asr_ms_p90": 555.6
+   },
+   "medium | piper (hi: priyamvada, en: lessac)": {
+    "wer_hi": 0.323,
+    "wer_en": 0.056,
+    "wer_mean": 0.19,
+    "language_detected": "20/20",
+    "asr_ms_median": 418.4,
+    "asr_ms_p90": 561.2
+   },
+   "medium | mms-tts (hin, eng)": {
+    "wer_hi": 0.4,
+    "wer_en": 0.183,
+    "wer_mean": 0.292,
+    "language_detected": "20/20",
+    "asr_ms_median": 410.8,
+    "asr_ms_p90": 592.5
+   }
+  }
+ },
+ "nmt": {
+  "nllb-200-distilled-600M": {
+   "load_s": 5.6,
+   "device": "cuda",
+   "vram_mb": 1182,
+   "hi_en_notice_found": "0/2",
+   "hi_en_chrf": 0.553,
+   "en_hi_numbers_survive": "10/10",
+   "en_hi_chrf_vs_fixed_hindi": 0.572,
+   "hi_en_ms_median": 151.5,
+   "en_hi_ms_median": 474.8
+  },
+  "opus-mt (hi-en, en-hi)": {
+   "load_s": 369.6,
+   "device": "cuda",
+   "vram_mb": 592,
+   "hi_en_notice_found": "1/2",
+   "hi_en_chrf": 0.525,
+   "en_hi_numbers_survive": "7/10",
+   "en_hi_chrf_vs_fixed_hindi": 0.376,
+   "hi_en_ms_median": 76.7,
+   "en_hi_ms_median": 212.1
+  }
+ },
+ "chosen": {
+  "asr": "faster-whisper:large-v3-turbo",
+  "tts": "piper (hi: priyamvada, en: lessac)",
+  "nmt": "nllb-200-distilled-600M",
+  "llm": "llama3.2:3b"
+ },
+ "why": {
+  "asr": "mean WER over the TTS candidates 0.193 (all: large-v3-turbo 0.193, medium 0.244)",
+  "tts": "WER through large-v3-turbo 0.152 (all: piper (hi: pratham, en: lessac) 0.175, piper (hi: priyamvada, en: lessac) 0.152, mms-tts (hin, eng) 0.253)",
+  "nmt": "numbers kept in English -> Hindi: nllb-200-distilled-600M 10/10, opus-mt (hi-en, en-hi) 7/10; chrF against the fixed Hindi sentences: nllb-200-distilled-600M 0.572, opus-mt (hi-en, en-hi) 0.376",
+  "llm": "llama3.2:3b: 7 guard fallbacks, 2586 MB; qwen2.5:7b: 6 fallbacks, 4682 MB; the larger model is kept only with at least 3 fewer fallbacks and at most 5200 MB"
+ },
+ "made_by": "scripts/citizen_model_select.py",
+ "run_utc": "2026-10-12T11:19:35+00:00",
+ "split": "val",
+ "git_commit": "ae67102",
+ "device": "cuda",
+ "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU, 8188 MiB",
+ "not_used": [
+  {
+   "model": "ai4bharat/indic-conformer-600m-multilingual",
+   "stage": "asr",
+   "reason": "gated on Hugging Face (needs a login and a licence click); this project creates no accounts, so it was not downloaded"
+  },
+  {
+   "model": "ai4bharat/indictrans2-indic-en-dist-200M and indictrans2-en-indic-dist-200M",
+   "stage": "nmt",
+   "reason": "gated on Hugging Face (needs a login and a licence click); this project creates no accounts, so it was not downloaded"
+  },
+  {
+   "model": "ai4bharat/indic-parler-tts",
+   "stage": "tts",
+   "reason": "gated on Hugging Face (needs a login and a licence click); this project creates no accounts, so it was not downloaded"
+  }
+ ],
+ "questions": 20,
+ "llm": {
+  "llama3.2:3b": {
+   "vram_mb": 2586,
+   "questions": 20,
+   "asked_llm": 16,
+   "accepted_by_guard": 9,
+   "guard_fallbacks": 7,
+   "answer_correct_after_guard": 20,
+   "final_correct_after_guard": 20,
+   "llm_ms_median": 425.4,
+   "llm_ms_p90": 819.8,
+   "rows": [
+    {
+     "id": "en-01",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 425.3
+    },
+    {
+     "id": "en-02",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 420.0
+    },
+    {
+     "id": "en-03",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 425.4
+    },
+    {
+     "id": "en-04",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 500.0
+    },
+    {
+     "id": "en-05",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 240.2
+    },
+    {
+     "id": "en-06",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 313.1
+    },
+    {
+     "id": "en-07",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 442.8
+    },
+    {
+     "id": "en-08",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 242.1
+    },
+    {
+     "id": "en-09",
+     "asked_llm": false,
+     "by_llm": false,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": null
+    },
+    {
+     "id": "en-10",
+     "asked_llm": false,
+     "by_llm": false,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": null
+    },
+    {
+     "id": "hi-01",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 466.5
+    },
+    {
+     "id": "hi-02",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 907.3
+    },
+    {
+     "id": "hi-03",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 581.4
+    },
+    {
+     "id": "hi-04",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 732.2
+    },
+    {
+     "id": "hi-05",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 946.4
+    },
+    {
+     "id": "hi-06",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 282.2
+    },
+    {
+     "id": "hi-07",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 249.6
+    },
+    {
+     "id": "hi-08",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 195.0
+    },
+    {
+     "id": "hi-09",
+     "asked_llm": false,
+     "by_llm": false,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": null
+    },
+    {
+     "id": "hi-10",
+     "asked_llm": false,
+     "by_llm": false,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": null
+    }
+   ]
+  },
+  "qwen2.5:7b": {
+   "vram_mb": 4682,
+   "questions": 20,
+   "asked_llm": 16,
+   "accepted_by_guard": 10,
+   "guard_fallbacks": 6,
+   "answer_correct_after_guard": 20,
+   "final_correct_after_guard": 20,
+   "llm_ms_median": 856.8,
+   "llm_ms_p90": 1551.5,
+   "rows": [
+    {
+     "id": "en-01",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 870.4
+    },
+    {
+     "id": "en-02",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 1521.5
+    },
+    {
+     "id": "en-03",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 881.3
+    },
+    {
+     "id": "en-04",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 830.9
+    },
+    {
+     "id": "en-05",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 761.1
+    },
+    {
+     "id": "en-06",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 445.0
+    },
+    {
+     "id": "en-07",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 913.5
+    },
+    {
+     "id": "en-08",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 391.8
+    },
+    {
+     "id": "en-09",
+     "asked_llm": false,
+     "by_llm": false,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": null
+    },
+    {
+     "id": "en-10",
+     "asked_llm": false,
+     "by_llm": false,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": null
+    },
+    {
+     "id": "hi-01",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 812.0
+    },
+    {
+     "id": "hi-02",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 1581.6
+    },
+    {
+     "id": "hi-03",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 843.3
+    },
+    {
+     "id": "hi-04",
+     "asked_llm": true,
+     "by_llm": false,
+     "fallback": true,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 1864.8
+    },
+    {
+     "id": "hi-05",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 1305.4
+    },
+    {
+     "id": "hi-06",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 498.8
+    },
+    {
+     "id": "hi-07",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 918.5
+    },
+    {
+     "id": "hi-08",
+     "asked_llm": true,
+     "by_llm": true,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": 373.8
+    },
+    {
+     "id": "hi-09",
+     "asked_llm": false,
+     "by_llm": false,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": null
+    },
+    {
+     "id": "hi-10",
+     "asked_llm": false,
+     "by_llm": false,
+     "fallback": false,
+     "answer_ok": true,
+     "final_ok": true,
+     "llm_ms": null
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,511 @@
+{
+ "made_by": "scripts/citizen_eval.py",
+ "run_utc": "2026-10-12T11:21:47+00:00",
+ "git_commit": "ae67102",
+ "split": "test",
+ "device": "cuda",
+ "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU, 8188",
+ "vram_total_mb": 8188,
+ "models": {
+  "asr": "faster-whisper:large-v3-turbo",
+  "nmt": "nllb-200-distilled-600M",
+  "tts": "piper (hi: priyamvada, en: lessac)",
+  "llm": "llama3.2:3b"
+ },
+ "what": "The citizen interface on authored questions about a fictional tanker schedule and fictional notices. It is separate from the anomaly-detection evaluation in results/SUMMARY.md and changes none of those results.",
+ "questions": {
+  "n": 40,
+  "en": 20,
+  "hi": 20,
+  "hi_latin": 4,
+  "by_intent": {
+   "schedule": 22,
+   "ward_status": 2,
+   "faq": 11,
+   "none": 5
+  },
+  "label": "authored test questions"
+ },
+ "world": {
+  "time": "2018-01-07 11:00",
+  "planted_alert": "node-3 (Ward 3): Infrastructure, High"
+ },
+ "ran_once_log": {
+  "text:template": {
+   "utc": "2026-10-12T11:20:26+00:00",
+   "git_commit": "ae67102",
+   "questions": 40,
+   "seconds": 4.3,
+   "models": {
+    "asr": "faster-whisper:large-v3-turbo",
+    "nmt": "nllb-200-distilled-600M",
+    "tts": "piper (hi: priyamvada, en: lessac)",
+    "llm": "llama3.2:3b"
+   }
+  },
+  "text:ollama": {
+   "utc": "2026-10-12T11:20:51+00:00",
+   "git_commit": "ae67102",
+   "questions": 40,
+   "seconds": 25.0,
+   "models": {
+    "asr": "faster-whisper:large-v3-turbo",
+    "nmt": "nllb-200-distilled-600M",
+    "tts": "piper (hi: priyamvada, en: lessac)",
+    "llm": "llama3.2:3b"
+   }
+  },
+  "voice": {
+   "utc": "2026-10-12T11:21:47+00:00",
+   "git_commit": "ae67102",
+   "questions": 40,
+   "seconds": 55.9,
+   "models": {
+    "asr": "faster-whisper:large-v3-turbo",
+    "nmt": "nllb-200-distilled-600M",
+    "tts": "piper (hi: priyamvada, en: lessac)",
+    "llm": "llama3.2:3b"
+   }
+  }
+ },
+ "text": {
+  "writers": {
+   "template": {
+    "en": {
+     "n": 20,
+     "slot_accuracy": 1.0,
+     "answer_correct": 1.0,
+     "final_text_correct": 1.0,
+     "no_information_correct": 1.0,
+     "unanswerable_n": 3,
+     "unanswerable_said_no_information": 3,
+     "translation_fallbacks": 0,
+     "latency_ms_understand_median": 0.4,
+     "latency_ms_understand_p90": 0.7,
+     "latency_ms_translate_in_median": null,
+     "latency_ms_translate_in_p90": null,
+     "latency_ms_retrieve_median": 0.0,
+     "latency_ms_retrieve_p90": 0.4,
+     "latency_ms_llm_median": null,
+     "latency_ms_llm_p90": null,
+     "latency_ms_translate_out_median": null,
+     "latency_ms_translate_out_p90": null,
+     "latency_ms_median": 0.5,
+     "latency_ms_p90": 1.1,
+     "failed_ids": []
+    },
+    "hi": {
+     "n": 20,
+     "slot_accuracy": 0.95,
+     "answer_correct": 0.95,
+     "final_text_correct": 0.9,
+     "no_information_correct": 0.95,
+     "unanswerable_n": 2,
+     "unanswerable_said_no_information": 1,
+     "translation_fallbacks": 1,
+     "latency_ms_understand_median": 0.5,
+     "latency_ms_understand_p90": 0.9,
+     "latency_ms_translate_in_median": 152.3,
+     "latency_ms_translate_in_p90": 583.2,
+     "latency_ms_retrieve_median": 0.0,
+     "latency_ms_retrieve_p90": 1.1,
+     "latency_ms_llm_median": null,
+     "latency_ms_llm_p90": null,
+     "latency_ms_translate_out_median": 251.0,
+     "latency_ms_translate_out_p90": 332.6,
+     "latency_ms_median": 0.7,
+     "latency_ms_p90": 483.8,
+     "failed_ids": [
+      "hi-30"
+     ]
+    },
+    "all": {
+     "n": 40,
+     "slot_accuracy": 0.975,
+     "answer_correct": 0.975,
+     "final_text_correct": 0.95,
+     "no_information_correct": 0.975,
+     "unanswerable_n": 5,
+     "unanswerable_said_no_information": 4,
+     "translation_fallbacks": 1,
+     "latency_ms_understand_median": 0.5,
+     "latency_ms_understand_p90": 0.9,
+     "latency_ms_translate_in_median": 152.3,
+     "latency_ms_translate_in_p90": 583.2,
+     "latency_ms_retrieve_median": 0.0,
+     "latency_ms_retrieve_p90": 0.9,
+     "latency_ms_llm_median": null,
+     "latency_ms_llm_p90": null,
+     "latency_ms_translate_out_median": 251.0,
+     "latency_ms_translate_out_p90": 332.6,
+     "latency_ms_median": 0.6,
+     "latency_ms_p90": 398.9,
+     "failed_ids": [
+      "hi-30"
+     ]
+    }
+   },
+   "ollama": {
+    "en": {
+     "n": 20,
+     "slot_accuracy": 1.0,
+     "answer_correct": 1.0,
+     "final_text_correct": 1.0,
+     "no_information_correct": 1.0,
+     "unanswerable_n": 3,
+     "unanswerable_said_no_information": 3,
+     "translation_fallbacks": 0,
+     "asked_llm": 17,
+     "grounding_violations_before_guard": 12,
+     "guard_fallbacks": 12,
+     "answers_by_llm": 5,
+     "llm_unavailable": 0,
+     "latency_ms_understand_median": 0.3,
+     "latency_ms_understand_p90": 0.7,
+     "latency_ms_translate_in_median": null,
+     "latency_ms_translate_in_p90": null,
+     "latency_ms_retrieve_median": 0.1,
+     "latency_ms_retrieve_p90": 0.6,
+     "latency_ms_llm_median": 349.3,
+     "latency_ms_llm_p90": 597.1,
+     "latency_ms_translate_out_median": null,
+     "latency_ms_translate_out_p90": null,
+     "latency_ms_median": 326.6,
+     "latency_ms_p90": 566.3,
+     "failed_ids": []
+    },
+    "hi": {
+     "n": 20,
+     "slot_accuracy": 0.95,
+     "answer_correct": 0.95,
+     "final_text_correct": 0.9,
+     "no_information_correct": 0.95,
+     "unanswerable_n": 2,
+     "unanswerable_said_no_information": 1,
+     "translation_fallbacks": 1,
+     "asked_llm": 19,
+     "grounding_violations_before_guard": 11,
+     "guard_fallbacks": 11,
+     "answers_by_llm": 8,
+     "llm_unavailable": 0,
+     "latency_ms_understand_median": 0.4,
+     "latency_ms_understand_p90": 0.7,
+     "latency_ms_translate_in_median": 150.0,
+     "latency_ms_translate_in_p90": 213.7,
+     "latency_ms_retrieve_median": 0.1,
+     "latency_ms_retrieve_p90": 0.8,
+     "latency_ms_llm_median": 366.0,
+     "latency_ms_llm_p90": 705.5,
+     "latency_ms_translate_out_median": 273.2,
+     "latency_ms_translate_out_p90": 717.4,
+     "latency_ms_median": 556.1,
+     "latency_ms_p90": 1171.9,
+     "failed_ids": [
+      "hi-30"
+     ]
+    },
+    "all": {
+     "n": 40,
+     "slot_accuracy": 0.975,
+     "answer_correct": 0.975,
+     "final_text_correct": 0.95,
+     "no_information_correct": 0.975,
+     "unanswerable_n": 5,
+     "unanswerable_said_no_information": 4,
+     "translation_fallbacks": 1,
+     "asked_llm": 36,
+     "grounding_violations_before_guard": 23,
+     "guard_fallbacks": 23,
+     "answers_by_llm": 13,
+     "llm_unavailable": 0,
+     "latency_ms_understand_median": 0.4,
+     "latency_ms_understand_p90": 0.7,
+     "latency_ms_translate_in_median": 150.0,
+     "latency_ms_translate_in_p90": 213.7,
+     "latency_ms_retrieve_median": 0.1,
+     "latency_ms_retrieve_p90": 0.8,
+     "latency_ms_llm_median": 360.6,
+     "latency_ms_llm_p90": 683.0,
+     "latency_ms_translate_out_median": 273.2,
+     "latency_ms_translate_out_p90": 717.4,
+     "latency_ms_median": 435.4,
+     "latency_ms_p90": 1011.7,
+     "failed_ids": [
+      "hi-30"
+     ]
+    }
+   }
+  }
+ },
+ "voice": {
+  "speech": "synthetic",
+  "device": "cuda",
+  "writer": "Ollama (llama3.2:3b)",
+  "vram_mb_all_models": 6978,
+  "en": {
+   "n": 20,
+   "wer": 0.014,
+   "wer_raw": 0.014,
+   "language_detected": 1.0,
+   "slot_accuracy": 0.95,
+   "end_to_end_correct": 0.95,
+   "answers_by_llm": 6,
+   "guard_fallbacks": 10,
+   "latency_ms": {
+    "asr": {
+     "median": 446.6,
+     "p90": 470.6
+    },
+    "answer": {
+     "median": 236.7,
+     "p90": 523.9
+    },
+    "tts": {
+     "median": 180.1,
+     "p90": 325.8
+    },
+    "ogg": {
+     "median": 139.1,
+     "p90": 230.3
+    },
+    "end_to_end": {
+     "median": 1007.8,
+     "p90": 1464.9
+    }
+   },
+   "failed_ids": [
+    "en-16"
+   ]
+  },
+  "hi": {
+   "n": 20,
+   "wer": 0.235,
+   "wer_raw": 0.272,
+   "language_detected": 1.0,
+   "slot_accuracy": 0.75,
+   "end_to_end_correct": 0.7,
+   "answers_by_llm": 5,
+   "guard_fallbacks": 11,
+   "latency_ms": {
+    "asr": {
+     "median": 496.6,
+     "p90": 533.7
+    },
+    "answer": {
+     "median": 485.2,
+     "p90": 964.5
+    },
+    "tts": {
+     "median": 273.5,
+     "p90": 416.2
+    },
+    "ogg": {
+     "median": 193.5,
+     "p90": 254.9
+    },
+    "end_to_end": {
+     "median": 1328.6,
+     "p90": 2148.0
+    }
+   },
+   "failed_ids": [
+    "hi-13",
+    "hi-16",
+    "hi-17",
+    "hi-22",
+    "hi-24",
+    "hi-30"
+   ]
+  },
+  "all": {
+   "n": 40,
+   "wer": 0.122,
+   "wer_raw": 0.14,
+   "language_detected": 1.0,
+   "slot_accuracy": 0.85,
+   "end_to_end_correct": 0.825,
+   "answers_by_llm": 11,
+   "guard_fallbacks": 21,
+   "latency_ms": {
+    "asr": {
+     "median": 470.2,
+     "p90": 526.3
+    },
+    "answer": {
+     "median": 329.5,
+     "p90": 774.6
+    },
+    "tts": {
+     "median": 224.6,
+     "p90": 386.5
+    },
+    "ogg": {
+     "median": 156.9,
+     "p90": 251.4
+    },
+    "end_to_end": {
+     "median": 1229.0,
+     "p90": 1887.0
+    }
+   },
+   "failed_ids": [
+    "en-16",
+    "hi-13",
+    "hi-16",
+    "hi-17",
+    "hi-22",
+    "hi-24",
+    "hi-30"
+   ]
+  }
+ },
+ "failures": {
+  "text:template": [
+   {
+    "id": "hi-24",
+    "question": "हेल्पलाइन नंबर क्या है?",
+    "answer_en": "The water helpline number in this demo is 1800-000-0000. It is a fictional number and cannot be called. The helpline hours are 08:00 to 20:00.",
+    "answer": "(हिंदी अनुवाद उपलब्ध नहीं है)\nThe water helpline number in this demo is 1800-000-0000. It is a fictional number and cannot be called. The helpline hours are 08:00 to 20:00.",
+    "kind": "faq",
+    "ward": null,
+    "day": null,
+    "writer": "template",
+    "guard_violations": []
+   },
+   {
+    "id": "hi-30",
+    "question": "bijli ka bill kahan jama karein?",
+    "answer_en": "Water bills can be paid at the ward office. The due date is the 15th of every month.",
+    "answer": "वार्ड कार्यालय में पानी के बिल का भुगतान किया जा सकता है। प्रत्येक महीने की 15 तारीख़ है।",
+    "kind": "faq",
+    "ward": null,
+    "day": null,
+    "writer": "template",
+    "guard_violations": []
+   }
+  ],
+  "text:ollama": [
+   {
+    "id": "hi-24",
+    "question": "हेल्पलाइन नंबर क्या है?",
+    "answer_en": "The water helpline number in this demo is 1800-000-0000. It is a fictional number and cannot be called. The helpline hours are 08:00 to 20:00.",
+    "answer": "(हिंदी अनुवाद उपलब्ध नहीं है)\nThe water helpline number in this demo is 1800-000-0000. It is a fictional number and cannot be called. The helpline hours are 08:00 to 20:00.",
+    "kind": "faq",
+    "ward": null,
+    "day": null,
+    "writer": "template",
+    "guard_violations": [
+     "missing: content from the notice"
+    ]
+   },
+   {
+    "id": "hi-30",
+    "question": "bijli ka bill kahan jama karein?",
+    "answer_en": "Water bills can be paid at the ward office. The due date is the 15th of every month.",
+    "answer": "वार्ड कार्यालय में पानी के बिल का भुगतान किया जा सकता है। प्रत्येक महीने की 15 तारीख़ है।",
+    "kind": "faq",
+    "ward": null,
+    "day": null,
+    "writer": "template",
+    "guard_violations": [
+     "missing: content from the notice",
+     "missing: the times or numbers of the notice"
+    ]
+   }
+  ],
+  "voice": [
+   {
+    "id": "en-16",
+    "question": "At what time will the tanker arrive in Bagayam tomorrow?",
+    "answer_en": "Please tell me your ward number (1 to 8) or ward name, for example: \"When will the tanker reach Ward 4?\"",
+    "answer": "Please tell me your ward number (1 to 8) or ward name, for example: \"When will the tanker reach Ward 4?\"",
+    "kind": "ask_ward",
+    "ward": null,
+    "day": 1,
+    "writer": "template",
+    "guard_violations": [],
+    "heard": "At what time will the tanker arrive in Bagayon tomorrow?"
+   },
+   {
+    "id": "hi-13",
+    "question": "वार्ड 7 का टैंकर आज लेट है क्या?",
+    "answer_en": "Please tell me your ward number (1 to 8) or ward name, for example: \"When will the tanker reach Ward 4?\"",
+    "answer": "कृपया अपना वार्ड नंबर (1 से 8) या वार्ड का नाम बताएं, जैसे: \"वार्ड 4 में टैंकर कब आएगा?\"",
+    "kind": "ask_ward",
+    "ward": null,
+    "day": 0,
+    "writer": "template",
+    "guard_violations": [],
+    "heard": "वार्ड साथ का टैंकर आज ने थे क्या"
+   },
+   {
+    "id": "hi-16",
+    "question": "वार्ड नंबर 2 के टैंकर की स्थिति बताइए",
+    "answer_en": "Each ward has a tanker schedule with a time slot of 2 hours. Ask this bot for your ward number or ward name to hear the slot and the current status of the tanker.",
+    "answer": "प्रत्येक वार्ड में 2 घंटे की समय सीमा के साथ एक टैंकर शेड्यूल है। इस बॉट से अपने वार्ड नंबर या वार्ड नाम के लिए पूछें ताकि वह स्लॉट और टैंकर की वर्तमान स्थिति को सुन सके।",
+    "kind": "faq",
+    "ward": null,
+    "day": null,
+    "writer": "template",
+    "guard_violations": [
+     "missing: the times or numbers of the notice",
+     "a negation that is not in the notice"
+    ],
+    "heard": "वार्ड नमबर दो के टैंकर की स्थिती बताईए"
+   },
+   {
+    "id": "hi-17",
+    "question": "aaj ward 6 mein kaun sa tanker aa raha hai?",
+    "answer_en": "Please tell me your ward number (1 to 8) or ward name, for example: \"When will the tanker reach Ward 4?\"",
+    "answer": "कृपया अपना वार्ड नंबर (1 से 8) या वार्ड का नाम बताएं, जैसे: \"वार्ड 4 में टैंकर कब आएगा?\"",
+    "kind": "ask_ward",
+    "ward": null,
+    "day": 0,
+    "writer": "template",
+    "guard_violations": [],
+    "heard": "आज वार्ड छेह में कौन सा टैंकर आ रहा है?"
+   },
+   {
+    "id": "hi-22",
+    "question": "गांधी नगर में अभी कोई अलर्ट है क्या?",
+    "answer_en": "Sorry, I do not have that information. I can tell you the tanker schedule of wards 1 to 8, answer questions from the water notices, and take a report of a damaged pipe (send a photo and the location).",
+    "answer": "क्षमा करें, मेरे पास यह जानकारी नहीं है। मैं वार्ड 1 से 8 के टैंकर का समय बता सकता हूँ, जल सूचनाओं से जुड़े सवालों के जवाब दे सकता हूँ, और टूटी पाइप की शिकायत दर्ज कर सकता हूँ (फोटो और स्थान भेजें)।",
+    "kind": "no_info",
+    "ward": 2,
+    "day": null,
+    "writer": "template",
+    "guard_violations": [],
+    "heard": "गांधी नगर में अभी कोई तलट है क्या?"
+   },
+   {
+    "id": "hi-24",
+    "question": "हेल्पलाइन नंबर क्या है?",
+    "answer_en": "The water helpline number in this demo is 1800-000-0000. It is a fictional number and cannot be called. The helpline hours are 08:00 to 20:00.",
+    "answer": "(हिंदी अनुवाद उपलब्ध नहीं है)\nThe water helpline number in this demo is 1800-000-0000. It is a fictional number and cannot be called. The helpline hours are 08:00 to 20:00.",
+    "kind": "faq",
+    "ward": null,
+    "day": null,
+    "writer": "template",
+    "guard_violations": [
+     "missing: content from the notice",
+     "missing: the times or numbers of the notice"
+    ],
+    "heard": "हेतलाई नंबर क्या है?"
+   },
+   {
+    "id": "hi-30",
+    "question": "bijli ka bill kahan jama karein?",
+    "answer_en": "Water bills can be paid at the ward office. The due date is the 15th of every month.",
+    "answer": "वार्ड कार्यालय में पानी के बिल का भुगतान किया जा सकता है। प्रत्येक महीने की 15 तारीख़ है।",
+    "kind": "faq",
+    "ward": null,
+    "day": null,
+    "writer": "template",
+    "guard_violations": [
+     "missing: the times or numbers of the notice"
+    ],
+    "heard": "बिजरी का बिल कहां जमा करें"
+   }
+  ]
+ }
+}

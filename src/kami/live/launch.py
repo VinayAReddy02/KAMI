@@ -32,12 +32,14 @@ class Handle:
         self.live.fleet.stop()
         if self.stack.extras.get("notifications") is not None:
             self.stack.extras["notifications"].stop()
+        if self.stack.extras.get("citizen") is not None:
+            self.stack.extras["citizen"].stop()
         self.server.should_exit = True
         time.sleep(0.3)
 
 
 def launch(speed: float = 600.0, port: int | None = None, mode: str | None = None, temp_store: bool = False,
-           start: int | None = None, max_steps: int | None = None, notifications: str = "dry_run") -> Handle:
+           start: int | None = None, max_steps: int | None = None, notifications: str = "dry_run", citizen: str = "off") -> Handle:
     port = port or config.API_PORT
     mode = mode or config.resolve_mode()
     if mode == "docker":
@@ -50,7 +52,7 @@ def launch(speed: float = 600.0, port: int | None = None, mode: str | None = Non
         store.init()
         stack = Stack.create(mode="fallback", store=store)
     app = create_app(stack)
-    live = build_live(stack, speed=speed, start=start, max_steps=max_steps, notifications=notifications)
+    live = build_live(stack, speed=speed, start=start, max_steps=max_steps, notifications=notifications, citizen=citizen)
     server = uvicorn.Server(uvicorn.Config(app, host="127.0.0.1", port=port, log_level="warning"))
     threading.Thread(target=server.run, name="uvicorn", daemon=True).start()
     for _ in range(100):
@@ -60,4 +62,5 @@ def launch(speed: float = 600.0, port: int | None = None, mode: str | None = Non
         except Exception:
             time.sleep(0.2)
     live.fleet.start()
+    stack.extras["citizen"].start()  # does nothing unless inbound handling was allowed and is switched on
     return Handle(stack, live, server, port)

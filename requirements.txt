@@ -15,3 +15,4 @@ pyarrow==26.0.0
 matplotlib==3.11.2
 joblib==1.6.0
 pydantic==2.14.0
+pillow==12.3.0

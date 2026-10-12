@@ -3,6 +3,7 @@ import { AlertPushStatus } from "./components/AlertPushStatus";
 import { ControlBar } from "./components/ControlBar";
 import { LiveProvider, useLive } from "./live";
 import { Alerts } from "./pages/Alerts";
+import { Complaints } from "./pages/Complaints";
 import { Method } from "./pages/Method";
 import { NodeDetail } from "./pages/NodeDetail";
 import { Overview } from "./pages/Overview";
@@ -43,7 +44,7 @@ function Shell() {
   const [theme, toggle] = useTheme();
   const { conn, status } = useLive();
   const nodeMatch = hash.match(/^#\/node\/(.+)$/);
-  const page = nodeMatch ? "node" : hash.startsWith("#/alerts") ? "alerts" : hash.startsWith("#/method") ? "method" : "overview";
+  const page = nodeMatch ? "node" : hash.startsWith("#/alerts") ? "alerts" : hash.startsWith("#/complaints") ? "complaints" : hash.startsWith("#/method") ? "method" : "overview";
   return (
     <>
       <a className="skip" href="#main">Skip to content</a>
@@ -56,6 +57,7 @@ function Shell() {
         <nav aria-label="Main">
           <a href="#/" aria-current={page === "overview" ? "page" : undefined}>Overview</a>
           <a href="#/alerts" aria-current={page === "alerts" ? "page" : undefined}>Alerts</a>
+          <a href="#/complaints" aria-current={page === "complaints" ? "page" : undefined}>Complaints</a>
           <a href="#/method" aria-current={page === "method" ? "page" : undefined}>Method</a>
         </nav>
         <div className="top-right">
@@ -74,6 +76,7 @@ function Shell() {
         {page === "overview" && <Overview />}
         {page === "node" && nodeMatch && <NodeDetail id={decodeURIComponent(nodeMatch[1])} />}
         {page === "alerts" && <Alerts />}
+        {page === "complaints" && <Complaints />}
         {page === "method" && <Method />}
       </main>
       <footer className="footer">

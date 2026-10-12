@@ -1,0 +1,60 @@
+{"id": "en-01", "lang": "en", "split": "val", "text": "When will the water tanker reach Ward 4?", "intent": "schedule", "expect": {"ward": 4, "day": null}}
+{"id": "en-02", "lang": "en", "split": "val", "text": "What time does the tanker come to ward 1 today?", "intent": "schedule", "expect": {"ward": 1, "day": 0}}
+{"id": "en-03", "lang": "en", "split": "val", "text": "Tanker timing for ward 2 tomorrow?", "intent": "schedule", "expect": {"ward": 2, "day": 1}}
+{"id": "en-04", "lang": "en", "split": "val", "text": "Has the tanker for Sathuvachari been delivered today?", "intent": "schedule", "expect": {"ward": 3, "day": 0}}
+{"id": "en-05", "lang": "en", "split": "val", "text": "When is the next tanker for ward five?", "intent": "schedule", "expect": {"ward": 5, "day": null}}
+{"id": "en-06", "lang": "en", "split": "val", "text": "Is there any problem in ward 3?", "intent": "ward_status", "expect": {"ward": 3}}
+{"id": "en-07", "lang": "en", "split": "val", "text": "What are the piped water supply hours?", "intent": "faq", "expect": {"notice": "supply_timings", "must": ["06:00", "08:00", "17:00", "19:00"]}}
+{"id": "en-08", "lang": "en", "split": "val", "text": "Is tanker water free?", "intent": "faq", "expect": {"notice": "tanker_charges", "must": ["free"]}}
+{"id": "en-09", "lang": "en", "split": "val", "text": "Who won the cricket match yesterday?", "intent": "none", "expect": {}}
+{"id": "en-10", "lang": "en", "split": "val", "text": "When will the tanker reach ward 12?", "intent": "none", "expect": {}}
+{"id": "en-11", "lang": "en", "split": "test", "text": "Did the tanker come to Fort Road yesterday?", "intent": "schedule", "expect": {"ward": 6, "day": -1}}
+{"id": "en-12", "lang": "en", "split": "test", "text": "Is the tanker for ward 7 late today?", "intent": "schedule", "expect": {"ward": 7, "day": 0}}
+{"id": "en-13", "lang": "en", "split": "test", "text": "Tanker schedule for Thorapadi the day after tomorrow", "intent": "schedule", "expect": {"ward": 8, "day": 2}}
+{"id": "en-14", "lang": "en", "split": "test", "text": "When will the tanker come to Katpadi?", "intent": "schedule", "expect": {"ward": 1, "day": null}}
+{"id": "en-15", "lang": "en", "split": "test", "text": "Ward no. 2 tanker status", "intent": "schedule", "expect": {"ward": 2, "day": null}}
+{"id": "en-16", "lang": "en", "split": "test", "text": "At what time will the tanker arrive in Bagayam tomorrow?", "intent": "schedule", "expect": {"ward": 4, "day": 1}}
+{"id": "en-17", "lang": "en", "split": "test", "text": "Which tanker is coming to ward 6 today?", "intent": "schedule", "expect": {"ward": 6, "day": 0}}
+{"id": "en-18", "lang": "en", "split": "test", "text": "When does the tanker reach Old Town?", "intent": "schedule", "expect": {"ward": 5, "day": null}}
+{"id": "en-19", "lang": "en", "split": "test", "text": "Tanker for Viruthampet tomorrow, what time?", "intent": "schedule", "expect": {"ward": 7, "day": 1}}
+{"id": "en-20", "lang": "en", "split": "test", "text": "Tell me the tanker time for ward 8", "intent": "schedule", "expect": {"ward": 8, "day": null}}
+{"id": "en-21", "lang": "en", "split": "test", "text": "When will the tanker reach ward 3?", "intent": "schedule", "expect": {"ward": 3, "day": null}}
+{"id": "en-22", "lang": "en", "split": "test", "text": "Any alert in Gandhi Nagar right now?", "intent": "ward_status", "expect": {"ward": 2}}
+{"id": "en-23", "lang": "en", "split": "test", "text": "How do I report a broken pipe?", "intent": "faq", "expect": {"notice": "report_pipe", "must": ["photo", "location"]}}
+{"id": "en-24", "lang": "en", "split": "test", "text": "What is the helpline number?", "intent": "faq", "expect": {"notice": "helpline", "must": ["1800-000-0000"]}}
+{"id": "en-25", "lang": "en", "split": "test", "text": "When is the ward office open?", "intent": "faq", "expect": {"notice": "ward_office_hours", "must": ["10:00", "17:00"]}}
+{"id": "en-26", "lang": "en", "split": "test", "text": "How much water can a household take from the tanker?", "intent": "faq", "expect": {"notice": "tanker_containers", "must": ["200"]}}
+{"id": "en-27", "lang": "en", "split": "test", "text": "What do the alert priority levels mean?", "intent": "faq", "expect": {"notice": "alert_levels", "must": ["Low", "Critical"]}}
+{"id": "en-28", "lang": "en", "split": "test", "text": "What is the train timing to Chennai?", "intent": "none", "expect": {}}
+{"id": "en-29", "lang": "en", "split": "test", "text": "Tanker time for ward 0?", "intent": "none", "expect": {}}
+{"id": "en-30", "lang": "en", "split": "test", "text": "How is the weather in Vellore?", "intent": "none", "expect": {}}
+{"id": "hi-01", "lang": "hi", "split": "val", "text": "वार्ड 4 में टैंकर कब आएगा?", "intent": "schedule", "expect": {"ward": 4, "day": null}}
+{"id": "hi-02", "lang": "hi", "split": "val", "text": "आज वार्ड 1 में टैंकर कितने बजे आएगा?", "intent": "schedule", "expect": {"ward": 1, "day": 0}}
+{"id": "hi-03", "lang": "hi", "split": "val", "text": "कल वार्ड 2 में टैंकर कब आएगा?", "intent": "schedule", "expect": {"ward": 2, "day": 1}}
+{"id": "hi-04", "lang": "hi", "split": "val", "text": "सत्तुवाचारी में आज टैंकर आया क्या?", "intent": "schedule", "expect": {"ward": 3, "day": 0}}
+{"id": "hi-05", "lang": "hi", "split": "val", "text": "Bagayam mein kal tanker kitne baje aayega?", "intent": "schedule", "expect": {"ward": 4, "day": 1}, "script": "latin", "speech_text": "बागायम में कल टैंकर कितने बजे आएगा?"}
+{"id": "hi-06", "lang": "hi", "split": "val", "text": "वार्ड 3 में कोई समस्या है क्या?", "intent": "ward_status", "expect": {"ward": 3}}
+{"id": "hi-07", "lang": "hi", "split": "val", "text": "नल का पानी किस समय आता है?", "intent": "faq", "expect": {"notice": "supply_timings", "must": ["06:00", "08:00", "17:00", "19:00"]}}
+{"id": "hi-08", "lang": "hi", "split": "val", "text": "टैंकर का पानी मुफ्त है क्या?", "intent": "faq", "expect": {"notice": "tanker_charges", "must": ["free"]}}
+{"id": "hi-09", "lang": "hi", "split": "val", "text": "कल क्रिकेट मैच कौन जीता?", "intent": "none", "expect": {}}
+{"id": "hi-10", "lang": "hi", "split": "val", "text": "वार्ड 15 में टैंकर कब आएगा?", "intent": "none", "expect": {}}
+{"id": "hi-11", "lang": "hi", "split": "test", "text": "वार्ड पाँच का अगला टैंकर कब है?", "intent": "schedule", "expect": {"ward": 5, "day": null}}
+{"id": "hi-12", "lang": "hi", "split": "test", "text": "कल फोर्ट रोड में टैंकर आया था क्या?", "intent": "schedule", "expect": {"ward": 6, "day": -1}}
+{"id": "hi-13", "lang": "hi", "split": "test", "text": "वार्ड 7 का टैंकर आज लेट है क्या?", "intent": "schedule", "expect": {"ward": 7, "day": 0}}
+{"id": "hi-14", "lang": "hi", "split": "test", "text": "परसों तोरापाडी में टैंकर कब आएगा?", "intent": "schedule", "expect": {"ward": 8, "day": 2}}
+{"id": "hi-15", "lang": "hi", "split": "test", "text": "काटपाडी में टैंकर कब पहुँचेगा?", "intent": "schedule", "expect": {"ward": 1, "day": null}}
+{"id": "hi-16", "lang": "hi", "split": "test", "text": "वार्ड नंबर 2 के टैंकर की स्थिति बताइए", "intent": "schedule", "expect": {"ward": 2, "day": null}}
+{"id": "hi-17", "lang": "hi", "split": "test", "text": "aaj ward 6 mein kaun sa tanker aa raha hai?", "intent": "schedule", "expect": {"ward": 6, "day": 0}, "script": "latin", "speech_text": "आज वार्ड 6 में कौन सा टैंकर आ रहा है?"}
+{"id": "hi-18", "lang": "hi", "split": "test", "text": "ओल्ड टाउन में टैंकर कब आएगा?", "intent": "schedule", "expect": {"ward": 5, "day": null}}
+{"id": "hi-19", "lang": "hi", "split": "test", "text": "विरुदमपेट में कल टैंकर कितने बजे आएगा?", "intent": "schedule", "expect": {"ward": 7, "day": 1}}
+{"id": "hi-20", "lang": "hi", "split": "test", "text": "ward 8 ka tanker kab aayega?", "intent": "schedule", "expect": {"ward": 8, "day": null}, "script": "latin", "speech_text": "वार्ड 8 का टैंकर कब आएगा?"}
+{"id": "hi-21", "lang": "hi", "split": "test", "text": "वार्ड तीन में टैंकर कब आएगा?", "intent": "schedule", "expect": {"ward": 3, "day": null}}
+{"id": "hi-22", "lang": "hi", "split": "test", "text": "गांधी नगर में अभी कोई अलर्ट है क्या?", "intent": "ward_status", "expect": {"ward": 2}}
+{"id": "hi-23", "lang": "hi", "split": "test", "text": "टूटी पाइप की शिकायत कैसे करें?", "intent": "faq", "expect": {"notice": "report_pipe", "must": ["photo", "location"]}}
+{"id": "hi-24", "lang": "hi", "split": "test", "text": "हेल्पलाइन नंबर क्या है?", "intent": "faq", "expect": {"notice": "helpline", "must": ["1800-000-0000"]}}
+{"id": "hi-25", "lang": "hi", "split": "test", "text": "वार्ड कार्यालय कब खुलता है?", "intent": "faq", "expect": {"notice": "ward_office_hours", "must": ["10:00", "17:00"]}}
+{"id": "hi-26", "lang": "hi", "split": "test", "text": "एक परिवार टैंकर से कितना पानी ले सकता है?", "intent": "faq", "expect": {"notice": "tanker_containers", "must": ["200"]}}
+{"id": "hi-27", "lang": "hi", "split": "test", "text": "अलर्ट की प्राथमिकता के स्तरों का क्या मतलब है?", "intent": "faq", "expect": {"notice": "alert_levels", "must": ["Low", "Critical"]}}
+{"id": "hi-28", "lang": "hi", "split": "test", "text": "tanker ka paani free hai kya?", "intent": "faq", "expect": {"notice": "tanker_charges", "must": ["free"]}, "script": "latin", "speech_text": "टैंकर का पानी फ्री है क्या?"}
+{"id": "hi-29", "lang": "hi", "split": "test", "text": "चेन्नई की ट्रेन कितने बजे है?", "intent": "none", "expect": {}}
+{"id": "hi-30", "lang": "hi", "split": "test", "text": "bijli ka bill kahan jama karein?", "intent": "none", "expect": {}, "script": "latin", "speech_text": "बिजली का बिल कहाँ जमा करें?"}

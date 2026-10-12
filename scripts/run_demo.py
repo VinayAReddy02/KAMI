@@ -55,12 +55,14 @@ def main() -> int:
     a = ap.parse_args()
     if a.check:
         return smoke(a.speed)
-    h = launch(speed=a.speed, port=a.port, notifications="auto")  # Telegram only if enabled in .env (docs/notifications.md)
+    h = launch(speed=a.speed, port=a.port, notifications="auto", citizen="auto")  # Telegram alerts and the citizen bot only if enabled in .env
     dist = ROOT / "frontend" / "dist"
     print(f"KAMI running in {h.stack.mode} mode. API: {h.url}  (docs: {h.url}/docs)")
     print(f"Dashboard: {h.url}/" if dist.is_dir() else "Frontend not built: run `npm run build` in frontend/ (or `npm run dev` for port 5173).")
     st = h.stack.extras["notifications"].status()
     print("Alerts: Telegram on" if st["mode"] == "telegram" else f"Alerts: dry run ({st['detail']})")
+    cz = h.stack.extras["citizen"]
+    print("Citizen bot: on (speech models load in the background)" if cz.enabled else f"Citizen bot: off ({cz.detail})")
     print("Ctrl+C to stop.")
     try:
         while True:

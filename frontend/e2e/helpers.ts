@@ -14,11 +14,13 @@ export async function open(page: Page, hash: string, theme: Theme = "dark") {
 /** Inject a sudden infrastructure event through the API and wait until the node has an active alert. */
 export async function injectAndWait(request: APIRequestContext, node = NODE.id) {
   const active = async () => (await (await request.get(`/alerts?node=${node}&status=active`)).json()) as unknown[];
-  if ((await active()).length === 0) {
+  // Each injection draws a new event from the scenario generator; a mild one may not raise an alert. Try up to 4 events.
+  for (let attempt = 0; attempt < 4 && (await active()).length === 0; attempt++) {
     const r = await request.post("/demo/inject", { data: { type: "infra_burst", node } });
     expect(r.ok()).toBeTruthy();
+    for (let i = 0; i < 80 && (await active()).length === 0; i++) await new Promise((res) => setTimeout(res, 500));
   }
-  await expect.poll(async () => (await active()).length, { timeout: 90_000, intervals: [500] }).toBeGreaterThan(0);
+  expect((await active()).length).toBeGreaterThan(0);
 }
 
 export async function setPaused(request: APIRequestContext, paused: boolean) {

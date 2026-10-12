@@ -13,13 +13,13 @@ KAMI is a context-aware, multi-stage **anomaly intelligence system for water net
 4. `docs/reference/` as needed: `project/` (abstract, first-phase report), `faculty/Faculty_feedback.txt`, `related_works/related_works.md`, `senior_project/AI_water_prj.docx`, `paper_format/` (used later, not now)
 
 ## Hard rules
-1. **Stay in scope.** Only build what the current round's plan lists. No chatbot, RAG, voice, computer vision, routing or forecasting. Alert push is outbound only, through a Telegram bot (WhatsApp was removed in Round 4). If you think something is missing, write it in `docs/decisions.md` under "Proposed"; do not build it.
+1. **Stay in scope.** Only build what the current round's plan lists. No computer vision, routing or forecasting. Alert push goes out through a Telegram bot (WhatsApp was removed in Round 4). From Round 6 the same bot also has a citizen interface (Hindi/English voice and text questions with local open speech, translation and TTS models on the user's RTX 4070 laptop, schedule answers from retrieval plus a local Ollama LLM with a grounding guard, pipe-damage photo tickets without image recognition), exactly as `PLAN_ROUND6.md` describes; nothing beyond it. If you think something is missing, write it in `docs/decisions.md` under "Proposed"; do not build it.
 2. **Never fake results.** No invented numbers, no hardcoded metrics, no tests that pass trivially. Every number in `results/` must come from running code on data. If something fails, say so in `PROGRESS.md`.
 3. **Label synthetic data honestly.** Anything produced by the scenario generator or WNTR is `semi_synthetic` or `synthetic` in column names, file names and docs. Never present it as real field data.
 4. **No leakage.** Features use past observations only. Splits are chronological. Tune on the validation split only. The test split is evaluated once per final model.
 5. **Work only inside this folder.** Do not read, edit or copy anything from the senior's project (`D:\GYATT\5th sem\AI\Senior\...`). It is not needed for any step. Do not touch other folders.
 6. **Git:** commit after every finished step. **Never `git push`**, never force anything, never rewrite history, no remotes.
-7. **Secrets.** Never create accounts or API keys. The only secrets are the user's Telegram bot token and chat id, and they live only in the git-ignored `.env` (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`). Never print, log, commit or copy them, never put them in tests, docs or error text, and never log a Telegram URL (it contains the token).
+7. **Secrets.** Never create accounts or API keys. The only secrets are the user's Telegram bot token and chat id; they live only in the git-ignored `.env` (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`). Round 6 needs no new key (Bhashini was dropped; the speech models run locally). Citizen voice notes and photos are personal data: only under git-ignored `data/citizen/uploads/`, never in logs, tests or commits. Never print, log, commit or copy them, never put them in tests, docs or error text, and never log a Telegram URL (it contains the token).
 8. **Deleting:** avoid it. Never run recursive deletes. If you must remove a generated file inside this folder, remove that single file.
 9. **Downloads:** public datasets only. Record URL, date and licence in `data/raw/<name>/SOURCE.md`. Check free disk space (keep at least 5 GB free) before large downloads. There is no download cap.
 
@@ -63,6 +63,7 @@ src/kami/
   api/         FastAPI app
   live/        streaming processor on the frozen Round 2 rule
   notify/      outbound alert push (dry run by default; Telegram bot from Round 4)
+  citizen/     citizen interface on the same bot (Round 6): inbound polling, local speech/translation/TTS, retrieval + answer writers, tickets
 frontend/      React app
 scripts/       check_step_N.py, run_demo.py
 tests/         step-wise tests
@@ -70,7 +71,7 @@ data/raw/      downloads (git-ignored) + SOURCE.md per dataset
 data/processed/ (git-ignored)
 results/       metrics JSON, tables (.md), figures, screenshots
 docs/          reference/, decisions.md, datasets.md, scenarios.md, architecture.md
-PROGRESS.md  CLAUDE.md  README.md  PLAN.md  PLAN_ROUND2.md  PLAN_WHATSAPP.md (superseded)  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md
+PROGRESS.md  CLAUDE.md  README.md  PLAN.md  PLAN_ROUND2.md  PLAN_WHATSAPP.md (superseded)  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md  PLAN_ROUND7.md (merged into 6)
 ```
 
 ## Quality bar
@@ -94,6 +95,7 @@ Steps 0 to 7 pass their check scripts, `pytest -q` passes, `npm run build` passe
   - Run the narrowest test first (`pytest path::test_name`), and the full suite once at the end of a task group.
   - Do not re-run long pipelines (dataset builds, tuning, final evaluation) unless their inputs changed. Reuse stored artefacts.
   - Prefer small edits over rewriting whole files. Keep `PROGRESS.md` notes to one or two lines per task.
+- **Take your time, work as a chain (user instruction 2026-10-12).** There is no time pressure. Do one task at a time: finish it, test it, record it in `PROGRESS.md` (one or two lines plus *Current step*), then continue with the next task in the same session without waiting. Commit at the end of each step or part. After an interruption (for example a usage limit) resume from `PROGRESS.md` at the first unfinished task; never redo finished work.
 - **Correctness still wins.** Saving tokens never justifies skipping a hard rule: no leakage, locked held-out sets, honest reporting, tests before commits.
 
 ## Current phase and round history
@@ -103,5 +105,6 @@ Steps 0 to 7 pass their check scripts, `pytest -q` passes, `npm run build` passe
 - **Round 4** (WhatsApp replaced by a Telegram bot, `PLAN_ROUND4.md`): done 2026-10-12. All WhatsApp/Twilio code is removed; the alert push is a Telegram bot, dry run by default. No real Telegram request was made in that round; the user tests the bot with the planning assistant.
 - **Bot test (2026-10-12, user with the planning assistant):** passed. `.env` holds the token, chat id and `KAMI_TELEGRAM_ENABLE=1`; one test message and one real alert (injected burst, node-2, Infrastructure High) were delivered.
 - **Round 5** (no Docker: alert wording M1, Playwright tests P1, paper screenshots P2, accessibility P3, quiet-demo measurement Q1, close-out P4; `PLAN_ROUND5.md`): done 2026-10-12. No real Telegram message was sent in that round.
-- **Round 6, next** (Docker stack: MQTT + TimescaleDB, separate processes, browser tests in docker mode; `PLAN_ROUND6.md`): start only after Round 5 is done and the user confirms Docker Desktop is installed and running. Stop after D5.
+- **Round 6, current** (citizen interface on the Telegram bot: Hindi/English voice and text via local open speech models, tanker-schedule and notice answers via retrieval + local Ollama LLM with a grounding guard, pipe-damage photo tickets linked to the nearest node, evaluation; `PLAN_ROUND6.md`; decided by the user 2026-10-12): can start now. The user installs Ollama; speech, translation and TTS models are downloaded by Claude Code (approved). Without Ollama, the template writer is used and the LLM parts are marked pending. No real Telegram message in this round. Order: Part A (C0 to C8, citizen interface), Part C (E1 to E3: teacher-feedback scope table, demo script, real-data search report), Part B (D1 to D5, Docker stack merged in from the former Round 7; Docker Desktop is installed and running). Commit after each part; stop only after D5. **Status 2026-10-12: Part A done and committed; Part C and Part B follow in the same session.**
+- **Round 7:** none (merged into Round 6 Part B on 2026-10-12; `PLAN_ROUND7.md` kept as history).
 - **After Round 6:** stop. The paper and any further rounds are planned with the user.

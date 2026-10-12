@@ -8,12 +8,29 @@ read), the alert-push settings are removed from the environment, the dry-run log
 HTTP request from this process to another machine is refused. Started by frontend/playwright.config.ts.
 """
 import argparse
+import os
 import sys
 import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+
+
+def seed_test_ticket(tickets) -> None:
+    """One complaint ticket made from a generated picture (not a citizen photo), about 1.2 km from node-5, clear of the node labels."""
+    import io
+
+    from PIL import Image, ImageDraw
+
+    im = Image.new("RGB", (640, 480), (70, 90, 110))
+    d = ImageDraw.Draw(im)
+    d.rectangle((60, 200, 580, 260), fill=(150, 150, 150))
+    d.text((70, 60), "GENERATED TEST PICTURE - not a citizen photo", fill=(255, 255, 255))
+    buf = io.BytesIO()
+    im.save(buf, "JPEG")
+    assert tickets.add_photo("e2e", buf.getvalue(), source="test").kind == "need_location"
+    assert tickets.add_location("e2e", 12.925, 79.121, source="test").kind == "ticket"
 
 
 def main() -> int:
@@ -26,7 +43,8 @@ def main() -> int:
         return 1
     from kami.notify.lock import lock_to_dry_run
 
-    lock_to_dry_run()
+    notify = lock_to_dry_run()
+    os.environ["KAMI_CITIZEN_DIR"] = str(notify.parent / "citizen")  # uploads of this run: a temporary folder
     from kami.live.launch import launch
 
     h = launch(speed=a.speed, port=a.port, mode="fallback", temp_store=True)  # notifications: forced dry run (the default)
@@ -35,7 +53,8 @@ def main() -> int:
         h.stop()
         print(f"refusing to run: alert push is in {mode} mode", flush=True)
         return 1
-    print(f"KAMI test server on {h.url} (alerts: dry run)", flush=True)
+    seed_test_ticket(h.stack.extras["citizen"].tickets)
+    print(f"KAMI test server on {h.url} (alerts: dry run, citizen bot: off, 1 generated test ticket)", flush=True)
     try:
         while True:
             time.sleep(1)

@@ -29,6 +29,14 @@ class Store(ABC):
     def read_assessments(self, node: str | None = None, limit: int = 500) -> list[dict]: ...
 
     @abstractmethod
+    def write_complaint(self, c: dict) -> int:
+        """Store one citizen complaint ticket (Round 6) and return its id."""
+
+    @abstractmethod
+    def read_complaints(self, limit: int = 200) -> list[dict]:
+        """Complaint tickets, newest first, each with its id."""
+
+    @abstractmethod
     def close(self) -> None: ...
 
 

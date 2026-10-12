@@ -26,7 +26,8 @@ def main() -> int:
     if not npm or not npx:
         print("npm/npx not found: install Node.js first")
         return 1
-    env = {k: v for k, v in os.environ.items() if k != "KAMI_E2E_OUT"}  # write into results/
+    env = {k: v for k, v in os.environ.items() if k != "KAMI_E2E_OUT"}
+    env["KAMI_E2E_WRITE_RESULTS"] = "1"  # only this script lets the specs write into results/
     if subprocess.run([npm, "run", "build"], cwd=FRONTEND, env=env).returncode != 0:
         return 1
     specs = ["screens"] + (["a11y"] if a.a11y else [])

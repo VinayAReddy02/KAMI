@@ -1,0 +1,38 @@
+{
+ "text:template": {
+  "utc": "2026-10-12T11:20:26+00:00",
+  "git_commit": "ae67102",
+  "questions": 40,
+  "seconds": 4.3,
+  "models": {
+   "asr": "faster-whisper:large-v3-turbo",
+   "nmt": "nllb-200-distilled-600M",
+   "tts": "piper (hi: priyamvada, en: lessac)",
+   "llm": "llama3.2:3b"
+  }
+ },
+ "text:ollama": {
+  "utc": "2026-10-12T11:20:51+00:00",
+  "git_commit": "ae67102",
+  "questions": 40,
+  "seconds": 25.0,
+  "models": {
+   "asr": "faster-whisper:large-v3-turbo",
+   "nmt": "nllb-200-distilled-600M",
+   "tts": "piper (hi: priyamvada, en: lessac)",
+   "llm": "llama3.2:3b"
+  }
+ },
+ "voice": {
+  "utc": "2026-10-12T11:21:47+00:00",
+  "git_commit": "ae67102",
+  "questions": 40,
+  "seconds": 55.9,
+  "models": {
+   "asr": "faster-whisper:large-v3-turbo",
+   "nmt": "nllb-200-distilled-600M",
+   "tts": "piper (hi: priyamvada, en: lessac)",
+   "llm": "llama3.2:3b"
+  }
+ }
+}

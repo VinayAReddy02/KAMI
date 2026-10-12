@@ -27,9 +27,11 @@ class LiveSystem:
 
 
 def build_live(stack: Stack, speed: float = 600.0, n_nodes: int = 8, start: int | None = None,
-               max_steps: int | None = None, notifications: str = "dry_run") -> LiveSystem:
+               max_steps: int | None = None, notifications: str = "dry_run", citizen: str = "off") -> LiveSystem:
     """`notifications`: "dry_run" (default: alert messages only go to the dry-run log, whatever .env says) or "auto"
-    (the Telegram bot is used if it is enabled and configured in .env, see docs/notifications.md)."""
+    (the Telegram bot is used if it is enabled and configured in .env, see docs/notifications.md).
+    `citizen`: "off" (default: no inbound handling, whatever .env says; tickets can still be read) or "auto" (the citizen
+    bot answers if KAMI_CITIZEN_ENABLE=1, see docs/citizen.md). The caller starts it with stack.extras["citizen"].start()."""
     frames = build_node_frames(n_nodes)
     start = find_clean_start(frames) if start is None else start
     proc = LiveProcessor(stack.store)
@@ -52,4 +54,7 @@ def build_live(stack: Stack, speed: float = 600.0, n_nodes: int = 8, start: int 
     proc.listeners.append(stack.extras["notifications"].on_event)
     live = LiveSystem(proc, inj, fleet, frames, start)
     stack.extras["live"] = live
+    from ..citizen.service import build_citizen  # reads the live state only; never changes models or fusion
+
+    stack.extras["citizen"] = build_citizen(stack, live, allow_inbound=citizen == "auto")
     return live

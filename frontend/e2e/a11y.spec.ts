@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
@@ -6,8 +7,10 @@ import { injectAndWait, open, PAGES, setPaused, THEMES } from "./helpers";
 
 // axe-core on every page in both themes. Serious and critical findings fail the run unless the rule is listed in
 // e2e/a11y_accepted.json with a reason (the same list is in docs/decisions.md). The report goes to results/a11y/.
-// KAMI_E2E_OUT redirects the output (scripts/check_round5.py uses a temporary folder so that a check run does not rewrite results/)
-const OUT = path.resolve(process.env.KAMI_E2E_OUT ?? path.resolve(process.cwd(), "..", "results"), "a11y");
+// Output folder: results/ only when scripts/screenshots.py asks for it (KAMI_E2E_WRITE_RESULTS=1). A plain
+// `npx playwright test` and the check scripts write to a scratch folder, so the stored files are never rewritten by accident.
+const BASE = process.env.KAMI_E2E_OUT ?? (process.env.KAMI_E2E_WRITE_RESULTS === "1" ? path.resolve(process.cwd(), "..", "results") : path.join(os.tmpdir(), "kami_e2e_out"));
+const OUT = path.resolve(BASE, "a11y");
 const ACCEPTED: { id: string; reason: string }[] = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "e2e", "a11y_accepted.json"), "utf-8"));
 const BLOCKING = ["serious", "critical"];
 

@@ -31,6 +31,8 @@ class SqliteStore(Store):
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
                   node_id TEXT NOT NULL, ts TEXT NOT NULL, body TEXT NOT NULL);
                 CREATE INDEX IF NOT EXISTS ix_assess ON assessments(node_id, ts);
+                CREATE TABLE IF NOT EXISTS complaints(
+                  id INTEGER PRIMARY KEY AUTOINCREMENT, body TEXT NOT NULL);
                 """
             )
             self._db.commit()
@@ -86,6 +88,17 @@ class SqliteStore(Store):
         args.append(limit)
         with self._lock:
             return [json.loads(x["body"]) for x in self._db.execute(q, args)]
+
+    def write_complaint(self, c: dict) -> int:
+        with self._lock:
+            cur = self._db.execute("INSERT INTO complaints(body) VALUES (?)", (json.dumps(c),))
+            self._db.commit()
+            return int(cur.lastrowid)
+
+    def read_complaints(self, limit=200):
+        with self._lock:
+            rows = self._db.execute("SELECT id, body FROM complaints ORDER BY id DESC LIMIT ?", (limit,)).fetchall()
+        return [{**json.loads(r["body"]), "id": r["id"]} for r in rows]
 
     def close(self) -> None:
         with self._lock:

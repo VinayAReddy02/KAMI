@@ -1,7 +1,7 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
-import type { Assessment, Category, Network } from "../types";
+import type { Assessment, Category, Complaint, Network } from "../types";
 
 const GLYPH: Record<Category, string> = {
   Normal: '<circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="2"/>',
@@ -24,13 +24,25 @@ export function markerIcon(name: string, category: Category, priority?: string):
   });
 }
 
+/** A citizen report: a square marker with a camera glyph and the ticket number (shape and text, not colour, tell it apart). */
+export function ticketIcon(id: number): L.DivIcon {
+  return L.divIcon({
+    className: "node-marker-wrap",
+    iconSize: [110, 30],
+    iconAnchor: [13, 13],
+    html: `<div class="ticket-marker"><span class="pin"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 5h3l1-1.500h4L11 5h3v8H2z" fill="none" stroke="currentColor" stroke-width="1.500"/><circle cx="8" cy="9" r="2.200" fill="currentColor"/></svg></span><span class="pin-label"><b>Report #${id}</b></span></div>`,
+  });
+}
+
 interface Props {
   network: Network;
   latest: Record<string, Assessment>;
   onSelect: (id: string) => void;
+  complaints?: Complaint[];
+  onComplaint?: () => void;
 }
 
-export function NodeMap({ network, latest, onSelect }: Props) {
+export function NodeMap({ network, latest, onSelect, complaints = [], onComplaint }: Props) {
   return (
     <div className="map-shell">
       <MapContainer center={network.center} zoom={network.zoom} className="map" scrollWheelZoom aria-label="Map of demo network nodes">
@@ -48,6 +60,16 @@ export function NodeMap({ network, latest, onSelect }: Props) {
             />
           );
         })}
+        {complaints.map((c) => (
+          <Marker
+            key={`ticket-${c.id}`}
+            position={[c.lat, c.lon]}
+            icon={ticketIcon(c.id)}
+            zIndexOffset={600}
+            title={`Citizen report ${c.id}, ${c.status}${c.node_name ? ", nearest sensor point " + c.node_name : ""}`}
+            eventHandlers={{ click: () => onComplaint?.() }}
+          />
+        ))}
       </MapContainer>
       <div className="map-label" role="note">{network.label}</div>
     </div>

@@ -84,6 +84,24 @@ Replay time: 2018-01-07 18:30
 ```
 Limits: one message per node per 10 minutes, 30 per hour. Outbound only; `GET /notifications/status` and the dashboard footer show the mode and counts. Setup, message format and failure handling: `docs/notifications.md`. The token and the chat id live only in `.env` and are never logged.
 
+## Citizen interface on the Telegram bot (optional, off by default)
+A resident can ask the same bot, typed or as a voice note, in Hindi or English: when the tanker comes to a ward ("When will the water tanker reach Ward 4?" / "वार्ड 4 में टैंकर कब आएगा?"), what the notices say (supply hours, charges, how to report a pipe), or what the sensors show in a ward; and can report a damaged pipe with a photo and a location, which becomes a ticket on the dashboard (Complaints page and a marker on the map). Speech recognition, translation, the language model and the voice all run on the laptop.
+
+**Demo data, fictional.** The wards, the tanker schedule, the notices and the helpline number are invented (`data/citizen/*demo_fictional*`). The software does not look at what a photo shows. No reply names a cause.
+
+```powershell
+.\.venv\Scripts\python -m pip install -r requirements-citizen.txt --extra-index-url https://download.pytorch.org/whl/cu126   # speech packages (large)
+ollama pull llama3.2:3b                                         # local LLM (optional; without it the bot uses fixed sentences)
+.\.venv\Scripts\python scripts\run_demo.py --port 8200                 # dashboard + alerts + citizen bot (if enabled in .env)
+.\.venv\Scripts\python scripts\run_citizen_bot.py                      # the bot alone
+.\.venv\Scripts\python scripts\check_round6.py --quick                 # Round 6 checks; cannot reach Telegram or Ollama
+```
+To switch it on set `KAMI_CITIZEN_ENABLE=1` in `.env` (the token and chat id are the ones of the alert push). Only the chat in `TELEGRAM_CHAT_ID` and those in `CITIZEN_ALLOWED_CHAT_IDS` are answered; limits: 10 requests per minute per chat, voice notes up to 60 s, photos up to 10 MB. Commands: `/help`, `/language hi|en|auto`.
+
+How an answer is made: rules read the ward and the day from the question; the time always comes from the schedule data (a ward whose sensor point has an open High or Critical alert gets "possibly delayed"); a local LLM (`llama3.2:3b`) may phrase the answer, and a guard replaces it with a fixed sentence if any time, date, ward, tanker id or number is not in the retrieved records. Models: `faster-whisper:large-v3-turbo`, `nllb-200-distilled-600M`, `piper (hi: priyamvada, en: lessac)`.
+
+Measured on 40 authored test questions (run once): fixed sentences answered 98% correctly; with the local LLM 23 of 36 LLM answers broke a grounding rule and were replaced, 98% correct after the guard; spoken questions (synthetic speech): word error rate 1.4% English and 23.5% Hindi, 82% correct end to end, about 1.2 s from question to voice answer. These are authored questions on a fictional schedule with synthetic speech, not a field test. Details: `docs/citizen.md`, `results/citizen/eval.md`.
+
 ## What to expect with no injected event
 With no injection, expect about 0.0 alerts per simulated day, 0 of them High or above: in a replay of 14 simulated days on all 8 nodes the demo opened 0 alert episodes (the same measurement with one injected event did raise alerts). So during a presentation the map stays quiet until you inject an event. This describes the replayed demo data (simulated infrastructure, real river quality, inside the training period). It is not a false-alarm rate; details in `results/demo_quiet/quiet_demo.md`, regenerate with `.\.venv\Scripts\python scripts\quiet_demo.py`.
 
@@ -100,14 +118,14 @@ cd frontend; npm run build; npx playwright test; cd ..      # 30 browser tests a
 
 ## Repository layout
 ```
-src/kami/    data, features, simulator, models, eval, ingest, store, live, api, notify
+src/kami/    data, features, simulator, models, eval, ingest, store, live, api, notify, citizen
 frontend/    React + TypeScript + Vite dashboard; e2e/ = Playwright browser tests
-scripts/     check_step_N.py, check_round2.py, build_datasets.py, build_test_set.py, make_summary.py, run_demo.py, reproduce_all.py, check_telegram.py, check_round5.py, send_test_alert.py, telegram_find_chat.py, e2e_server.py, screenshots.py, quiet_demo.py
-tests/       step1 .. step6, round2, live, telegram
+scripts/     check_step_N.py, check_round2.py, build_datasets.py, build_test_set.py, make_summary.py, run_demo.py, reproduce_all.py, check_telegram.py, check_round5.py, send_test_alert.py, telegram_find_chat.py, e2e_server.py, screenshots.py, quiet_demo.py, check_round6.py, run_citizen_bot.py, build_citizen_data.py, citizen_model_select.py, citizen_eval.py
+tests/       step1 .. step6, round2, live, telegram, citizen
 config/      nodes.json (fictional demo coordinates)
 docs/        decisions.md, datasets.md, scenarios.md, fusion.md, architecture.md, notifications.md, reference/
 results/     metrics, tables, figures, round2/, SUMMARY.md   (results_round1/ = Round 1 snapshot)
-PROGRESS.md  PLAN.md  PLAN_ROUND2.md  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md  CLAUDE.md  .env.example   (the Round 3 plan is superseded and kept as history)
+PROGRESS.md  PLAN.md  PLAN_ROUND2.md  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md  PLAN_ROUND7.md  CLAUDE.md  .env.example   (the Round 3 plan is superseded and kept as history)
 ```
 
 ## Honest scope notes

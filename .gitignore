@@ -12,3 +12,5 @@ dist/
 results/notifications/
 test-results/
 playwright-report/
+data/citizen/uploads/
+data/citizen/tmp/

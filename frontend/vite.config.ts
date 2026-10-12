@@ -14,6 +14,8 @@ export default defineConfig({
       "/alerts": API,
       "/demo": API,
       "/notifications": API,
+      "/complaints": API,
+      "/citizen": API,
       "/health": API,
       "/readings": API,
       "/ws": { target: API, ws: true },

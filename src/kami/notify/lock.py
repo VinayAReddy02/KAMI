@@ -17,14 +17,22 @@ refused: list[str] = []  # hosts of refused requests, for callers that want to a
 _locked = False
 
 
-def lock_to_dry_run() -> Path:
-    """Returns the temporary notification folder."""
-    global _locked
+def forget_bot_settings() -> Path:
+    """Remove every bot setting from this process and point the settings loader at a file that does not exist, so no
+    Telegram client can be built here. Other HTTP (model downloads, the local Ollama) stays possible.
+    Returns the temporary notification folder."""
     tmp = Path(tempfile.mkdtemp(prefix="kami_dryrun_"))
-    for k in (TOKEN, CHAT, ENABLE):
+    for k in (TOKEN, CHAT, ENABLE, "KAMI_CITIZEN_ENABLE", "CITIZEN_ALLOWED_CHAT_IDS"):
         os.environ.pop(k, None)
     os.environ["KAMI_NOTIFY_ENV_FILE"] = str(tmp / "no_such.env")
     os.environ["KAMI_NOTIFY_DIR"] = str(tmp / "notifications")
+    return tmp / "notifications"
+
+
+def lock_to_dry_run() -> Path:
+    """Returns the temporary notification folder."""
+    global _locked
+    out = forget_bot_settings()
     if not _locked:
         import httpx
 
@@ -38,4 +46,4 @@ def lock_to_dry_run() -> Path:
 
         httpx.HTTPTransport.handle_request = local_only
         _locked = True
-    return tmp / "notifications"
+    return out

@@ -2,11 +2,13 @@ import { useMemo } from "react";
 import { AlertList } from "../components/AlertList";
 import { NodeMap } from "../components/NodeMap";
 import { StatusStrip } from "../components/StatusStrip";
+import { useComplaints } from "../complaints";
 import { useLive } from "../live";
 import { CATEGORIES, type Category } from "../types";
 
 export function Overview() {
   const { network, networkError, loading, latest, alerts, refresh } = useLive();
+  const { complaints } = useComplaints();
   const names = useMemo(() => Object.fromEntries((network?.nodes ?? []).map((n) => [n.id, n.name])), [network]);
   const counts = useMemo(() => {
     const c: Partial<Record<Category, number>> = {};
@@ -35,7 +37,8 @@ export function Overview() {
       <h1 className="sr-only">Network overview</h1>
       <div className="overview-map">
         <StatusStrip counts={counts} total={network.nodes.length} />
-        <NodeMap network={network} latest={latest} onSelect={go} />
+        <NodeMap network={network} latest={latest} onSelect={go} complaints={complaints.filter((c) => c.status === "open")}
+          onComplaint={() => (window.location.hash = "#/complaints")} />
       </div>
       <aside className="overview-feed" aria-label="Alerts">
         <h2>Live alert feed</h2>

@@ -1,0 +1,48 @@
+# Extra packages for the citizen interface (Round 6): local speech recognition, translation and speech output.
+# Separate from requirements.txt, which stays as frozen for the anomaly pipeline. Nothing in requirements.txt changes
+# when these are installed (checked with a constraints file made from `pip freeze`).
+#
+# Install (Windows, NVIDIA GPU, CUDA 12.6 build of PyTorch; about 2.6 GB for PyTorch alone):
+#   .venv\Scripts\python -m pip install -r requirements-citizen.txt --extra-index-url https://download.pytorch.org/whl/cu126
+# Without an NVIDIA GPU replace the torch line by `torch==2.9.1` (CPU build) and set CITIZEN_DEVICE=cpu.
+#
+# The tests and check scripts do not need any of these packages.
+#
+# Direct dependencies
+torch==2.9.1+cu126
+transformers==5.19.0
+sentencepiece==0.2.2
+sacremoses==0.2.0
+faster-whisper==1.2.1
+piper-tts==1.8.0
+imageio-ffmpeg==0.6.0
+#
+# Pinned transitive dependencies (as installed on 2026-10-12)
+av==19.0.1
+ctranslate2==4.8.2
+filelock==4.1.1
+flatbuffers==25.12.19
+fsspec==2026.9.0
+hf-xet==1.7.0
+httpcore2==2.13.1
+httpx2==2.13.1
+huggingface_hub==2.2.0
+Jinja2==3.1.6
+markdown-it-py==4.2.0
+MarkupSafe==3.0.4
+mdurl==0.1.2
+mpmath==1.3.0
+networkx==3.7
+onnxruntime==1.31.0
+pathvalidate==3.3.1
+protobuf==7.36.2
+regex==2026.9.29
+rich==15.0.0
+safetensors==0.8.0
+setuptools==84.0.0
+shellingham==1.5.4
+sympy==1.14.0
+tokenizers==0.23.3
+tqdm==4.70.1
+truststore==0.10.4
+typer==0.27.3

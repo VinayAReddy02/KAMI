@@ -79,6 +79,24 @@ export interface DemoStatus {
   method?: { label: string; design: string; params: Record<string, number>; frozen_commit: string; source: string };
 }
 
+export interface Complaint {
+  id: number;
+  created_utc: string;
+  replay_ts: string | null;
+  lat: number;
+  lon: number;
+  node_id: string | null;
+  node_name: string | null;
+  nearest_node_name: string;
+  distance_km: number;
+  in_demo_area: boolean;
+  node_category: Category | null;
+  node_priority: Priority | null;
+  status: string;
+  source: string;
+  thumb_url: string;
+}
+
 export interface NotifyStatus {
   mode: "dry_run" | "telegram";
   sent: number;

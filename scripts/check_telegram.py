@@ -23,7 +23,10 @@ ok = True
 ROUND_BASE = "38232dd"  # last commit before Round 4
 SETTING_NAMES = ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID", "KAMI_TELEGRAM_ENABLE")
 OLD_CHANNEL = "|".join(["whats" + "app", "twi" + "lio"])  # written in pieces so that this file does not match itself
-HISTORY = ("docs/decisions.md", "PLAN_" + "WHATS" + "APP.md", "PLAN_ROUND4.md", "PLAN_ROUND5.md", "PROGRESS.md", "CLAUDE.md", "docs/reference/")
+# history files that may name the old channel: decisions, plans, progress notes, the teacher's notes, and (Round 6) the table
+# that goes through the teacher's notes item by item and has to say what replaced it
+HISTORY = ("docs/decisions.md", "PLAN_" + "WHATS" + "APP.md", "PLAN_ROUND4.md", "PLAN_ROUND5.md", "PLAN_ROUND6.md", "PLAN_ROUND7.md", "PROGRESS.md",
+           "CLAUDE.md", "docs/reference/", "docs/teacher_scope.md", "docs/teacher_scope_items.json")
 TOKEN_RX = re.compile(r"\d{8,10}:[A-Za-z0-9_-]{35}")  # what a real bot token looks like
 BINARY = {".parquet", ".png", ".npz", ".joblib", ".pdf", ".docx", ".ico", ".jpg", ".sqlite"}
 # fake values for this process only: they prove that complete settings do not switch a check run to real sending
@@ -94,8 +97,8 @@ check(f"no tracked file contains a string that looks like a Telegram bot token {
 ex = ROOT / ".env.example"
 ex_vals = dict(ln.split("=", 1) for ln in (ex.read_text(encoding="utf-8") if ex.is_file() else "").splitlines()
                if "=" in ln and not ln.lstrip().startswith("#"))
-check(".env.example lists the three settings with placeholders only (empty token, empty chat id, sending off)",
-      set(ex_vals) == set(SETTING_NAMES) and ex_vals["TELEGRAM_BOT_TOKEN"] == "" and ex_vals["TELEGRAM_CHAT_ID"] == ""
+check(".env.example lists the three alert settings with placeholders only (empty token, empty chat id, sending off)",
+      set(SETTING_NAMES) <= set(ex_vals) and ex_vals["TELEGRAM_BOT_TOKEN"] == "" and ex_vals["TELEGRAM_CHAT_ID"] == ""
       and ex_vals["KAMI_TELEGRAM_ENABLE"] == "0")
 check("results/notifications/ (message log and state) is git-ignored", git("check-ignore", "-q", "results/notifications/x.jsonl", code=True) == 0)
 

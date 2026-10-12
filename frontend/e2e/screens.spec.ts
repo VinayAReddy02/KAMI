@@ -1,12 +1,15 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { expect, test } from "@playwright/test";
 import { injectAndWait, NODE, open, PAGES, setPaused, THEMES } from "./helpers";
 
 // Screenshots for the paper: 4 pages x 2 themes x 2 sizes = 16 files in results/screens/. Taken from the running
 // demo (replayed semi-synthetic data, alerts in dry run) with one injected event on the node page; never edited by hand.
-// KAMI_E2E_OUT redirects the output (scripts/check_round5.py uses a temporary folder so that a check run does not rewrite results/)
-const OUT = path.resolve(process.env.KAMI_E2E_OUT ?? path.resolve(process.cwd(), "..", "results"), "screens");
+// Output folder: results/ only when scripts/screenshots.py asks for it (KAMI_E2E_WRITE_RESULTS=1). A plain
+// `npx playwright test` and the check scripts write to a scratch folder, so the stored files are never rewritten by accident.
+const BASE = process.env.KAMI_E2E_OUT ?? (process.env.KAMI_E2E_WRITE_RESULTS === "1" ? path.resolve(process.cwd(), "..", "results") : path.join(os.tmpdir(), "kami_e2e_out"));
+const OUT = path.resolve(BASE, "screens");
 const SIZES = [
   { key: "desktop_1440x900", width: 1440, height: 900 },
   { key: "phone_390x844", width: 390, height: 844 },
