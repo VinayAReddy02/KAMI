@@ -1,0 +1,107 @@
+{
+ "made_by": "scripts/docker_checks.py",
+ "run_utc": "2026-10-12T12:18:52+00:00",
+ "docker_ran": true,
+ "git_commit": "36d1a2b",
+ "docker_info": {
+  "ok": true,
+  "docker_version": "29.8.2",
+  "compose_version": "5.5.1"
+ },
+ "compose_up": {
+  "ok": true,
+  "mqtt_port": 1883,
+  "timescale_port": 5432,
+  "images": [
+   "eclipse-mosquitto",
+   "timescale/timescaledb"
+  ]
+ },
+ "mqtt_timescale_tests": {
+  "ok": true,
+  "passed": 15,
+  "skipped": 0,
+  "summary": "============================= 15 passed in 14.83s ============================="
+ },
+ "pytest_all_with_stack_up": {
+  "ok": true,
+  "passed": 218,
+  "skipped": 0,
+  "summary": "218 passed in 41.27s"
+ },
+ "check_step_1_docker": {
+  "ok": true,
+  "fails": []
+ },
+ "run_demo_check_docker": {
+  "ok": true,
+  "lines": [
+   "PASS health ok",
+   "PASS 8 nodes in /network",
+   "PASS all nodes assessed",
+   "PASS readings stored",
+   "PASS inject accepted",
+   "PASS bad inject rejected",
+   "PASS docker mode reported by the API",
+   "PASS three separate processes are running (nodes, ingest, API)",
+   "PASS the ingest process stored readings of all 8 nodes in TimescaleDB (min 105 rows)",
+   "PASS the three processes stopped cleanly"
+  ]
+ },
+ "separate_processes": {
+  "ok": true,
+  "pids": {
+   "ingest": 27724,
+   "api": 22960,
+   "nodes": 7340
+  },
+  "rows_per_node": {
+   "node-1": 100,
+   "node-2": 100,
+   "node-3": 100,
+   "node-4": 100,
+   "node-5": 100,
+   "node-6": 100,
+   "node-7": 100,
+   "node-8": 100
+  },
+  "seconds_until_100_rows_per_node": 9.6,
+  "replay_speed": 3000,
+  "api_mode": "docker",
+  "api_accepted": 803,
+  "nodes_assessed": 8,
+  "replay_step_first": 1970,
+  "alert_push_mode": "dry_run",
+  "inject_status": 200,
+  "alert_after_injection": {
+   "category": "Infrastructure",
+   "priority": "High",
+   "status": "active"
+  },
+  "paused_steps": [
+   2001,
+   2001
+  ],
+  "resumed_step": 2015,
+  "readings_in_timescaledb": 1168,
+  "stopped": {
+   "ingest": true,
+   "api": true,
+   "nodes": true
+  }
+ },
+ "playwright_docker": {
+  "ok": true,
+  "summary": "34 passed (38.3s)",
+  "tests_ok": 34,
+  "tests_failed_or_not_run": [],
+  "screenshots_in_scratch_folder": 16,
+  "note": "output went to a scratch folder; the stored paper screenshots were not regenerated"
+ },
+ "fallback_unchanged": {
+  "ok": true
+ },
+ "containers_stopped": {
+  "ok": true
+ }
+}

@@ -65,7 +65,7 @@ flowchart TB
 | Dashboard | `frontend/` |
 
 ## Modes
-- **docker**: Mosquitto (MQTT) and TimescaleDB from `docker-compose.yml`. Implemented; not exercised in the build environment because Docker was absent.
+- **docker**: Mosquitto (MQTT) and TimescaleDB from `docker-compose.yml`, exercised in Round 6. `scripts/run_demo.py --mode docker` runs three separate processes (`python -m kami.live.procs nodes | ingest | api`): the virtual nodes publish readings to MQTT; the ingest worker subscribes and writes them to TimescaleDB; the API process subscribes to the same readings for the live assessment, reads history from TimescaleDB and writes assessments and tickets there. The API reaches the nodes only through MQTT: `kami/control/replay` (speed, pause), `kami/control/inject` and its answer on `kami/control/inject/result`, and `kami/status/replay` for the replay position.
 - **fallback**: in-process bus and SQLite behind the same interfaces. Because the bus is in-process, the nodes, worker, processor and API run in one process (`scripts/run_demo.py`).
 
 ## Data honesty

@@ -9,6 +9,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from .. import config
 from ..runtime import Stack
@@ -71,6 +72,12 @@ def create_app(stack: Stack) -> FastAPI:
         return {"status": "ok", "mode": stack.mode, "readings": stack.store.count(),
                 "accepted": stack.worker.accepted, "rejected": stack.worker.rejected}
 
+    @app.get("/ready")
+    def ready():
+        """Readiness probe: 200 once readings arrive (in docker mode the API listens before the nodes process replays)."""
+        n = stack.worker.accepted
+        return JSONResponse({"ready": n > 0, "accepted": n}, status_code=200 if n else 503)
+
     @app.get("/nodes")
     def nodes():
         return stack.store.nodes()
@@ -118,7 +125,10 @@ def create_app(stack: Stack) -> FastAPI:
             raise HTTPException(422, f"type must be one of {EVENT_TYPES}")
         if body.node not in lv.frames:
             raise HTTPException(404, f"unknown node {body.node}")
-        return lv.injector.inject(body.type, body.node, lv.fleet.step, lv.fleet.last_ts)
+        try:
+            return lv.injector.inject(body.type, body.node, lv.fleet.step, lv.fleet.last_ts)
+        except RuntimeError as e:  # docker mode: the nodes process did not answer
+            raise HTTPException(503, str(e)) from None
 
     @app.post("/demo/control")
     def demo_control(body: ControlBody):

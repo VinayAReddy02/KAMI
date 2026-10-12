@@ -1,4 +1,5 @@
 import json
+import os
 
 import numpy as np
 import pandas as pd
@@ -306,6 +307,8 @@ def test_freeze_verify_detects_changed_files_and_changed_parameters(tmp_path, mo
     f.write_bytes(b"x = 1\r\n")  # a checkout with other line endings is not a change
     assert freeze.verify()
     f.write_bytes(b"x = 2\n")
+    st = f.stat()  # an edit at a later time: digests are memoised per (path, size, modification time), and this write can fall
+    os.utime(f, ns=(st.st_atime_ns, st.st_mtime_ns + 10**9))  # into the same clock tick as the first one of equal size (seen on Windows, Round 6)
     with pytest.raises(SystemExit):
         freeze.verify()
     f.write_bytes(b"x = 1\n")

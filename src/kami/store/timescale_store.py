@@ -7,11 +7,16 @@ import threading
 from .base import SIGNALS, Store
 
 
+# the same text form as the SQLite backend and the replayed data: 2018-01-07T16:50:00
+ISO_TS = "to_char(ts AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS')"
+
+
 class TimescaleStore(Store):
     def __init__(self, dsn: str):
         import psycopg
 
         self._conn = psycopg.connect(dsn, autocommit=True)
+        self._conn.execute("SET TIME ZONE 'UTC'")  # replayed readings carry no zone: store and return them as written
         self._lock = threading.Lock()
 
     def init(self) -> None:
@@ -39,7 +44,7 @@ class TimescaleStore(Store):
             )
 
     def read_readings(self, node=None, since=None, limit=1000):
-        q, args = "SELECT node_id, ts::text, flow, pressure, turbidity, tds FROM readings WHERE TRUE", []
+        q, args = "SELECT node_id, " + ISO_TS + ", flow, pressure, turbidity, tds FROM readings WHERE TRUE", []
         if node:
             q += " AND node_id=%s"
             args.append(node)
@@ -56,7 +61,8 @@ class TimescaleStore(Store):
     def nodes(self):
         with self._lock, self._conn.cursor() as c:
             c.execute(
-                "SELECT node_id, COUNT(*), MIN(ts)::text, MAX(ts)::text FROM readings GROUP BY node_id ORDER BY node_id"
+                "SELECT node_id, COUNT(*), " + ISO_TS.replace("(ts", "(MIN(ts)") + ", " + ISO_TS.replace("(ts", "(MAX(ts)")
+                + " FROM readings GROUP BY node_id ORDER BY node_id"
             )
             return [dict(zip(("node_id", "n", "first_ts", "last_ts"), r)) for r in c.fetchall()]
 
@@ -94,6 +100,11 @@ class TimescaleStore(Store):
             cur.execute("SELECT id, body FROM complaints ORDER BY id DESC LIMIT %s", (limit,))
             rows = cur.fetchall()
         return [{**(b if isinstance(b, dict) else json.loads(b)), "id": int(i)} for i, b in rows]
+
+    def clear(self) -> None:
+        with self._lock, self._conn.cursor() as c:
+            c.execute("TRUNCATE readings, assessments")
+            c.execute("TRUNCATE complaints RESTART IDENTITY")
 
     def close(self) -> None:
         self._conn.close()

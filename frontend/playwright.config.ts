@@ -14,9 +14,10 @@ export default defineConfig({
   reporter: [["list"]],
   use: { baseURL: `http://127.0.0.1:${PORT}`, browserName: "chromium", viewport: { width: 1440, height: 900 } },
   webServer: {
-    command: `..\\.venv\\Scripts\\python.exe ..\\scripts\\e2e_server.py --port ${PORT}`,
-    url: `http://127.0.0.1:${PORT}/health`,
+    // KAMI_E2E_MODE=docker runs the same tests against the docker stack (MQTT + TimescaleDB, three processes); the stack must be up
+    command: `..\\.venv\\Scripts\\python.exe ..\\scripts\\e2e_server.py --port ${PORT} --mode ${process.env.KAMI_E2E_MODE ?? "fallback"}`,
+    url: `http://127.0.0.1:${PORT}/ready`, // 503 until readings arrive: in docker mode the API listens before the nodes process replays
     reuseExistingServer: false,
-    timeout: 180_000,
+    timeout: 240_000,
   },
 });

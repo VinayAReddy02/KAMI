@@ -17,7 +17,7 @@ Commands are for PowerShell in the project folder. Times are a guide.
    .\.venv\Scripts\python scripts\run_demo.py --port 8200
    ```
 
-   Wait for these lines: `Alerts: Telegram on` and `Citizen bot: on`. The speech models load in the background (up to a minute).
+   This is the fallback mode (one process), which is the safest for a presentation. Wait for these lines: `Alerts: Telegram on` and `Citizen bot: on`. The speech models load in the background (up to a minute). To show the real stack instead (MQTT broker, TimescaleDB, three processes), start Docker Desktop first and add `--mode docker`; everything else in this script is the same.
 4. Open http://127.0.0.1:8200 in the browser, full screen, dark theme.
 5. Warm up the voice path once, so the first real question is fast: on the phone send a voice note "test" and wait for the reply.
 6. Check that the replay speed shows ×600 (0.5 s per 5-minute step, the default). An injected burst lasts 12 to 48 simulated hours, which is only 1 to 5 minutes at this speed: that is why the script pauses the replay once the alert is on screen.

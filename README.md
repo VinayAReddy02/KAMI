@@ -5,7 +5,7 @@ KAMI watches four signals (flow, pressure, turbidity, TDS), scores **infrastruct
 There is **no physical hardware**: a virtual sensor node replays public data over MQTT (or an in-process bus). All node data are semi-synthetic, and the map is a fictional layout near Vellore. Read `results/SUMMARY.md` for results and limitations, `docs/architecture.md` for the pipeline diagram.
 
 ## Windows quick start (PowerShell)
-Requirements: Python 3.12, Node.js (LTS), Git. Docker is optional.
+Requirements: Python 3.12, Node.js (LTS), Git. Docker Desktop is optional (only for the docker mode).
 
 ```powershell
 python -m venv .venv
@@ -25,11 +25,29 @@ For frontend development run `npm run dev` in `frontend/` (port 5173, proxies to
 | Frontend dev server | 5173 | `vite.config.ts` |
 | MQTT | 1883 | `KAMI_MQTT_PORT` |
 | Postgres/TimescaleDB | 5432 | `KAMI_PG_PORT` |
-Ports 8101-8105 and 8190 are used by the check scripts, 8210 by the browser tests. If a port is busy, pick another and pass it on the command line.
+Ports 8101-8105, 8190 and 8230 are used by the check scripts, 8231 by one Docker test, 8210 by the browser tests. If a port is busy, pick another and pass it on the command line.
 
-## Modes: Docker or fallback
-- `KAMI_MODE=docker` (automatic when `docker info` works): `docker compose up -d` starts Mosquitto and TimescaleDB (anonymous, dev only). The MQTT and TimescaleDB backends are implemented and have tests that run only when the services are reachable; **they were not exercised in the build environment (no Docker)**.
-- `KAMI_MODE=fallback` (automatic otherwise): in-process bus and SQLite (`data/processed/kami.sqlite`). The nodes, ingest worker, processor and API then run in one process, which is what `scripts/run_demo.py` does.
+## Modes: fallback or docker
+`run_demo.py` runs in **fallback** mode unless you ask for docker (`--mode docker` or `KAMI_MODE=docker`). Code that takes no mode option (for example `scripts/check_step_1.py`) follows `KAMI_MODE`; without it, it uses docker only while the two containers are up. A running Docker Desktop alone changes nothing.
+
+| | Fallback (default) | Docker |
+|---|---|---|
+| Message bus | in-process | MQTT broker (Mosquitto), port 1883 |
+| Storage | SQLite (`data/processed/kami.sqlite`) | TimescaleDB (PostgreSQL 16), port 5432 |
+| Processes | one: nodes, ingest worker, processor and API together | three: virtual nodes, ingest worker, API; they talk only through MQTT and TimescaleDB |
+| Start | `.\.venv\Scripts\python scripts\run_demo.py --port 8200` | `.\.venv\Scripts\python scripts\run_demo.py --mode docker --port 8200` |
+| Stop | Ctrl+C | Ctrl+C stops the three processes; `docker compose down` stops the containers |
+
+Docker mode needs Docker Desktop running. `run_demo.py --mode docker` starts the two containers itself with `docker compose up -d` if they are not up (anonymous, development only), empties the database, then starts the three processes; their logs are in `data/processed/logs/`. The API process never calls the nodes directly: replay speed, pause and injected events go over MQTT control topics (`kami/control/...`) and the replay position comes back on `kami/status/replay`. The dashboard, the alert push and the citizen bot work the same in both modes.
+
+```powershell
+docker compose up -d                                   # Mosquitto + TimescaleDB (optional: run_demo starts them if needed)
+.\.venv\Scripts\python scripts\run_demo.py --mode docker --port 8200
+.\.venv\Scripts\python scripts\run_demo.py --check --mode docker   # smoke test of the three-process demo
+.\.venv\Scripts\python scripts\docker_checks.py                    # every Docker check of Round 6 (starts and stops the containers)
+docker compose down                                    # stop and remove the containers (the demo data in them is discarded)
+```
+The Docker path was exercised in Round 6 (Docker 29.8.2, Compose 5.5.1): the MQTT and TimescaleDB tests run and pass, and the browser tests pass against the docker-mode demo as well (`results/docker/part_b.json`). If `docker` is "not found" in a terminal that was open before Docker Desktop was installed, open a new terminal.
 
 ## Reproduce every result
 Data download notes are in `data/raw/*/SOURCE.md` (BattLeDIM from Zenodo, USGS NWIS via the public web service). Then:
@@ -125,8 +143,8 @@ cd frontend; npm run build; npx playwright test; cd ..      # 30 browser tests a
 ```
 src/kami/    data, features, simulator, models, eval, ingest, store, live, api, notify, citizen
 frontend/    React + TypeScript + Vite dashboard; e2e/ = Playwright browser tests
-scripts/     check_step_N.py, check_round2.py, build_datasets.py, build_test_set.py, make_summary.py, run_demo.py, reproduce_all.py, check_telegram.py, check_round5.py, send_test_alert.py, telegram_find_chat.py, e2e_server.py, screenshots.py, quiet_demo.py, check_round6.py, run_citizen_bot.py, build_citizen_data.py, citizen_model_select.py, citizen_eval.py
-tests/       step1 .. step6, round2, live, telegram, citizen
+scripts/     check_step_N.py, check_round2.py, build_datasets.py, build_test_set.py, make_summary.py, run_demo.py, reproduce_all.py, check_telegram.py, check_round5.py, send_test_alert.py, telegram_find_chat.py, e2e_server.py, screenshots.py, quiet_demo.py, check_round6.py, run_citizen_bot.py, build_citizen_data.py, citizen_model_select.py, citizen_eval.py, docker_checks.py
+tests/       step1 .. step6, round2, live, telegram, citizen, docker
 config/      nodes.json (fictional demo coordinates)
 docs/        decisions.md, datasets.md, scenarios.md, fusion.md, architecture.md, notifications.md, citizen.md, teacher_scope.md, demo_script.md, real_data_search.md, reference/
 results/     metrics, tables, figures, round2/, SUMMARY.md   (results_round1/ = Round 1 snapshot)

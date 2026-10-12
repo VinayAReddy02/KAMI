@@ -30,6 +30,7 @@ mode = config.resolve_mode()
 print("mode:", mode)
 if mode == "docker":
     stack = Stack.create(mode="docker")
+    stack.store.clear()  # the shared database may hold rows of earlier runs or tests; the fallback branch starts from a new file
 else:
     tmp = tempfile.mkdtemp()
     store = SqliteStore(Path(tmp) / "step1.sqlite")

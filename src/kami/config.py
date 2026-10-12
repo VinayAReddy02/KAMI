@@ -25,12 +25,29 @@ def docker_available() -> bool:
         return False
 
 
+def port_open(port: int, host: str = "localhost", timeout: float = 0.5) -> bool:
+    import socket
+
+    s = socket.socket()
+    s.settimeout(timeout)
+    try:
+        return s.connect_ex((host, port)) == 0
+    finally:
+        s.close()
+
+
+def stack_up() -> bool:
+    """True if the MQTT broker and TimescaleDB of docker-compose.yml accept connections."""
+    return port_open(MQTT_PORT) and port_open(PG_PORT)
+
+
 def resolve_mode() -> str:
     """'docker' (MQTT + TimescaleDB) or 'fallback' (in-process bus + SQLite).
 
-    Override with KAMI_MODE=docker|fallback.
+    Override with KAMI_MODE=docker|fallback. Without it, docker mode is chosen only when the stack is actually up
+    (both ports answer): a running Docker Desktop without `docker compose up -d` means fallback.
     """
     forced = os.environ.get("KAMI_MODE")
     if forced in ("docker", "fallback"):
         return forced
-    return "docker" if docker_available() else "fallback"
+    return "docker" if stack_up() else "fallback"

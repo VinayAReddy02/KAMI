@@ -37,6 +37,10 @@ class Store(ABC):
         """Complaint tickets, newest first, each with its id."""
 
     @abstractmethod
+    def clear(self) -> None:
+        """Remove all readings, assessments and complaints (a demo run starts from an empty database)."""
+
+    @abstractmethod
     def close(self) -> None: ...
 
 

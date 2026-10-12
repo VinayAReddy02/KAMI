@@ -248,6 +248,7 @@ if "b" in parts:
         check("B results/docker/part_b.json was produced by scripts/docker_checks.py in this round",
               d.get("made_by") == "scripts/docker_checks.py" and d.get("run_utc", "")[:10] >= ROUND_START)
         for key, label in (("docker_info", "docker info works"), ("mqtt_timescale_tests", "the MQTT and TimescaleDB tests passed, none skipped"),
+                           ("pytest_all_with_stack_up", "pytest -q passes with the stack up, no test skipped"),
                            ("check_step_1_docker", "check_step_1.py passes with KAMI_MODE=docker"),
                            ("run_demo_check_docker", "run_demo.py --check passes with KAMI_MODE=docker"),
                            ("separate_processes", "the separate-process docker demo starts, ingests from all 8 nodes and stops cleanly"),

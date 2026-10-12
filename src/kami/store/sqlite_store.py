@@ -100,6 +100,12 @@ class SqliteStore(Store):
             rows = self._db.execute("SELECT id, body FROM complaints ORDER BY id DESC LIMIT ?", (limit,)).fetchall()
         return [{**json.loads(r["body"]), "id": r["id"]} for r in rows]
 
+    def clear(self) -> None:
+        with self._lock:
+            for t in ("readings", "assessments", "complaints"):
+                self._db.execute(f"DELETE FROM {t}")
+            self._db.commit()
+
     def close(self) -> None:
         with self._lock:
             self._db.close()

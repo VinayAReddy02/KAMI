@@ -316,7 +316,7 @@ LIMITS = """- **No real field data with labels.** The infrastructure data (BattL
 - **Temporal-ablation caveat.** The five validation seeds share the background rows used to fit the calibrators.
 - **The live demo runs the rule frozen here** (since Round 3, 2026-10-11; a deployment change, nothing was re-tuned or re-evaluated). With it, the demo's injected combined event is reported as Infrastructure, not Combined (docs/decisions.md, Round 3).
 - **LeakDB not used** (30-minute sampling does not fit the 5-minute design; 13.9 GB archive).
-- **No Docker run.** The MQTT/TimescaleDB path is implemented but was not exercised in this environment (fallback SQLite plus in-process bus was used)."""
+- **Docker path exercised later (Round 6), not for these numbers.** Every result in this summary was produced in the fallback mode (SQLite plus in-process bus). The MQTT/TimescaleDB path was run and tested in Round 6 (three separate processes, `results/docker/part_b.json`); the evaluation uses neither the message bus nor the store, so no number here depends on it."""
 
 
 def main(final_path=None, out_path=None):

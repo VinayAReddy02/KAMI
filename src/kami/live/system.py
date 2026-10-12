@@ -27,18 +27,26 @@ class LiveSystem:
 
 
 def build_live(stack: Stack, speed: float = 600.0, n_nodes: int = 8, start: int | None = None,
-               max_steps: int | None = None, notifications: str = "dry_run", citizen: str = "off") -> LiveSystem:
+               max_steps: int | None = None, notifications: str = "dry_run", citizen: str = "off", remote: bool = False) -> LiveSystem:
     """`notifications`: "dry_run" (default: alert messages only go to the dry-run log, whatever .env says) or "auto"
     (the Telegram bot is used if it is enabled and configured in .env, see docs/notifications.md).
     `citizen`: "off" (default: no inbound handling, whatever .env says; tickets can still be read) or "auto" (the citizen
-    bot answers if KAMI_CITIZEN_ENABLE=1, see docs/citizen.md). The caller starts it with stack.extras["citizen"].start()."""
+    bot answers if KAMI_CITIZEN_ENABLE=1, see docs/citizen.md). The caller starts it with stack.extras["citizen"].start().
+    `remote`: True in the API process of the docker mode: the virtual nodes run in another process and are reached over
+    MQTT only (live.procs); speed, pause and injections become control messages."""
     frames = build_node_frames(n_nodes)
     start = find_clean_start(frames) if start is None else start
     proc = LiveProcessor(stack.store)
     for nid, f in frames.items():
         proc.prime(nid, f.iloc[start - BUF:start])
-    inj = Injector(frames)
-    fleet = NodeFleet(stack.bus, frames, speed, start=start, max_steps=max_steps, modifier=inj.modifier)
+    if remote:
+        from .procs import RemoteFleet, RemoteInjector
+
+        fleet = RemoteFleet(stack.bus, start)
+        inj = RemoteInjector(stack.bus, frames.keys(), fleet)
+    else:
+        inj = Injector(frames)
+        fleet = NodeFleet(stack.bus, frames, speed, start=start, max_steps=max_steps, modifier=inj.modifier)
     stack.worker.listeners.append(proc.on_reading)
 
     def push(kind: str, data: dict) -> None:

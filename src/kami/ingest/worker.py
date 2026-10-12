@@ -12,8 +12,9 @@ log = logging.getLogger("kami.ingest")
 
 
 class IngestWorker:
-    def __init__(self, bus: Bus, store: Store):
+    def __init__(self, bus: Bus, store: Store, write: bool = True):
         self.bus, self.store = bus, store
+        self.write = write  # False: validate and notify listeners only (docker mode: another process stores the readings)
         self.accepted = 0
         self.rejected = 0
         self.listeners: list[Callable[[dict], None]] = []
@@ -28,7 +29,8 @@ class IngestWorker:
             self.rejected += 1
             log.warning("rejected reading on %s: %s", topic, e)
             return
-        self.store.write_reading(r)
+        if self.write:
+            self.store.write_reading(r)
         self.accepted += 1
         for fn in self.listeners:
             try:

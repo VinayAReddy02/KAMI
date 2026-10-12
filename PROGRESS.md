@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-12
-**Current step:** Round 6: Part A (C0 to C8) and Part C (E1 to E3) DONE and committed. NEXT: Part B (D1 to D5, Docker): D1 docker info and versions; D2 docker compose up, MQTT/TimescaleDB tests, check_step_1 and run_demo --check with KAMI_MODE=docker; D3 separate processes (src/kami/live/procs.py is drafted and untracked: nodes, ingest and API talk over MQTT and TimescaleDB; still to do: build_live(remote=True), IngestWorker(write=False), launch_docker, run_demo.py --mode docker, clear the database at start); D4 Playwright in docker mode; D5 full close-out with scripts/docker_checks.py -> results/docker/part_b.json, containers stopped, commit, STOP.
+**Current step:** ROUND 6 DONE (Part A citizen interface, Part C project documents, Part B Docker stack; three commits). STOPPED as planned. Next, with the user: the live phone test of the citizen bot (steps under *Needs user*), then the paper. Nothing is running: the containers are stopped and removed.
 **Mode:** unattended allowed; never wait for answers. Opus 5.5 high effort, single-agent execution, token-efficient (see CLAUDE.md *Working mode*).
 
 ## Steps
@@ -21,6 +21,8 @@ Update this file after every task. A new session must be able to resume from her
 Status values: not started, in progress, passed, blocked.
 
 ## Needs user (read this first in the morning)
+- **Round 6 Part B, Docker mode works.** Start: `.\.venv\Scripts\python scripts\run_demo.py --mode docker --port 8200` (Docker Desktop must be running; the script starts the two containers itself). It runs the virtual nodes, the ingest worker and the API as three processes over MQTT and TimescaleDB. Ctrl+C stops the processes; `docker compose down` stops the containers. I left the containers stopped. Without `--mode docker` everything is as before (fallback, one process). In a terminal that was open before Docker Desktop was installed the `docker` command may not be found: open a new one.
+- **Round 6 Part B, one thing for you to decide:** an old Round 2 test turned out to depend on the clock (details in docs/decisions.md, Round 6 Part B). I changed only the test. The helper behind it (`src/kami/eval/hashing.py`) is a frozen input, so I did not touch it; a clean-up is listed under Proposed.
 - **Round 6 Part C, real labelled data:** best public candidate is the GECCO Industrial Challenge 2019 drinking-water quality dataset (https://zenodo.org/records/4304080, real utility data, event labels, CC-BY-4.0, about 18 MB; 2018 version as an alternative). It could test the quality stream on real events in a further round; it has no pressure, so it cannot test Combined events. Nothing was downloaded. Decide whether you want that round, and consider asking the guide for field data (`docs/real_data_search.md`).
 - **Round 6 Part C, for your review:** `docs/teacher_scope.md` (what was asked, built, changed, not done) and `docs/demo_script.md` (the live demo; it uses `--port 8200` because Windows reserves port 8000 on this laptop).
 - **Round 6 Part A, live test of the citizen bot (with the planning assistant):** (1) in `.env` set `KAMI_CITIZEN_ENABLE=1` (token and chat id are already there); (2) start `.\.venv\Scripts\python scripts\run_demo.py --port 8200` and wait for "Citizen bot: on"; (3) from the phone send `/help`, a typed question ("When will the water tanker reach Ward 4?"), a Hindi voice note ("वार्ड 4 में टैंकर कब आएगा?"), then a photo and a location; (4) look at the Complaints page. I made no Telegram request in Part A; the bot has only been run against a stand-in for the Bot API.
@@ -48,12 +50,18 @@ Status values: not started, in progress, passed, blocked.
 - Quality data are USGS river stations (real, unlabelled), a stand-in for a drinking-water network.
 
 ## Environment findings
-- Python 3.12.6, Node v24.14.1, npm 11.11.0, git 2.54.0. Docker Desktop 29.8.2 + Compose v5.5.1 installed 2026-10-12 (WSL2, Docker VM 7.66 GiB); until Round 6 Part B runs, the project still uses the fallback mode (SQLite + in-process bus) and the MQTT/Timescale tests skip. Ollama 0.40.3 (local only). Laptop: Intel i7 14th gen, 16 GB RAM, 1 TB disk, NVIDIA RTX 4070 laptop GPU (8 GB VRAM).
-- In fallback mode the API, worker and nodes must share one process (check script and run_demo do this).
+- Python 3.12.6, Node v24.14.1, npm 11.11.0, git 2.54.0. Docker Desktop 29.8.2 + Compose v5.5.1 installed 2026-10-12 (WSL2, Docker VM 7.66 GiB); the fallback mode (SQLite + in-process bus) stays the default; the docker mode (`--mode docker`) was exercised in Round 6 Part B; the MQTT/Timescale tests skip only while the containers are down. The `docker` command is on the user PATH (`%LOCALAPPDATA%\Programs\DockerDesktop\resources\bin`); shells opened before the installation do not have it. Ollama 0.40.3 (local only). Laptop: Intel i7 14th gen, 16 GB RAM, 1 TB disk, NVIDIA RTX 4070 laptop GPU (8 GB VRAM).
+- In fallback mode the API, worker and nodes must share one process (check script and run_demo do this). In docker mode they are three processes.
+- Ports used by checks: 8101-8105, 8190, 8230, 8231 (a Docker test), 8210 (browser tests). Windows reserves 7981-8080 and 8341-8440 on this laptop: run the demo with `--port 8200`.
 - Disk: ~58 GB free on D:.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Round 6 D5 close-out: README, architecture, decisions, teacher scope, demo script, SUMMARY limitation (via make_summary.py), CLAUDE.md; check_round6.py full run; commit `round 6b`. ROUND 6 DONE.
+- 2026-10-12 Round 6 D4: browser tests in docker mode: first 25 of 34 (injection before the nodes replayed); fixed with launcher wait + `GET /ready` (tests first); now 34 of 34.
+- 2026-10-12 Round 6 D3: separate processes (`kami.live.procs` nodes | ingest | api, control over MQTT), `launch_docker`, `run_demo.py --mode docker`, `tests/docker` (8 tests, 3 need the stack), `scripts/docker_checks.py`.
+- 2026-10-12 Round 6 D2: stack up; MQTT/TimescaleDB tests ran for the first time: fixed the TimescaleDB time format and the mode auto-detection; `check_step_1.py` and `run_demo.py --check` pass in docker mode; whole suite 218 passed, 0 skipped with the stack up (one clock-dependent Round 2 test fixed in the test only).
+- 2026-10-12 Round 6 D1: `docker info` works: Docker 29.8.2, Compose 5.5.1.
 - 2026-10-12 Round 6 Part C (E1 to E3): docs/teacher_scope.md (16 items; every substantive line of the faculty feedback is covered, items in docs/teacher_scope_items.json), docs/demo_script.md (5 to 7 minute live demo, fallback plan, what can go wrong), docs/real_data_search.md (10 candidates; best: GECCO Industrial Challenge 2019/2018 drinking-water quality data, real, labelled, CC-BY-4.0; nothing downloaded; the Babela dataset is still not confirmed). check_round6.py --part c PASS. Committed.
 - 2026-10-12 Round 6 C8: check_round6.py --part a: Round 6 checks 24/24 PASS. The full chain of earlier checks (check_round5 -> check_telegram -> check_round2 -> every check_step_N, pytest -q, npm build/test, 34 Playwright tests) ran once and passed except check_step_7 (a third skipped test: my optional ffmpeg test in a fresh environment); that test was moved into check_round6.py, check_step_7 then passed on its own (2 skips, both Docker). The complete chain runs again at D5. Earlier checks are run with KAMI_MODE=fallback because Docker Desktop is running without the stack. The three Round 1 access logs were restored (time stamps only). Part A committed.
 - 2026-10-12 Round 6 C7: docs/citizen.md (models chosen and measured), README section, docs/decisions.md (Round 6: models, design, evaluation, limits, test failures), .env.example, scripts/run_citizen_bot.py, run_demo.py integration.
@@ -149,13 +157,14 @@ See PLAN_ROUND5.md and docs/decisions.md (Round 5). Base commit `5aa9bcf`. Check
 - **No real Telegram message was sent in this round** by me or by any check, test, screenshot run or measurement; all of them are locked to dry run (`kami.notify.lock`). `.env` (token, chat id, sending enabled) was not read into any output and not changed.
 - **For you to know:** (1) one injected event can show as several alert episodes at the node (the control run showed 4 for one burst), so at slow replay speeds one event can cause more than one Telegram message; listed under Proposed, not changed. (2) On a phone some map labels are cut off at the map edge; not fixed. (3) `run_demo.py` cannot use port 8000 on this machine (reserved by Windows): start it with `--port 8200`.
 
-## Round 6: citizen interface, project documents, Docker (in progress)
+## Round 6: citizen interface, project documents, Docker (DONE 2026-10-12)
 See PLAN_ROUND6.md, docs/citizen.md and docs/decisions.md (Round 6). Base commit `ae67102`.
 - **Part A (C0 to C8): DONE 2026-10-12, committed.** Citizen interface on the Telegram bot, off by default (`KAMI_CITIZEN_ENABLE`), only from `run_demo.py` and `run_citizen_bot.py`. Code `src/kami/citizen/`, tests `tests/citizen/` (87, mocked HTTP and fake models), browser test `frontend/e2e/complaints.spec.ts`, demo data `data/citizen/` (demo_fictional), evaluation `results/citizen/`, check `python scripts/check_round6.py --quick --part a`.
 - Speech packages: `requirements-citizen.txt` (installed in `.venv`; `requirements.txt` only gained `pillow`). Models are in the user-level caches, not in the repository.
 - **No real Telegram request was made by me.** `.env` was not changed.
 - **Part C (E1 to E3): DONE 2026-10-12, committed.** `docs/teacher_scope.md`, `docs/demo_script.md`, `docs/real_data_search.md`.
-- **Part B (D1 to D5):** after Part C.
+- **Part B (D1 to D5): DONE 2026-10-12, committed.** Docker 29.8.2, Compose 5.5.1. `docker compose up -d` (Mosquitto + TimescaleDB); the MQTT/TimescaleDB tests run and pass; `pytest -q` with the stack up: 218 passed, 0 skipped; `check_step_1.py` and `run_demo.py --check` pass with `KAMI_MODE=docker`; docker mode runs three separate processes (`src/kami/live/procs.py`, `launch_docker`, `run_demo.py --mode docker`); the 34 browser tests pass in docker mode; fallback unchanged; containers stopped. Record: `results/docker/part_b.json` (made by `python scripts/docker_checks.py`). Bugs found and fixed: TimescaleDB time format, mode auto-detection, launcher and browser tests starting before the nodes replay (new `GET /ready`), Step 1 check not starting from an empty database, one clock-dependent Round 2 test.
+- **No real Telegram request was made by me in Part B either.**
 
 ## Round 7: merged into Round 6 (Part B)
 PLAN_ROUND7.md is kept as history only (merged on 2026-10-12).
