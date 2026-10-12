@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-12
-**Current step:** Round 6: Part A (citizen interface, C0 to C8) DONE and committed. NEXT: Part C (E1 to E3: docs/teacher_scope.md, docs/demo_script.md, docs/real_data_search.md are drafted; do the final pass, extend scripts/check_round6.py --part c, commit `round 6c: ...`), then Part B (D1 to D5, Docker; note: with Docker Desktop running, KAMI picks docker mode automatically, so earlier checks are run with KAMI_MODE=fallback until the stack is up). Stop only after D5.
+**Current step:** Round 6: Part A (C0 to C8) and Part C (E1 to E3) DONE and committed. NEXT: Part B (D1 to D5, Docker): D1 docker info and versions; D2 docker compose up, MQTT/TimescaleDB tests, check_step_1 and run_demo --check with KAMI_MODE=docker; D3 separate processes (src/kami/live/procs.py is drafted and untracked: nodes, ingest and API talk over MQTT and TimescaleDB; still to do: build_live(remote=True), IngestWorker(write=False), launch_docker, run_demo.py --mode docker, clear the database at start); D4 Playwright in docker mode; D5 full close-out with scripts/docker_checks.py -> results/docker/part_b.json, containers stopped, commit, STOP.
 **Mode:** unattended allowed; never wait for answers. Opus 5.5 high effort, single-agent execution, token-efficient (see CLAUDE.md *Working mode*).
 
 ## Steps
@@ -21,6 +21,8 @@ Update this file after every task. A new session must be able to resume from her
 Status values: not started, in progress, passed, blocked.
 
 ## Needs user (read this first in the morning)
+- **Round 6 Part C, real labelled data:** best public candidate is the GECCO Industrial Challenge 2019 drinking-water quality dataset (https://zenodo.org/records/4304080, real utility data, event labels, CC-BY-4.0, about 18 MB; 2018 version as an alternative). It could test the quality stream on real events in a further round; it has no pressure, so it cannot test Combined events. Nothing was downloaded. Decide whether you want that round, and consider asking the guide for field data (`docs/real_data_search.md`).
+- **Round 6 Part C, for your review:** `docs/teacher_scope.md` (what was asked, built, changed, not done) and `docs/demo_script.md` (the live demo; it uses `--port 8200` because Windows reserves port 8000 on this laptop).
 - **Round 6 Part A, live test of the citizen bot (with the planning assistant):** (1) in `.env` set `KAMI_CITIZEN_ENABLE=1` (token and chat id are already there); (2) start `.\.venv\Scripts\python scripts\run_demo.py --port 8200` and wait for "Citizen bot: on"; (3) from the phone send `/help`, a typed question ("When will the water tanker reach Ward 4?"), a Hindi voice note ("वार्ड 4 में टैंकर कब आएगा?"), then a photo and a location; (4) look at the Complaints page. I made no Telegram request in Part A; the bot has only been run against a stand-in for the Bot API.
 - **Round 6, models that need your login:** the AI4Bharat models of the plan (IndicTrans2, IndicConformer, Indic Parler-TTS) are gated on Hugging Face (account, login, licence click), so they were not downloaded or compared. Open models are used instead (Whisper large-v3-turbo, NLLB-200, Piper). If you want them compared: create a Hugging Face account, accept the terms on each model page, run `huggingface-cli login`, and tell me.
 - **Round 6, what the citizen evaluation showed (authored questions, synthetic speech; `results/citizen/eval.md`):** typed questions 98% correct; the small local LLM needed the guard on 23 of 36 answers; spoken Hindi is the weak point (word error rate 24%, 70% correct end to end, against 95% for English). Real voice notes from a few people would be the next step; nothing was tuned after the test run.
@@ -52,6 +54,7 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Round 6 Part C (E1 to E3): docs/teacher_scope.md (16 items; every substantive line of the faculty feedback is covered, items in docs/teacher_scope_items.json), docs/demo_script.md (5 to 7 minute live demo, fallback plan, what can go wrong), docs/real_data_search.md (10 candidates; best: GECCO Industrial Challenge 2019/2018 drinking-water quality data, real, labelled, CC-BY-4.0; nothing downloaded; the Babela dataset is still not confirmed). check_round6.py --part c PASS. Committed.
 - 2026-10-12 Round 6 C8: check_round6.py --part a: Round 6 checks 24/24 PASS. The full chain of earlier checks (check_round5 -> check_telegram -> check_round2 -> every check_step_N, pytest -q, npm build/test, 34 Playwright tests) ran once and passed except check_step_7 (a third skipped test: my optional ffmpeg test in a fresh environment); that test was moved into check_round6.py, check_step_7 then passed on its own (2 skips, both Docker). The complete chain runs again at D5. Earlier checks are run with KAMI_MODE=fallback because Docker Desktop is running without the stack. The three Round 1 access logs were restored (time stamps only). Part A committed.
 - 2026-10-12 Round 6 C7: docs/citizen.md (models chosen and measured), README section, docs/decisions.md (Round 6: models, design, evaluation, limits, test failures), .env.example, scripts/run_citizen_bot.py, run_demo.py integration.
 - 2026-10-12 Round 6 C6: test questions run ONCE (results/citizen/eval.md, raw outputs in test_outputs.json). Text: fixed sentences 98% correct (en 100%, hi 95%); local LLM 98% after the guard, 23 of 36 LLM answers replaced. Voice (synthetic): WER en 1.4%, hi 23.5%; end to end 82% correct; median 1.2 s. Nothing tuned afterwards.
@@ -151,7 +154,7 @@ See PLAN_ROUND6.md, docs/citizen.md and docs/decisions.md (Round 6). Base commit
 - **Part A (C0 to C8): DONE 2026-10-12, committed.** Citizen interface on the Telegram bot, off by default (`KAMI_CITIZEN_ENABLE`), only from `run_demo.py` and `run_citizen_bot.py`. Code `src/kami/citizen/`, tests `tests/citizen/` (87, mocked HTTP and fake models), browser test `frontend/e2e/complaints.spec.ts`, demo data `data/citizen/` (demo_fictional), evaluation `results/citizen/`, check `python scripts/check_round6.py --quick --part a`.
 - Speech packages: `requirements-citizen.txt` (installed in `.venv`; `requirements.txt` only gained `pillow`). Models are in the user-level caches, not in the repository.
 - **No real Telegram request was made by me.** `.env` was not changed.
-- **Part C (E1 to E3):** next.
+- **Part C (E1 to E3): DONE 2026-10-12, committed.** `docs/teacher_scope.md`, `docs/demo_script.md`, `docs/real_data_search.md`.
 - **Part B (D1 to D5):** after Part C.
 
 ## Round 7: merged into Round 6 (Part B)

@@ -116,6 +116,11 @@ cd frontend; npm run build; npx playwright test; cd ..      # 30 browser tests a
 - **Screenshots for the paper** (`results/screens/`): Overview, Node detail during an injected event, Alerts and Method; dark and light; desktop 1440x900 and phone 390x844. Made by the Playwright spec, listed in `manifest.json`, never edited by hand.
 - **Accessibility** (`results/a11y/axe_report.md`): axe-core on every page in both themes; no finding left after three fixes (see `docs/decisions.md`, Round 5). An automated scan covers only part of accessibility.
 
+## Project documents
+- `docs/teacher_scope.md`: the faculty feedback item by item: what was asked, what was built, what changed and why, what was not done.
+- `docs/demo_script.md`: a 5 to 7 minute live demo with the exact commands and clicks, and a fallback plan if the network fails.
+- `docs/real_data_search.md`: a report-only search for public, real, labelled leak or water-quality data (nothing downloaded).
+
 ## Repository layout
 ```
 src/kami/    data, features, simulator, models, eval, ingest, store, live, api, notify, citizen
@@ -123,7 +128,7 @@ frontend/    React + TypeScript + Vite dashboard; e2e/ = Playwright browser test
 scripts/     check_step_N.py, check_round2.py, build_datasets.py, build_test_set.py, make_summary.py, run_demo.py, reproduce_all.py, check_telegram.py, check_round5.py, send_test_alert.py, telegram_find_chat.py, e2e_server.py, screenshots.py, quiet_demo.py, check_round6.py, run_citizen_bot.py, build_citizen_data.py, citizen_model_select.py, citizen_eval.py
 tests/       step1 .. step6, round2, live, telegram, citizen
 config/      nodes.json (fictional demo coordinates)
-docs/        decisions.md, datasets.md, scenarios.md, fusion.md, architecture.md, notifications.md, reference/
+docs/        decisions.md, datasets.md, scenarios.md, fusion.md, architecture.md, notifications.md, citizen.md, teacher_scope.md, demo_script.md, real_data_search.md, reference/
 results/     metrics, tables, figures, round2/, SUMMARY.md   (results_round1/ = Round 1 snapshot)
 PROGRESS.md  PLAN.md  PLAN_ROUND2.md  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md  PLAN_ROUND7.md  CLAUDE.md  .env.example   (the Round 3 plan is superseded and kept as history)
 ```
