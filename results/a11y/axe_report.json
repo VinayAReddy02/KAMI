@@ -1,0 +1,68 @@
+{
+ "tool": "axe-core 4.13.0 through @axe-core/playwright (Chromium, 1440x900)",
+ "created_utc": "2026-10-12T03:43:44.503Z",
+ "rule_set": "axe default rules (WCAG 2.x A and AA plus best practices)",
+ "pages_scanned": 8,
+ "violations_total": 0,
+ "serious_or_critical": 0,
+ "serious_or_critical_unresolved": 0,
+ "accepted_rules": [],
+ "scans": [
+  {
+   "page": "overview",
+   "theme": "dark",
+   "url": "#/",
+   "passes": 42,
+   "violations": []
+  },
+  {
+   "page": "node_detail_injected_event",
+   "theme": "dark",
+   "url": "#/node/node-2",
+   "passes": 43,
+   "violations": []
+  },
+  {
+   "page": "alerts",
+   "theme": "dark",
+   "url": "#/alerts",
+   "passes": 42,
+   "violations": []
+  },
+  {
+   "page": "method",
+   "theme": "dark",
+   "url": "#/method",
+   "passes": 37,
+   "violations": []
+  },
+  {
+   "page": "overview",
+   "theme": "light",
+   "url": "#/",
+   "passes": 44,
+   "violations": []
+  },
+  {
+   "page": "node_detail_injected_event",
+   "theme": "light",
+   "url": "#/node/node-2",
+   "passes": 43,
+   "violations": []
+  },
+  {
+   "page": "alerts",
+   "theme": "light",
+   "url": "#/alerts",
+   "passes": 42,
+   "violations": []
+  },
+  {
+   "page": "method",
+   "theme": "light",
+   "url": "#/method",
+   "passes": 37,
+   "violations": []
+  }
+ ]
+}

@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-12
-**Current step:** Round 4 (WhatsApp replaced by a Telegram bot, PLAN_ROUND4.md) DONE on 2026-10-12, T0 to T7 committed. Stopped as instructed. Next is the user's own bot test (see *Needs user*); Round 5 (PLAN_ROUND5.md) starts only after that and after Docker Desktop is confirmed.
+**Current step:** Round 5 (PLAN_ROUND5.md: M1, P1, P2, P3, Q1, P4) DONE on 2026-10-12 and committed. Stopped as instructed. Next is Round 6 (PLAN_ROUND6.md, Docker stack), which waits for the user to install and start Docker Desktop.
 **Mode:** unattended allowed; never wait for answers. Opus 5.5 high effort, single-agent execution, token-efficient (see CLAUDE.md *Working mode*).
 
 ## Steps
@@ -29,7 +29,8 @@ Status values: not started, in progress, passed, blocked.
 - **Round 3, please confirm:** with the frozen rule the demo's injected combined event shows as Infrastructure (High/Critical), not Combined. I changed `scripts/check_step_6.py` so that it counts "alert with priority >= Medium within 60 s" and prints the Combined outcome as a known limitation (docs/decisions.md, Round 3, W-1). Say so if you would rather keep the old criterion failing. The injection size was not changed (no size inside the trained range helps).
 - **Round 3:** a missing quality stream now means "Not assessed" (Normal) in the live demo, as in the frozen rule, so a turbidity/TDS outage also hides infrastructure alerts at that node.
 - **Round 4 decided (2026-10-12):** WhatsApp is dropped. The user's real Twilio test failed with error 21654 ("ContentSid required"): the "Try out WhatsApp" trial only sends fixed Twilio templates, so alerts could not include node, category, priority or explanation. All WhatsApp/Twilio code is removed and the alert push is rebuilt for a Telegram bot (t.me/KAMI67_BOT).
-- **After Round 4 (user, with the planning assistant):** put `TELEGRAM_BOT_TOKEN` in `.env`, press Start in the bot, run `scripts/telegram_find_chat.py`, set `KAMI_TELEGRAM_ENABLE=1`, run `scripts/send_test_alert.py`.
+- **Bot test done (2026-10-12, by the planning assistant at the user's request):** token, chat id and `KAMI_TELEGRAM_ENABLE=1` are in `.env`; `telegram_find_chat.py` saved the chat id; `send_test_alert.py` delivered the test message; a fallback demo (temporary store) with an injected `infra_burst` at node-2 gave Infrastructure / High / 0.69 and delivered one real alert (1 sent, 0 failed). The user asked for clearer wording: task M1 in Round 5.
+- **Docker Desktop:** the user installs it before Round 6 (needs admin approval and a restart; never installed automatically).
 - **Detection is slow at the tuned thresholds** (median 3.4 h, 90th percentile 25 h; alerts cover about 22% of event rows). Thresholds sit at the strict end of the tuning grid.
 - **Review coverage:** the pre-freeze code review ran five of six reviewers; the crash-safety reviewer did not run. I covered that part with the rehearsal mode instead.
 - Round 2 incident and the test_v3 choice: see the Round 2 section below (already approved by you).
@@ -44,6 +45,13 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Round 5 P4: check_round5.py (full: Round 5 checks, 30 Playwright tests, check_telegram, check_round2, every check_step_N, pytest -q, npm build and test) all PASS, exit 0. The three Round 1 access logs were restored afterwards (time stamps only). Committed. Stopped.
+- 2026-10-12 Round 5 Q1: quiet demo, 14 simulated days, 8 nodes, no injection: 0 alert episodes (0 High or Critical). Positive control with one injected burst: 4 episodes at that node. results/demo_quiet/. Replayed rows are all inside the training period; no held-out data read.
+- 2026-10-12 Round 5 P3: axe-core on 4 pages x 2 themes: 3 rules with findings (2 contrast, 1 missing heading), all fixed, 0 left. results/a11y/.
+- 2026-10-12 Round 5 P2: 16 screenshots in results/screens/ (4 pages x 2 themes x 2 sizes) with manifest; scripts/screenshots.py.
+- 2026-10-12 Round 5 P1: Playwright + Chromium installed; 5 dashboard tests in frontend/e2e/; test server scripts/e2e_server.py is locked to dry run.
+- 2026-10-12 Round 5 M1: alert wording (model score vs confidence, plain reasons, generic action line, no cause, under 600 characters); alert records now carry the values; tests in tests/telegram/test_message.py. No real message sent.
+- 2026-10-12 Planning update (planning assistant): bot test passed (test message and one real alert delivered); Round 5 re-planned without Docker (M1, P1, P2, P3, Q1 quiet-demo measurement, P4); Docker moved to Round 6 (PLAN_ROUND6.md).
 - 2026-10-12 Round 4 T7: check_telegram.py (full: Round 4 checks, check_round2, every check_step_N, pytest -q, npm run build and test) all PASS, exit 0. Committed. Stopped.
 - 2026-10-12 Round 4 T6: docs/notifications.md rewritten for Telegram, README section, decisions.md (Round 4, T0 to T7). make_summary.py and SUMMARY.md had no mention, not touched.
 - 2026-10-12 Round 4 T5: tests/telegram (61 tests, mocked HTTP, real requests refused): trigger, escalation, cooldown, cap, fallback per setting, 401/400/403/404/429/5xx, retries, loop safety, secrets search (confirmed it fails on a planted leak), chat-id helper.
@@ -86,7 +94,7 @@ See PLAN_WHATSAPP.md, docs/notifications.md and docs/decisions.md (Round 3).
 - To re-check: `python scripts/check_whatsapp.py` (add `--quick` to skip the earlier checks). It cannot send.
 - Not started: the paper and anything under "Proposed" in docs/decisions.md.
 
-## Round 4: WhatsApp replaced by a Telegram bot (current)
+## Round 4: WhatsApp replaced by a Telegram bot (done)
 See PLAN_ROUND4.md, docs/notifications.md and docs/decisions.md (Round 4). Status: DONE 2026-10-12 (base commit `38232dd`). Tasks T0 to T7; check script `scripts/check_telegram.py`. Code only, no real Telegram request; stop after T7.
 - **T0 inventory** (`git grep -i -E "whatsapp|twilio"` at `38232dd`; hits per file):
   - code to remove or rewrite: `src/kami/notify/twilio.py` (17), `src/kami/notify/settings.py` (10), `src/kami/notify/manager.py` (6), `src/kami/notify/__init__.py` (6), `scripts/check_whatsapp.py` (19), `scripts/send_test_alert.py` (5), `scripts/run_demo.py` (2), `tests/whatsapp/test_notify.py` (69), `tests/conftest.py` (1)
@@ -98,8 +106,18 @@ See PLAN_ROUND4.md, docs/notifications.md and docs/decisions.md (Round 4). Statu
   - not tracked: `.env` (exists, old keys to remove by name), `results/notifications/state.json` (old request counter, to remove)
 
 - **Result:** alert push through a Telegram bot, dry run by default. Real sending only with `KAMI_TELEGRAM_ENABLE=1`, a token and a chat id in `.env`, and only from `scripts/run_demo.py` and `scripts/send_test_alert.py`. Limits: 10 minutes per node, 30 per hour, no total limit.
-- **No real Telegram request has been made** (not by me, not by any check or test), and `scripts/telegram_find_chat.py` has not been run. `.env` exists and now holds no setting of the old channel; the Telegram token is not in it yet.
+- **During Round 4 no real Telegram request was made** by Claude Code or any check or test. Afterwards (2026-10-12) the planning assistant ran the bot test with the user's consent: see *Needs user*.
 - To re-check: `python scripts/check_telegram.py` (add `--quick` to skip the earlier checks). It cannot reach Telegram.
 
-## Round 5: Docker stack and browser checks (pending)
-See PLAN_ROUND5.md (was planned as Round 4). Status: not started; waits for Round 4, the user's bot test and Docker Desktop. Playwright, Chromium and axe-core installs are approved.
+## Round 5: alert wording, browser tests, screenshots, accessibility, quiet demo (DONE 2026-10-12)
+See PLAN_ROUND5.md and docs/decisions.md (Round 5). Base commit `5aa9bcf`. Check: `python scripts/check_round5.py` (add `--quick` to skip the earlier checks).
+- **M1:** alert messages use plain words built from the real values, label the model score and the confidence as different things, and end with a generic action line. Sample in docs/notifications.md and README.
+- **P1:** 5 browser tests (`frontend/e2e/dashboard.spec.ts`). Run with `cd frontend; npm run build; npx playwright test`. They start `scripts/e2e_server.py` on port 8210.
+- **P2:** `results/screens/` (16 PNG + manifest.json). Regenerate with `python scripts/screenshots.py`.
+- **P3:** `results/a11y/axe_report.md`: 0 findings after 3 fixes; nothing accepted without a fix. Limits: automated scan only, desktop width only.
+- **Q1:** `results/demo_quiet/quiet_demo.md`: with no injection the demo opened 0 alert episodes in 14 simulated days on 8 nodes. Not a false-alarm rate (replayed, in-sample demo data).
+- **No real Telegram message was sent in this round** by me or by any check, test, screenshot run or measurement; all of them are locked to dry run (`kami.notify.lock`). `.env` (token, chat id, sending enabled) was not read into any output and not changed.
+- **For you to know:** (1) one injected event can show as several alert episodes at the node (the control run showed 4 for one burst), so at slow replay speeds one event can cause more than one Telegram message; listed under Proposed, not changed. (2) On a phone some map labels are cut off at the map edge; not fixed. (3) `run_demo.py` cannot use port 8000 on this machine (reserved by Windows): start it with `--port 8200`.
+
+## Round 6: Docker stack (pending)
+See PLAN_ROUND6.md (D1 to D5, moved from Round 5 on 2026-10-12). Status: not started; waits for Round 5 and for the user to install Docker Desktop.

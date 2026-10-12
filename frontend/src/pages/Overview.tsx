@@ -32,6 +32,7 @@ export function Overview() {
     );
   return (
     <div className="overview">
+      <h1 className="sr-only">Network overview</h1>
       <div className="overview-map">
         <StatusStrip counts={counts} total={network.nodes.length} />
         <NodeMap network={network} latest={latest} onSelect={go} />

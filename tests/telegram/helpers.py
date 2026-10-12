@@ -12,7 +12,10 @@ def ev(node="node-1", id=1, priority="High", category="Infrastructure", status="
     e = {"id": id, "node_id": node, "category": category, "priority": priority, "max_priority": priority, "start_ts": "2018-01-07T15:00:00",
          "last_ts": ts, "end_ts": None, "status": status, "confidence": 0.63,
          "explanation": f"{category} anomaly, priority {priority} (confidence 0.63): infrastructure evidence 0.99, above threshold for 1.8 h, "
-                        "suddenness 1.00, 1 episode(s) in the last 7 days."}
+                        "suddenness 1.00, 1 episode(s) in the last 7 days.",
+         "p_infra": 0.99, "p_quality": 0.02,
+         "temporal": {"infra_persist_steps": 22.0, "infra_suddenness": 1.0, "infra_persist_frac": 0.3, "infra_recurrence": 1.0,
+                      "quality_persist_steps": 0.0, "quality_suddenness": 0.0, "quality_persist_frac": 0.0, "quality_recurrence": 0.0}}
     e.update(over)
     return e
 

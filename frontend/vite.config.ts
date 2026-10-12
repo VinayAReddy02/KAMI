@@ -23,6 +23,7 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./src/test/setup.ts"],
+    exclude: ["e2e/**", "node_modules/**", "dist/**"], // e2e/ holds the Playwright browser tests
     css: false,
   },
 });

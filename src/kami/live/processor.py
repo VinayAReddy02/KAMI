@@ -33,6 +33,11 @@ CALM_STEPS = 12  # an alert closes after 1 h of Normal
 LABELS = {"infra": "infrastructure", "quality": "quality"}
 
 
+def _values(a: dict) -> dict:
+    """The numbers behind an assessment, kept with the alert so that messages can describe them in plain words."""
+    return {"p_infra": a.get("p_infra"), "p_quality": a.get("p_quality"), "temporal": dict(a.get("temporal") or {})}
+
+
 class _Node:
     def __init__(self):
         self.buf = {s: deque(maxlen=BUF) for s in SIGNALS}
@@ -148,13 +153,13 @@ class LiveProcessor:
             n.open_alert = {"id": self._alert_seq, "node_id": a["node_id"], "category": a["category"],
                             "priority": a["priority"], "max_priority": a["priority"], "start_ts": a["ts"],
                             "last_ts": a["ts"], "end_ts": None, "status": "active", "confidence": a["confidence"],
-                            "explanation": a["explanation"]}
+                            "explanation": a["explanation"], **_values(a)}
             self.alerts.append(n.open_alert)
             return dict(n.open_alert)
         al = n.open_alert
         changed = al["category"] != a["category"] or al["priority"] != a["priority"]
         al.update(category=a["category"], priority=a["priority"], last_ts=a["ts"], confidence=a["confidence"],
-                  explanation=a["explanation"])
+                  explanation=a["explanation"], **_values(a))
         if PRIORITIES.index(a["priority"]) > PRIORITIES.index(al["max_priority"]):
             al["max_priority"] = a["priority"]
         return dict(al) if changed else None

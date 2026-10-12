@@ -31,7 +31,7 @@
   --focus: #b45309;
   --on-status: #ffffff;
   --c-normal: #007a5a;
-  --c-infra: #b36b00;
+  --c-infra: #8f5300; /* 6.2:1 on white (was #b36b00, 4.2:1: below WCAG AA for text) */
   --c-quality: #0a6ea8;
   --c-combined: #a3427a;
   --shadow: 0 4px 16px rgba(20, 33, 58, 0.12);
@@ -215,6 +215,9 @@ th { background: var(--panel-2); color: var(--muted); font-weight: 600; position
 td.expl { max-width: 460px; color: var(--muted); }
 
 /* method */
+/* Leaflet's own attribution colours do not have enough contrast on the dark map */
+.leaflet-container .leaflet-control-attribution { background: var(--panel); color: var(--muted); }
+.leaflet-container .leaflet-control-attribution a { color: var(--link); }
 .method { max-width: 780px; }
 .method-version { border-left: 3px solid var(--c-quality); padding: 0.35rem 0.7rem; }
 .method-version .muted { color: var(--muted); }

@@ -148,9 +148,12 @@ try:
         print("    message:", text.replace("\n", " | ")[:300])
         check("the entry refers to a real alert of that node (same id and start time as GET /alerts)",
               len([x for x in alerts if x["id"] == a["id"] and x["start_ts"] == a["start_ts"]]) == 1)
-        check("the message carries the real values of that assessment: node name, category, priority, confidence, explanation, time",
+        # Round 5 (M1): the text describes the values in plain words instead of quoting the technical explanation
+        score = a["p_quality"] if a["category"] == "Quality" else a["p_infra"]
+        check("the message carries the real values of that assessment: node name, category, priority, confidence, model score, time",
               text.startswith(PREFIX) and name in text and a["category"] in text and a["priority"] in text
-              and f"{a['confidence']:.2f}" in text and a["explanation"][:60] in text and a["ts"][:16].replace("T", " ") in text)
+              and f"Confidence: {a['confidence']:.2f}" in text and f"model score {score:.2f}" in text
+              and "Action: Check " in text and a["ts"][:16].replace("T", " ") in text)
         check("priority is High or Critical, the text is under 600 characters and the entry is marked as a dry run",
               a["priority"] in ("High", "Critical") and len(text) < 600 and entry["mode"] == "dry_run")
     time.sleep(1.0)

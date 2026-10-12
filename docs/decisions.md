@@ -26,6 +26,9 @@ Decided decisions are not to be re-opened. Add new ones at the bottom with: what
 - (Round 3) One summary message for an episode whose escalation fell inside the cooldown (today that escalation is usually not sent at all).
 - (Round 3) Look at the live/batch difference of the quality probability after a sensor gap (up to 0.098 on the W-1 sample; no category changed).
 
+- (Round 5) Merge alert episodes of one node that are separated by only a short Normal gap, so that one event gives one episode and one message (the quiet-demo control showed one injected burst as several episodes).
+- (Round 5) Re-fit the map zoom on narrow screens so that no node label is cut off on a phone.
+
 ## Log of decisions made during the build
 (append here)
 
@@ -185,7 +188,7 @@ Reframing, as the plan asks when fusion does not win on event F1: on this eviden
 - **Decision:** remove all WhatsApp/Twilio code and rebuild the outbound alert push for a Telegram bot (t.me/KAMI67_BOT). Telegram sends free-form text, is free, and has no 24-hour window, join expiry or trial quota. No WhatsApp backend is kept.
 - **Alternatives considered:** keep WhatsApp with a fixed template ("an alert happened", details only on the dashboard): rejected as too limited. Paid WhatsApp Business sender with approved templates: cost and approval time, not suitable for a college demo.
 - **Limitation (for the paper):** Telegram is less common than WhatsApp among citizens in India. The teacher's notes name WhatsApp (Phase 3, Step 2); the notifier is channel-agnostic, and a citizen-facing WhatsApp channel would need a verified WhatsApp Business sender and approved templates.
-- **Order of rounds:** the Docker/Playwright round planned as Round 4 becomes Round 5 (PLAN_ROUND5.md) and starts after the user has tested the bot.
+- **Order of rounds:** the Docker/Playwright round planned as Round 4 becomes Round 5 (PLAN_ROUND5.md) and starts after the user has tested the bot. (Changed again on 2026-10-12, see below: Docker moved to Round 6.)
 
 ### T0 to T7: what was built (2026-10-12)
 - **Removed:** `src/kami/notify/twilio.py`, `scripts/check_whatsapp.py`, `tests/whatsapp/` (the frozen-rule test moved to `tests/live/`), the lifetime budget and its counter file, the follow-up status request, and the six old keys in `.env` (deleted by key name; no value was read into any output). The Round 3 entries above stay as history; the files they name no longer exist.
@@ -200,4 +203,43 @@ Reframing, as the plan asks when fusion does not win on event F1: on this eviden
 - **README and the old plan file:** the check for this round allows the old channel's name only in the history files, and the README is not one of them, so the README refers to "the Round 3 plan (superseded)" without naming the file.
 - **No real Telegram request was made in this round**, by me or by any check or test: `scripts/check_telegram.py` and the tests refuse every HTTP request that would leave the machine. The first real request is the user's.
 - **Correction after the first Round 4 commit (`babee00`):** that commit also contained new time stamps in three Round 1 access logs (`results/baselines/`, `results/evidence/` and `results/fusion/test_eval_log.json`). Cause: `scripts/check_step_3.py` to `check_step_5.py` re-run the Round 1 pipelines on the already exposed test_v1 and rewrite the "utc" fields on every run, and I staged everything after the full check. The contents were otherwise identical (compared field by field). The three files are restored to their previous content in a follow-up commit; history was not rewritten. No Round 2 file (`frozen_config.json`, `results/round2/`) was ever touched, and `scripts/check_round2.py` passed throughout. `scripts/check_telegram.py` now runs its "nothing final changed" comparison after the earlier checks, byte for byte, except that this one Round 1 log is compared without its time stamps.
+
+## After Round 4 (decided by the user 2026-10-12)
+- **Bot test passed.** With the user's consent the planning assistant put the token in `.env`, ran `telegram_find_chat.py` (chat id saved), sent the test message, and ran a fallback demo (temporary store) with an injected `infra_burst` at node-2: Infrastructure, High, confidence 0.69, one real alert delivered. Nothing in the repository changed.
+- **Alert wording (Round 5, M1):** the first real alert showed "infrastructure evidence 0.99" next to "confidence 0.69", which reads as a contradiction, and used technical phrases. The user asked for a "model score" label, plain-language reasons from the same numbers, and one generic action line per category that names no cause.
+- **Telegram limits (checked in the official Bot FAQ):** no message quota or cost; about 1 message per second per chat, 20 per minute per group, about 30 per second across chats. KAMI's own limits (10 min per node, 30 per hour) are far below these and exist only to avoid spamming the user.
+- **Rounds re-planned:** Round 5 = everything that does not need Docker (M1, P1 Playwright, P2 screenshots, P3 accessibility, Q1 quiet-demo measurement, P4). Round 6 = Docker stack (D1 to D5, PLAN_ROUND6.md). Why: Docker Desktop needs administrator approval and a restart on the user's laptop, so it cannot be installed automatically or while the user is away.
+- **Q1 added:** measure how often the live demo raises alerts with no injection (replayed demo data; not a false-alarm rate), so the presentation has no surprises.
+
+## Round 5 (alert wording, browser tests, screenshots, accessibility, quiet demo; 2026-10-12)
+### M1: alert wording
+- **What:** `src/kami/notify/message.py` now builds the text from the values of the assessment instead of quoting the technical explanation. To have those values, the alert record of the live processor also carries `p_infra`, `p_quality` and the temporal features (three extra fields on the alert; nothing in fusion, evidence or any threshold changed). The dashboard and `GET /alerts` still show the original explanation with all numbers.
+- **Labels:** the evidence value is called "model score"; confidence is followed by "(final fused value, not the model score)". Alternative (drop one of the two numbers) rejected: both are real and the user asked for labels.
+- **Plain words and their cut-offs:** "unusual for X" is the persistence (time the stream's score has stayed at or above 0.5, the threshold the temporal features already use); "started suddenly" if suddenness is 0.5 or more, otherwise "built up gradually". Why 0.5: suddenness is the largest rise of the score within 15 minutes over the last 2 hours, on a 0 to 1 scale, so 0.5 means the score jumped by at least half of its range in one go. It is a wording cut-off only and decides nothing. "Nth episode in 7 days" is the recurrence count.
+- **Action line:** Infrastructure "Check pressure and flow at <node>.", Quality "Check turbidity and TDS at <node>.", Combined both. It names the signals to look at and never a cause; a test rejects words such as leak, burst or contamination.
+- **Length:** always under 600 characters. If needed the bracketed numbers are dropped first and the node name is shortened last. Tested for the longest case (Combined, Critical, extreme values) with node names from 0 to 5000 characters.
+- **Fallback:** an alert without values (the labelled test message, or incomplete values) shows its explanation text as before and gets no action line, rather than guessed words.
+- **`scripts/check_telegram.py`:** its message criterion looked for the first 60 characters of the technical explanation; it now looks for the node name, category, priority, confidence, model score and action line.
+- No real message was sent in this task or anywhere in this round.
+
+### P1 to P3: browser tests, screenshots, accessibility
+- **Test server:** `scripts/e2e_server.py` (port 8210, fallback mode, temporary store, replay speed x1200). It is locked to dry run by `kami.notify.lock`: the settings loader reads a file that does not exist, the alert-push settings are removed from the process environment, and HTTP requests to other machines are refused. Why a separate script: `scripts/run_demo.py` allows real sending and `.env` now enables it.
+- **Port 8210:** ports 7981 to 8080 and 8341 to 8440 are reserved by Windows on the development machine (this is also why `run_demo.py` on port 8000 fails there; use `--port 8200`).
+- **Screenshots** are full-page images at the stated viewport width, taken with the replay paused on one moment so that all 16 show the same state. The map background comes from OpenStreetMap tiles and needs internet access; the manifest records that the tiles loaded.
+- **Check runs do not rewrite results:** `scripts/check_round5.py` sends the browser output to a temporary folder (`KAMI_E2E_OUT`) and separately verifies the stored files. `scripts/screenshots.py --a11y` is the command that rewrites `results/screens/` and `results/a11y/`.
+- **Accessibility check (axe-core 4.13 through Playwright, 4 pages x 2 themes, desktop width):** first scan: three rules with findings. All fixed, none accepted:
+  - `color-contrast` (serious), light theme: the amber used for Infrastructure and High priority (#b36b00 on white, 4.2:1) was below the 4.5:1 minimum for text. Now #8f5300 (6.2:1).
+  - `color-contrast` (serious), dark theme: Leaflet's default colours for the map attribution links. The attribution now uses the theme's panel and link colours.
+  - `page-has-heading-one` (moderate): the Overview had no level-one heading. Added a visually hidden one.
+  - After the fixes: 0 findings on all 8 scans. `frontend/e2e/a11y_accepted.json` (rules accepted without a fix) is empty.
+- **Not covered, stated as limits:** an automated scan finds only part of all accessibility problems (no screen-reader or keyboard walk-through was done); the scan ran at desktop width only; on the phone screenshot some map labels are cut off at the edge of the map (the map does not re-fit its zoom to a narrow screen). Not fixed: cosmetic, and the node list is still reachable through the alert feed and the Alerts page.
+- **Dev dependencies added:** `@playwright/test`, `@axe-core/playwright` and Chromium for Playwright (approved by the user for this round).
+
+### Q1: quiet-demo measurement
+- **Data check first:** the demo replays the raw two-year BattLeDIM and USGS series from a fixed start (step 1870, 2018-01-07 11:50:00). With the per-node shifts the latest source row in a 14-day window is 2018-04-28 17:05:00, before the end of the training period (2019-03-15). No held-out test set is read, so Q1 was run. The script refuses to run if a window would leave the training period.
+- **How:** `scripts/quiet_demo.py` runs the fallback pipeline in-process (bus, ingest worker, SQLite store, streaming processor, alert push in forced dry run) without the web server and without waiting between steps. I did not use `launch()` because it starts the replay before a recorder can be attached; the components are the same. Deterministic: fixed start, no random element.
+- **Result:** 0 alert episodes in 14 simulated days on 8 nodes (0.0 per simulated day), 0 High or Critical, so no Telegram message at any replay speed. The quality model score did rise above 0.5 for short stretches at some nodes (highest values: Gandhi Nagar Tank 0.87; Sathuvachari Main 0.83; Bagayam Booster 0.81; Fort Road Valve 0.58; Viruthampet Outlet 0.81), but never long enough for the frozen rule.
+- **Positive control:** because a count of zero could also mean a broken measurement, the script first runs the same code on one simulated day with one injected `infra_burst` at node-2: 4 alert episodes at that node (highest priority Critical), 0 elsewhere. The script stops without writing a result if the control finds nothing.
+- **What it does not show:** this is not a false-alarm rate. The replayed period is inside the training period of the evidence models (in-sample), the BattLeDIM year contains simulated leaks that are not marked in this measurement, and the river data have no event labels. The evaluation numbers remain those in `results/SUMMARY.md` (about 0.06 false alarms per day for the frozen rule on validation).
+- **Observation from the control:** one injected burst produced 4 separate alert episodes at the node within a day (the alert closes after an hour of Normal and reopens). With the 10-minute cooldown this can mean more than one Telegram message for one event at slow replay speeds. Not changed here; listed under Proposed.
 

@@ -25,7 +25,7 @@ For frontend development run `npm run dev` in `frontend/` (port 5173, proxies to
 | Frontend dev server | 5173 | `vite.config.ts` |
 | MQTT | 1883 | `KAMI_MQTT_PORT` |
 | Postgres/TimescaleDB | 5432 | `KAMI_PG_PORT` |
-Port 8101-8103 and 8190 are used by the check scripts. If a port is busy, pick another and pass it on the command line.
+Ports 8101-8105 and 8190 are used by the check scripts, 8210 by the browser tests. If a port is busy, pick another and pass it on the command line.
 
 ## Modes: Docker or fallback
 - `KAMI_MODE=docker` (automatic when `docker info` works): `docker compose up -d` starts Mosquitto and TimescaleDB (anonymous, dev only). The MQTT and TimescaleDB backends are implemented and have tests that run only when the services are reachable; **they were not exercised in the build environment (no Docker)**.
@@ -65,7 +65,17 @@ Test-set roles: `test_v3` is the headline set (frozen first, each model evaluate
 The final evaluation is deliberately not repeatable: each model's access to a held-out test set is logged in `results/round2/*_eval_log.json`, the runner refuses to start if any frozen file changed, and a second run reuses the stored predictions in `results/round2/predictions/` and opens nothing again (every number can be recomputed from them). The validation-side commands above are reproducible.
 
 ## Alert push through a Telegram bot (optional, dry run by default)
-When a node opens or escalates to a High or Critical alert, KAMI writes a short message (`[KAMI DEMO - simulated data]`, node, category, priority, confidence, explanation, time). By default this is a **dry run**: the message only goes to `results/notifications/dryrun_log.jsonl` and nothing is sent. To receive it in Telegram, put the bot token in the git-ignored `.env` (`TELEGRAM_BOT_TOKEN`), press Start in the bot, then:
+When a node opens or escalates to a High or Critical alert, KAMI writes a short message in plain words: node, category, priority, confidence (the final fused value), the reason (for example "unusual for 2 h, started suddenly", with the model score in brackets), one generic action line and the time. Example:
+```
+[KAMI DEMO - simulated data]
+Node: Gandhi Nagar Tank (node-2)
+Category: Infrastructure | Priority: High
+Confidence: 0.69 (final fused value, not the model score)
+Flow/pressure: unusual for 2 h, started suddenly, 1st episode in 7 days (model score 0.99, suddenness 0.91)
+Action: Check pressure and flow at Gandhi Nagar Tank.
+Replay time: 2018-01-07 18:30
+```
+ By default this is a **dry run**: the message only goes to `results/notifications/dryrun_log.jsonl` and nothing is sent. To receive it in Telegram, put the bot token in the git-ignored `.env` (`TELEGRAM_BOT_TOKEN`), press Start in the bot, then:
 ```powershell
 .\.venv\Scripts\python scripts\telegram_find_chat.py   # one-time: saves your chat id in .env (prints only your first name)
 .\.venv\Scripts\python scripts\send_test_alert.py      # one labelled test message (dry run unless KAMI_TELEGRAM_ENABLE=1)
@@ -74,16 +84,30 @@ When a node opens or escalates to a High or Critical alert, KAMI writes a short 
 ```
 Limits: one message per node per 10 minutes, 30 per hour. Outbound only; `GET /notifications/status` and the dashboard footer show the mode and counts. Setup, message format and failure handling: `docs/notifications.md`. The token and the chat id live only in `.env` and are never logged.
 
+## What to expect with no injected event
+With no injection, expect about 0.0 alerts per simulated day, 0 of them High or above: in a replay of 14 simulated days on all 8 nodes the demo opened 0 alert episodes (the same measurement with one injected event did raise alerts). So during a presentation the map stays quiet until you inject an event. This describes the replayed demo data (simulated infrastructure, real river quality, inside the training period). It is not a false-alarm rate; details in `results/demo_quiet/quiet_demo.md`, regenerate with `.\.venv\Scripts\python scripts\quiet_demo.py`.
+
+## Browser tests, screenshots and accessibility check
+One-time setup: `cd frontend; npm install; npx playwright install chromium; cd ..`
+```powershell
+cd frontend; npm run build; npx playwright test; cd ..      # 30 browser tests against a demo server that is locked to dry run
+.\.venv\Scripts\python scripts\screenshots.py --a11y       # rewrites results/screens/ (16 PNG) and results/a11y/
+.\.venv\Scripts\python scripts\check_round5.py             # Round 5 checks (add --quick to skip the earlier checks)
+```
+- **Browser tests** (`frontend/e2e/`): Overview with 8 markers and the demo label, an injected event appears in the feed, node detail with four charts and the explanation, alert filters, theme toggle. They start `scripts/e2e_server.py` on port 8210 (fallback mode, temporary store); that process cannot reach Telegram.
+- **Screenshots for the paper** (`results/screens/`): Overview, Node detail during an injected event, Alerts and Method; dark and light; desktop 1440x900 and phone 390x844. Made by the Playwright spec, listed in `manifest.json`, never edited by hand.
+- **Accessibility** (`results/a11y/axe_report.md`): axe-core on every page in both themes; no finding left after three fixes (see `docs/decisions.md`, Round 5). An automated scan covers only part of accessibility.
+
 ## Repository layout
 ```
 src/kami/    data, features, simulator, models, eval, ingest, store, live, api, notify
-frontend/    React + TypeScript + Vite dashboard
-scripts/     check_step_N.py, check_round2.py, build_datasets.py, build_test_set.py, make_summary.py, run_demo.py, reproduce_all.py, check_telegram.py, send_test_alert.py, telegram_find_chat.py
+frontend/    React + TypeScript + Vite dashboard; e2e/ = Playwright browser tests
+scripts/     check_step_N.py, check_round2.py, build_datasets.py, build_test_set.py, make_summary.py, run_demo.py, reproduce_all.py, check_telegram.py, check_round5.py, send_test_alert.py, telegram_find_chat.py, e2e_server.py, screenshots.py, quiet_demo.py
 tests/       step1 .. step6, round2, live, telegram
 config/      nodes.json (fictional demo coordinates)
 docs/        decisions.md, datasets.md, scenarios.md, fusion.md, architecture.md, notifications.md, reference/
 results/     metrics, tables, figures, round2/, SUMMARY.md   (results_round1/ = Round 1 snapshot)
-PROGRESS.md  PLAN.md  PLAN_ROUND2.md  PLAN_ROUND4.md  PLAN_ROUND5.md  CLAUDE.md  .env.example   (the Round 3 plan is superseded and kept as history)
+PROGRESS.md  PLAN.md  PLAN_ROUND2.md  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md  CLAUDE.md  .env.example   (the Round 3 plan is superseded and kept as history)
 ```
 
 ## Honest scope notes

@@ -9,7 +9,8 @@ from pathlib import Path
 from .base import Notifier, SendOutcome
 from .settings import notify_dir
 
-ALERT_KEYS = ("id", "node_id", "category", "priority", "max_priority", "confidence", "explanation", "start_ts", "ts", "status")
+ALERT_KEYS = ("id", "node_id", "category", "priority", "max_priority", "confidence", "explanation", "start_ts", "ts", "status",
+              "p_infra", "p_quality", "temporal")
 
 
 class DryRunNotifier(Notifier):

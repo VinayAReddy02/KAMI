@@ -70,7 +70,7 @@ data/raw/      downloads (git-ignored) + SOURCE.md per dataset
 data/processed/ (git-ignored)
 results/       metrics JSON, tables (.md), figures, screenshots
 docs/          reference/, decisions.md, datasets.md, scenarios.md, architecture.md
-PROGRESS.md  CLAUDE.md  README.md  PLAN.md  PLAN_ROUND2.md  PLAN_WHATSAPP.md (superseded)  PLAN_ROUND4.md  PLAN_ROUND5.md
+PROGRESS.md  CLAUDE.md  README.md  PLAN.md  PLAN_ROUND2.md  PLAN_WHATSAPP.md (superseded)  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md
 ```
 
 ## Quality bar
@@ -101,5 +101,7 @@ Steps 0 to 7 pass their check scripts, `pytest -q` passes, `npm run build` passe
 - **Round 2** (evaluation fixes, `PLAN_ROUND2.md`): done 2026-10-10. The frozen configuration (`results/fusion/frozen_config.json`) and the held-out results are final: never re-tune, re-freeze or re-run the final evaluation.
 - **Round 3** (WhatsApp alert push, `PLAN_WHATSAPP.md`, now superseded): done 2026-10-11. The user's real test failed: the Twilio trial only sends fixed templates (error 21654), so alerts could not carry their details. The W-1 work (live demo on the frozen rule) stays.
 - **Round 4** (WhatsApp replaced by a Telegram bot, `PLAN_ROUND4.md`): done 2026-10-12. All WhatsApp/Twilio code is removed; the alert push is a Telegram bot, dry run by default. No real Telegram request was made in that round; the user tests the bot with the planning assistant.
-- **Round 5** (Docker stack, Playwright, screenshots, accessibility, `PLAN_ROUND5.md`; was planned as Round 4): start only after the user has tested the bot and confirms Docker Desktop is installed and running. Stop after P4.
-- **After Round 5:** stop. The paper and any further rounds are planned with the user.
+- **Bot test (2026-10-12, user with the planning assistant):** passed. `.env` holds the token, chat id and `KAMI_TELEGRAM_ENABLE=1`; one test message and one real alert (injected burst, node-2, Infrastructure High) were delivered.
+- **Round 5** (no Docker: alert wording M1, Playwright tests P1, paper screenshots P2, accessibility P3, quiet-demo measurement Q1, close-out P4; `PLAN_ROUND5.md`): done 2026-10-12. No real Telegram message was sent in that round.
+- **Round 6, next** (Docker stack: MQTT + TimescaleDB, separate processes, browser tests in docker mode; `PLAN_ROUND6.md`): start only after Round 5 is done and the user confirms Docker Desktop is installed and running. Stop after D5.
+- **After Round 6:** stop. The paper and any further rounds are planned with the user.

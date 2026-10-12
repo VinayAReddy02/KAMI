@@ -1,0 +1,293 @@
+{
+ "what": "Quiet-demo measurement: alerts the live demo raises on its own, with no injected event. Behaviour of the demo on replayed data, NOT an evaluation metric and NOT a false-alarm rate.",
+ "run_utc": "2026-10-12T03:42:54+00:00",
+ "git_commit": "5aa9bcf",
+ "made_by": "scripts/quiet_demo.py",
+ "setup": {
+  "simulated_days": 14,
+  "nodes": 8,
+  "steps_per_node": 4032,
+  "step_minutes": 5,
+  "start_step": 1870,
+  "replay_from": "2018-01-07 11:50:00",
+  "replay_to": "2018-01-21 11:45:00",
+  "injections": 0,
+  "method": "Fusion F-B, frozen Round 2",
+  "alert_push": "forced dry run",
+  "wall_seconds": 284.7,
+  "pipeline": "in-process fallback demo (bus, ingest worker, SQLite store, streaming processor) without the web server, processed without waiting"
+ },
+ "data": {
+  "infrastructure": "BattLeDIM hydraulic simulation (semi_synthetic); the year contains simulated leaks, which are not marked here",
+  "quality": "USGS river turbidity and conductance (real, no event labels)",
+  "period": "every replayed row lies before 2019-03-15 00:00:00, inside the period the evidence models were trained on; no held-out test set is read",
+  "latest_source_row": "2018-04-28 17:05:00",
+  "source_rows_per_node": {
+   "node-1": {
+    "flow_pressure": {
+     "from": "2018-01-07 11:50:00",
+     "to": "2018-01-21 11:45:00",
+     "wraps": false
+    },
+    "turbidity_tds": {
+     "from": "2018-01-07 11:50:00",
+     "to": "2018-01-21 11:45:00",
+     "wraps": false
+    }
+   },
+   "node-2": {
+    "flow_pressure": {
+     "from": "2018-01-07 11:50:00",
+     "to": "2018-01-21 11:45:00",
+     "wraps": false
+    },
+    "turbidity_tds": {
+     "from": "2018-01-21 09:10:00",
+     "to": "2018-02-04 09:05:00",
+     "wraps": false
+    }
+   },
+   "node-3": {
+    "flow_pressure": {
+     "from": "2018-01-07 11:50:00",
+     "to": "2018-01-21 11:45:00",
+     "wraps": false
+    },
+    "turbidity_tds": {
+     "from": "2018-02-04 06:30:00",
+     "to": "2018-02-18 06:25:00",
+     "wraps": false
+    }
+   },
+   "node-4": {
+    "flow_pressure": {
+     "from": "2018-01-19 11:50:00",
+     "to": "2018-02-02 11:45:00",
+     "wraps": false
+    },
+    "turbidity_tds": {
+     "from": "2018-02-18 03:50:00",
+     "to": "2018-03-04 03:45:00",
+     "wraps": false
+    }
+   },
+   "node-5": {
+    "flow_pressure": {
+     "from": "2018-01-19 11:50:00",
+     "to": "2018-02-02 11:45:00",
+     "wraps": false
+    },
+    "turbidity_tds": {
+     "from": "2018-03-04 01:10:00",
+     "to": "2018-03-18 01:05:00",
+     "wraps": false
+    }
+   },
+   "node-6": {
+    "flow_pressure": {
+     "from": "2018-01-19 11:50:00",
+     "to": "2018-02-02 11:45:00",
+     "wraps": false
+    },
+    "turbidity_tds": {
+     "from": "2018-03-17 22:30:00",
+     "to": "2018-03-31 22:25:00",
+     "wraps": false
+    }
+   },
+   "node-7": {
+    "flow_pressure": {
+     "from": "2018-01-31 11:50:00",
+     "to": "2018-02-14 11:45:00",
+     "wraps": false
+    },
+    "turbidity_tds": {
+     "from": "2018-03-31 19:50:00",
+     "to": "2018-04-14 19:45:00",
+     "wraps": false
+    }
+   },
+   "node-8": {
+    "flow_pressure": {
+     "from": "2018-01-31 11:50:00",
+     "to": "2018-02-14 11:45:00",
+     "wraps": false
+    },
+    "turbidity_tds": {
+     "from": "2018-04-14 17:10:00",
+     "to": "2018-04-28 17:05:00",
+     "wraps": false
+    }
+   }
+  }
+ },
+ "alerts": {
+  "episodes_opened": 0,
+  "per_simulated_day_mean": 0.0,
+  "high_or_critical_episodes": 0,
+  "high_or_critical_per_simulated_day_mean": 0.0,
+  "by_category_at_open": {
+   "Infrastructure": 0,
+   "Quality": 0,
+   "Combined": 0
+  },
+  "by_highest_priority": {
+   "Low": 0,
+   "Medium": 0,
+   "High": 0,
+   "Critical": 0
+  },
+  "per_day": {
+   "1": 0,
+   "2": 0,
+   "3": 0,
+   "4": 0,
+   "5": 0,
+   "6": 0,
+   "7": 0,
+   "8": 0,
+   "9": 0,
+   "10": 0,
+   "11": 0,
+   "12": 0,
+   "13": 0,
+   "14": 0
+  },
+  "per_day_high_or_critical": {
+   "1": 0,
+   "2": 0,
+   "3": 0,
+   "4": 0,
+   "5": 0,
+   "6": 0,
+   "7": 0,
+   "8": 0,
+   "9": 0,
+   "10": 0,
+   "11": 0,
+   "12": 0,
+   "13": 0,
+   "14": 0
+  },
+  "median_hours": null,
+  "still_open_at_end": 0,
+  "share_of_node_steps_in_alert": 0.0,
+  "share_of_node_steps_not_assessed": 0.0
+ },
+ "per_node": {
+  "node-1": {
+   "name": "Katpadi Intake",
+   "episodes_opened": 0,
+   "high_or_critical": 0,
+   "share_of_steps_in_alert": 0.0,
+   "share_of_steps_not_assessed": 0.0,
+   "highest_infrastructure_model_score": 0.161,
+   "highest_quality_model_score": 0.376,
+   "steps_infrastructure_score_0.5_or_more": 0,
+   "steps_quality_score_0.5_or_more": 0
+  },
+  "node-2": {
+   "name": "Gandhi Nagar Tank",
+   "episodes_opened": 0,
+   "high_or_critical": 0,
+   "share_of_steps_in_alert": 0.0,
+   "share_of_steps_not_assessed": 0.0,
+   "highest_infrastructure_model_score": 0.513,
+   "highest_quality_model_score": 0.873,
+   "steps_infrastructure_score_0.5_or_more": 1,
+   "steps_quality_score_0.5_or_more": 17
+  },
+  "node-3": {
+   "name": "Sathuvachari Main",
+   "episodes_opened": 0,
+   "high_or_critical": 0,
+   "share_of_steps_in_alert": 0.0,
+   "share_of_steps_not_assessed": 0.0,
+   "highest_infrastructure_model_score": 0.464,
+   "highest_quality_model_score": 0.832,
+   "steps_infrastructure_score_0.5_or_more": 0,
+   "steps_quality_score_0.5_or_more": 36
+  },
+  "node-4": {
+   "name": "Bagayam Booster",
+   "episodes_opened": 0,
+   "high_or_critical": 0,
+   "share_of_steps_in_alert": 0.0,
+   "share_of_steps_not_assessed": 0.0,
+   "highest_infrastructure_model_score": 0.092,
+   "highest_quality_model_score": 0.807,
+   "steps_infrastructure_score_0.5_or_more": 0,
+   "steps_quality_score_0.5_or_more": 39
+  },
+  "node-5": {
+   "name": "Old Town Junction",
+   "episodes_opened": 0,
+   "high_or_critical": 0,
+   "share_of_steps_in_alert": 0.0,
+   "share_of_steps_not_assessed": 0.0,
+   "highest_infrastructure_model_score": 0.232,
+   "highest_quality_model_score": 0.054,
+   "steps_infrastructure_score_0.5_or_more": 0,
+   "steps_quality_score_0.5_or_more": 0
+  },
+  "node-6": {
+   "name": "Fort Road Valve",
+   "episodes_opened": 0,
+   "high_or_critical": 0,
+   "share_of_steps_in_alert": 0.0,
+   "share_of_steps_not_assessed": 0.0,
+   "highest_infrastructure_model_score": 0.191,
+   "highest_quality_model_score": 0.577,
+   "steps_infrastructure_score_0.5_or_more": 0,
+   "steps_quality_score_0.5_or_more": 6
+  },
+  "node-7": {
+   "name": "Viruthampet Outlet",
+   "episodes_opened": 0,
+   "high_or_critical": 0,
+   "share_of_steps_in_alert": 0.0,
+   "share_of_steps_not_assessed": 0.0,
+   "highest_infrastructure_model_score": 0.196,
+   "highest_quality_model_score": 0.807,
+   "steps_infrastructure_score_0.5_or_more": 0,
+   "steps_quality_score_0.5_or_more": 68
+  },
+  "node-8": {
+   "name": "Thorapadi Reservoir",
+   "episodes_opened": 0,
+   "high_or_critical": 0,
+   "share_of_steps_in_alert": 0.0,
+   "share_of_steps_not_assessed": 0.0,
+   "highest_infrastructure_model_score": 0.196,
+   "highest_quality_model_score": 0.376,
+   "steps_infrastructure_score_0.5_or_more": 0,
+   "steps_quality_score_0.5_or_more": 0
+  }
+ },
+ "positive_control": {
+  "what": "the same code on 1 simulated day with ONE injected infra_burst at node-2, to show that this measurement does count alerts; its numbers are not part of the quiet result",
+  "episodes_at_injected_node": 4,
+  "episodes_at_other_nodes": 0,
+  "category": "Infrastructure",
+  "highest_priority": "Critical",
+  "dry_run_messages": 1
+ },
+ "telegram_messages_under_the_current_rule": {
+  "rule": "episode opens at High or Critical, or escalates to a higher priority at High or Critical; one message per node per 10 minutes and 30 per hour, both in wall-clock time, so the number depends on the replay speed",
+  "triggers_before_limits": 0,
+  "demo default (x600)": {
+   "messages": 0,
+   "held_back": {}
+  },
+  "real time (x1)": {
+   "messages": 0,
+   "held_back": {}
+  },
+  "this_run_dry_run_log": {
+   "messages": 0,
+   "held_back": {},
+   "note": "the whole window was processed in 285 s of wall-clock time"
+  }
+ },
+ "episodes": []
+}

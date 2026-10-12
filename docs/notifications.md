@@ -78,26 +78,37 @@ events of the live processor. Fusion and evidence code are not involved.
 
 ## What the message looks like
 
-Plain text (no Markdown or HTML, so nothing in an explanation can break the formatting), always under 600 characters,
-link previews off. A message from a dry run on 2026-10-12 (injected combined event on node-3):
+Plain text (no Markdown or HTML, so nothing in the text can break the formatting), always under 600 characters, link
+previews off. A message from a dry run on 2026-10-12 (injected sudden infrastructure event on node-2):
 
 ```
 [KAMI DEMO - simulated data]
-Node: Sathuvachari Main (node-3)
-Category: Infrastructure | Priority: High | Confidence: 0.33
-Infrastructure anomaly, priority High (confidence 0.33): infrastructure evidence 1.00, above threshold for 1.8 h, suddenness 0.99, 1 episode(s) in the last 7 days.
-Replay time: 2018-01-07 15:30
+Node: Gandhi Nagar Tank (node-2)
+Category: Infrastructure | Priority: High
+Confidence: 0.69 (final fused value, not the model score)
+Flow/pressure: unusual for 2 h, started suddenly, 1st episode in 7 days (model score 0.99, suddenness 0.91)
+Action: Check pressure and flow at Gandhi Nagar Tank.
+Replay time: 2018-01-07 18:30
 ```
 
-The category, priority, confidence and explanation are the values of the assessment that raised the alert. Two things
-to know when reading it:
+Every word comes from the values of the assessment that raised the alert; nothing is invented.
 
-- The live demo runs the fusion rule frozen in Round 2. It reports this injected *combined* event as Infrastructure
-  (see `docs/decisions.md`, Round 3, W-1).
-- Confidence is the pignistic probability of the reported category. It can be low while the alert is still High, for
-  example when the other stream shows evidence that the rule has not confirmed yet.
+| In the message | Where it comes from |
+|---|---|
+| `Confidence: 0.69` | the final fused value for the reported category. It combines both evidence streams and how long they have lasted, so it is usually lower than a single model score |
+| `model score 0.99` | the calibrated output of one evidence model (flow/pressure or turbidity/TDS) at that moment. It is an input to the fusion, not the final answer |
+| `unusual for 2 h` | how long that model score has stayed at or above 0.5 without a break (5-minute steps) |
+| `started suddenly` / `built up gradually` | the suddenness value: `started suddenly` if the score rose by at least 0.5 within 15 minutes at some point in the last 2 hours (suddenness 0.5 or more), otherwise `built up gradually` |
+| `1st episode in 7 days` | how many separate episodes of that stream started in the last 7 days |
+| `Action: Check ...` | a generic line for the category: Infrastructure names pressure and flow, Quality names turbidity and TDS, Combined names both. It never names a cause |
 
-"Replay time" is the timestamp of the replayed data, not the time on your clock.
+A Combined alert has one reason line for each stream. If the text would get too long, the bracketed numbers are left
+out first and a very long node name is shortened last; the prefix, the action line and the time always stay. The
+dashboard still shows all numbers on the node page. The labelled test message from `send_test_alert.py` has no
+assessment behind it, so it shows its fixed sentence instead of reasons and has no action line.
+
+The live demo runs the fusion rule frozen in Round 2. It reports an injected *combined* event as Infrastructure (see
+`docs/decisions.md`, Round 3, W-1). "Replay time" is the timestamp of the replayed data, not the time on your clock.
 
 ## Failures and what they mean
 
@@ -150,7 +161,7 @@ send time are kept in `results/notifications/state.json` for the current run.
 |---|---|
 | `src/kami/notify/settings.py` | reads `.env` and the environment; values are never printed |
 | `src/kami/notify/rules.py` | trigger rule, cooldown, hourly cap |
-| `src/kami/notify/message.py` | message text |
+| `src/kami/notify/message.py` | message text: plain words from the real values, action line, length limit |
 | `src/kami/notify/dryrun.py`, `telegram.py` | the two notifiers (one HTTPS POST to `sendMessage` with `httpx`, no SDK) |
 | `src/kami/notify/manager.py` | queue, background thread, retries, status, state file |
 | `scripts/telegram_find_chat.py` | one-time setup: saves the chat id in `.env` |

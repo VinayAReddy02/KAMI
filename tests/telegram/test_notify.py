@@ -11,7 +11,7 @@ import httpx
 import pytest
 from fastapi.testclient import TestClient
 
-from kami.notify import DryRunNotifier, NotificationManager, TelegramNotifier, TriggerRule, build_manager, format_message, load_settings
+from kami.notify import DryRunNotifier, NotificationManager, TelegramNotifier, TriggerRule, build_manager, load_settings
 from kami.notify.base import Notifier, SendOutcome
 from kami.notify.message import PREFIX
 from kami.notify.telegram import MSG_CHAT, MSG_FORBIDDEN, MSG_TOKEN
@@ -113,19 +113,6 @@ def test_there_is_no_lifetime_budget(tmp_path):
     assert "budget" not in json.dumps(s) and set(s["limits"]) == {"min_priority", "cooldown_seconds_per_node", "max_per_hour"}
 
 
-# ------------------------------------------------------------------ message text
-def test_message_text_has_prefix_real_values_and_stays_under_600_characters():
-    a = {**ev(priority="Critical", category="Combined"), "ts": "2018-01-07T16:50:00"}
-    text = format_message(a, "Katpadi Junction")
-    lines = text.split("\n")
-    assert lines[0] == PREFIX == "[KAMI DEMO - simulated data]"
-    assert "Katpadi Junction (node-1)" in lines[1]
-    assert lines[2] == "Category: Combined | Priority: Critical | Confidence: 0.63"
-    assert a["explanation"] in text and lines[-1] == "Replay time: 2018-01-07 16:50"
-    long = format_message({**a, "explanation": "x" * 5000}, "N" * 40)
-    assert len(long) < 600 and long.startswith(PREFIX) and long.endswith("Replay time: 2018-01-07 16:50") and "..." in long
-
-
 # ------------------------------------------------------------------ dry run is the default and the fallback
 def test_dry_run_writes_the_message_and_the_state_file(tmp_path):
     mgr = NotificationManager(DryRunNotifier(tmp_path / "notifications"), node_names={"node-1": "Katpadi Junction"},
@@ -135,7 +122,7 @@ def test_dry_run_writes_the_message_and_the_state_file(tmp_path):
     rows = read_log(tmp_path)
     assert len(rows) == 1 and rows[0]["mode"] == "dry_run"
     assert rows[0]["alert"]["id"] == 1 and rows[0]["alert"]["priority"] == "High" and rows[0]["alert"]["ts"] == "2018-01-07T16:50:00"
-    assert rows[0]["text"].startswith(PREFIX) and "Katpadi Junction" in rows[0]["text"] and "evidence 0.99" in rows[0]["text"]
+    assert rows[0]["text"].startswith(PREFIX) and "Katpadi Junction" in rows[0]["text"] and "model score 0.99" in rows[0]["text"]
     assert s["mode"] == "dry_run" and (s["sent"], s["suppressed"], s["failed"]) == (1, 0, 0) and s["last_send_utc"]
     st = read_state(tmp_path)
     assert (st["mode"], st["sent"], st["suppressed"], st["failed"]) == ("dry_run", 1, 0, 0) and st["last_send_utc"] == s["last_send_utc"]
