@@ -1,0 +1,156 @@
+{
+ "made_by": "src/kami/gecco/evaluate.py tune",
+ "created_utc": "2026-10-17T20:02:15+00:00",
+ "data_kind": "real",
+ "protocol": "docs/gecco_protocol.md",
+ "B": {
+  "model": "logreg_C1",
+  "selection_average_precision_val": {
+   "logreg_C0.1": 0.4100959285507903,
+   "logreg_C1": 0.44843496093716667,
+   "hgb_d3": 0.003891836526262954,
+   "hgb_d6": 0.008760595398460594
+  },
+  "params": {
+   "r_min": 0.4,
+   "tau_p": 6,
+   "lambda": 0.0,
+   "gamma_q": 0.4
+  },
+  "validation": {
+   "point": {
+    "precision": 0.5151515151515151,
+    "recall": 0.34,
+    "f1": 0.40963855421686746
+   },
+   "event": {
+    "precision": 0.7777777777777778,
+    "recall": 0.6666666666666666,
+    "f1": 0.717948717948718,
+    "events": 12,
+    "detected": 8,
+    "alert_segments": 9,
+    "false_alert_segments": 2,
+    "precision_event_counted": 0.8,
+    "f1_event_counted": 0.7272727272727272
+   },
+   "false_alarms_per_day": 0.05655930871956009,
+   "latency_h": {
+    "median": 0.125,
+    "p90": 0.21666666666666662,
+    "n": 8
+   },
+   "scored_normal_days": 35.361111111111114
+  },
+  "grid_size": 88
+ },
+ "baselines": {
+  "fixed_threshold": {
+   "params": {
+    "k": 8
+   },
+   "validation": {
+    "point": {
+     "precision": 0.1693121693121693,
+     "recall": 0.64,
+     "f1": 0.26778242677824265
+    },
+    "event": {
+     "precision": 0.8,
+     "recall": 0.75,
+     "f1": 0.7741935483870969,
+     "events": 12,
+     "detected": 9,
+     "alert_segments": 10,
+     "false_alert_segments": 2,
+     "precision_event_counted": 0.8181818181818182,
+     "f1_event_counted": 0.7826086956521738
+    },
+    "false_alarms_per_day": 0.05655930871956009,
+    "latency_h": {
+     "median": 0.08333333333333333,
+     "p90": 0.1,
+     "n": 9
+    },
+    "scored_normal_days": 35.361111111111114
+   }
+  },
+  "isolation_forest": {
+   "params": {
+    "n_estimators": 100,
+    "max_samples": 2048,
+    "quantile": 0.999
+   },
+   "validation": {
+    "point": {
+     "precision": 0.13671875,
+     "recall": 0.7,
+     "f1": 0.22875816993464054
+    },
+    "event": {
+     "precision": 0.6153846153846154,
+     "recall": 0.75,
+     "f1": 0.676056338028169,
+     "events": 12,
+     "detected": 9,
+     "alert_segments": 13,
+     "false_alert_segments": 5,
+     "precision_event_counted": 0.6428571428571429,
+     "f1_event_counted": 0.6923076923076924
+    },
+    "false_alarms_per_day": 0.14139827179890022,
+    "latency_h": {
+     "median": 0.08333333333333333,
+     "p90": 0.08333333333333333,
+     "n": 9
+    },
+    "scored_normal_days": 35.361111111111114
+   }
+  },
+  "ocsvm": {
+   "params": {
+    "nu": 0.01,
+    "gamma_mult": 0.1,
+    "quantile": 0.999,
+    "fit_rows": 20000
+   },
+   "validation": {
+    "point": {
+     "precision": 0.42857142857142855,
+     "recall": 0.72,
+     "f1": 0.5373134328358209
+    },
+    "event": {
+     "precision": 0.6666666666666666,
+     "recall": 0.75,
+     "f1": 0.7058823529411765,
+     "events": 12,
+     "detected": 9,
+     "alert_segments": 12,
+     "false_alert_segments": 4,
+     "precision_event_counted": 0.6923076923076923,
+     "f1_event_counted": 0.7199999999999999
+    },
+    "false_alarms_per_day": 0.11311861743912018,
+    "latency_h": {
+     "median": 0.08333333333333333,
+     "p90": 0.08333333333333333,
+     "n": 9
+    },
+    "scored_normal_days": 35.361111111111114
+   }
+  }
+ },
+ "best_baseline": "fixed_threshold",
+ "sha256": {
+  "data/processed/gecco/evidence_gecco_quality.joblib": "15bd7a77ba1c84cd7d099659276d16a6f7bb7952bb6cf8a0d2a2cb02d202995c",
+  "data/processed/models/evidence_scenarios_quality.joblib": "da36bf2111a8e3540080083c7b905ce6b9464c9c8e2914e36fa1b307f5802b4b",
+  "results/fusion/frozen_config.json": "490856ce997d716c6d21c3affaa84e183901db595191d1e830fb413e35852897",
+  "src/kami/gecco/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "src/kami/gecco/data.py": "aa7572d0e1703ba1356f9493c742bdd66b7d5af2fc7410cf93e5d406ea928ba1",
+  "src/kami/gecco/evaluate.py": "4928366ddfeca575161185e9b74283a63c41ef9ee8457928961901dac84849ae",
+  "data/raw/gecco/7_gecco2019_train_water_quality.csv": "05bbe6dea804b6fc6b2bf8ecc35f37c404ff3ae3503c47cf69301edf61c8b4b9",
+  "data/raw/gecco/8_gecco2019_valid_water_qulity.csv": "d451142a969f5972278cbfa53d840b04805ab683b81cad092bda30820ec2e424",
+  "data/raw/gecco/6_gecco2019_test_water_quality.csv": "ad509d0c1c656d3e48dc4e52011da5232d292997e6f7ce08eedd5f6194e3369f"
+ }
+}

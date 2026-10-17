@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-12
-**Current step:** Round 7 IN PROGRESS: N1, N2, G0-G2 DONE; G3 running: A validation sanity done; NEXT the guarded test read of A (python -m kami.gecco.evaluate test --model A), then G4 tune (B + baselines, freeze) and their four test reads, G5 report, G6 docs, N3 (final commit + push). Auto-resume cron 2ed473d1.
+**Current step:** Round 7 IN PROGRESS: N1, N2, G0-G3 DONE; G4: B + baselines tuned and frozen (results/gecco/frozen_gecco.json, committed); NEXT the four guarded test reads (python -m kami.gecco.evaluate test --model B / fixed_threshold / isolation_forest / ocsvm; never re-run one that is in results/gecco/test_access_log.json), then G5 report (python -m kami.gecco.report), make_summary section, G6 docs, N3 (final commit + push). Auto-resume cron 2ed473d1.
 **Mode:** unattended allowed; never wait for answers. Opus 5.5 high effort, single-agent execution, token-efficient (see CLAUDE.md *Working mode*).
 
 ## Steps
@@ -57,6 +57,8 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Round 7 G3: variant A test read done (one read, logged): 0 alerts on the test part.
+- 2026-10-12 Round 7 G4: tuned on validation only and frozen: B = logreg_C1 (val AP 0.45; HGB 0.00-0.01), r_min 0.4, tau_p 6, lambda 0, gamma_q 0.4 -> val 8/12 events, event-counted F1 0.727, 0.057 FA/day. Baselines on val: fixed_threshold k=8 9/12 F1 0.783 (best baseline), isolation_forest 9/12 F1 0.692, ocsvm 9/12 F1 0.720.
 - 2026-10-12 Round 7 G3: variant A on validation (sanity, nothing tuned): no alert at all (12 events, recall 0, 0 false alarms/day); the frozen module's p_quality on GECCO stays at most 0.31 (median 0.00) against the frozen threshold 0.8. tests/gecco/test_gecco_eval.py shows A = the frozen F-B quality decision.
 - 2026-10-12 Round 7 G2: src/kami/gecco/data.py (mapping, 5-min median, events, causal features, test labels only inside final_evaluation) + tests/gecco (6 pass). Real frame: 43 776 steps (train 26 496, val 10 950, test 6 330); events train 13, val 12 (same at 1 and 5 min); scored share train 0.98, val 0.94, test 1.0; freeze still verifies.
 - 2026-10-12 Round 7 G1: docs/gecco_protocol.md written and committed before any test label was read (splits by file/time: train Jul-Sep, val Oct 1-Nov 8, locked test Nov 8-29; TDS = Cond S/m x 10000 x 0.64; 5-min median, event if any minute; variants A frozen transfer and B adapted; baselines; five test reads).
