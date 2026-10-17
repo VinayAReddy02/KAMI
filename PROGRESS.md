@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-12
-**Current step:** Round 7 IN PROGRESS: N1, N2 and Part G (G0-G6) DONE and committed. NEXT: N3 close-out: check_round7.py full (runs check_round6 --part a --part c -> check_round5 -> check_telegram -> check_round2 -> check_step_N), pytest -q, npm build/test, Playwright; restore the three Round 1 logs if time-stamp-only; CLAUDE.md round history (Round 7 done, layout gains src/kami/gecco/), PROGRESS; final commit 'round 7: node numbers everywhere + live-test fixes'; push origin master per rule 6 (clean tree, .env untracked, no token in tracked files), record hash; delete cron 2ed473d1.
+**Current step:** ROUND 7 DONE (N1 node numbers, N2 nothing to fix, Part G GECCO real-data test, N3 close-out). STOPPED as planned. Next, with the user: the paper. Nothing is running; Docker containers stay stopped.
 **Mode:** unattended allowed; never wait for answers. Opus 5.5 high effort, single-agent execution, token-efficient (see CLAUDE.md *Working mode*).
 
 ## Steps
@@ -57,6 +57,7 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Round 7 N3: scripts/check_round7.py full passes (33 checks, incl. check_round6 --part a --part c -> check_round5 -> check_telegram -> check_round2 -> every check_step_N, pytest -q, npm build/test, Playwright). Docker Desktop part (check_round6 --part b) not re-run in Round 7: no Docker change; results/docker/part_b.json from Round 6 stands. Three Round 1 logs restored (time stamps only). CLAUDE.md round history updated. Final commit and push to origin follow (hash recorded below).
 - 2026-10-12 Round 7 G6: docs/gecco.md (numbers read from results/gecco by script), datasets.md row, real_data_search.md status, teacher_scope T4, README reproduce steps, decisions (Part G incl. tie-break wording note and the descriptive alert-time column), SUMMARY limitation line; check_round7 --quick passes.
 - 2026-10-12 Round 7 G4/G5: test reads (one each): A 0/12 events (no alert), B 4/12 (evF1 0.444, 0.09 FA/day, alert time 0.1%), fixed_threshold 11/12 (0.917, alert time 3.4%), isolation_forest 11/12 (0.733), ocsvm 9/12 (0.857). B - best baseline evF1 CI [-0.783, -0.218] (B worse); B - A [0.133, 0.737]. On GECCO's own 1-min F1 B is best (0.180 vs 0.161). results/gecco/eval.md + json + 2 figures; SUMMARY real-data section.
 - 2026-10-12 Round 7 G3: variant A test read done (one read, logged): 0 alerts on the test part.
