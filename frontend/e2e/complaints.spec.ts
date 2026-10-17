@@ -31,12 +31,12 @@ test("the Complaints list shows the photo thumbnail, time, nearest sensor point 
   await expect(row.locator("td").nth(1)).toContainText("#1");
   await expect(row.locator("td").nth(1)).toContainText("test data");
   await expect(row.locator("td").nth(2)).toHaveText(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC/);
-  await expect(row.locator("td").nth(3)).toHaveText(/^Old Town Junction · \d\.\d+ km$/);
+  await expect(row.locator("td").nth(3)).toHaveText(/^Old Town Junction \(node-5 · Ward 5\) · \d\.\d+ km$/); // numbered sensor point
   await expect(row.locator("td").nth(4)).not.toBeEmpty(); // what the sensors showed at that point when the report came in
   await expect(row.locator("td").nth(5)).toHaveText("Open");
-  await row.getByRole("link", { name: "Old Town Junction" }).click();
+  await row.getByRole("link", { name: "Old Town Junction (node-5 · Ward 5)" }).click();
   await expect(page).toHaveURL(/#\/node\/node-5$/);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Old Town Junction");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Old Town Junction (node-5 · Ward 5)");
 });
 
 for (const theme of THEMES) {

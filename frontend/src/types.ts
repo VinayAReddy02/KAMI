@@ -23,6 +23,12 @@ export interface NodeInfo {
   lat: number;
   lon: number;
   latest: Assessment | null;
+  // Round 7: node number and ward (labels.ts builds the shown text from them)
+  number?: number | null;
+  ward?: number | null;
+  ward_name?: string | null;
+  label?: string;
+  short?: string;
 }
 
 export interface Network {
@@ -46,6 +52,8 @@ export interface Alert {
   status: "active" | "closed";
   confidence: number | null;
   explanation: string;
+  node_number?: number | null;
+  ward?: number | null;
 }
 
 export interface SeriesPoint {
@@ -87,7 +95,10 @@ export interface Complaint {
   lon: number;
   node_id: string | null;
   node_name: string | null;
+  nearest_node_id: string;
   nearest_node_name: string;
+  node_number?: number | null;
+  ward?: number | null;
   distance_km: number;
   in_demo_area: boolean;
   node_category: Category | null;

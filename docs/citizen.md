@@ -52,6 +52,18 @@ Telegram  --getUpdates (long polling, offset)-->  telegram_in.Poller  (backgroun
 The citizen module only reads the live KAMI state (`LiveProcessor.latest`, `list_alerts`). It does not change the
 anomaly models, the fusion rule or any frozen result.
 
+## Sample replies (Round 7 format)
+Every ward is named with its sensor point (Ward N is linked to node-N). Produced by the template writer on the demo data at the replay time 2018-01-07 11:00, with an open High Infrastructure alert at node-4 (the same setup as the tests):
+
+- **When will the water tanker reach Ward 4?**
+  Ward 4 (Bagayam, sensor point node-4): Tanker TKR-10 is planned for tomorrow, 8 Jan, 06:00-08:00. Status: scheduled. Note: possibly delayed: active network alert in your area.
+- **वार्ड 4 में टैंकर कब आएगा?**
+  वार्ड 4 (बागायम, सेंसर पॉइंट node-4): टैंकर TKR-10 कल, 8 जनवरी को 06:00-08:00 के बीच आने की योजना है। स्थिति: निर्धारित। ध्यान दें: आपके क्षेत्र में नेटवर्क अलर्ट सक्रिय है, इसलिए देरी हो सकती है।
+- **Is there any problem in Ward 4?**
+  Ward 4 (Bagayam, sensor point node-4): our sensors there currently show an Infrastructure alert, priority High. This says what the sensors show, not the reason.
+- **(photo + location near Old Town)**
+  Report received. Ticket #1. Nearest sensor point: Old Town Junction (node-5 · Ward 5), 1.18 km away. Our sensors there currently show no anomaly. The photo is stored for staff; it is not analysed automatically.
+
 ## Modules (`src/kami/citizen/`)
 
 | File | Role |

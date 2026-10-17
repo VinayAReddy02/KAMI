@@ -86,7 +86,7 @@ The final evaluation is deliberately not repeatable: each model's access to a he
 When a node opens or escalates to a High or Critical alert, KAMI writes a short message in plain words: node, category, priority, confidence (the final fused value), the reason (for example "unusual for 2 h, started suddenly", with the model score in brackets), one generic action line and the time. Example:
 ```
 [KAMI DEMO - simulated data]
-Node: Gandhi Nagar Tank (node-2)
+Node: Gandhi Nagar Tank (node-2 · Ward 2)
 Category: Infrastructure | Priority: High
 Confidence: 0.69 (final fused value, not the model score)
 Flow/pressure: unusual for 2 h, started suddenly, 1st episode in 7 days (model score 0.99, suddenness 0.91)

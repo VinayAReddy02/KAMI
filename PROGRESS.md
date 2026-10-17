@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-12
-**Current step:** ROUND 6 DONE (Part A citizen interface, Part C project documents, Part B Docker stack; three commits). STOPPED as planned. Next, with the user: the live phone test of the citizen bot (steps under *Needs user*), then the paper. Nothing is running: the containers are stopped and removed.
+**Current step:** Round 7 IN PROGRESS: N1 and N2 DONE (commit 'round 7 N1'). NEXT: Part G, G0 download + inspect GECCO 2019 (Zenodo 4304080) into data/raw/gecco/, SOURCE.md with hashes, no test labels; code in src/kami/gecco/ (src/kami/data and src/kami/eval are frozen inputs). Then G1 protocol commit before any test label, G2-G6, N3 (final commit + push to origin per CLAUDE.md rule 6). Auto-resume cron job 2ed473d1 (session-only) restarts work after a usage-limit stop.
 **Mode:** unattended allowed; never wait for answers. Opus 5.5 high effort, single-agent execution, token-efficient (see CLAUDE.md *Working mode*).
 
 ## Steps
@@ -57,6 +57,10 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Round 7 N2: nothing to fix (live phone test passed 2026-10-17; only finding was the node numbers = N1).
+- 2026-10-12 Round 7 N1 done: src/kami/live/labels.py + frontend/src/labels.ts (one formatter each, 'Bagayam Booster (node-4 · Ward 4)' / '4 · Bagayam'), API fields (/network, /alerts, /nodes/{id}/state, /complaints), Telegram Node line, citizen replies en/hi ('Ward 4 (Bagayam, sensor point node-4)'), help + ticket replies, docs, 16 screenshots + axe regenerated (0 serious/critical). Found and fixed: the guard did not check node ids (now only the ward's own sensor point is allowed); Node detail page was 436 px wide at phone size since Round 5 (chart grid min width); narrow tables show the short label. check_round7 --quick --part n passes.
+- 2026-10-12 Round 7 started (plan approved). Deviation recorded for later: GECCO code goes to src/kami/gecco/ (the planned paths are frozen-input globs of eval/freeze.py).
+- 2026-10-17 Live phone test of the citizen bot by the user: all steps worked (text en/hi, Hindi voice, no-information answer, notices, photo ticket on the Complaints page, Telegram alert after a burst at Bagayam and "possibly delayed" for Ward 4). Only finding: node numbers not shown (Round 7 N1). Repo pushed to the private GitHub repo VinayAReddy02/KAMI (origin).
 - 2026-10-12 Planning update (planning assistant): Part G added to Round 7 at the user's request: real-data test of the quality stream on GECCO 2019 (2018 as fallback); pre-registered protocol, variant A frozen transfer, variant B adapted, baselines, locked test part.
 - 2026-10-12 Planning update (planning assistant): live phone test in progress; the user could not tell which node was node 4 (the dashboard shows only names) -> new Round 7 (PLAN_ROUND7.md): node numbers everywhere; old PLAN_ROUND7.md renamed to PLAN_ROUND7_OLD_DOCKER.md.
 - 2026-10-12 Round 6 D5 close-out: README, architecture, decisions, teacher scope, demo script, SUMMARY limitation (via make_summary.py), CLAUDE.md; check_round6.py full run; commit `round 6b`. ROUND 6 DONE.

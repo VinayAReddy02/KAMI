@@ -3,13 +3,14 @@ import { AlertList } from "../components/AlertList";
 import { NodeMap } from "../components/NodeMap";
 import { StatusStrip } from "../components/StatusStrip";
 import { useComplaints } from "../complaints";
+import { labelsById } from "../labels";
 import { useLive } from "../live";
 import { CATEGORIES, type Category } from "../types";
 
 export function Overview() {
   const { network, networkError, loading, latest, alerts, refresh } = useLive();
   const { complaints } = useComplaints();
-  const names = useMemo(() => Object.fromEntries((network?.nodes ?? []).map((n) => [n.id, n.name])), [network]);
+  const names = useMemo(() => labelsById(network?.nodes), [network]);
   const counts = useMemo(() => {
     const c: Partial<Record<Category, number>> = {};
     CATEGORIES.forEach((k) => (c[k] = 0));

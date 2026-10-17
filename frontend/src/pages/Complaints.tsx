@@ -1,9 +1,14 @@
 import { StatusBadge } from "../components/StatusBadge";
 import { useComplaints } from "../complaints";
+import { nodeLabel } from "../labels";
 import type { Complaint } from "../types";
 
 function when(c: Complaint): string {
   return c.created_utc.replace("T", " ").slice(0, 16) + " UTC";
+}
+
+function sensorPoint(c: Complaint): string {
+  return nodeLabel({ id: c.nearest_node_id, name: c.nearest_node_name, number: c.node_number, ward: c.ward });
 }
 
 function sensorState(c: Complaint) {
@@ -41,7 +46,7 @@ export function Complaints() {
                     <td><strong>#{c.id}</strong>{c.source === "test" && <span className="tag">test data</span>}</td>
                     <td>{when(c)}{c.replay_ts && <small className="muted"> · replay {c.replay_ts.replace("T", " ").slice(0, 16)}</small>}</td>
                     <td>
-                      {c.node_id ? <a className="link" href={`#/node/${c.node_id}`}>{c.node_name}</a> : <span>{c.nearest_node_name}</span>}
+                      {c.node_id ? <a className="link" href={`#/node/${c.node_id}`}>{sensorPoint(c)}</a> : <span>{sensorPoint(c)}</span>}
                       <small className="muted"> · {c.distance_km} km</small>
                     </td>
                     <td>{sensorState(c)}</td>

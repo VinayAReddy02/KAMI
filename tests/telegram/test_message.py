@@ -25,7 +25,7 @@ def test_the_first_real_alert_in_the_new_wording():
     """The values of the first alert that was delivered (node-2, 2026-10-12), now in plain words."""
     assert format_message(alert(), "Gandhi Nagar Tank") == "\n".join([
         "[KAMI DEMO - simulated data]",
-        "Node: Gandhi Nagar Tank (node-2)",
+        "Node: Gandhi Nagar Tank (node-2 · Ward 2)",  # Round 7: number and ward of the node
         "Category: Infrastructure | Priority: High",
         "Confidence: 0.69 (final fused value, not the model score)",
         "Flow/pressure: unusual for 2 h, started suddenly, 1st episode in 7 days (model score 0.99, suddenness 0.88)",
@@ -96,5 +96,12 @@ def test_without_values_the_given_explanation_is_used():
 
 @pytest.mark.parametrize("category", ["Infrastructure", "Quality", "Combined"])
 def test_node_id_is_used_when_there_is_no_name(category):
-    text = format_message(alert(category, quality=(0.9, 30, 0.6, 2)), None)
-    assert "Node: node-2\n" in text and text.split("\n")[-2].endswith(" at node-2.")
+    text = format_message(alert(category, node="node-77", quality=(0.9, 30, 0.6, 2)), None)  # not in config/nodes.json
+    assert "Node: node-77\n" in text and text.split("\n")[-2].endswith(" at node-77.")
+
+
+def test_a_known_node_without_a_given_name_gets_its_numbered_label():
+    from kami.live.labels import node_label
+
+    text = format_message(alert(node="node-4"), None)
+    assert f"Node: {node_label('node-4')}\n" in text and "Node: Bagayam Booster (node-4 · Ward 4)\n" in text

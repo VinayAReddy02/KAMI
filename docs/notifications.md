@@ -79,11 +79,12 @@ events of the live processor. Fusion and evidence code are not involved.
 ## What the message looks like
 
 Plain text (no Markdown or HTML, so nothing in the text can break the formatting), always under 600 characters, link
-previews off. A message from a dry run on 2026-10-12 (injected sudden infrastructure event on node-2):
+previews off. The values of a dry run on 2026-10-12 (injected sudden infrastructure event on node-2), in the Round 7 format that adds the
+node number and the ward to the Node line (text produced by `format_message`):
 
 ```
 [KAMI DEMO - simulated data]
-Node: Gandhi Nagar Tank (node-2)
+Node: Gandhi Nagar Tank (node-2 · Ward 2)
 Category: Infrastructure | Priority: High
 Confidence: 0.69 (final fused value, not the model score)
 Flow/pressure: unusual for 2 h, started suddenly, 1st episode in 7 days (model score 0.99, suddenness 0.91)

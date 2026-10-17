@@ -1,7 +1,7 @@
 """Text of an alert message: plain words built from the real values of the assessment, always under 600 characters.
 
     [KAMI DEMO - simulated data]
-    Node: Gandhi Nagar Tank (node-2)
+    Node: Gandhi Nagar Tank (node-2 · Ward 2)
     Category: Infrastructure | Priority: High
     Confidence: 0.69 (final fused value, not the model score)
     Flow/pressure: unusual for 2 h, started suddenly, 1st episode in 7 days (model score 0.99, suddenness 0.88)
@@ -18,6 +18,8 @@ Where the words come from (nothing is invented, see docs/notifications.md):
 The action line is generic for the category and never names a cause.
 """
 from __future__ import annotations
+
+from ..live.labels import SEP, node_info
 
 PREFIX = "[KAMI DEMO - simulated data]"
 LIMIT = 600  # the text is always shorter than this
@@ -63,7 +65,11 @@ def _clip(text: str, room: int) -> str:
 def format_message(alert: dict, node_name: str | None = None, limit: int = LIMIT) -> str:
     """alert: an alert event of the live processor (node_id, category, priority, confidence, ts, and either the values
     behind it: p_infra, p_quality, temporal; or only an explanation text, which is then used as it is)."""
+    info = node_info(alert["node_id"])  # a node of config/nodes.json: its number and ward go into the Node line (Round 7)
+    if node_name is None and info:
+        node_name = info["name"]
     name = node_name if node_name and node_name != alert["node_id"] else None
+    ref = f"{alert['node_id']}{SEP}Ward {info['ward']}" if info and info["ward"] is not None else alert["node_id"]
     conf = alert.get("confidence")
     conf_line = f"Confidence: {conf:.2f} ({CONFIDENCE_NOTE})" if isinstance(conf, (int, float)) else "Confidence: n/a"
     tail = f"Replay time: {str(alert.get('ts', '')).replace('T', ' ')[:16]}"
@@ -71,7 +77,7 @@ def format_message(alert: dict, node_name: str | None = None, limit: int = LIMIT
 
     def build(detail: int, name_room: int) -> list[str] | None:
         shown = _clip(name, name_room) if name else None
-        lines = [PREFIX, f"Node: {shown} ({alert['node_id']})" if shown else f"Node: {alert['node_id']}",
+        lines = [PREFIX, f"Node: {shown} ({ref})" if shown else f"Node: {ref}",
                  f"Category: {alert['category']} | Priority: {alert['priority']}", conf_line]
         reasons = [_reason(alert, s, detail) for s in streams]
         if not reasons or any(r is None for r in reasons):
@@ -86,7 +92,7 @@ def format_message(alert: dict, node_name: str | None = None, limit: int = LIMIT
         if len("\n".join(lines)) < limit:
             return "\n".join(lines)
     # no values to describe (for example the labelled test message): the given explanation, shortened if needed
-    head = [PREFIX, f"Node: {_clip(name, 40)} ({alert['node_id']})" if name else f"Node: {alert['node_id']}",
+    head = [PREFIX, f"Node: {_clip(name, 40)} ({ref})" if name else f"Node: {ref}",
             f"Category: {alert['category']} | Priority: {alert['priority']}", conf_line]
     explanation = " ".join(str(alert.get("explanation", "")).split())
     room = limit - 1 - sum(len(x) + 1 for x in head) - 1 - len(tail)  # one newline after each line, strictly under the limit

@@ -177,7 +177,7 @@ def test_request_is_one_plain_text_post_to_send_message(tmp_path):
     form = {k: v[0] for k, v in parse_qs(req.content.decode()).items()}
     assert set(form) == {"chat_id", "text", "disable_web_page_preview"}  # plain text: no parse_mode
     assert form["chat_id"] == CHAT and form["disable_web_page_preview"] == "true"
-    assert form["text"].startswith(PREFIX) and "Katpadi Junction (node-1)" in form["text"] and len(form["text"]) < 600
+    assert form["text"].startswith(PREFIX) and "Katpadi Junction (node-1 · Ward 1)" in form["text"] and len(form["text"]) < 600
     assert s["mode"] == "telegram" and (s["sent"], s["suppressed"], s["failed"]) == (1, 0, 0) and s["last_send_utc"]
     assert read_state(tmp_path)["sent"] == 1 and read_log(tmp_path) == []
 

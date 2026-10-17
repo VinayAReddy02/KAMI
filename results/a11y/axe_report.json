@@ -1,6 +1,6 @@
 {
  "tool": "axe-core 4.13.0 through @axe-core/playwright (Chromium, 1440x900)",
- "created_utc": "2026-10-12T03:43:44.503Z",
+ "created_utc": "2026-10-17T16:03:19.687Z",
  "rule_set": "axe default rules (WCAG 2.x A and AA plus best practices)",
  "pages_scanned": 8,
  "violations_total": 0,
@@ -40,7 +40,7 @@
    "page": "overview",
    "theme": "light",
    "url": "#/",
-   "passes": 44,
+   "passes": 45,
    "violations": []
   },
   {

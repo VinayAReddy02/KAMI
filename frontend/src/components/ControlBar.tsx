@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { api } from "../api";
+import { nodeShort } from "../labels";
 import { useLive } from "../live";
 
 const SPEEDS = [60, 300, 600, 1200, 3000, 6000];
@@ -69,12 +70,12 @@ export function ControlBar({ defaultNode }: { defaultNode?: string }) {
           <select value={target} onChange={(e) => setNode(e.target.value)}>
             {network?.nodes.map((n) => (
               <option key={n.id} value={n.id}>
-                {n.name}
+                {nodeShort(n)}
               </option>
             ))}
           </select>
         </label>
-        <button type="button" className="btn primary" disabled={!target || busy || conn !== "live"} onClick={() => run(() => api.inject(type, target), `Injected ${LABELS[type] ?? type}`)}>
+        <button type="button" className="btn primary" disabled={!target || busy || conn !== "live"} onClick={() => run(() => api.inject(type, target), `Injected ${LABELS[type] ?? type} at ${nodeShort(network?.nodes.find((n) => n.id === target), target)}`)}>
           Inject event
         </button>
         <span className="sr-only" role="status" aria-live="polite">{msg}</span>

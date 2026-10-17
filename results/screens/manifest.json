@@ -1,12 +1,12 @@
 {
- "created_utc": "2026-10-12T03:43:57.522Z",
+ "created_utc": "2026-10-17T16:03:34.807Z",
  "made_by": "frontend/e2e/screens.spec.ts (Playwright, Chromium); not edited by hand",
  "data": "semi-synthetic replay; alert push in dry run",
  "replay_time": "2018-01-07T14:10:00",
  "injected_event": {
   "type": "infra_burst",
   "node": "node-2",
-  "node_name": "Gandhi Nagar Tank"
+  "node_name": "Gandhi Nagar Tank (node-2 · Ward 2)"
  },
  "method": "Fusion F-B, frozen Round 2",
  "note": "full-page screenshots at the given viewport size; the map background needs internet access for the OpenStreetMap tiles",
@@ -16,7 +16,7 @@
    "page": "overview",
    "theme": "dark",
    "viewport": "1440x900",
-   "bytes": 520629,
+   "bytes": 526091,
    "map_tiles_loaded": true
   },
   {
@@ -24,28 +24,28 @@
    "page": "node_detail_injected_event",
    "theme": "dark",
    "viewport": "1440x900",
-   "bytes": 91813
+   "bytes": 96941
   },
   {
    "file": "alerts_dark_desktop_1440x900.png",
    "page": "alerts",
    "theme": "dark",
    "viewport": "1440x900",
-   "bytes": 44215
+   "bytes": 46518
   },
   {
    "file": "method_dark_desktop_1440x900.png",
    "page": "method",
    "theme": "dark",
    "viewport": "1440x900",
-   "bytes": 88534
+   "bytes": 89607
   },
   {
    "file": "overview_light_desktop_1440x900.png",
    "page": "overview",
    "theme": "light",
    "viewport": "1440x900",
-   "bytes": 543314,
+   "bytes": 549454,
    "map_tiles_loaded": true
   },
   {
@@ -53,28 +53,28 @@
    "page": "node_detail_injected_event",
    "theme": "light",
    "viewport": "1440x900",
-   "bytes": 91353
+   "bytes": 96561
   },
   {
    "file": "alerts_light_desktop_1440x900.png",
    "page": "alerts",
    "theme": "light",
    "viewport": "1440x900",
-   "bytes": 44009
+   "bytes": 46403
   },
   {
    "file": "method_light_desktop_1440x900.png",
    "page": "method",
    "theme": "light",
    "viewport": "1440x900",
-   "bytes": 90754
+   "bytes": 92006
   },
   {
    "file": "overview_dark_phone_390x844.png",
    "page": "overview",
    "theme": "dark",
    "viewport": "390x844",
-   "bytes": 243122,
+   "bytes": 249346,
    "map_tiles_loaded": true
   },
   {
@@ -82,28 +82,28 @@
    "page": "node_detail_injected_event",
    "theme": "dark",
    "viewport": "390x844",
-   "bytes": 92627
+   "bytes": 93948
   },
   {
    "file": "alerts_dark_phone_390x844.png",
    "page": "alerts",
    "theme": "dark",
    "viewport": "390x844",
-   "bytes": 34516
+   "bytes": 33630
   },
   {
    "file": "method_dark_phone_390x844.png",
    "page": "method",
    "theme": "dark",
    "viewport": "390x844",
-   "bytes": 82367
+   "bytes": 83486
   },
   {
    "file": "overview_light_phone_390x844.png",
    "page": "overview",
    "theme": "light",
    "viewport": "390x844",
-   "bytes": 250900,
+   "bytes": 256897,
    "map_tiles_loaded": true
   },
   {
@@ -111,21 +111,21 @@
    "page": "node_detail_injected_event",
    "theme": "light",
    "viewport": "390x844",
-   "bytes": 91905
+   "bytes": 93531
   },
   {
    "file": "alerts_light_phone_390x844.png",
    "page": "alerts",
    "theme": "light",
    "viewport": "390x844",
-   "bytes": 33836
+   "bytes": 32841
   },
   {
    "file": "method_light_phone_390x844.png",
    "page": "method",
    "theme": "light",
    "viewport": "390x844",
-   "bytes": 82707
+   "bytes": 83870
   }
  ]
 }

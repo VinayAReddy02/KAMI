@@ -119,7 +119,9 @@ tail = [ln for ln in pw.stdout.splitlines() if ln.strip()][-1:] or [pw.stderr[-3
 print("    playwright:", tail[0].strip())
 check("P1/P2/P3 the Playwright tests pass (dashboard, accessibility scan, screenshots)", pw.returncode == 0)
 check("P1 the five dashboard tests ran: 8 markers and label, injected event in the feed, node detail, alert filters, theme toggle",
-      len(re.findall(r"^\s+ok\s+\d+ .*dashboard\.spec\.ts", pw.stdout, flags=re.M)) == 5)
+      all(re.search(rf"^\s+ok\s+\d+ .*dashboard\.spec\.ts.*{t}", pw.stdout, flags=re.M) for t in (
+          "Overview loads with 8 markers", "injecting an infrastructure event", "Node detail shows the four charts",
+          "the Alerts table filters", "the theme toggle switches")))  # Round 7 added more dashboard tests; these five must pass
 made = {f.name: f.stat().st_size for f in (tmp / "e2e" / "screens").glob("*.png")} if (tmp / "e2e" / "screens").is_dir() else {}
 check(f"P2 this run produced all 16 screenshots, none empty ({len(made)} files)", set(made) == set(SHOTS) and min(made.values(), default=0) > 5000)
 run_axe = json.loads((tmp / "e2e" / "a11y" / "axe_report.json").read_text(encoding="utf-8")) if (tmp / "e2e" / "a11y" / "axe_report.json").is_file() else {}

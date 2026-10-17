@@ -1,6 +1,7 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { nodeLabel, nodeShort } from "../labels";
 import type { Assessment, Category, Complaint, Network } from "../types";
 
 const GLYPH: Record<Category, string> = {
@@ -14,6 +15,7 @@ function esc(s: string): string {
   return s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c] as string);
 }
 
+/** `name` is the short numbered label ("4 · Bagayam"); the full label goes into the marker title. */
 export function markerIcon(name: string, category: Category, priority?: string): L.DivIcon {
   const cat = category.toLowerCase();
   return L.divIcon({
@@ -54,8 +56,8 @@ export function NodeMap({ network, latest, onSelect, complaints = [], onComplain
             <Marker
               key={n.id}
               position={[n.lat, n.lon]}
-              icon={markerIcon(n.name, cat, a?.priority)}
-              title={`${n.name}: ${cat}${a && cat !== "Normal" ? ", " + a.priority + " priority" : ""}`}
+              icon={markerIcon(nodeShort(n), cat, a?.priority)}
+              title={`${nodeLabel(n)}: ${cat}${a && cat !== "Normal" ? ", " + a.priority + " priority" : ""}`}
               eventHandlers={{ click: () => onSelect(n.id) }}
             />
           );
@@ -66,7 +68,7 @@ export function NodeMap({ network, latest, onSelect, complaints = [], onComplain
             position={[c.lat, c.lon]}
             icon={ticketIcon(c.id)}
             zIndexOffset={600}
-            title={`Citizen report ${c.id}, ${c.status}${c.node_name ? ", nearest sensor point " + c.node_name : ""}`}
+            title={`Citizen report ${c.id}, ${c.status}${c.node_id ? ", nearest sensor point " + nodeLabel({ id: c.nearest_node_id, name: c.nearest_node_name, number: c.node_number, ward: c.ward }) : ""}`}
             eventHandlers={{ click: () => onComplaint?.() }}
           />
         ))}

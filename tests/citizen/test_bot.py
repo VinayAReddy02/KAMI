@@ -16,8 +16,8 @@ from kami.citizen.tickets import haversine_km, inspect_photo
 from .helpers import FRIEND, ME, SECRETS, STRANGER, TOKEN, FakeASR, FakeTelegram, FakeTTS, jpeg, make_bot, msg
 
 Q_EN, Q_HI = "When will the water tanker reach Ward 4?", "वार्ड 4 में टैंकर कब आएगा?"
-A_EN = "Ward 4 (Bagayam): Tanker TKR-10 is planned for tomorrow, 8 Jan, 06:00-08:00. Status: scheduled."
-A_HI = "वार्ड 4 (बागायम): टैंकर TKR-10 कल, 8 जनवरी को 06:00-08:00 के बीच आने की योजना है। स्थिति: निर्धारित।"
+A_EN = "Ward 4 (Bagayam, sensor point node-4): Tanker TKR-10 is planned for tomorrow, 8 Jan, 06:00-08:00. Status: scheduled."
+A_HI = "वार्ड 4 (बागायम, सेंसर पॉइंट node-4): टैंकर TKR-10 कल, 8 जनवरी को 06:00-08:00 के बीच आने की योजना है। स्थिति: निर्धारित।"
 NEAR_NODE_2 = (12.9425, 79.1565)  # about 80 m from Gandhi Nagar Tank
 FAR_AWAY = (13.0827, 80.2707)  # Chennai
 
@@ -170,7 +170,7 @@ def test_photo_then_location_makes_a_ticket_linked_to_the_nearest_node(tmp_path)
     assert "share the location" in tg.texts()[-1] and store.read_complaints() == [] and tg.calls.count("download") == 1
     bot.handle_update(msg(ME, location={"latitude": NEAR_NODE_2[0], "longitude": NEAR_NODE_2[1]}))
     reply = tg.texts()[-1]
-    assert reply == ("Report received. Ticket #1. Nearest sensor point: Gandhi Nagar Tank (0.08 km). Our sensors there currently show an Infrastructure alert, "
+    assert reply == ("Report received. Ticket #1. Nearest sensor point: Gandhi Nagar Tank (node-2 · Ward 2), 0.08 km away. Our sensors there currently show an Infrastructure alert, "
                      f"priority High. The photo is stored for staff; it is not analysed automatically.\n{MARK['en']}")
     assert not any(w in reply.lower() for w in CAUSE_WORDS)
     (t,) = store.read_complaints()
@@ -194,7 +194,7 @@ def test_location_first_exif_location_and_outside_the_demo_area(tmp_path):
     assert "टिकट #1" in tg.texts()[-1] and "कोई असामान्यता नहीं" in tg.texts()[-1] and "स्वचालित विश्लेषण नहीं" in tg.texts()[-1]
     bot.handle_update(msg(ME, text="/language en"))
     bot.handle_update(msg(ME, document={"file_id": "exif", "mime_type": "image/jpeg", "file_size": 5000}))  # a photo sent as a file keeps its EXIF position
-    assert tg.texts()[-1].startswith("Report received. Ticket #2. Nearest sensor point: Gandhi Nagar Tank (0.0") and "show no anomaly" in tg.texts()[-1]
+    assert tg.texts()[-1].startswith("Report received. Ticket #2. Nearest sensor point: Gandhi Nagar Tank (node-2 · Ward 2), 0.0") and "show no anomaly" in tg.texts()[-1]
     bot.handle_update(msg(ME, document={"file_id": "far", "mime_type": "image/jpeg", "file_size": 5000}))
     assert "Ticket #3" in tg.texts()[-1] and "outside the demo area" in tg.texts()[-1] and "not linked to a sensor" in tg.texts()[-1]
     t3, t2, t1 = store.read_complaints()

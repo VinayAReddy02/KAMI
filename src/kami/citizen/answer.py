@@ -21,6 +21,7 @@ from dataclasses import dataclass, field
 import httpx
 import numpy as np
 
+from ..live.labels import ward_label
 from .data import ALERT_NOTE, DAY_WORD, Delivery, ScheduleService, Ward, load_notices
 
 # ---------------------------------------------------------------- language and normalisation
@@ -217,7 +218,8 @@ class Retrieved:
             return [d.facts() for d in self.deliveries]
         if self.kind == "ward_status":
             s = self.node_state or {}
-            return [{"ward": self.ward.number, "ward_name": self.ward.name_en, "sensor_status": s.get("category", "not available"),
+            return [{"ward": self.ward.number, "ward_name": self.ward.name_en, "sensor_point": self.ward.node_id,
+                     "sensor_status": s.get("category", "not available"),
                      **({"priority": s["priority"]} if s.get("category") not in (None, "Normal") else {})}]
         if self.kind == "faq":
             return [{"notice": n["title"], "text": n["text"]} for n in self.notices]
@@ -279,25 +281,25 @@ class TemplateWriter:
             if r.reason == "nothing_planned":
                 w, day = r.ward, r.day
                 if hi:
-                    return f"वार्ड {w.number} ({w.name_hi}): {DAY_HI.get(day, 'आने वाले दिनों')} के लिए कोई टैंकर निर्धारित नहीं है।"
-                return f"Ward {w.number} ({w.name_en}): no tanker is planned for {DAY_WORD.get(day, 'the coming days')}."
+                    return f"{ward_label(w, hi=True)}: {DAY_HI.get(day, 'आने वाले दिनों')} के लिए कोई टैंकर निर्धारित नहीं है।"
+                return f"{ward_label(w)}: no tanker is planned for {DAY_WORD.get(day, 'the coming days')}."
             return ("क्षमा करें, मेरे पास यह जानकारी नहीं है। " + CAN_DO_HI) if hi else ("Sorry, I do not have that information. " + CAN_DO_EN)
         if r.kind == "schedule":
             w = r.ward
-            head = f"वार्ड {w.number} ({w.name_hi}): " if hi else f"Ward {w.number} ({w.name_en}): "
+            head = f"{ward_label(w, hi=True)}: " if hi else f"{ward_label(w)}: "
             return head + " ".join((_delivery_hi if hi else _delivery_en)(d) for d in r.deliveries)
         if r.kind == "ward_status":
             w, s = r.ward, r.node_state
             if s is None:
-                return (f"वार्ड {w.number} ({w.name_hi}): सेंसर की वर्तमान स्थिति अभी उपलब्ध नहीं है।" if hi
-                        else f"Ward {w.number} ({w.name_en}): the current sensor status is not available right now.")
+                return (f"{ward_label(w, hi=True)}: सेंसर की वर्तमान स्थिति अभी उपलब्ध नहीं है।" if hi
+                        else f"{ward_label(w)}: the current sensor status is not available right now.")
             if s["category"] == "Normal":
-                return (f"वार्ड {w.number} ({w.name_hi}): वहाँ के सेंसर अभी कोई असामान्यता नहीं दिखा रहे हैं।" if hi
-                        else f"Ward {w.number} ({w.name_en}): our sensors there currently show no anomaly.")
+                return (f"{ward_label(w, hi=True)}: वहाँ के सेंसर अभी कोई असामान्यता नहीं दिखा रहे हैं।" if hi
+                        else f"{ward_label(w)}: our sensors there currently show no anomaly.")
             if hi:
-                return (f"वार्ड {w.number} ({w.name_hi}): वहाँ के सेंसर अभी {CATEGORY_HI[s['category']]} अलर्ट दिखा रहे हैं, प्राथमिकता {PRIORITY_HI[s['priority']]}। "
+                return (f"{ward_label(w, hi=True)}: वहाँ के सेंसर अभी {CATEGORY_HI[s['category']]} अलर्ट दिखा रहे हैं, प्राथमिकता {PRIORITY_HI[s['priority']]}। "
                         "यह केवल बताता है कि सेंसर क्या दिखा रहे हैं, कारण नहीं।")
-            return (f"Ward {w.number} ({w.name_en}): our sensors there currently show {_article(s['category'])} {s['category']} alert, priority {s['priority']}. "
+            return (f"{ward_label(w)}: our sensors there currently show {_article(s['category'])} {s['category']} alert, priority {s['priority']}. "
                     "This says what the sensors show, not the reason.")
         return r.notices[0]["text"]  # faq: the notice itself (English; the caller translates it for a Hindi reply)
 
@@ -337,7 +339,7 @@ class OllamaWriter:
         lines = []
         for rec in r.records():
             if "tanker" in rec:  # a schedule record as one plain sentence: small models copy it more reliably than key: value pairs
-                ln = f"Tanker {rec['tanker']} for Ward {rec['ward']} ({rec['ward_name']}): {rec['day']}, {rec['date']}, time slot {rec['planned_slot']}, status {rec['status']}"
+                ln = f"Tanker {rec['tanker']} for {ward_label(rec['ward'])}: {rec['day']}, {rec['date']}, time slot {rec['planned_slot']}, status {rec['status']}"
                 if "expected_slot" in rec:
                     ln += f", delayed by {rec['delay_minutes']} minutes, expected time slot {rec['expected_slot']}"
                 lines.append(ln + (f". Note: {rec['note']}" if "note" in rec else ""))
@@ -435,6 +437,9 @@ def guard(answer_en: str, r: Retrieved, wards: list[Ward]) -> list[str]:
         if kind == "day" and r.kind != "schedule":
             extra = set()
         bad += [f"{kind} not in the records: {x}" for x in sorted(map(str, extra))]
+    for nid in sorted(set(re.findall(r"\bnode-(\d+)\b", low))):  # Round 7: replies name the ward's sensor point; only its own is allowed
+        if not (r.ward and r.ward.node_id == f"node-{nid}"):
+            bad.append(f"sensor point not in the records: node-{nid}")
     names = {w.number: [normalise(n) for n in (w.name_en, *w.aliases) if not DEVANAGARI.search(n)] for w in wards}
     allowed = {r.ward.number} if r.ward else set()
     for num, ns in names.items():
@@ -508,7 +513,7 @@ def numbers_survive(source_en: str, target: str) -> bool:
 
 def canonical_question(u: Understanding, ward: Ward | None) -> str:
     """The understood question in plain English (used as the LLM's question for Hindi schedule and status questions)."""
-    where = f"Ward {ward.number} ({ward.name_en})" if ward else "my ward"
+    where = ward_label(ward) if ward else "my ward"
     if u.intent == "ward_status":
         return f"What do the sensors show in {where} right now?"
     if u.day is None:

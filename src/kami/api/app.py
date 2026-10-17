@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from .. import config
+from ..live.labels import node_fields
 from ..runtime import Stack
 from ..simulator.scenarios import EVENT_TYPES
 
@@ -50,6 +51,12 @@ class Hub:
             except asyncio.QueueEmpty:
                 pass
         q.put_nowait(text)
+
+
+def _numbered(d: dict, key: str = "node_id") -> dict:
+    """Round 7: a copy of an object that names a node, with the node's number, ward and labels added (existing fields unchanged)."""
+    f = node_fields(d.get(key))
+    return {**d, "node_number": f["number"], "ward": f["ward"], "node_label": f["label"], "node_short": f["short"]}
 
 
 def create_app(stack: Stack) -> FastAPI:
@@ -100,6 +107,7 @@ def create_app(stack: Stack) -> FastAPI:
         lv = stack.extras.get("live")
         for n in cfg["nodes"]:
             n["latest"] = lv.processor.latest(n["id"]) if lv else None
+            n.update(node_fields(n["id"]))  # number, ward, ward_name, label, short (Round 7)
         cfg["counts"] = lv.processor.counts() if lv else {}
         cfg["event_types"] = EVENT_TYPES
         return cfg
@@ -110,13 +118,13 @@ def create_app(stack: Stack) -> FastAPI:
         latest = lv.processor.latest(node_id)
         if latest is None:
             raise HTTPException(404, f"no state for {node_id} yet")
-        return {"node_id": node_id, "latest": latest, "series": lv.processor.series(node_id, min(max(limit, 1), 600)),
-                "alerts": lv.processor.list_alerts(node=node_id, limit=20)}
+        return _numbered({"node_id": node_id, "latest": latest, "series": lv.processor.series(node_id, min(max(limit, 1), 600)),
+                          "alerts": [_numbered(a) for a in lv.processor.list_alerts(node=node_id, limit=20)]})
 
     @app.get("/alerts")
     def alerts(category: str | None = None, priority: str | None = None, node: str | None = None,
                status: str | None = None, limit: int = 200):
-        return live().processor.list_alerts(category, priority, node, status, min(max(limit, 1), 1000))
+        return [_numbered(a) for a in live().processor.list_alerts(category, priority, node, status, min(max(limit, 1), 1000))]
 
     @app.post("/demo/inject")
     def demo_inject(body: InjectBody):
@@ -159,7 +167,7 @@ def create_app(stack: Stack) -> FastAPI:
         """Citizen pipe-damage tickets (Round 6), newest first. No chat id, no name, no file path."""
         from ..citizen.tickets import public_view
 
-        return [public_view(t) for t in stack.store.read_complaints(min(max(limit, 1), 500))]
+        return [_numbered(public_view(t), "nearest_node_id") for t in stack.store.read_complaints(min(max(limit, 1), 500))]
 
     @app.get("/complaints/{ticket_id}/thumb")
     def complaint_thumb(ticket_id: int):

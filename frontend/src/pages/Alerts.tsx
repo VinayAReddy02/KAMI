@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { fmtTs } from "../components/AlertList";
 import { StatusBadge } from "../components/StatusBadge";
+import { NodeName } from "../components/NodeName";
+import { nodeIndex, nodeShort } from "../labels";
 import { useLive } from "../live";
 import { CATEGORIES, PRIORITIES } from "../types";
 
@@ -10,7 +12,7 @@ export function Alerts() {
   const [pri, setPri] = useState("");
   const [node, setNode] = useState("");
   const [status, setStatus] = useState("");
-  const names = useMemo(() => Object.fromEntries((network?.nodes ?? []).map((n) => [n.id, n.name])), [network]);
+  const index = useMemo(() => nodeIndex(network?.nodes), [network]);
   const rows = alerts.filter(
     (a) => (!cat || a.category === cat) && (!pri || a.priority === pri) && (!node || a.node_id === node) && (!status || a.status === status),
   );
@@ -33,7 +35,7 @@ export function Alerts() {
         <label>Node
           <select value={node} onChange={(e) => setNode(e.target.value)}>
             <option value="">All</option>
-            {network?.nodes.map((n) => <option key={n.id} value={n.id}>{n.name}</option>)}
+            {network?.nodes.map((n) => <option key={n.id} value={n.id}>{nodeShort(n)}</option>)}
           </select>
         </label>
         <label>Status
@@ -61,7 +63,7 @@ export function Alerts() {
                 <tr key={a.id}>
                   <td><span className={`alert-status ${a.status}`}>{a.status === "active" ? "Active" : "Closed"}</span></td>
                   <td><StatusBadge category={a.category} priority={a.priority} compact /></td>
-                  <td><a className="link" href={`#/node/${a.node_id}`}>{names[a.node_id] ?? a.node_id}</a></td>
+                  <td><a className="link" href={`#/node/${a.node_id}`}><NodeName node={index[a.node_id]} id={a.node_id} /></a></td>
                   <td>{fmtTs(a.start_ts)}</td>
                   <td>{fmtTs(a.status === "active" ? a.last_ts : a.end_ts)}</td>
                   <td>{a.confidence == null ? "–" : a.confidence.toFixed(2)}</td>

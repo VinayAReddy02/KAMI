@@ -139,7 +139,8 @@ def test_complaints_api_lists_tickets_without_file_names_and_serves_the_small_co
         rows = c.get("/complaints").json()
         assert [r["id"] for r in rows] == [2, 1] and rows[0]["node_name"] == "Katpadi Intake" and rows[1]["node_name"] == "Gandhi Nagar Tank"
         assert all("photo_file" not in r and "thumb_file" not in r and r["thumb_url"] == f"/complaints/{r['id']}/thumb" for r in rows)
-        assert rows[1] == public_view(out.ticket) and rows[1]["photo_analysed"] is False and rows[1]["status"] == "open"
+        numbered = {"node_number": 2, "ward": 2, "node_label": "Gandhi Nagar Tank (node-2 · Ward 2)", "node_short": "2 · Gandhi Nagar"}  # Round 7
+        assert rows[1] == {**public_view(out.ticket), **numbered} and rows[1]["photo_analysed"] is False and rows[1]["status"] == "open"
         img = c.get(rows[1]["thumb_url"])
         assert img.status_code == 200 and img.headers["content-type"] == "image/jpeg" and img.content[:3] == b"\xff\xd8\xff" and len(img.content) < 40_000
         assert c.get("/complaints/99/thumb").status_code == 404 and c.get("/complaints/abc/thumb").status_code == 422

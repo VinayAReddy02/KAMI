@@ -32,7 +32,7 @@ test.afterAll(async ({ request }) => {
     made_by: "frontend/e2e/screens.spec.ts (Playwright, Chromium); not edited by hand",
     data: "semi-synthetic replay; alert push in dry run",
     replay_time: status.ts,
-    injected_event: { type: "infra_burst", node: NODE.id, node_name: NODE.name },
+    injected_event: { type: "infra_burst", node: NODE.id, node_name: NODE.label },
     method: status.method?.label,
     note: "full-page screenshots at the given viewport size; the map background needs internet access for the OpenStreetMap tiles",
     files: shots,

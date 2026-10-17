@@ -1,6 +1,7 @@
 import { expect, type APIRequestContext, type Page } from "@playwright/test";
 
-export const NODE = { id: "node-2", name: "Gandhi Nagar Tank" };
+// Round 7: every node is shown with its number and ward (frontend/src/labels.ts)
+export const NODE = { id: "node-2", name: "Gandhi Nagar Tank", label: "Gandhi Nagar Tank (node-2 · Ward 2)", short: "2 · Gandhi Nagar" };
 export const THEMES = ["dark", "light"] as const;
 export type Theme = (typeof THEMES)[number];
 

@@ -5,6 +5,7 @@ import { ControlBar } from "../components/ControlBar";
 import { EvidenceBars } from "../components/EvidenceBars";
 import { StatusBadge } from "../components/StatusBadge";
 import { TimeSeries } from "../components/TimeSeries";
+import { nodeLabel } from "../labels";
 import { useLive } from "../live";
 import type { NodeState } from "../types";
 
@@ -37,7 +38,7 @@ export function NodeDetail({ id }: { id: string }) {
     <div className="detail">
       <p><a className="link" href="#/">← Overview</a></p>
       <header className="detail-head">
-        <h1>{info?.name ?? id}</h1>
+        <h1>{nodeLabel(info, id)}</h1>
         {a && <StatusBadge category={a.category} priority={a.priority} />}
         {a?.confidence != null && <span className="conf">Confidence {a.confidence.toFixed(2)}</span>}
       </header>
@@ -70,7 +71,7 @@ export function NodeDetail({ id }: { id: string }) {
       )}
       <section aria-label="Alerts for this node">
         <h2>Alerts for this node</h2>
-        <AlertList alerts={state?.alerts ?? []} nodeNames={{ [id]: info?.name ?? id }} limit={8} />
+        <AlertList alerts={state?.alerts ?? []} nodeNames={{ [id]: nodeLabel(info, id) }} limit={8} />
       </section>
     </div>
   );

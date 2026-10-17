@@ -12,6 +12,7 @@ import threading
 import time
 from collections import Counter, deque
 
+from ..live.labels import node_label, ward_label
 from .answer import Answerer, Reply, detect_language
 from .telegram_in import BotApiError, TelegramClient
 from .tickets import MAX_PHOTO_BYTES, TicketService
@@ -30,6 +31,7 @@ HELP = {
            "- ask when the tanker comes: \"When will the tanker reach Ward 4?\"\n"
            "- ask about the notices: supply hours, charges, how to report a pipe, what the alert levels mean\n"
            "- ask what the sensors show in a ward: \"Is there a problem in Ward 3?\"\n"
+           f"Each ward has one sensor point with the same number: {ward_label(4)}.\n"
            "- report a damaged pipe: send a photo and the location (the photo is stored for staff; it is not analysed automatically)\n"
            "Type or send a voice note (up to 60 seconds), in Hindi or English.\n"
            "/language hi, /language en or /language auto sets the reply language."),
@@ -38,6 +40,7 @@ HELP = {
            "- टैंकर का समय पूछें: \"वार्ड 4 में टैंकर कब आएगा?\"\n"
            "- सूचनाओं के बारे में पूछें: पानी का समय, शुल्क, पाइप की शिकायत कैसे करें, अलर्ट स्तर का अर्थ\n"
            "- पूछें कि वार्ड में सेंसर क्या दिखा रहे हैं: \"वार्ड 3 में कोई समस्या है क्या?\"\n"
+           f"हर वार्ड में उसी नंबर का एक सेंसर पॉइंट है: {ward_label(4, hi=True)}।\n"
            "- टूटी पाइप की शिकायत: फोटो और स्थान भेजें (फोटो कर्मचारियों के लिए रखी जाती है; इसका स्वचालित विश्लेषण नहीं होता)\n"
            "हिंदी या अंग्रेज़ी में लिखें या वॉइस नोट भेजें (60 सेकंड तक)।\n"
            "/language hi, /language en या /language auto से जवाब की भाषा चुनें।"),
@@ -85,9 +88,9 @@ def ticket_reply(t: dict, lang: str) -> str:
     now. No cause, and no claim that the photo was looked at."""
     hi = lang == "hi"
     if not t["in_demo_area"]:
-        return (f"शिकायत दर्ज हो गई। टिकट #{t['id']}। यह स्थान डेमो क्षेत्र के बाहर है (निकटतम सेंसर बिंदु {t['nearest_node_name']} {t['distance_km']} किमी दूर है), "
+        return (f"शिकायत दर्ज हो गई। टिकट #{t['id']}। यह स्थान डेमो क्षेत्र के बाहर है (निकटतम सेंसर बिंदु {node_label(t['nearest_node_id'])} {t['distance_km']} किमी दूर है), "
                 "इसलिए इसे किसी सेंसर से नहीं जोड़ा गया। फोटो कर्मचारियों के लिए रखी गई है; इसका स्वचालित विश्लेषण नहीं होता।" if hi else
-                f"Report received. Ticket #{t['id']}. The place is outside the demo area (the nearest sensor point, {t['nearest_node_name']}, is {t['distance_km']} km away), "
+                f"Report received. Ticket #{t['id']}. The place is outside the demo area (the nearest sensor point, {node_label(t['nearest_node_id'])}, is {t['distance_km']} km away), "
                 "so it is not linked to a sensor. The photo is stored for staff; it is not analysed automatically.")
     cat, pri = t["node_category"], t["node_priority"]
     if cat is None:
@@ -98,9 +101,9 @@ def ticket_reply(t: dict, lang: str) -> str:
         state = (f"वहाँ के सेंसर अभी {CATEGORY_HI[cat]} अलर्ट दिखा रहे हैं, प्राथमिकता {PRIORITY_HI[pri]}।" if hi
                  else f"Our sensors there currently show {_article(cat)} {cat} alert, priority {pri}.")
     if hi:
-        return (f"शिकायत दर्ज हो गई। टिकट #{t['id']}। निकटतम सेंसर बिंदु: {t['node_name']} ({t['distance_km']} किमी)। {state} "
+        return (f"शिकायत दर्ज हो गई। टिकट #{t['id']}। निकटतम सेंसर बिंदु: {node_label(t['node_id'])}, {t['distance_km']} किमी। {state} "
                 "फोटो कर्मचारियों के लिए रखी गई है; इसका स्वचालित विश्लेषण नहीं होता।")
-    return (f"Report received. Ticket #{t['id']}. Nearest sensor point: {t['node_name']} ({t['distance_km']} km). {state} "
+    return (f"Report received. Ticket #{t['id']}. Nearest sensor point: {node_label(t['node_id'])}, {t['distance_km']} km away. {state} "
             "The photo is stored for staff; it is not analysed automatically.")
 
 

@@ -132,11 +132,11 @@ def test_language_detection():
 def test_schedule_answers_take_every_time_from_the_data():
     a = answerer()
     r = a.answer(Q4)
-    assert r.text == "Ward 4 (Bagayam): Tanker TKR-10 is planned for tomorrow, 8 Jan, 06:00-08:00. Status: scheduled."
+    assert r.text == "Ward 4 (Bagayam, sensor point node-4): Tanker TKR-10 is planned for tomorrow, 8 Jan, 06:00-08:00. Status: scheduled."
     assert (r.kind, r.ward, r.writer, r.no_info, r.lang) == ("schedule", 4, "template", False, "en")
     assert r.records == [{"ward": 4, "ward_name": "Bagayam", "tanker": "TKR-10", "day": "tomorrow", "date": "8 Jan", "planned_slot": "06:00-08:00", "status": "scheduled"}]
     hi = a.answer("वार्ड 4 में टैंकर कब आएगा?")
-    assert hi.text == "वार्ड 4 (बागायम): टैंकर TKR-10 कल, 8 जनवरी को 06:00-08:00 के बीच आने की योजना है। स्थिति: निर्धारित।" and hi.lang == "hi"
+    assert hi.text == "वार्ड 4 (बागायम, सेंसर पॉइंट node-4): टैंकर TKR-10 कल, 8 जनवरी को 06:00-08:00 के बीच आने की योजना है। स्थिति: निर्धारित।" and hi.lang == "hi"
     assert a.answer("Ward 4 mein tanker kab aayega?").text == hi.text  # Hindi in Latin letters gets the Hindi answer
     today = a.answer("Has the tanker for Katpadi been delivered today?").text
     assert "TKR-06 is planned for today, 7 Jan, 10:00-12:00. Status: en route." in today
@@ -149,9 +149,9 @@ def test_ward_status_says_what_the_sensors_show_and_no_cause():
     a = answerer(states={"node-3": {"category": "Infrastructure", "priority": "High", "status": "ok"}, "node-5": {"category": "Normal", "priority": "Low", "status": "ok"},
                          "node-6": {"category": "Normal", "priority": "Low", "status": "warming_up"}})
     alert = a.answer("Is there any problem in ward 3?").text
-    assert alert == ("Ward 3 (Sathuvachari): our sensors there currently show an Infrastructure alert, priority High. "
+    assert alert == ("Ward 3 (Sathuvachari, sensor point node-3): our sensors there currently show an Infrastructure alert, priority High. "
                      "This says what the sensors show, not the reason.")
-    assert a.answer("Is there any problem in ward 5?").text == "Ward 5 (Old Town): our sensors there currently show no anomaly."
+    assert a.answer("Is there any problem in ward 5?").text == "Ward 5 (Old Town, sensor point node-5): our sensors there currently show no anomaly."
     for q in ("Any alert in ward 6?", "Any alert in ward 8?"):  # warming up, or no live state at all
         assert "not available" in a.answer(q).text
     assert "इन्फ्रास्ट्रक्चर" in a.answer("वार्ड 3 में कोई समस्या है क्या?").text and "उच्च" in a.answer("वार्ड 3 में कोई समस्या है क्या?").text
@@ -195,7 +195,7 @@ def test_a_grounded_llm_answer_is_used_and_the_prompt_has_only_the_records():
     body = llm.prompts[0]
     assert body["options"]["temperature"] == 0 and body["stream"] is False and body["model"] == "llama3.2:3b"
     user = body["messages"][1]["content"]
-    assert "- Tanker TKR-10 for Ward 4 (Bagayam): tomorrow, 8 Jan, time slot 06:00-08:00, status scheduled" in user and Q4 in user
+    assert "- Tanker TKR-10 for Ward 4 (Bagayam, sensor point node-4): tomorrow, 8 Jan, time slot 06:00-08:00, status scheduled" in user and Q4 in user
     assert "TKR-05" not in user and "Katpadi" not in user  # nothing that was not retrieved
     assert "ONLY the facts in RECORDS" in body["messages"][0]["content"] and "Never say why" in body["messages"][0]["content"]
 
@@ -205,7 +205,7 @@ def test_guard_replaces_an_answer_with_a_planted_wrong_time():
                     "Tanker TKR-10 reaches Ward 4 tomorrow at 5 pm."):
         r = answerer(llm=FakeOllama(planted).writer()).answer(Q4)
         assert r.guard_fallback and r.writer == "template" and any(v.startswith("time not in the records") for v in r.guard_violations), planted
-        assert r.text == "Ward 4 (Bagayam): Tanker TKR-10 is planned for tomorrow, 8 Jan, 06:00-08:00. Status: scheduled."
+        assert r.text == "Ward 4 (Bagayam, sensor point node-4): Tanker TKR-10 is planned for tomorrow, 8 Jan, 06:00-08:00. Status: scheduled."
         assert "07:00" not in r.text and "6:30" not in r.text and "5 pm" not in r.text
 
 
@@ -213,7 +213,7 @@ def test_guard_replaces_an_answer_with_a_planted_wrong_ward():
     for planted, why in (("Tanker TKR-10 is planned for Ward 5 tomorrow, 8 Jan, 06:00-08:00.", "ward not in the records: 5"),
                          ("Tanker TKR-10 is planned for Katpadi tomorrow, 8 Jan, 06:00-08:00.", "ward name not in the records: ward 1")):
         r = answerer(llm=FakeOllama(planted).writer()).answer(Q4)
-        assert r.guard_fallback and why in r.guard_violations and r.text.startswith("Ward 4 (Bagayam):"), planted
+        assert r.guard_fallback and why in r.guard_violations and r.text.startswith("Ward 4 (Bagayam, sensor point node-4):"), planted
 
 
 def test_guard_replaces_an_answer_that_names_a_cause():
@@ -305,10 +305,10 @@ def test_llm_answer_in_hindi_must_keep_its_numbers():
         tr, llm = FakeTranslator({(GOOD, "en", "hi"): hi}), FakeOllama(GOOD)
         r = answerer(llm=llm.writer(), translator=tr).answer(q_hi)
         # the LLM is asked a clean English question built from the understood ward and day, not a machine translation
-        assert "QUESTION: When is the next water tanker for Ward 4 (Bagayam)?" in llm.prompts[0]["messages"][1]["content"]
+        assert "QUESTION: When is the next water tanker for Ward 4 (Bagayam, sensor point node-4)?" in llm.prompts[0]["messages"][1]["content"]
         assert [c[1:] for c in tr.calls] == [("en", "hi")]
         assert r.translation_fallback == (not kept) and r.writer == ("ollama" if kept else "template")
-        assert r.text == (good_hi if kept else "वार्ड 4 (बागायम): टैंकर TKR-10 कल, 8 जनवरी को 06:00-08:00 के बीच आने की योजना है। स्थिति: निर्धारित।")
+        assert r.text == (good_hi if kept else "वार्ड 4 (बागायम, सेंसर पॉइंट node-4): टैंकर TKR-10 कल, 8 जनवरी को 06:00-08:00 के बीच आने की योजना है। स्थिति: निर्धारित।")
     assert numbers_survive("Open from 06:00 to 08:00, up to 200 litres.", "सुबह 6 बजे से 8 बजे तक, 200 लीटर तक।")
     assert numbers_survive("Call 1800-000-0000.", "1800-000-0000 पर कॉल करें।") and not numbers_survive("Call 1800-000-0000.", "हेल्पलाइन पर कॉल करें।")
     assert not numbers_survive("Due on the 15th.", "हर महीने देय।") and numbers_survive("Due on the 15th.", "हर महीने की १५ तारीख।")
