@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-12
-**Current step:** Round 7 IN PROGRESS: N1 and N2 DONE (commit 'round 7 N1'). NEXT: Part G, G0 download + inspect GECCO 2019 (Zenodo 4304080) into data/raw/gecco/, SOURCE.md with hashes, no test labels; code in src/kami/gecco/ (src/kami/data and src/kami/eval are frozen inputs). Then G1 protocol commit before any test label, G2-G6, N3 (final commit + push to origin per CLAUDE.md rule 6). Auto-resume cron job 2ed473d1 (session-only) restarts work after a usage-limit stop.
+**Current step:** Round 7 IN PROGRESS: N1, N2, G0, G1 DONE. NEXT: G2 loader src/kami/gecco/data.py (+ tests/gecco), then G3 variant A (val sanity, one guarded test read), G4 variant B + baselines (freeze, one read each), G5 report, G6 docs, N3 (final commit + push per CLAUDE.md rule 6). Test labels NOT read yet. Auto-resume cron 2ed473d1.
 **Mode:** unattended allowed; never wait for answers. Opus 5.5 high effort, single-agent execution, token-efficient (see CLAUDE.md *Working mode*).
 
 ## Steps
@@ -57,6 +57,8 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Round 7 G1: docs/gecco_protocol.md written and committed before any test label was read (splits by file/time: train Jul-Sep, val Oct 1-Nov 8, locked test Nov 8-29; TDS = Cond S/m x 10000 x 0.64; 5-min median, event if any minute; variants A frozen transfer and B adapted; baselines; five test reads).
+- 2026-10-12 Round 7 G0: GECCO 2019 (Zenodo 4304080, CC-BY-4.0) downloaded to data/raw/gecco/, all MD5 matched, SOURCE.md with SHA-256; units from the rules PDF (Cond in S/m, Turb in FNU); competition metric = point-wise F1 per minute (f1score.R); train labels only: 13 events, 0.16 % of minutes. pypdf 5.1.0 installed in .venv only to read the rules PDF (not a project dependency).
 - 2026-10-12 Round 7 N2: nothing to fix (live phone test passed 2026-10-17; only finding was the node numbers = N1).
 - 2026-10-12 Round 7 N1 done: src/kami/live/labels.py + frontend/src/labels.ts (one formatter each, 'Bagayam Booster (node-4 · Ward 4)' / '4 · Bagayam'), API fields (/network, /alerts, /nodes/{id}/state, /complaints), Telegram Node line, citizen replies en/hi ('Ward 4 (Bagayam, sensor point node-4)'), help + ticket replies, docs, 16 screenshots + axe regenerated (0 serious/critical). Found and fixed: the guard did not check node ids (now only the ward's own sensor point is allowed); Node detail page was 436 px wide at phone size since Round 5 (chart grid min width); narrow tables show the short label. check_round7 --quick --part n passes.
 - 2026-10-12 Round 7 started (plan approved). Deviation recorded for later: GECCO code goes to src/kami/gecco/ (the planned paths are frozen-input globs of eval/freeze.py).

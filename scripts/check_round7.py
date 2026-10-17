@@ -146,6 +146,54 @@ if "g" in parts:
     src = text_of("data/raw/gecco/SOURCE.md")
     check("G0 data/raw/gecco/SOURCE.md exists with URL, licence and SHA-256 hashes",
           "zenodo" in src.lower() and "CC-BY-4.0" in src and re.search(r"[0-9a-f]{64}", src) is not None)
+    import hashlib
+    raw_ok = all(re.search(rf"\| {re.escape(p.name)} \| \d+ \| {hashlib.sha256(p.read_bytes()).hexdigest()} \|", src)
+                 for p in (ROOT / "data" / "raw" / "gecco").glob("*_gecco2019_*.csv"))
+    check("G0 the GECCO files on disk match the hashes in SOURCE.md", raw_ok and len(list((ROOT / "data" / "raw" / "gecco").glob("*_gecco2019_*.csv"))) == 5)
+
+    # G1: the protocol was committed before the first guarded read of the test labels
+    proto_commit = git("log", "--diff-filter=A", "--format=%cI", "--", "docs/gecco_protocol.md").splitlines()
+    proto_changed = git("log", "--format=%H", "--", "docs/gecco_protocol.md").splitlines()
+    tlog = load("results/gecco/test_access_log.json") or []
+    first_read = min((r["utc"] for r in tlog), default="")
+    from datetime import datetime
+
+    def t(s):
+        return datetime.fromisoformat(s.replace("Z", "+00:00"))
+
+    check(f"G1 docs/gecco_protocol.md was committed before the first test read ({proto_commit[-1:] or 'not committed'} < {first_read[:19] or 'no read'})",
+          bool(proto_commit) and bool(first_read) and t(proto_commit[-1]) < t(first_read))
+    check("G1 the protocol was not changed after it was first committed", len(proto_changed) == 1)
+    models = {"A", "B", "fixed_threshold", "isolation_forest", "ocsvm"}
+    by_model = {}
+    for r in tlog:
+        by_model.setdefault(r["model"], []).append(r)
+    check(f"G3/G4 the test part was read once per final model, each read completed ({sorted(by_model)})",
+          set(by_model) == models and all(len(v) == 1 and v[0].get("completed_utc") and v[0]["dataset"] == "gecco_test" for v in by_model.values()))
+    fz = load("results/gecco/frozen_gecco.json") or {}
+    b_read = by_model.get("B", [{}])[0].get("utc", "")
+    check("G4 variant B was frozen (results/gecco/frozen_gecco.json, with hashes) before its test read",
+          bool(fz.get("created_utc")) and bool(b_read) and t(fz["created_utc"]) < t(b_read) and len(fz.get("sha256", {})) >= 4)
+    ev = load("results/gecco/eval.json") or {}
+    res = ev.get("test", {})
+    ci_ok = all(m in res and all(len(res[m]["ci95"].get(k, [])) == 2 for k in ("recall", "f1_event_counted", "fa_per_day")) for m in models)
+    check("G5 results/gecco/eval.json was made by code, is labelled real, and has A, B and the baselines with intervals",
+          ev.get("made_by", "").startswith("src/kami/gecco/") and ev.get("data_kind") == "real" and ci_ok)
+    check("G5 paired differences B - best baseline, A - best baseline and B - A are reported",
+          all(k in ev.get("paired", {}) for k in ("B - best baseline", "A - best baseline", "B - A")))
+    md = text_of("results/gecco/eval.md")
+    check("G5 results/gecco/eval.md and at least one event figure exist; the report says it covers the quality stream only",
+          "quality stream only" in md and "real" in md and any((ROOT / "results" / "gecco" / "figures").glob("*.png")))
+    check("G5 results/SUMMARY.md has a separate real-data section, produced by make_summary.py",
+          "## Real-data test (GECCO, quality stream)" in text_of("results/SUMMARY.md") and "gecco" in text_of("scripts/make_summary.py").lower())
+    docs_ok = ("GECCO" in text_of("docs/datasets.md") and "used in Round 7" in text_of("docs/real_data_search.md")
+               and "GECCO" in text_of("docs/teacher_scope.md") and "gecco" in text_of("README.md").lower() and (ROOT / "docs" / "gecco.md").is_file())
+    check("G6 docs: gecco.md, datasets.md, real_data_search.md (used in Round 7), teacher_scope.md, README", docs_ok)
+    check("G code lives in src/kami/gecco/ (no new file in the frozen folders src/kami/data, src/kami/eval)",
+          (ROOT / "src" / "kami" / "gecco" / "data.py").is_file()
+          and not any("gecco" in p.name for p in list((ROOT / "src/kami/data").glob("*.py")) + list((ROOT / "src/kami/eval").glob("*.py"))))
+    code, out = pytest("tests/gecco")
+    check("G2 pytest tests/gecco (loader, resampling, mapping, test-label lock)", code == 0 and " passed" in out and "FAILED" not in out)
 
 # ================================================================ always
 changed = set(git("diff", "--name-only", ROUND_BASE, "--", *FINAL).split()) | {ln[3:] for ln in git("status", "--porcelain", "--", *FINAL).splitlines()}
