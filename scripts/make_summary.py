@@ -319,6 +319,27 @@ LIMITS = """- **No real field data with labels.** The infrastructure data (BattL
 - **Docker path exercised later (Round 6), not for these numbers.** Every result in this summary was produced in the fallback mode (SQLite plus in-process bus). The MQTT/TimescaleDB path was run and tested in Round 6 (three separate processes, `results/docker/part_b.json`); the evaluation uses neither the message bus nor the store, so no number here depends on it."""
 
 
+def gecco_section() -> list[str]:
+    """Round 7: the real-data test of the quality stream (results/gecco/eval.json), kept apart from the semi-synthetic results."""
+    path = R / "gecco" / "eval.json"
+    if not path.is_file():
+        return []
+    g = json.loads(path.read_text(encoding="utf-8"))
+    n = g["splits"]["test"]["events_5min"]
+    rows = ["| Model | Events detected | Event-counted F1 [95% CI] | False alarms / day | Alert time (normal steps) | GECCO 1-min F1 |", "|---|---|---|---|---|---|"]
+    for m, x in g["test"].items():
+        lo, hi = x["ci95"]["f1_event_counted"]
+        rows.append(f"| {m} | {x['event']['detected']} of {x['event']['events']} | {f3(x['event']['f1_event_counted'])} [{lo:.3f}, {hi:.3f}] | "
+                    f"{f3(x['false_alarms_per_day'])} | {x['alert_time_share_normal']:.1%} | {f3(x['competition_f1_1min']['f1'])} |")
+    d = g["paired"]["B - best baseline"]["f1_event_counted"]["ci95"]
+    return ["## Real-data test (GECCO, quality stream)", "",
+            f"**Real** labelled drinking-water data ({g['dataset']}), **quality stream only**; reported separately from every semi-synthetic number above. "
+            f"Protocol `{g['protocol']}`, committed before the test labels were read; one test read per model; {n} test events. Full report: `results/gecco/eval.md`.", "",
+            *rows, "",
+            f"A = the frozen Round 2 quality module and rule (nothing refitted); B = same features and model family refitted on GECCO. "
+            f"Paired difference B - best baseline ({g['frozen']['best_baseline']}) in event-counted F1: [{d[0]:.3f}, {d[1]:.3f}].", ""]
+
+
 def main(final_path=None, out_path=None):
     """final_path/out_path are only for smoke-testing the report on dry-run output; the real report uses the defaults."""
     if final_path:
@@ -377,6 +398,7 @@ def main(final_path=None, out_path=None):
         "Per-stream baseline results on the exposed splits (Round-1 style table): `results/tables/baselines.md`.", "",
         "## 9. Evidence modules (calibrated, Round 1; test numbers are on exposed splits)", "", evidence_table(), "",
         "Reliability curves: `results/figures/reliability_*.png`.", "",
+        *gecco_section(),
         "## 10. Limitations", "", LIMITS, ""]
     out = Path(out_path) if out_path else R / "SUMMARY.md"
     out.write_text("\n".join(parts), encoding="utf-8")

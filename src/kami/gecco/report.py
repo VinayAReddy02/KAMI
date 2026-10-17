@@ -53,11 +53,13 @@ def minute_f1(pred: pd.DataFrame, minutes: pd.DataFrame) -> dict:
 def model_result(p: pd.DataFrame, minutes: pd.DataFrame) -> tuple[dict, dict]:
     sc = p.scored.to_numpy()
     m = E.score(p, p.pred.to_numpy(), sc)
-    det = AnyEvaluator(E.labelled(p), domain_events(E.labelled(p), "quality"), sc, flag_col="quality_flag")(p.pred.to_numpy() & sc, details=True)["detail"]
+    fast = AnyEvaluator(E.labelled(p), domain_events(E.labelled(p), "quality"), sc, flag_col="quality_flag")(p.pred.to_numpy() & sc, details=True)
+    det = fast["detail"]
     reps = bootstrap.replicates(det, np.ones(len(det["event_detected"])))
     out = E.compact(m)
     out["ci95"] = {k: bootstrap.ci(reps[k]) for k in CI_KEYS}
     out["alert_steps"] = int((p.pred & p.scored).sum())
+    out["alert_time_share_normal"] = fast["normal_alert_fraction"]  # share of the scored normal steps spent in alert (Round 2 column)
     out["competition_f1_1min"] = minute_f1(p, minutes)
     out["events_detail"] = {"detected": det["event_detected"].tolist(), "latency_h": [None if np.isnan(x) else float(x) for x in det["event_latency_h"]]}
     return out, reps
@@ -174,6 +176,12 @@ def verdict_lines(r: dict) -> list[str]:
                f"({best}) the paired difference in event-counted F1 has the interval [{d['ci95'][0]:.3f}, {d['ci95'][1]:.3f}]: "
                + ("B is better on this test part." if d["ci95"][0] > 0 else "B is worse on this test part." if d["ci95"][1] < 0
                   else "no difference can be shown on this test part."))
+    long = [m for m in E.MODELS if t[m]["alert_time_share_normal"] > 3 * t["B"]["alert_time_share_normal"] and t[m]["alert_time_share_normal"] > 0.01]
+    if long:
+        out.append("- **Read the event metrics with the alert time:** " + ", ".join(f"{m} was in alert for {t[m]['alert_time_share_normal']:.1%}" for m in long)
+                   + f" of the normal test time, B for {t['B']['alert_time_share_normal']:.1%}. The event metrics do not penalise duration: one long alert "
+                   "that overlaps an event counts as a detection and not as a false alarm (Round 2 note). The point F1 and GECCO's own 1-minute score, "
+                   "which do count every alerted step, are " + ", ".join(f"{m} {f3(t[m]['point']['f1'])} / {f3(t[m]['competition_f1_1min']['f1'])}" for m in E.MODELS) + ".")
     if n < 10:
         out.append(f"- The test part has only {n} events, so every interval is wide; these are indications, not general results.")
     return out
@@ -193,13 +201,13 @@ def markdown(r: dict) -> str:
     L += ["", "## What the test shows", "", *verdict_lines(r), "",
           "## Test part (locked; one read per model)", "",
           "Event metrics on 5-minute steps (Round 2 definitions); 95 % bootstrap intervals in brackets (events and days resampled).", "",
-          "| Model | Events detected | Recall | Event-counted F1 | Segment F1 | False alarms / day | Latency median / p90 (h) | Point F1 | GECCO score (1-min F1) |",
-          "|---|---|---|---|---|---|---|---|---|"]
+          "| Model | Events detected | Recall | Event-counted F1 | Segment F1 | False alarms / day | Latency median / p90 (h) | Alert time (share of normal steps) | Point F1 | GECCO score (1-min F1) |",
+          "|---|---|---|---|---|---|---|---|---|---|"]
     for m in E.MODELS:
         x = t[m]
         lat = x["latency_h"]
         L.append(f"| {NAMES[m]} | {x['event']['detected']} of {x['event']['events']} | {ci_txt(x, 'recall')} | {ci_txt(x, 'f1_event_counted')} | {ci_txt(x, 'f1')} | "
-                 f"{ci_txt(x, 'fa_per_day')} | {f3(lat['median'])} / {f3(lat['p90'])} | {f3(x['point']['f1'])} | {f3(x['competition_f1_1min']['f1'])} |")
+                 f"{ci_txt(x, 'fa_per_day')} | {f3(lat['median'])} / {f3(lat['p90'])} | {x['alert_time_share_normal']:.1%} | {f3(x['point']['f1'])} | {f3(x['competition_f1_1min']['f1'])} |")
     L += ["", f"Best baseline (chosen on validation, before the test read): **{r['frozen']['best_baseline']}**.", "",
           "### Paired differences (same resampled events and days)", "", "| Difference | Event-counted F1 | Recall | False alarms / day |", "|---|---|---|---|"]
     for k, d in r["paired"].items():

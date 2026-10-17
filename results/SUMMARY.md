@@ -232,6 +232,20 @@ Per-stream baseline results on the exposed splits (Round-1 style table): `result
 
 Reliability curves: `results/figures/reliability_*.png`.
 
+## Real-data test (GECCO, quality stream)
+
+**Real** labelled drinking-water data (GECCO Industrial Challenge 2019 (Zenodo 10.5281/zenodo.4304080, CC-BY-4.0)), **quality stream only**; reported separately from every semi-synthetic number above. Protocol `docs/gecco_protocol.md`, committed before the test labels were read; one test read per model; 12 test events. Full report: `results/gecco/eval.md`.
+
+| Model | Events detected | Event-counted F1 [95% CI] | False alarms / day | Alert time (normal steps) | GECCO 1-min F1 |
+|---|---|---|---|---|---|
+| A | 0 of 12 | 0.000 [0.000, 0.000] | 0.000 | 0.0% | 0.000 |
+| B | 4 of 12 | 0.444 [0.133, 0.737] | 0.092 | 0.1% | 0.180 |
+| fixed_threshold | 11 of 12 | 0.917 [0.800, 1.000] | 0.046 | 3.4% | 0.161 |
+| isolation_forest | 11 of 12 | 0.733 [0.588, 0.889] | 0.321 | 6.0% | 0.116 |
+| ocsvm | 9 of 12 | 0.857 [0.667, 1.000] | 0.000 | 4.9% | 0.110 |
+
+A = the frozen Round 2 quality module and rule (nothing refitted); B = same features and model family refitted on GECCO. Paired difference B - best baseline (fixed_threshold) in event-counted F1: [-0.783, -0.218].
+
 ## 10. Limitations
 
 - **No real field data with labels.** The infrastructure data (BattLeDIM) are simulated hydraulics with exact leak labels; quality data (USGS river stations) are real but unlabelled, so all quality events are injected.

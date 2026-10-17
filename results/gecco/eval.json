@@ -1,0 +1,955 @@
+{
+ "made_by": "src/kami/gecco/report.py",
+ "run_utc": "2026-10-17T20:04:47+00:00",
+ "data_kind": "real",
+ "scope": "quality stream only (turbidity and TDS from conductivity)",
+ "dataset": "GECCO Industrial Challenge 2019 (Zenodo 10.5281/zenodo.4304080, CC-BY-4.0)",
+ "protocol": "docs/gecco_protocol.md",
+ "splits": {
+  "train": {
+   "events_1min": 13,
+   "events_5min": 13,
+   "event_minutes": 212,
+   "event_steps": 53,
+   "steps": 26496
+  },
+  "val": {
+   "events_1min": 12,
+   "events_5min": 12,
+   "event_minutes": 225,
+   "event_steps": 55,
+   "steps": 10950
+  },
+  "test": {
+   "events_5min": 12,
+   "event_steps": 49,
+   "steps": 6330,
+   "events_1min": 12,
+   "event_minutes": 191
+  }
+ },
+ "frozen": {
+  "B": {
+   "r_min": 0.4,
+   "tau_p": 6,
+   "lambda": 0.0,
+   "gamma_q": 0.4,
+   "model": "logreg_C1"
+  },
+  "baselines": {
+   "fixed_threshold": {
+    "k": 8
+   },
+   "isolation_forest": {
+    "n_estimators": 100,
+    "max_samples": 2048,
+    "quantile": 0.999
+   },
+   "ocsvm": {
+    "nu": 0.01,
+    "gamma_mult": 0.1,
+    "quantile": 0.999,
+    "fit_rows": 20000
+   }
+  },
+  "best_baseline": "fixed_threshold",
+  "A": {
+   "label": "Fusion F-B, frozen Round 2",
+   "design": "F-B",
+   "params": {
+    "r_min": 0.4,
+    "tau_p": 6.0,
+    "lambda": 0.3,
+    "gamma_infra": 0.98,
+    "gamma_quality": 0.8
+   },
+   "frozen_commit": "b88f6d5",
+   "source": "results/fusion/frozen_config.json"
+  }
+ },
+ "test_reads": [
+  {
+   "model": "A",
+   "utc": "2026-10-17T20:01:49.081782+00:00",
+   "completed_utc": "2026-10-17T20:01:49.436809+00:00"
+  },
+  {
+   "model": "B",
+   "utc": "2026-10-17T20:03:21.180318+00:00",
+   "completed_utc": "2026-10-17T20:03:21.317417+00:00"
+  },
+  {
+   "model": "fixed_threshold",
+   "utc": "2026-10-17T20:03:24.091007+00:00",
+   "completed_utc": "2026-10-17T20:03:24.215683+00:00"
+  },
+  {
+   "model": "isolation_forest",
+   "utc": "2026-10-17T20:03:45.638092+00:00",
+   "completed_utc": "2026-10-17T20:03:46.030730+00:00"
+  },
+  {
+   "model": "ocsvm",
+   "utc": "2026-10-17T20:04:07.519220+00:00",
+   "completed_utc": "2026-10-17T20:04:08.191664+00:00"
+  }
+ ],
+ "test": {
+  "A": {
+   "point": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "event": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "events": 12,
+    "detected": 0,
+    "alert_segments": 0,
+    "false_alert_segments": 0,
+    "precision_event_counted": 0.0,
+    "f1_event_counted": 0.0
+   },
+   "false_alarms_per_day": 0.0,
+   "latency_h": {
+    "median": null,
+    "p90": null,
+    "n": 0
+   },
+   "scored_normal_days": 21.80902777777778,
+   "ci95": {
+    "recall": [
+     0.0,
+     0.0
+    ],
+    "precision": [
+     0.0,
+     0.0
+    ],
+    "precision_event_counted": [
+     0.0,
+     0.0
+    ],
+    "f1": [
+     0.0,
+     0.0
+    ],
+    "f1_event_counted": [
+     0.0,
+     0.0
+    ],
+    "fa_per_day": [
+     0.0,
+     0.0
+    ]
+   },
+   "alert_steps": 0,
+   "alert_time_share_normal": 0.0,
+   "competition_f1_1min": {
+    "f1": 0.0,
+    "tp": 0,
+    "fp": 0,
+    "fn": 191
+   },
+   "events_detail": {
+    "detected": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "latency_h": [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  "B": {
+   "point": {
+    "precision": 0.6923076923076923,
+    "recall": 0.1836734693877551,
+    "f1": 0.2903225806451613
+   },
+   "event": {
+    "precision": 0.6,
+    "recall": 0.3333333333333333,
+    "f1": 0.42857142857142855,
+    "events": 12,
+    "detected": 4,
+    "alert_segments": 5,
+    "false_alert_segments": 2,
+    "precision_event_counted": 0.6666666666666666,
+    "f1_event_counted": 0.4444444444444444
+   },
+   "false_alarms_per_day": 0.09170514249323355,
+   "latency_h": {
+    "median": 0.16666666666666666,
+    "p90": 0.25,
+    "n": 4
+   },
+   "scored_normal_days": 21.80902777777778,
+   "ci95": {
+    "recall": [
+     0.08333333333333333,
+     0.6666666666666666
+    ],
+    "precision": [
+     0.0,
+     1.0
+    ],
+    "precision_event_counted": [
+     0.24875000000000008,
+     1.0
+    ],
+    "f1": [
+     0.0,
+     0.7368421052631579
+    ],
+    "f1_event_counted": [
+     0.13333333333333333,
+     0.7368421052631579
+    ],
+    "fa_per_day": [
+     0.0,
+     0.27723407668859296
+    ]
+   },
+   "alert_steps": 13,
+   "alert_time_share_normal": 0.000636841267314122,
+   "competition_f1_1min": {
+    "f1": 0.1796875,
+    "tp": 23,
+    "fp": 42,
+    "fn": 168
+   },
+   "events_detail": {
+    "detected": [
+     false,
+     true,
+     true,
+     false,
+     true,
+     false,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "latency_h": [
+     null,
+     0.08333333333333333,
+     0.0,
+     null,
+     0.25,
+     null,
+     0.25,
+     null,
+     null,
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  "fixed_threshold": {
+   "point": {
+    "precision": 0.13168724279835392,
+    "recall": 0.6530612244897959,
+    "f1": 0.21917808219178084
+   },
+   "event": {
+    "precision": 0.8888888888888888,
+    "recall": 0.9166666666666666,
+    "f1": 0.9025641025641026,
+    "events": 12,
+    "detected": 11,
+    "alert_segments": 9,
+    "false_alert_segments": 1,
+    "precision_event_counted": 0.9166666666666666,
+    "f1_event_counted": 0.9166666666666666
+   },
+   "false_alarms_per_day": 0.04585257124661678,
+   "latency_h": {
+    "median": 0.08333333333333333,
+    "p90": 0.16666666666666666,
+    "n": 11
+   },
+   "scored_normal_days": 21.80902777777778,
+   "ci95": {
+    "recall": [
+     0.75,
+     1.0
+    ],
+    "precision": [
+     0.6923076923076923,
+     1.0
+    ],
+    "precision_event_counted": [
+     0.7692307692307693,
+     1.0
+    ],
+    "f1": [
+     0.7608695652173915,
+     1.0
+    ],
+    "f1_event_counted": [
+     0.8,
+     1.0
+    ],
+    "fa_per_day": [
+     0.0,
+     0.13861703834429648
+    ]
+   },
+   "alert_steps": 243,
+   "alert_time_share_normal": 0.033593376850819937,
+   "competition_f1_1min": {
+    "f1": 0.16073968705547653,
+    "tp": 113,
+    "fp": 1102,
+    "fn": 78
+   },
+   "events_detail": {
+    "detected": [
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     false
+    ],
+    "latency_h": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.08333333333333333,
+     0.08333333333333333,
+     0.08333333333333333,
+     0.0,
+     0.16666666666666666,
+     0.08333333333333333,
+     0.16666666666666666,
+     null
+    ]
+   }
+  },
+  "isolation_forest": {
+   "point": {
+    "precision": 0.08737864077669903,
+    "recall": 0.7346938775510204,
+    "f1": 0.15618221258134493
+   },
+   "event": {
+    "precision": 0.5333333333333333,
+    "recall": 0.9166666666666666,
+    "f1": 0.6743295019157088,
+    "events": 12,
+    "detected": 11,
+    "alert_segments": 15,
+    "false_alert_segments": 7,
+    "precision_event_counted": 0.6111111111111112,
+    "f1_event_counted": 0.7333333333333334
+   },
+   "false_alarms_per_day": 0.3209679987263174,
+   "latency_h": {
+    "median": 0.0,
+    "p90": 0.08333333333333333,
+    "n": 11
+   },
+   "scored_normal_days": 21.80902777777778,
+   "ci95": {
+    "recall": [
+     0.75,
+     1.0
+    ],
+    "precision": [
+     0.3333333333333333,
+     0.7692307692307693
+    ],
+    "precision_event_counted": [
+     0.45454545454545453,
+     0.8
+    ],
+    "f1": [
+     0.4888888888888888,
+     0.846153846153846
+    ],
+    "f1_event_counted": [
+     0.5882352941176471,
+     0.888888888888889
+    ],
+    "fa_per_day": [
+     0.13692388834651312,
+     0.5970530313054729
+    ]
+   },
+   "alert_steps": 412,
+   "alert_time_share_normal": 0.05986307912752746,
+   "competition_f1_1min": {
+    "f1": 0.11639271434917814,
+    "tp": 131,
+    "fp": 1929,
+    "fn": 60
+   },
+   "events_detail": {
+    "detected": [
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     false
+    ],
+    "latency_h": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.08333333333333333,
+     0.08333333333333333,
+     0.0,
+     0.08333333333333333,
+     0.08333333333333333,
+     0.16666666666666666,
+     null
+    ]
+   }
+  },
+  "ocsvm": {
+   "point": {
+    "precision": 0.09090909090909091,
+    "recall": 0.6326530612244898,
+    "f1": 0.15897435897435896
+   },
+   "event": {
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "events": 12,
+    "detected": 9,
+    "alert_segments": 8,
+    "false_alert_segments": 0,
+    "precision_event_counted": 1.0,
+    "f1_event_counted": 0.8571428571428571
+   },
+   "false_alarms_per_day": 0.0,
+   "latency_h": {
+    "median": 0.08333333333333333,
+    "p90": 0.08333333333333333,
+    "n": 9
+   },
+   "scored_normal_days": 21.80902777777778,
+   "ci95": {
+    "recall": [
+     0.5,
+     1.0
+    ],
+    "precision": [
+     1.0,
+     1.0
+    ],
+    "precision_event_counted": [
+     1.0,
+     1.0
+    ],
+    "f1": [
+     0.6666666666666666,
+     1.0
+    ],
+    "f1_event_counted": [
+     0.6666666666666666,
+     1.0
+    ],
+    "fa_per_day": [
+     0.0,
+     0.0
+    ]
+   },
+   "alert_steps": 341,
+   "alert_time_share_normal": 0.04935519821684445,
+   "competition_f1_1min": {
+    "f1": 0.10970464135021096,
+    "tp": 104,
+    "fp": 1601,
+    "fn": 87
+   },
+   "events_detail": {
+    "detected": [
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     false,
+     true,
+     false,
+     false
+    ],
+    "latency_h": [
+     0.0,
+     0.0,
+     0.0,
+     0.08333333333333333,
+     0.08333333333333333,
+     0.08333333333333333,
+     0.08333333333333333,
+     0.0,
+     null,
+     0.08333333333333333,
+     null,
+     null
+    ]
+   }
+  }
+ },
+ "validation": {
+  "A": {
+   "point": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "event": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "events": 12,
+    "detected": 0,
+    "alert_segments": 0,
+    "false_alert_segments": 0,
+    "precision_event_counted": 0.0,
+    "f1_event_counted": 0.0
+   },
+   "false_alarms_per_day": 0.0,
+   "latency_h": {
+    "median": null,
+    "p90": null,
+    "n": 0
+   },
+   "scored_normal_days": 35.361111111111114
+  },
+  "B": {
+   "point": {
+    "precision": 0.5151515151515151,
+    "recall": 0.34,
+    "f1": 0.40963855421686746
+   },
+   "event": {
+    "precision": 0.7777777777777778,
+    "recall": 0.6666666666666666,
+    "f1": 0.717948717948718,
+    "events": 12,
+    "detected": 8,
+    "alert_segments": 9,
+    "false_alert_segments": 2,
+    "precision_event_counted": 0.8,
+    "f1_event_counted": 0.7272727272727272
+   },
+   "false_alarms_per_day": 0.05655930871956009,
+   "latency_h": {
+    "median": 0.125,
+    "p90": 0.21666666666666662,
+    "n": 8
+   },
+   "scored_normal_days": 35.361111111111114
+  },
+  "fixed_threshold": {
+   "point": {
+    "precision": 0.1693121693121693,
+    "recall": 0.64,
+    "f1": 0.26778242677824265
+   },
+   "event": {
+    "precision": 0.8,
+    "recall": 0.75,
+    "f1": 0.7741935483870969,
+    "events": 12,
+    "detected": 9,
+    "alert_segments": 10,
+    "false_alert_segments": 2,
+    "precision_event_counted": 0.8181818181818182,
+    "f1_event_counted": 0.7826086956521738
+   },
+   "false_alarms_per_day": 0.05655930871956009,
+   "latency_h": {
+    "median": 0.08333333333333333,
+    "p90": 0.1,
+    "n": 9
+   },
+   "scored_normal_days": 35.361111111111114
+  },
+  "isolation_forest": {
+   "point": {
+    "precision": 0.13671875,
+    "recall": 0.7,
+    "f1": 0.22875816993464054
+   },
+   "event": {
+    "precision": 0.6153846153846154,
+    "recall": 0.75,
+    "f1": 0.676056338028169,
+    "events": 12,
+    "detected": 9,
+    "alert_segments": 13,
+    "false_alert_segments": 5,
+    "precision_event_counted": 0.6428571428571429,
+    "f1_event_counted": 0.6923076923076924
+   },
+   "false_alarms_per_day": 0.14139827179890022,
+   "latency_h": {
+    "median": 0.08333333333333333,
+    "p90": 0.08333333333333333,
+    "n": 9
+   },
+   "scored_normal_days": 35.361111111111114
+  },
+  "ocsvm": {
+   "point": {
+    "precision": 0.42857142857142855,
+    "recall": 0.72,
+    "f1": 0.5373134328358209
+   },
+   "event": {
+    "precision": 0.6666666666666666,
+    "recall": 0.75,
+    "f1": 0.7058823529411765,
+    "events": 12,
+    "detected": 9,
+    "alert_segments": 12,
+    "false_alert_segments": 4,
+    "precision_event_counted": 0.6923076923076923,
+    "f1_event_counted": 0.7199999999999999
+   },
+   "false_alarms_per_day": 0.11311861743912018,
+   "latency_h": {
+    "median": 0.08333333333333333,
+    "p90": 0.08333333333333333,
+    "n": 9
+   },
+   "scored_normal_days": 35.361111111111114
+  }
+ },
+ "paired": {
+  "B - best baseline": {
+   "recall": {
+    "ci95": [
+     -0.8333333333333334,
+     -0.25
+    ],
+    "excludes_zero": true
+   },
+   "precision": {
+    "ci95": [
+     -0.8,
+     0.0
+    ],
+    "excludes_zero": false
+   },
+   "precision_event_counted": {
+    "ci95": [
+     -0.5897435897435899,
+     0.0
+    ],
+    "excludes_zero": false
+   },
+   "f1": {
+    "ci95": [
+     -0.8536762964717025,
+     -0.21508891928864596
+    ],
+    "excludes_zero": true
+   },
+   "f1_event_counted": {
+    "ci95": [
+     -0.7833333333333333,
+     -0.21806060606060623
+    ],
+    "excludes_zero": true
+   },
+   "fa_per_day": {
+    "ci95": [
+     0.0,
+     0.13861703834429648
+    ],
+    "excludes_zero": false
+   }
+  },
+  "A - best baseline": {
+   "recall": {
+    "ci95": [
+     -1.0,
+     -0.75
+    ],
+    "excludes_zero": true
+   },
+   "precision": {
+    "ci95": [
+     -1.0,
+     -0.6923076923076923
+    ],
+    "excludes_zero": true
+   },
+   "precision_event_counted": {
+    "ci95": [
+     -1.0,
+     -0.7692307692307693
+    ],
+    "excludes_zero": true
+   },
+   "f1": {
+    "ci95": [
+     -1.0,
+     -0.7608695652173915
+    ],
+    "excludes_zero": true
+   },
+   "f1_event_counted": {
+    "ci95": [
+     -1.0,
+     -0.8
+    ],
+    "excludes_zero": true
+   },
+   "fa_per_day": {
+    "ci95": [
+     -0.13861703834429648,
+     0.0
+    ],
+    "excludes_zero": false
+   }
+  },
+  "B - A": {
+   "recall": {
+    "ci95": [
+     0.08333333333333333,
+     0.6666666666666666
+    ],
+    "excludes_zero": true
+   },
+   "precision": {
+    "ci95": [
+     0.0,
+     1.0
+    ],
+    "excludes_zero": false
+   },
+   "precision_event_counted": {
+    "ci95": [
+     0.24875000000000008,
+     1.0
+    ],
+    "excludes_zero": true
+   },
+   "f1": {
+    "ci95": [
+     0.0,
+     0.7368421052631579
+    ],
+    "excludes_zero": false
+   },
+   "f1_event_counted": {
+    "ci95": [
+     0.13333333333333333,
+     0.7368421052631579
+    ],
+    "excludes_zero": true
+   },
+   "fa_per_day": {
+    "ci95": [
+     0.0,
+     0.27723407668859296
+    ],
+    "excludes_zero": false
+   }
+  }
+ },
+ "events": [
+  {
+   "event_id": "gecco-test-001",
+   "start": "2017-11-08 00:40",
+   "end": "2017-11-08 00:50",
+   "steps": 2,
+   "scored_steps": 2,
+   "A": null,
+   "B": null,
+   "fixed_threshold": 0.0,
+   "isolation_forest": 0.0,
+   "ocsvm": 0.0
+  },
+  {
+   "event_id": "gecco-test-002",
+   "start": "2017-11-08 01:10",
+   "end": "2017-11-08 01:20",
+   "steps": 2,
+   "scored_steps": 2,
+   "A": null,
+   "B": 0.08,
+   "fixed_threshold": 0.0,
+   "isolation_forest": 0.0,
+   "ocsvm": 0.0
+  },
+  {
+   "event_id": "gecco-test-003",
+   "start": "2017-11-08 01:35",
+   "end": "2017-11-08 01:55",
+   "steps": 4,
+   "scored_steps": 4,
+   "A": null,
+   "B": 0.0,
+   "fixed_threshold": 0.0,
+   "isolation_forest": 0.0,
+   "ocsvm": 0.0
+  },
+  {
+   "event_id": "gecco-test-004",
+   "start": "2017-11-13 15:20",
+   "end": "2017-11-13 16:00",
+   "steps": 8,
+   "scored_steps": 8,
+   "A": null,
+   "B": null,
+   "fixed_threshold": 0.0,
+   "isolation_forest": 0.0,
+   "ocsvm": 0.08
+  },
+  {
+   "event_id": "gecco-test-005",
+   "start": "2017-11-13 21:35",
+   "end": "2017-11-13 22:00",
+   "steps": 5,
+   "scored_steps": 5,
+   "A": null,
+   "B": 0.25,
+   "fixed_threshold": 0.08,
+   "isolation_forest": 0.0,
+   "ocsvm": 0.08
+  },
+  {
+   "event_id": "gecco-test-006",
+   "start": "2017-11-14 06:30",
+   "end": "2017-11-14 06:45",
+   "steps": 3,
+   "scored_steps": 3,
+   "A": null,
+   "B": null,
+   "fixed_threshold": 0.08,
+   "isolation_forest": 0.08,
+   "ocsvm": 0.08
+  },
+  {
+   "event_id": "gecco-test-007",
+   "start": "2017-11-17 01:10",
+   "end": "2017-11-17 01:40",
+   "steps": 6,
+   "scored_steps": 6,
+   "A": null,
+   "B": 0.25,
+   "fixed_threshold": 0.08,
+   "isolation_forest": 0.08,
+   "ocsvm": 0.08
+  },
+  {
+   "event_id": "gecco-test-008",
+   "start": "2017-11-17 12:25",
+   "end": "2017-11-17 12:40",
+   "steps": 3,
+   "scored_steps": 3,
+   "A": null,
+   "B": null,
+   "fixed_threshold": 0.0,
+   "isolation_forest": 0.0,
+   "ocsvm": 0.0
+  },
+  {
+   "event_id": "gecco-test-009",
+   "start": "2017-11-20 17:30",
+   "end": "2017-11-20 17:50",
+   "steps": 4,
+   "scored_steps": 4,
+   "A": null,
+   "B": null,
+   "fixed_threshold": 0.17,
+   "isolation_forest": 0.08,
+   "ocsvm": null
+  },
+  {
+   "event_id": "gecco-test-010",
+   "start": "2017-11-24 21:30",
+   "end": "2017-11-24 21:50",
+   "steps": 4,
+   "scored_steps": 4,
+   "A": null,
+   "B": null,
+   "fixed_threshold": 0.08,
+   "isolation_forest": 0.08,
+   "ocsvm": 0.08
+  },
+  {
+   "event_id": "gecco-test-011",
+   "start": "2017-11-27 12:40",
+   "end": "2017-11-27 13:00",
+   "steps": 4,
+   "scored_steps": 4,
+   "A": null,
+   "B": null,
+   "fixed_threshold": 0.17,
+   "isolation_forest": 0.17,
+   "ocsvm": null
+  },
+  {
+   "event_id": "gecco-test-012",
+   "start": "2017-11-28 22:00",
+   "end": "2017-11-28 22:20",
+   "steps": 4,
+   "scored_steps": 4,
+   "A": null,
+   "B": null,
+   "fixed_threshold": null,
+   "isolation_forest": null,
+   "ocsvm": null
+  }
+ ],
+ "figures": [
+  "figures/gecco_test_event_004.png",
+  "figures/gecco_test_event_007.png"
+ ]
+}

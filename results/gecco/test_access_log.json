@@ -7,5 +7,41 @@
     "utc": "2026-10-17T20:01:49.081782+00:00",
     "completed_utc": "2026-10-17T20:01:49.436809+00:00",
     "predictions": "results/gecco/predictions/A.csv"
+  },
+  {
+    "key": "98172966e2bd2633",
+    "model": "B",
+    "dataset": "gecco_test",
+    "count": 2,
+    "utc": "2026-10-17T20:03:21.180318+00:00",
+    "completed_utc": "2026-10-17T20:03:21.317417+00:00",
+    "predictions": "results/gecco/predictions/B.csv"
+  },
+  {
+    "key": "b37e991a4339c520",
+    "model": "fixed_threshold",
+    "dataset": "gecco_test",
+    "count": 3,
+    "utc": "2026-10-17T20:03:24.091007+00:00",
+    "completed_utc": "2026-10-17T20:03:24.215683+00:00",
+    "predictions": "results/gecco/predictions/fixed_threshold.csv"
+  },
+  {
+    "key": "e3115c6a0bd58db1",
+    "model": "isolation_forest",
+    "dataset": "gecco_test",
+    "count": 4,
+    "utc": "2026-10-17T20:03:45.638092+00:00",
+    "completed_utc": "2026-10-17T20:03:46.030730+00:00",
+    "predictions": "results/gecco/predictions/isolation_forest.csv"
+  },
+  {
+    "key": "184ccea3e53963dc",
+    "model": "ocsvm",
+    "dataset": "gecco_test",
+    "count": 5,
+    "utc": "2026-10-17T20:04:07.519220+00:00",
+    "completed_utc": "2026-10-17T20:04:08.191664+00:00",
+    "predictions": "results/gecco/predictions/ocsvm.csv"
   }
 ]
