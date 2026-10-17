@@ -148,7 +148,7 @@ tests/       step1 .. step6, round2, live, telegram, citizen, docker
 config/      nodes.json (fictional demo coordinates)
 docs/        decisions.md, datasets.md, scenarios.md, fusion.md, architecture.md, notifications.md, citizen.md, teacher_scope.md, demo_script.md, real_data_search.md, reference/
 results/     metrics, tables, figures, round2/, SUMMARY.md   (results_round1/ = Round 1 snapshot)
-PROGRESS.md  PLAN.md  PLAN_ROUND2.md  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md  PLAN_ROUND7.md  CLAUDE.md  .env.example   (the Round 3 plan is superseded and kept as history)
+PROGRESS.md  PLAN.md  PLAN_ROUND2.md  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md  PLAN_ROUND7.md  PLAN_ROUND7_OLD_DOCKER.md  CLAUDE.md  .env.example   (the Round 3 plan is superseded and kept as history)
 ```
 
 ## Honest scope notes

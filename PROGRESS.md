@@ -57,6 +57,8 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Planning update (planning assistant): Part G added to Round 7 at the user's request: real-data test of the quality stream on GECCO 2019 (2018 as fallback); pre-registered protocol, variant A frozen transfer, variant B adapted, baselines, locked test part.
+- 2026-10-12 Planning update (planning assistant): live phone test in progress; the user could not tell which node was node 4 (the dashboard shows only names) -> new Round 7 (PLAN_ROUND7.md): node numbers everywhere; old PLAN_ROUND7.md renamed to PLAN_ROUND7_OLD_DOCKER.md.
 - 2026-10-12 Round 6 D5 close-out: README, architecture, decisions, teacher scope, demo script, SUMMARY limitation (via make_summary.py), CLAUDE.md; check_round6.py full run; commit `round 6b`. ROUND 6 DONE.
 - 2026-10-12 Round 6 D4: browser tests in docker mode: first 25 of 34 (injection before the nodes replayed); fixed with launcher wait + `GET /ready` (tests first); now 34 of 34.
 - 2026-10-12 Round 6 D3: separate processes (`kami.live.procs` nodes | ingest | api, control over MQTT), `launch_docker`, `run_demo.py --mode docker`, `tests/docker` (8 tests, 3 need the stack), `scripts/docker_checks.py`.
@@ -167,4 +169,4 @@ See PLAN_ROUND6.md, docs/citizen.md and docs/decisions.md (Round 6). Base commit
 - **No real Telegram request was made by me in Part B either.**
 
 ## Round 7: merged into Round 6 (Part B)
-PLAN_ROUND7.md is kept as history only (merged on 2026-10-12).
+Its plan was renamed to PLAN_ROUND7_OLD_DOCKER.md (history only). The new Round 7 is PLAN_ROUND7.md (node numbers everywhere + live-test fixes).

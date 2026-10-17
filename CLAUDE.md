@@ -18,7 +18,7 @@ KAMI is a context-aware, multi-stage **anomaly intelligence system for water net
 3. **Label synthetic data honestly.** Anything produced by the scenario generator or WNTR is `semi_synthetic` or `synthetic` in column names, file names and docs. Never present it as real field data.
 4. **No leakage.** Features use past observations only. Splits are chronological. Tune on the validation split only. The test split is evaluated once per final model.
 5. **Work only inside this folder.** Do not read, edit or copy anything from the senior's project (`D:\GYATT\5th sem\AI\Senior\...`). It is not needed for any step. Do not touch other folders.
-6. **Git:** commit after every finished step. **Never `git push`**, never force anything, never rewrite history, no remotes.
+6. **Git:** commit after every finished step. Never force anything, never rewrite history. Since 2026-10-17 the repo has one remote, `origin` = the user's **private** GitHub repo (created at the user's request). Push to `origin` only when the user asks; never change its visibility, never add other remotes.
 7. **Secrets.** Never create accounts or API keys. The only secrets are the user's Telegram bot token and chat id; they live only in the git-ignored `.env` (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`). Round 6 needs no new key (Bhashini was dropped; the speech models run locally). Citizen voice notes and photos are personal data: only under git-ignored `data/citizen/uploads/`, never in logs, tests or commits. Never print, log, commit or copy them, never put them in tests, docs or error text, and never log a Telegram URL (it contains the token).
 8. **Deleting:** avoid it. Never run recursive deletes. If you must remove a generated file inside this folder, remove that single file.
 9. **Downloads:** public datasets only. Record URL, date and licence in `data/raw/<name>/SOURCE.md`. Check free disk space (keep at least 5 GB free) before large downloads. There is no download cap.
@@ -71,7 +71,7 @@ data/raw/      downloads (git-ignored) + SOURCE.md per dataset
 data/processed/ (git-ignored)
 results/       metrics JSON, tables (.md), figures, screenshots
 docs/          reference/, decisions.md, datasets.md, scenarios.md, architecture.md
-PROGRESS.md  CLAUDE.md  README.md  PLAN.md  PLAN_ROUND2.md  PLAN_WHATSAPP.md (superseded)  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md  PLAN_ROUND7.md (merged into 6)
+PROGRESS.md  CLAUDE.md  README.md  PLAN.md  PLAN_ROUND2.md  PLAN_WHATSAPP.md (superseded)  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md  PLAN_ROUND7_OLD_DOCKER.md (merged into 6)  PLAN_ROUND7.md
 ```
 
 ## Quality bar
@@ -106,5 +106,5 @@ Steps 0 to 7 pass their check scripts, `pytest -q` passes, `npm run build` passe
 - **Bot test (2026-10-12, user with the planning assistant):** passed. `.env` holds the token, chat id and `KAMI_TELEGRAM_ENABLE=1`; one test message and one real alert (injected burst, node-2, Infrastructure High) were delivered.
 - **Round 5** (no Docker: alert wording M1, Playwright tests P1, paper screenshots P2, accessibility P3, quiet-demo measurement Q1, close-out P4; `PLAN_ROUND5.md`): done 2026-10-12. No real Telegram message was sent in that round.
 - **Round 6** (`PLAN_ROUND6.md`, decided by the user 2026-10-12): done 2026-10-12, three commits. Part A: citizen interface on the Telegram bot (Hindi/English voice and text with local open speech models, tanker-schedule and notice answers from retrieval plus a local Ollama LLM behind a grounding guard, pipe-damage photo tickets linked to the nearest node, evaluation in `results/citizen/`); off by default (`KAMI_CITIZEN_ENABLE`). Part C: `docs/teacher_scope.md`, `docs/demo_script.md`, `docs/real_data_search.md`. Part B: Docker stack exercised (Mosquitto + TimescaleDB; `run_demo.py --mode docker` runs nodes, ingest worker and API as three processes; record in `results/docker/part_b.json`); fallback stays the default mode. No real Telegram message was sent in that round.
-- **Round 7:** none (merged into Round 6 Part B on 2026-10-12; `PLAN_ROUND7.md` kept as history).
+- **Round 7, next** (`PLAN_ROUND7.md`, decided 2026-10-12): node numbers everywhere (dashboard, Telegram alerts, citizen bot, API, docs, screenshots) plus fixes from the live phone test, plus Part G: a real-data test of the quality stream on the public GECCO drinking-water dataset (CC-BY-4.0; download approved), protocol committed before any test label is used, frozen-transfer and adapted variants, test read once per model. The old Docker plan is `PLAN_ROUND7_OLD_DOCKER.md` (merged into Round 6 Part B, history only). Stop after N3.
 - **Current: nothing is in progress.** Next: the live phone test of the citizen bot with the user (steps in `PROGRESS.md`, *Needs user*), then the paper. Any further round is planned with the user first; do not start one alone.
