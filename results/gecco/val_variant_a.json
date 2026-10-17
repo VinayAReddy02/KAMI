@@ -1,0 +1,45 @@
+{
+ "made_by": "src/kami/gecco/evaluate.py val-a",
+ "run_utc": "2026-10-17T20:01:22+00:00",
+ "data_kind": "real",
+ "variant": "A",
+ "note": "sanity run on validation; nothing was fitted or tuned",
+ "frozen_rule": {
+  "label": "Fusion F-B, frozen Round 2",
+  "design": "F-B",
+  "params": {
+   "r_min": 0.4,
+   "tau_p": 6.0,
+   "lambda": 0.3,
+   "gamma_infra": 0.98,
+   "gamma_quality": 0.8
+  },
+  "frozen_commit": "b88f6d5",
+  "source": "results/fusion/frozen_config.json"
+ },
+ "validation": {
+  "point": {
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0
+  },
+  "event": {
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "events": 12,
+   "detected": 0,
+   "alert_segments": 0,
+   "false_alert_segments": 0,
+   "precision_event_counted": 0.0,
+   "f1_event_counted": 0.0
+  },
+  "false_alarms_per_day": 0.0,
+  "latency_h": {
+   "median": null,
+   "p90": null,
+   "n": 0
+  },
+  "scored_normal_days": 35.361111111111114
+ }
+}

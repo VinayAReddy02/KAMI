@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-12
-**Current step:** Round 7 IN PROGRESS: N1, N2, G0, G1 DONE. NEXT: G2 loader src/kami/gecco/data.py (+ tests/gecco), then G3 variant A (val sanity, one guarded test read), G4 variant B + baselines (freeze, one read each), G5 report, G6 docs, N3 (final commit + push per CLAUDE.md rule 6). Test labels NOT read yet. Auto-resume cron 2ed473d1.
+**Current step:** Round 7 IN PROGRESS: N1, N2, G0-G2 DONE; G3 running: A validation sanity done; NEXT the guarded test read of A (python -m kami.gecco.evaluate test --model A), then G4 tune (B + baselines, freeze) and their four test reads, G5 report, G6 docs, N3 (final commit + push). Auto-resume cron 2ed473d1.
 **Mode:** unattended allowed; never wait for answers. Opus 5.5 high effort, single-agent execution, token-efficient (see CLAUDE.md *Working mode*).
 
 ## Steps
@@ -57,6 +57,8 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Round 7 G3: variant A on validation (sanity, nothing tuned): no alert at all (12 events, recall 0, 0 false alarms/day); the frozen module's p_quality on GECCO stays at most 0.31 (median 0.00) against the frozen threshold 0.8. tests/gecco/test_gecco_eval.py shows A = the frozen F-B quality decision.
+- 2026-10-12 Round 7 G2: src/kami/gecco/data.py (mapping, 5-min median, events, causal features, test labels only inside final_evaluation) + tests/gecco (6 pass). Real frame: 43 776 steps (train 26 496, val 10 950, test 6 330); events train 13, val 12 (same at 1 and 5 min); scored share train 0.98, val 0.94, test 1.0; freeze still verifies.
 - 2026-10-12 Round 7 G1: docs/gecco_protocol.md written and committed before any test label was read (splits by file/time: train Jul-Sep, val Oct 1-Nov 8, locked test Nov 8-29; TDS = Cond S/m x 10000 x 0.64; 5-min median, event if any minute; variants A frozen transfer and B adapted; baselines; five test reads).
 - 2026-10-12 Round 7 G0: GECCO 2019 (Zenodo 4304080, CC-BY-4.0) downloaded to data/raw/gecco/, all MD5 matched, SOURCE.md with SHA-256; units from the rules PDF (Cond in S/m, Turb in FNU); competition metric = point-wise F1 per minute (f1score.R); train labels only: 13 events, 0.16 % of minutes. pypdf 5.1.0 installed in .venv only to read the rules PDF (not a project dependency).
 - 2026-10-12 Round 7 N2: nothing to fix (live phone test passed 2026-10-17; only finding was the node numbers = N1).
