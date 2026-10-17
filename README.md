@@ -63,6 +63,17 @@ or `python scripts/reproduce_all.py` for all of the above. `scripts/check_step_N
 
 Seeds are fixed. Re-running reproduces the numbers (the scenario hash is stored in `results/data_quality.json`).
 
+### Round 7: real-data test on GECCO (quality stream only)
+Real, provider-labelled drinking-water data (GECCO Industrial Challenge 2019, CC-BY-4.0; download notes in `data/raw/gecco/SOURCE.md`), reported
+apart from every semi-synthetic number. Protocol `docs/gecco_protocol.md`, results `results/gecco/eval.md`, summary `docs/gecco.md`.
+
+```powershell
+.\.venv\Scripts\python -m kami.gecco.evaluate val-a        # frozen variant A on validation (sanity)
+.\.venv\Scripts\python -m kami.gecco.evaluate tune         # variant B and baselines, tuned on validation and frozen
+.\.venv\Scripts\python -m kami.gecco.evaluate test --model B   # one guarded test read per model (already done; refused again)
+.\.venv\Scripts\python -m kami.gecco.report                # report from the stored predictions
+```
+
 ### Round 2: frozen method, fresh test sets
 Round 1 results are kept in `results_round1/` (git tag `round1`). Round 2 re-tunes the decision rules on validation only (event F1, each detected event counted once, with at most 0.5 false alarms per day), freezes the configuration, and evaluates it once on fresh scenario test sets with bootstrap confidence intervals. See `PLAN_ROUND2.md`, `docs/decisions.md` (Round 2) and `results/SUMMARY.md`.
 

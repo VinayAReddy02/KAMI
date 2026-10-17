@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-12
-**Current step:** Round 7 IN PROGRESS (stopped at usage limit): N1, N2, G0-G4 DONE, all five GECCO test reads done (never repeat them); G5 report done (python -m kami.gecco.report) and SUMMARY section added. NEXT: G6 docs (docs/gecco.md, datasets.md, decisions.md Round 7 Part G incl. results and the protocol's tie-break wording 'higher r_min' which is not stricter, README reproduce steps, teacher_scope real-data row, real_data_search 'used in Round 7', LIMITS first line in make_summary mentions GECCO), commit 'round 7 G', then N3 (check_round7 full, earlier checks, restore Round 1 logs, CLAUDE/PROGRESS, final commit, push per rule 6).
+**Current step:** Round 7 IN PROGRESS: N1, N2 and Part G (G0-G6) DONE and committed. NEXT: N3 close-out: check_round7.py full (runs check_round6 --part a --part c -> check_round5 -> check_telegram -> check_round2 -> check_step_N), pytest -q, npm build/test, Playwright; restore the three Round 1 logs if time-stamp-only; CLAUDE.md round history (Round 7 done, layout gains src/kami/gecco/), PROGRESS; final commit 'round 7: node numbers everywhere + live-test fixes'; push origin master per rule 6 (clean tree, .env untracked, no token in tracked files), record hash; delete cron 2ed473d1.
 **Mode:** unattended allowed; never wait for answers. Opus 5.5 high effort, single-agent execution, token-efficient (see CLAUDE.md *Working mode*).
 
 ## Steps
@@ -57,6 +57,7 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Round 7 G6: docs/gecco.md (numbers read from results/gecco by script), datasets.md row, real_data_search.md status, teacher_scope T4, README reproduce steps, decisions (Part G incl. tie-break wording note and the descriptive alert-time column), SUMMARY limitation line; check_round7 --quick passes.
 - 2026-10-12 Round 7 G4/G5: test reads (one each): A 0/12 events (no alert), B 4/12 (evF1 0.444, 0.09 FA/day, alert time 0.1%), fixed_threshold 11/12 (0.917, alert time 3.4%), isolation_forest 11/12 (0.733), ocsvm 9/12 (0.857). B - best baseline evF1 CI [-0.783, -0.218] (B worse); B - A [0.133, 0.737]. On GECCO's own 1-min F1 B is best (0.180 vs 0.161). results/gecco/eval.md + json + 2 figures; SUMMARY real-data section.
 - 2026-10-12 Round 7 G3: variant A test read done (one read, logged): 0 alerts on the test part.
 - 2026-10-12 Round 7 G4: tuned on validation only and frozen: B = logreg_C1 (val AP 0.45; HGB 0.00-0.01), r_min 0.4, tau_p 6, lambda 0, gamma_q 0.4 -> val 8/12 events, event-counted F1 0.727, 0.057 FA/day. Baselines on val: fixed_threshold k=8 9/12 F1 0.783 (best baseline), isolation_forest 9/12 F1 0.692, ocsvm 9/12 F1 0.720.

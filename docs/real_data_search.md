@@ -8,6 +8,8 @@ bursts or water-quality incidents. **Nothing was downloaded or integrated.** Onl
 **What would fit.** Measured (not simulated) data from a water supply; flow, pressure, turbidity or conductivity/TDS;
 a sampling step of 15 minutes or finer; event labels with start and end; an open licence.
 
+**Status: used in Round 7 (2026-10-17).** Candidate 2, the GECCO Industrial Challenge 2019 dataset, was downloaded with the user's approval and used for a real-data test of the quality stream (`docs/gecco.md`, `results/gecco/eval.md`).
+
 ## Candidates
 
 | # | Dataset | Link | Licence | What it contains | Real? | Labels | Fit for KAMI |
