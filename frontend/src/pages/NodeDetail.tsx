@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
 import { AlertList } from "../components/AlertList";
-import { ControlBar } from "../components/ControlBar";
 import { EvidenceBars } from "../components/EvidenceBars";
+import { ArrowIcon } from "../components/Icons";
 import { StatusBadge } from "../components/StatusBadge";
 import { TimeSeries } from "../components/TimeSeries";
-import { nodeLabel } from "../labels";
+import { nodeLabel, nodeNumber } from "../labels";
 import { useLive } from "../live";
 import type { NodeState } from "../types";
 
@@ -36,13 +36,15 @@ export function NodeDetail({ id }: { id: string }) {
   const a = latest[id] ?? state?.latest;
   return (
     <div className="detail">
-      <p><a className="link" href="#/">← Overview</a></p>
+      <p><a className="link back" href="#/"><ArrowIcon dir="left" /> Overview</a></p>
       <header className="detail-head">
+        <span className={`plate cat-${(a?.category ?? "Normal").toLowerCase()}`} aria-hidden="true">{nodeNumber(info, id)}</span>
         <h1>{nodeLabel(info, id)}</h1>
-        {a && <StatusBadge category={a.category} priority={a.priority} />}
-        {a?.confidence != null && <span className="conf">Confidence {a.confidence.toFixed(2)}</span>}
+        <div className="detail-state">
+          {a && <StatusBadge category={a.category} priority={a.priority} />}
+          {a?.confidence != null && <span className="conf">Confidence <b>{a.confidence.toFixed(2)}</b></span>}
+        </div>
       </header>
-      <ControlBar defaultNode={id} />
       {loading && !state && <p className="state" role="status">Loading node state…</p>}
       {error && !state && (
         <p className="state error" role="alert">
@@ -59,13 +61,13 @@ export function NodeDetail({ id }: { id: string }) {
       )}
       {state && (
         <section className="charts" aria-label="Signals">
-          <TimeSeries points={state.series} field="flow" label="Flow" unit="m³/h" />
-          <TimeSeries points={state.series} field="pressure" label="Pressure" unit="m" />
-          <TimeSeries points={state.series} field="turbidity" label="Turbidity" unit="FNU" log />
+          <TimeSeries points={state.series} field="flow" label="Flow" unit="m³/h" timeAxis={false} />
+          <TimeSeries points={state.series} field="pressure" label="Pressure" unit="m" timeAxis={false} />
+          <TimeSeries points={state.series} field="turbidity" label="Turbidity" unit="FNU" log timeAxis={false} />
           <TimeSeries points={state.series} field="tds" label="TDS" unit="mg/L" log />
           <p className="legend">
-            Shading: <span className="lg infra">hatched = Infrastructure</span> <span className="lg quality">dotted = Quality</span>{" "}
-            <span className="lg combined">crossed = Combined</span>. Turbidity and TDS are on a log scale.
+            Shading: <span className="lg infra">hatched = Infrastructure</span> <span className="lg quality">dotted = Quality</span>
+            <span className="lg combined">crossed = Combined</span> <span>Turbidity and TDS are on a log scale.</span>
           </p>
         </section>
       )}

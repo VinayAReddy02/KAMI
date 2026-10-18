@@ -36,8 +36,12 @@ test("F02: no page scrolls sideways at 320 px (WCAG 1.4.10)", async ({ page }) =
   await page.setViewportSize({ width: 320, height: 640 });
   for (const hash of ALL_PAGES) {
     await open(page, hash);
+    await expect(page.locator("footer")).toContainText(/Alerts: (dry run|Telegram on)/); // late content (header pill) included
     await page.waitForTimeout(600);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth), hash).toBeLessThanOrEqual(320);
+    const wide = await page.evaluate(() => [...document.querySelectorAll("body *")]
+      .filter((e) => e.getBoundingClientRect().right > document.documentElement.clientWidth + 1 && !e.closest(".leaflet-pane"))
+      .slice(0, 4).map((e) => `${e.tagName}.${typeof e.className === "string" ? e.className.slice(0, 30) : "svg"}`).join(", "));
+    expect(await page.evaluate(() => document.documentElement.scrollWidth), `${hash} ${wide}`).toBeLessThanOrEqual(320);
   }
   await expect(page.getByRole("link", { name: "Method" })).toBeInViewport();
 });

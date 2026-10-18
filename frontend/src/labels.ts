@@ -23,6 +23,13 @@ export function nodeShort(n: NodeLike | undefined | null, fallbackId = ""): stri
   return n.number != null ? `${n.number}${SEP}${place}` : place;
 }
 
+/** The node's number for its stencilled plate (from the API field, else from the id node-N). */
+export function nodeNumber(n: NodeLike | undefined | null, fallbackId = ""): string {
+  if (n?.number != null) return String(n.number);
+  const m = /node-(\d+)$/.exec(n?.id ?? fallbackId);
+  return m ? m[1] : "·";
+}
+
 /** id -> node, for places that only have a node id (alerts). */
 export function nodeIndex(nodes: NodeLike[] | undefined): Record<string, NodeLike> {
   return Object.fromEntries((nodes ?? []).map((n) => [n.id, n]));

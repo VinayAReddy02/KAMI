@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { fmtTs } from "../components/AlertList";
+import { fmtTs, numberOf } from "../components/AlertList";
 import { StatusBadge } from "../components/StatusBadge";
 import { NodeName } from "../components/NodeName";
 import { nodeIndex, nodeShort } from "../labels";
@@ -60,10 +60,10 @@ export function Alerts() {
             </thead>
             <tbody>
               {rows.map((a) => (
-                <tr key={a.id}>
+                <tr key={a.id} className={a.status}>
                   <td><span className={`alert-status ${a.status}`}>{a.status === "active" ? "Active" : "Closed"}</span></td>
                   <td><StatusBadge category={a.category} priority={a.priority} compact /></td>
-                  <td><a className="link" href={`#/node/${a.node_id}`}><NodeName node={index[a.node_id]} id={a.node_id} /></a></td>
+                  <td><span className="cell-node"><span className={`plate cat-${a.category.toLowerCase()}${a.status === "closed" ? " closed" : ""}`} aria-hidden="true">{numberOf(a)}</span><a className="link" href={`#/node/${a.node_id}`}><NodeName node={index[a.node_id]} id={a.node_id} /></a></span></td>
                   <td>{fmtTs(a.start_ts)}</td>
                   <td>{fmtTs(a.status === "active" ? a.last_ts : a.end_ts)}</td>
                   <td className="num">{a.confidence == null ? "–" : a.confidence.toFixed(2)}</td>

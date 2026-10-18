@@ -1,0 +1,784 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-18T14:00:53+00:00",
+  "title": "Design System: KAMI",
+  "extensions": {
+    "colorMeta": {
+      "limewash-ground": {
+        "role": "neutral",
+        "displayName": "Limewash Ground",
+        "canonical": "#f1f3ef",
+        "tonalRamp": [
+          "#0a0c09",
+          "#232522",
+          "#3f403d",
+          "#5d5e5b",
+          "#7c7e7a",
+          "#9d9f9b",
+          "#c3c5c1",
+          "#edefeb"
+        ]
+      },
+      "limewash-strip": {
+        "role": "neutral",
+        "displayName": "Limewash Strip",
+        "canonical": "#e4e8e1",
+        "tonalRamp": [
+          "#0a0c08",
+          "#222520",
+          "#3e413b",
+          "#5b5f59",
+          "#7b7f78",
+          "#9ca099",
+          "#c2c6bf",
+          "#ecf0e9"
+        ]
+      },
+      "limewash-panel": {
+        "role": "neutral",
+        "displayName": "Limewash Panel",
+        "canonical": "#fbfcfa",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#242423",
+          "#3f403e",
+          "#5d5e5c",
+          "#7d7d7c",
+          "#9e9f9d",
+          "#c3c4c2",
+          "#eeefed"
+        ]
+      },
+      "limewash-rule": {
+        "role": "neutral",
+        "displayName": "Limewash Rule",
+        "canonical": "#c8cec4",
+        "tonalRamp": [
+          "#090d06",
+          "#21261e",
+          "#3d4239",
+          "#5a6057",
+          "#7a7f76",
+          "#9ba197",
+          "#c0c6bc",
+          "#ebf1e6"
+        ]
+      },
+      "stencil-ink": {
+        "role": "neutral",
+        "displayName": "Stencil Ink",
+        "canonical": "#16191d",
+        "tonalRamp": [
+          "#090b0f",
+          "#212428",
+          "#3d4045",
+          "#5a5e63",
+          "#7a7e83",
+          "#9b9fa4",
+          "#c0c4ca",
+          "#eaeff5"
+        ]
+      },
+      "stencil-ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "#485059",
+        "tonalRamp": [
+          "#060c13",
+          "#1e252d",
+          "#394149",
+          "#565f68",
+          "#767e88",
+          "#969faa",
+          "#bcc5d0",
+          "#e6f0fb"
+        ]
+      },
+      "municipal-enamel": {
+        "role": "primary",
+        "displayName": "Municipal-Blue Enamel",
+        "canonical": "#183a63",
+        "tonalRamp": [
+          "#000b1f",
+          "#01234a",
+          "#1e406a",
+          "#3c5f8b",
+          "#5b80ae",
+          "#7ba1d1",
+          "#a0c7f9",
+          "#e4f0fe"
+        ]
+      },
+      "on-enamel": {
+        "role": "neutral",
+        "displayName": "On Enamel",
+        "canonical": "#f1f3ef",
+        "tonalRamp": [
+          "#0a0c09",
+          "#232522",
+          "#3f403d",
+          "#5d5e5b",
+          "#7c7e7a",
+          "#9d9f9b",
+          "#c3c5c1",
+          "#edefeb"
+        ]
+      },
+      "on-enamel-soft": {
+        "role": "neutral",
+        "displayName": "On Enamel Soft",
+        "canonical": "#c9d6e6",
+        "tonalRamp": [
+          "#040c16",
+          "#1b2531",
+          "#36414e",
+          "#535f6c",
+          "#737e8d",
+          "#93a0af",
+          "#b9c5d5",
+          "#e4f0ff"
+        ]
+      },
+      "link-blue": {
+        "role": "primary",
+        "displayName": "Link Blue",
+        "canonical": "#1c4f8c",
+        "tonalRamp": [
+          "#000b1f",
+          "#01234b",
+          "#083f7a",
+          "#2c5e9d",
+          "#4c7fc0",
+          "#6ca1e4",
+          "#a0c7fa",
+          "#e4f0ff"
+        ]
+      },
+      "focus-amber": {
+        "role": "tertiary",
+        "displayName": "Focus Amber",
+        "canonical": "#b45309",
+        "tonalRamp": [
+          "#180500",
+          "#3e1700",
+          "#662d04",
+          "#914513",
+          "#c05e1c",
+          "#e58044",
+          "#fdb086",
+          "#ffeadf"
+        ]
+      },
+      "control-border": {
+        "role": "neutral",
+        "displayName": "Control Border",
+        "canonical": "#6c7785",
+        "tonalRamp": [
+          "#050c16",
+          "#1c2530",
+          "#37414d",
+          "#545f6c",
+          "#737e8d",
+          "#94a0ae",
+          "#b9c5d5",
+          "#e4f0fe"
+        ]
+      },
+      "paint-normal": {
+        "role": "secondary",
+        "displayName": "Normal Green Paint",
+        "canonical": "#00785a",
+        "tonalRamp": [
+          "#000f09",
+          "#042b1f",
+          "#004c38",
+          "#0f6e53",
+          "#2e9171",
+          "#55b392",
+          "#7cdab7",
+          "#c3fee6"
+        ]
+      },
+      "paint-infrastructure": {
+        "role": "secondary",
+        "displayName": "Infrastructure Ochre Paint",
+        "canonical": "#9a5a00",
+        "tonalRamp": [
+          "#150800",
+          "#371d01",
+          "#5c3507",
+          "#864e02",
+          "#ad6c21",
+          "#d28d47",
+          "#fab36e",
+          "#feebda"
+        ]
+      },
+      "paint-quality": {
+        "role": "secondary",
+        "displayName": "Quality Blue Paint",
+        "canonical": "#0a6ea8",
+        "tonalRamp": [
+          "#000c18",
+          "#04263e",
+          "#01446b",
+          "#106396",
+          "#2d84c0",
+          "#52a6e4",
+          "#91cbfa",
+          "#e1f1fe"
+        ]
+      },
+      "paint-combined": {
+        "role": "secondary",
+        "displayName": "Combined Plum Paint",
+        "canonical": "#9b3f73",
+        "tonalRamp": [
+          "#1b010f",
+          "#43062c",
+          "#6f134c",
+          "#92376b",
+          "#b6588b",
+          "#db79ad",
+          "#ffa3d2",
+          "#fee7f2"
+        ]
+      },
+      "paint-critical": {
+        "role": "secondary",
+        "displayName": "Critical Red",
+        "canonical": "#b42318",
+        "tonalRamp": [
+          "#1e0100",
+          "#480603",
+          "#7b0602",
+          "#ad1a10",
+          "#d44536",
+          "#fb6957",
+          "#fdada0",
+          "#ffe9e5"
+        ]
+      },
+      "paint-closed": {
+        "role": "secondary",
+        "displayName": "Closed Grey",
+        "canonical": "#5f656e",
+        "tonalRamp": [
+          "#070b12",
+          "#1f242c",
+          "#3b4048",
+          "#585e67",
+          "#777e87",
+          "#989fa9",
+          "#bec5cf",
+          "#e8effa"
+        ]
+      },
+      "night-ground": {
+        "role": "neutral",
+        "displayName": "Night Tank Ground",
+        "canonical": "#0d1826",
+        "tonalRamp": [
+          "#030b18",
+          "#192534",
+          "#344151",
+          "#515f70",
+          "#717f91",
+          "#91a0b3",
+          "#b6c6d9",
+          "#e4f0ff"
+        ]
+      },
+      "night-strip": {
+        "role": "neutral",
+        "displayName": "Night Strip",
+        "canonical": "#12213a",
+        "tonalRamp": [
+          "#010a21",
+          "#15243d",
+          "#2f405b",
+          "#4c5e7b",
+          "#6b7e9d",
+          "#8c9fbf",
+          "#b1c5e7",
+          "#e6effe"
+        ]
+      },
+      "night-panel": {
+        "role": "neutral",
+        "displayName": "Night Panel",
+        "canonical": "#152741",
+        "tonalRamp": [
+          "#000a21",
+          "#12243e",
+          "#2d405c",
+          "#4a5f7c",
+          "#697f9e",
+          "#8aa0c1",
+          "#afc6e8",
+          "#e5efff"
+        ]
+      },
+      "night-rule": {
+        "role": "neutral",
+        "displayName": "Night Rule",
+        "canonical": "#2a3e5a",
+        "tonalRamp": [
+          "#000a22",
+          "#11243e",
+          "#2c415d",
+          "#495f7d",
+          "#687f9e",
+          "#89a0c1",
+          "#aec6e8",
+          "#e5efff"
+        ]
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Night Ink",
+        "canonical": "#e8edf3",
+        "tonalRamp": [
+          "#080b0f",
+          "#212429",
+          "#3c4045",
+          "#5a5e63",
+          "#797e83",
+          "#9a9fa4",
+          "#c0c5ca",
+          "#eaeff5"
+        ]
+      },
+      "night-ink-soft": {
+        "role": "neutral",
+        "displayName": "Night Soft Ink",
+        "canonical": "#a7b4c4",
+        "tonalRamp": [
+          "#040c16",
+          "#1b2531",
+          "#36414e",
+          "#535f6d",
+          "#727f8d",
+          "#93a0af",
+          "#b8c6d6",
+          "#e5f0fd"
+        ]
+      },
+      "night-enamel": {
+        "role": "primary",
+        "displayName": "Night Enamel",
+        "canonical": "#1f4878",
+        "tonalRamp": [
+          "#000b1f",
+          "#042447",
+          "#174070",
+          "#365f91",
+          "#5580b4",
+          "#75a1d8",
+          "#9fc7fa",
+          "#e4f0ff"
+        ]
+      },
+      "night-link": {
+        "role": "primary",
+        "displayName": "Night Link",
+        "canonical": "#8cc4f2",
+        "tonalRamp": [
+          "#000c1a",
+          "#002640",
+          "#05436a",
+          "#2c628b",
+          "#4d83ae",
+          "#6ea5d1",
+          "#93cbf9",
+          "#e1f1fe"
+        ]
+      },
+      "night-focus": {
+        "role": "tertiary",
+        "displayName": "Night Focus Yellow",
+        "canonical": "#ffd166",
+        "tonalRamp": [
+          "#110a00",
+          "#2f2201",
+          "#503c07",
+          "#765900",
+          "#9a7820",
+          "#c39720",
+          "#ebbd51",
+          "#feedc7"
+        ]
+      },
+      "night-control-border": {
+        "role": "neutral",
+        "displayName": "Night Control Border",
+        "canonical": "#7690b2",
+        "tonalRamp": [
+          "#000b1f",
+          "#0e2440",
+          "#2a415f",
+          "#475f7f",
+          "#667fa0",
+          "#86a1c3",
+          "#abc7eb",
+          "#e5f0fe"
+        ]
+      },
+      "night-text-normal": {
+        "role": "tertiary",
+        "displayName": "Night Normal Text",
+        "canonical": "#3fd0a5",
+        "tonalRamp": [
+          "#010f09",
+          "#052b20",
+          "#034c39",
+          "#146e55",
+          "#1d9272",
+          "#16b98f",
+          "#54e0b4",
+          "#bfffe6"
+        ]
+      },
+      "night-text-infrastructure": {
+        "role": "tertiary",
+        "displayName": "Night Infrastructure Text",
+        "canonical": "#f0a83a",
+        "tonalRamp": [
+          "#130900",
+          "#332003",
+          "#583801",
+          "#7e540f",
+          "#a77116",
+          "#d48e0d",
+          "#fdb448",
+          "#feebd4"
+        ]
+      },
+      "night-text-quality": {
+        "role": "tertiary",
+        "displayName": "Night Quality Text",
+        "canonical": "#5ec0f2",
+        "tonalRamp": [
+          "#000d16",
+          "#042838",
+          "#014661",
+          "#10668a",
+          "#1888b7",
+          "#46aadb",
+          "#7bd0fd",
+          "#def2fe"
+        ]
+      },
+      "night-text-combined": {
+        "role": "tertiary",
+        "displayName": "Night Combined Text",
+        "canonical": "#e08bbb",
+        "tonalRamp": [
+          "#1c0011",
+          "#44022f",
+          "#691e4d",
+          "#8b3e6c",
+          "#ae5e8d",
+          "#d37faf",
+          "#fca4d5",
+          "#ffe7f3"
+        ]
+      },
+      "night-text-critical": {
+        "role": "tertiary",
+        "displayName": "Night Critical Text",
+        "canonical": "#ff7b72",
+        "tonalRamp": [
+          "#1e0101",
+          "#480608",
+          "#7b050f",
+          "#a62828",
+          "#cc4d48",
+          "#f37068",
+          "#fcaca4",
+          "#ffe9e6"
+        ]
+      },
+      "night-button-primary": {
+        "role": "primary",
+        "displayName": "Night Primary Button",
+        "canonical": "#3a6ea8",
+        "tonalRamp": [
+          "#000b1e",
+          "#012448",
+          "#064076",
+          "#2b5f98",
+          "#4c80bb",
+          "#6ca2e0",
+          "#9cc8fc",
+          "#e4f0fd"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "node-poster": {
+        "displayName": "Node Poster",
+        "purpose": "Node number on its own page (3.8rem under 520 px)."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "KAMI in the shell header."
+      },
+      "plate-numeral": {
+        "displayName": "Plate Numeral",
+        "purpose": "Node numbers on plates, pins and register rows (1rem to 2.3rem)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page titles; 2rem for the node name, 1.8rem on Method."
+      },
+      "count": {
+        "displayName": "Count",
+        "purpose": "Status band counts, in Hind because the stencil 0 reads as ()."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Explanations and table text."
+      },
+      "section-label": {
+        "displayName": "Section Label",
+        "purpose": "Uppercase h2 naming a panel, chart captions, table headers."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Control labels, replay time, counts beside filters."
+      }
+    },
+    "shadows": [
+      {
+        "name": "map-lift",
+        "value": "0 1px 2px rgba(22,25,29,0.12), 0 4px 14px rgba(22,25,29,0.08)",
+        "purpose": "Map frame, markers, map labels, urgent plate (light theme)."
+      },
+      {
+        "name": "map-lift-night",
+        "value": "0 1px 2px rgba(0,0,0,0.4), 0 6px 18px rgba(0,0,0,0.3)",
+        "purpose": "Same roles in the night theme."
+      },
+      {
+        "name": "plate-keyline-night",
+        "value": "inset 0 0 0 1px rgba(241,243,239,0.7)",
+        "purpose": "Edge of every painted band on the night ground (transparent by day)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-change",
+        "value": "0.15s ease-out",
+        "purpose": "Colour transitions on buttons, tabs and register rows; 1 px lift on the urgent plate."
+      },
+      {
+        "name": "evidence-fill",
+        "value": "width 0.3s ease-out",
+        "purpose": "Evidence bar fill."
+      },
+      {
+        "name": "connecting-pulse",
+        "value": "opacity 1s infinite",
+        "purpose": "Connection dot while connecting or reconnecting."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "none",
+        "purpose": "All animation and transition removed under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "nav-tight",
+        "value": "400px"
+      },
+      {
+        "name": "single-band-column",
+        "value": "420px"
+      },
+      {
+        "name": "poster-small",
+        "value": "520px"
+      },
+      {
+        "name": "short-node-names",
+        "value": "600px"
+      },
+      {
+        "name": "explain-stack",
+        "value": "760px"
+      },
+      {
+        "name": "overview-stack",
+        "value": "960px"
+      }
+    ],
+    "patterns": [
+      {
+        "name": "hatch-infrastructure",
+        "value": "8 px diagonal white hatch, 30 % opacity",
+        "purpose": "Infrastructure paint."
+      },
+      {
+        "name": "dots-quality",
+        "value": "8 px white dot grid, 38 % opacity",
+        "purpose": "Quality paint."
+      },
+      {
+        "name": "cross-combined",
+        "value": "9 px white cross, 30 % opacity",
+        "purpose": "Combined paint."
+      }
+    ],
+    "mapTiles": {
+      "light": "grayscale(1) brightness(0.96) contrast(1.05)",
+      "night": "invert(1) grayscale(1) brightness(0.95) contrast(0.85) sepia(0.35) hue-rotate(178deg) saturate(1.4)",
+      "fadeAnimation": false
+    }
+  },
+  "components": [
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Standard control: panel fill, 1 px control border, 6 px corners, drawn icon before the word.",
+      "html": "<button class=\"ds-btn\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 3.2v9.6L12.6 8z\" fill=\"currentColor\"/></svg>Resume</button>",
+      "css": ":host{--ground:#f1f3ef;--ground-2:#e4e8e1;--panel:#fbfcfa;--rule:#c8cec4;--ink:#16191d;--ink-2:#485059;--shell:#183a63;--on-shell:#f1f3ef;--on-shell-2:#c9d6e6;--focus:#b45309;--control-border:#6c7785;--paint-normal:#00785a;--paint-infra:#9a5a00;--paint-quality:#0a6ea8;--paint-combined:#9b3f73;--paint-closed:#5f656e;--c-infra:#9a5a00;--c-critical:#b42318;--r:6px;--shadow:0 1px 2px rgba(22,25,29,.12),0 4px 14px rgba(22,25,29,.08);--stencil:'Big Shoulders Stencil Display','Hind',system-ui,sans-serif;--sans:'Hind','Segoe UI',system-ui,sans-serif;--pat-infra:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M-2 2l4-4M0 8l8-8M6 10l4-4' stroke='%23fff' stroke-opacity='.3' stroke-width='2'/%3E%3C/svg%3E\");--pat-quality:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%23fff' fill-opacity='.38'/%3E%3C/svg%3E\");--pat-combined:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Cpath d='M0 0l9 9M9 0L0 9' stroke='%23fff' stroke-opacity='.3' stroke-width='1.5'/%3E%3C/svg%3E\");font-family:var(--sans);color:var(--ink)} .ds-btn{font:600 15px/1.5 var(--sans);color:var(--ink);background:var(--panel);border:1px solid var(--control-border);border-radius:var(--r);padding:.32rem .75rem;min-height:2.1rem;display:inline-flex;align-items:center;gap:.45rem;cursor:pointer;transition:background-color .15s ease-out}.ds-btn:hover{background:var(--ground-2)}.ds-btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one enamel action on the replay strip.",
+      "html": "<button class=\"ds-btn-primary\">Inject event</button>",
+      "css": ":host{--ground:#f1f3ef;--ground-2:#e4e8e1;--panel:#fbfcfa;--rule:#c8cec4;--ink:#16191d;--ink-2:#485059;--shell:#183a63;--on-shell:#f1f3ef;--on-shell-2:#c9d6e6;--focus:#b45309;--control-border:#6c7785;--paint-normal:#00785a;--paint-infra:#9a5a00;--paint-quality:#0a6ea8;--paint-combined:#9b3f73;--paint-closed:#5f656e;--c-infra:#9a5a00;--c-critical:#b42318;--r:6px;--shadow:0 1px 2px rgba(22,25,29,.12),0 4px 14px rgba(22,25,29,.08);--stencil:'Big Shoulders Stencil Display','Hind',system-ui,sans-serif;--sans:'Hind','Segoe UI',system-ui,sans-serif;--pat-infra:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M-2 2l4-4M0 8l8-8M6 10l4-4' stroke='%23fff' stroke-opacity='.3' stroke-width='2'/%3E%3C/svg%3E\");--pat-quality:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%23fff' fill-opacity='.38'/%3E%3C/svg%3E\");--pat-combined:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Cpath d='M0 0l9 9M9 0L0 9' stroke='%23fff' stroke-opacity='.3' stroke-width='1.5'/%3E%3C/svg%3E\");font-family:var(--sans);color:var(--ink)} .ds-btn-primary{font:600 15px/1.5 var(--sans);color:var(--on-shell);background:var(--shell);border:1px solid var(--shell);border-radius:var(--r);padding:.32rem .75rem;min-height:2.1rem;cursor:pointer;transition:background-color .15s ease-out}.ds-btn-primary:hover{background:#224c80}.ds-btn-primary:focus-visible{outline:3px solid var(--focus);outline-offset:2px}"
+    },
+    {
+      "name": "Select",
+      "kind": "input",
+      "refersTo": "select",
+      "description": "Native select styled as a control, label in soft ink.",
+      "html": "<label class=\"ds-field\">Node <select class=\"ds-select\"><option>1 · Katpadi</option><option>2 · Gandhi Nagar</option></select></label>",
+      "css": ":host{--ground:#f1f3ef;--ground-2:#e4e8e1;--panel:#fbfcfa;--rule:#c8cec4;--ink:#16191d;--ink-2:#485059;--shell:#183a63;--on-shell:#f1f3ef;--on-shell-2:#c9d6e6;--focus:#b45309;--control-border:#6c7785;--paint-normal:#00785a;--paint-infra:#9a5a00;--paint-quality:#0a6ea8;--paint-combined:#9b3f73;--paint-closed:#5f656e;--c-infra:#9a5a00;--c-critical:#b42318;--r:6px;--shadow:0 1px 2px rgba(22,25,29,.12),0 4px 14px rgba(22,25,29,.08);--stencil:'Big Shoulders Stencil Display','Hind',system-ui,sans-serif;--sans:'Hind','Segoe UI',system-ui,sans-serif;--pat-infra:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M-2 2l4-4M0 8l8-8M6 10l4-4' stroke='%23fff' stroke-opacity='.3' stroke-width='2'/%3E%3C/svg%3E\");--pat-quality:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%23fff' fill-opacity='.38'/%3E%3C/svg%3E\");--pat-combined:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Cpath d='M0 0l9 9M9 0L0 9' stroke='%23fff' stroke-opacity='.3' stroke-width='1.5'/%3E%3C/svg%3E\");font-family:var(--sans);color:var(--ink)} .ds-field{display:inline-flex;gap:.45rem;align-items:center;color:var(--ink-2);font:500 .88rem/1.5 var(--sans)}.ds-select{font:15px/1.5 var(--sans);color:var(--ink);background:var(--panel);border:1px solid var(--control-border);border-radius:var(--r);padding:.32rem .75rem;min-height:2.1rem}.ds-select:focus-visible{outline:3px solid var(--focus);outline-offset:2px}"
+    },
+    {
+      "name": "Shell Header",
+      "kind": "nav",
+      "refersTo": "nav-tab",
+      "description": "Enamel band: stencil wordmark, provenance pill, tabs with a reversed current tab.",
+      "html": "<header class=\"ds-top\"><span class=\"ds-wordmark\">KAMI</span><span class=\"ds-pill\">Demo network · fictional layout</span><nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Overview</a><a href=\"#\">Alerts</a><a href=\"#\">Complaints</a><a href=\"#\">Method</a></nav></header>",
+      "css": ":host{--ground:#f1f3ef;--ground-2:#e4e8e1;--panel:#fbfcfa;--rule:#c8cec4;--ink:#16191d;--ink-2:#485059;--shell:#183a63;--on-shell:#f1f3ef;--on-shell-2:#c9d6e6;--focus:#b45309;--control-border:#6c7785;--paint-normal:#00785a;--paint-infra:#9a5a00;--paint-quality:#0a6ea8;--paint-combined:#9b3f73;--paint-closed:#5f656e;--c-infra:#9a5a00;--c-critical:#b42318;--r:6px;--shadow:0 1px 2px rgba(22,25,29,.12),0 4px 14px rgba(22,25,29,.08);--stencil:'Big Shoulders Stencil Display','Hind',system-ui,sans-serif;--sans:'Hind','Segoe UI',system-ui,sans-serif;--pat-infra:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M-2 2l4-4M0 8l8-8M6 10l4-4' stroke='%23fff' stroke-opacity='.3' stroke-width='2'/%3E%3C/svg%3E\");--pat-quality:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%23fff' fill-opacity='.38'/%3E%3C/svg%3E\");--pat-combined:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Cpath d='M0 0l9 9M9 0L0 9' stroke='%23fff' stroke-opacity='.3' stroke-width='1.5'/%3E%3C/svg%3E\");font-family:var(--sans);color:var(--ink)} .ds-top{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.4rem;padding:.45rem 1.25rem;background:var(--shell);color:var(--on-shell)}.ds-wordmark{font:800 1.85rem/1 var(--stencil);letter-spacing:.06em}.ds-pill{font:500 .76rem/1.5 var(--sans);color:var(--on-shell-2);border:1px solid rgba(201,214,230,.55);border-radius:999px;padding:.1rem .65rem;white-space:nowrap}.ds-nav{display:flex;flex-wrap:wrap;gap:.25rem}.ds-nav a{text-decoration:none;color:var(--on-shell-2);padding:.4rem .85rem;border-radius:var(--r);font:600 15px/1.5 var(--sans);transition:background-color .15s ease-out,color .15s ease-out}.ds-nav a:hover{color:var(--on-shell);background:rgba(241,243,239,.1)}.ds-nav a[aria-current=page]{color:var(--shell);background:var(--on-shell)}.ds-nav a:focus-visible{outline:3px solid #ffd166;outline-offset:2px}"
+    },
+    {
+      "name": "Status Badge",
+      "kind": "chip",
+      "refersTo": "status-badge",
+      "description": "Shape icon + state word + priority bars and word, edged in the state colour.",
+      "html": "<span class=\"ds-badge\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M8 1.5 15 14H1z\" fill=\"currentColor\"/></svg><span class=\"ds-bt\">Infrastructure</span><span class=\"ds-prio\"><span class=\"ds-bars\" aria-hidden=\"true\"><i class=\"on\"></i><i class=\"on\"></i><i class=\"on\"></i><i class=\"on\"></i></span>Critical</span></span>",
+      "css": ":host{--ground:#f1f3ef;--ground-2:#e4e8e1;--panel:#fbfcfa;--rule:#c8cec4;--ink:#16191d;--ink-2:#485059;--shell:#183a63;--on-shell:#f1f3ef;--on-shell-2:#c9d6e6;--focus:#b45309;--control-border:#6c7785;--paint-normal:#00785a;--paint-infra:#9a5a00;--paint-quality:#0a6ea8;--paint-combined:#9b3f73;--paint-closed:#5f656e;--c-infra:#9a5a00;--c-critical:#b42318;--r:6px;--shadow:0 1px 2px rgba(22,25,29,.12),0 4px 14px rgba(22,25,29,.08);--stencil:'Big Shoulders Stencil Display','Hind',system-ui,sans-serif;--sans:'Hind','Segoe UI',system-ui,sans-serif;--pat-infra:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M-2 2l4-4M0 8l8-8M6 10l4-4' stroke='%23fff' stroke-opacity='.3' stroke-width='2'/%3E%3C/svg%3E\");--pat-quality:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%23fff' fill-opacity='.38'/%3E%3C/svg%3E\");--pat-combined:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Cpath d='M0 0l9 9M9 0L0 9' stroke='%23fff' stroke-opacity='.3' stroke-width='1.5'/%3E%3C/svg%3E\");font-family:var(--sans);color:var(--ink)} .ds-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.1rem .6rem;border-radius:999px;border:1.5px solid currentColor;color:var(--c-infra);font:700 .84rem/1.5 var(--sans);background:var(--panel)}.ds-bt{color:var(--ink)}.ds-prio{display:inline-flex;align-items:center;gap:.3rem;color:var(--c-critical)}.ds-bars{display:inline-flex;gap:2px;align-items:flex-end}.ds-bars i{width:4px;background:var(--rule);border-radius:1px}.ds-bars i:nth-child(1){height:5px}.ds-bars i:nth-child(2){height:8px}.ds-bars i:nth-child(3){height:11px}.ds-bars i:nth-child(4){height:14px}.ds-bars i.on{background:currentColor}"
+    },
+    {
+      "name": "The Band (plates)",
+      "kind": "custom",
+      "refersTo": "plate-normal",
+      "description": "Painted plate with a white stencilled node number; paint and pattern are the state, grey and patternless when closed.",
+      "html": "<span class=\"ds-plate\">1</span> <span class=\"ds-plate ds-infra\">2</span> <span class=\"ds-plate ds-quality\">5</span> <span class=\"ds-plate ds-combined\">3</span> <span class=\"ds-plate ds-closed\">4</span>",
+      "css": ":host{--ground:#f1f3ef;--ground-2:#e4e8e1;--panel:#fbfcfa;--rule:#c8cec4;--ink:#16191d;--ink-2:#485059;--shell:#183a63;--on-shell:#f1f3ef;--on-shell-2:#c9d6e6;--focus:#b45309;--control-border:#6c7785;--paint-normal:#00785a;--paint-infra:#9a5a00;--paint-quality:#0a6ea8;--paint-combined:#9b3f73;--paint-closed:#5f656e;--c-infra:#9a5a00;--c-critical:#b42318;--r:6px;--shadow:0 1px 2px rgba(22,25,29,.12),0 4px 14px rgba(22,25,29,.08);--stencil:'Big Shoulders Stencil Display','Hind',system-ui,sans-serif;--sans:'Hind','Segoe UI',system-ui,sans-serif;--pat-infra:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M-2 2l4-4M0 8l8-8M6 10l4-4' stroke='%23fff' stroke-opacity='.3' stroke-width='2'/%3E%3C/svg%3E\");--pat-quality:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%23fff' fill-opacity='.38'/%3E%3C/svg%3E\");--pat-combined:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Cpath d='M0 0l9 9M9 0L0 9' stroke='%23fff' stroke-opacity='.3' stroke-width='1.5'/%3E%3C/svg%3E\");font-family:var(--sans);color:var(--ink)} .ds-plate{display:inline-grid;place-items:center;min-width:2.1em;padding:0 .3em;border-radius:4px;color:#fff;font-family:var(--stencil);font-weight:800;line-height:1.15;letter-spacing:.02em;font-variant-numeric:tabular-nums;background-color:var(--paint-normal)}.ds-infra{background-color:var(--paint-infra);background-image:var(--pat-infra)}.ds-quality{background-color:var(--paint-quality);background-image:var(--pat-quality)}.ds-combined{background-color:var(--paint-combined);background-image:var(--pat-combined)}.ds-closed{background-color:var(--paint-closed);background-image:none}.ds-plate{font-size:1.6rem}"
+    },
+    {
+      "name": "Status Bands",
+      "kind": "custom",
+      "refersTo": "status-band",
+      "description": "Network at a glance: a painted band per state with a Hind count, shape icon and word; an empty state is unpainted with a swatch of its paint.",
+      "html": "<div class=\"ds-strip\"><div class=\"ds-si\"><b>6</b><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"8\" cy=\"8\" r=\"6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg><span>Normal</span></div><div class=\"ds-si ds-q\"><b>1</b><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M8 1 15 8 8 15 1 8z\" fill=\"currentColor\"/></svg><span>Quality</span></div><div class=\"ds-si ds-empty\"><b>0</b><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M5 1h6l4 4v6l-4 4H5l-4-4V5z\" fill=\"currentColor\"/></svg><span>Combined</span></div></div>",
+      "css": ":host{--ground:#f1f3ef;--ground-2:#e4e8e1;--panel:#fbfcfa;--rule:#c8cec4;--ink:#16191d;--ink-2:#485059;--shell:#183a63;--on-shell:#f1f3ef;--on-shell-2:#c9d6e6;--focus:#b45309;--control-border:#6c7785;--paint-normal:#00785a;--paint-infra:#9a5a00;--paint-quality:#0a6ea8;--paint-combined:#9b3f73;--paint-closed:#5f656e;--c-infra:#9a5a00;--c-critical:#b42318;--r:6px;--shadow:0 1px 2px rgba(22,25,29,.12),0 4px 14px rgba(22,25,29,.08);--stencil:'Big Shoulders Stencil Display','Hind',system-ui,sans-serif;--sans:'Hind','Segoe UI',system-ui,sans-serif;--pat-infra:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M-2 2l4-4M0 8l8-8M6 10l4-4' stroke='%23fff' stroke-opacity='.3' stroke-width='2'/%3E%3C/svg%3E\");--pat-quality:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%23fff' fill-opacity='.38'/%3E%3C/svg%3E\");--pat-combined:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Cpath d='M0 0l9 9M9 0L0 9' stroke='%23fff' stroke-opacity='.3' stroke-width='1.5'/%3E%3C/svg%3E\");font-family:var(--sans);color:var(--ink)} .ds-strip{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;max-width:380px}.ds-si{display:flex;align-items:center;gap:.5rem;padding:.3rem .75rem;border-radius:var(--r);color:#fff;background-color:var(--paint-normal);font:600 .88rem/1.5 var(--sans)}.ds-si b{font:700 1.7rem/1 var(--sans);font-variant-numeric:tabular-nums;min-width:1.1ch}.ds-q{background-color:var(--paint-quality);background-image:var(--pat-quality)}.ds-empty{background:var(--panel);color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--rule)}.ds-empty::after{content:'';margin-left:auto;width:.95rem;height:.95rem;border-radius:2px;background:var(--paint-combined) var(--pat-combined)}"
+    },
+    {
+      "name": "Urgent Plate",
+      "kind": "card",
+      "refersTo": "urgent-plate",
+      "description": "The single most urgent alert, reversed in ink; one per screen.",
+      "html": "<a class=\"ds-urgent\" href=\"#\"><span class=\"ds-plate ds-infra\">2</span><span><b>Gandhi Nagar Tank (node-2 · Ward 2)</b><small>since 05:20 · confidence 0.69</small>Infrastructure anomaly, priority Critical.</span></a>",
+      "css": ":host{--ground:#f1f3ef;--ground-2:#e4e8e1;--panel:#fbfcfa;--rule:#c8cec4;--ink:#16191d;--ink-2:#485059;--shell:#183a63;--on-shell:#f1f3ef;--on-shell-2:#c9d6e6;--focus:#b45309;--control-border:#6c7785;--paint-normal:#00785a;--paint-infra:#9a5a00;--paint-quality:#0a6ea8;--paint-combined:#9b3f73;--paint-closed:#5f656e;--c-infra:#9a5a00;--c-critical:#b42318;--r:6px;--shadow:0 1px 2px rgba(22,25,29,.12),0 4px 14px rgba(22,25,29,.08);--stencil:'Big Shoulders Stencil Display','Hind',system-ui,sans-serif;--sans:'Hind','Segoe UI',system-ui,sans-serif;--pat-infra:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M-2 2l4-4M0 8l8-8M6 10l4-4' stroke='%23fff' stroke-opacity='.3' stroke-width='2'/%3E%3C/svg%3E\");--pat-quality:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%23fff' fill-opacity='.38'/%3E%3C/svg%3E\");--pat-combined:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Cpath d='M0 0l9 9M9 0L0 9' stroke='%23fff' stroke-opacity='.3' stroke-width='1.5'/%3E%3C/svg%3E\");font-family:var(--sans);color:var(--ink)} .ds-plate{display:inline-grid;place-items:center;min-width:2.1em;padding:0 .3em;border-radius:4px;color:#fff;font-family:var(--stencil);font-weight:800;line-height:1.15;letter-spacing:.02em;font-variant-numeric:tabular-nums;background-color:var(--paint-normal)}.ds-infra{background-color:var(--paint-infra);background-image:var(--pat-infra)}.ds-quality{background-color:var(--paint-quality);background-image:var(--pat-quality)}.ds-combined{background-color:var(--paint-combined);background-image:var(--pat-combined)}.ds-closed{background-color:var(--paint-closed);background-image:none}.ds-urgent{display:grid;grid-template-columns:auto 1fr;gap:.8rem;align-items:start;padding:.85rem .95rem;background:var(--ink);color:var(--ground);border-radius:8px;text-decoration:none;box-shadow:var(--shadow);font:.86rem/1.4 var(--sans);transition:transform .15s ease-out;max-width:380px}.ds-urgent:hover{transform:translateY(-1px)}.ds-urgent:focus-visible{outline:3px solid var(--focus);outline-offset:2px}.ds-urgent b{display:block;font-size:1.02rem;line-height:1.25}.ds-urgent small{display:block;opacity:.85;font-size:.82rem;margin:.15rem 0 .3rem}.ds-urgent .ds-plate{font-size:2.3rem;min-width:1.55em}"
+    },
+    {
+      "name": "Alert Register Row",
+      "kind": "custom",
+      "refersTo": "plate-closed",
+      "description": "Register rows: closed alerts stay, struck through with a grey plate.",
+      "html": "<ul class=\"ds-reg\"><li><span class=\"ds-plate ds-quality\">5</span><span><b>Old Town Junction (node-5 · Ward 5)</b><em class=\"ds-act\">Active</em></span></li><li class=\"ds-cl\"><span class=\"ds-plate ds-closed\">5</span><span><b>Old Town Junction (node-5 · Ward 5)</b><em>Closed</em></span></li></ul>",
+      "css": ":host{--ground:#f1f3ef;--ground-2:#e4e8e1;--panel:#fbfcfa;--rule:#c8cec4;--ink:#16191d;--ink-2:#485059;--shell:#183a63;--on-shell:#f1f3ef;--on-shell-2:#c9d6e6;--focus:#b45309;--control-border:#6c7785;--paint-normal:#00785a;--paint-infra:#9a5a00;--paint-quality:#0a6ea8;--paint-combined:#9b3f73;--paint-closed:#5f656e;--c-infra:#9a5a00;--c-critical:#b42318;--r:6px;--shadow:0 1px 2px rgba(22,25,29,.12),0 4px 14px rgba(22,25,29,.08);--stencil:'Big Shoulders Stencil Display','Hind',system-ui,sans-serif;--sans:'Hind','Segoe UI',system-ui,sans-serif;--pat-infra:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M-2 2l4-4M0 8l8-8M6 10l4-4' stroke='%23fff' stroke-opacity='.3' stroke-width='2'/%3E%3C/svg%3E\");--pat-quality:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%23fff' fill-opacity='.38'/%3E%3C/svg%3E\");--pat-combined:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Cpath d='M0 0l9 9M9 0L0 9' stroke='%23fff' stroke-opacity='.3' stroke-width='1.5'/%3E%3C/svg%3E\");font-family:var(--sans);color:var(--ink)} .ds-plate{display:inline-grid;place-items:center;min-width:2.1em;padding:0 .3em;border-radius:4px;color:#fff;font-family:var(--stencil);font-weight:800;line-height:1.15;letter-spacing:.02em;font-variant-numeric:tabular-nums;background-color:var(--paint-normal)}.ds-infra{background-color:var(--paint-infra);background-image:var(--pat-infra)}.ds-quality{background-color:var(--paint-quality);background-image:var(--pat-quality)}.ds-combined{background-color:var(--paint-combined);background-image:var(--pat-combined)}.ds-closed{background-color:var(--paint-closed);background-image:none}.ds-reg{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule);max-width:380px;font:15px/1.5 var(--sans)}.ds-reg li{display:grid;grid-template-columns:auto 1fr;gap:.7rem;padding:.6rem .35rem;border-bottom:1px solid var(--rule);transition:background-color .15s ease-out}.ds-reg li:hover{background:var(--ground-2)}.ds-reg .ds-plate{font-size:1.25rem}.ds-reg span{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}.ds-reg b{font-weight:600}.ds-reg em{margin-left:auto;font:normal 700 .7rem/1.5 var(--sans);letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:0 .4rem;color:var(--ink-2);border:1px solid var(--ink-2)}.ds-reg em.ds-act{color:var(--ground);background:var(--ink);border-color:var(--ink)}.ds-cl b{text-decoration:line-through;text-decoration-thickness:1.5px;color:var(--ink-2)}"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Bordered panel with no shadow; its uppercase section label is its heading.",
+      "html": "<section class=\"ds-card\"><h2>Why</h2><p>Infrastructure anomaly, priority Critical (confidence 0.69).</p></section>",
+      "css": ":host{--ground:#f1f3ef;--ground-2:#e4e8e1;--panel:#fbfcfa;--rule:#c8cec4;--ink:#16191d;--ink-2:#485059;--shell:#183a63;--on-shell:#f1f3ef;--on-shell-2:#c9d6e6;--focus:#b45309;--control-border:#6c7785;--paint-normal:#00785a;--paint-infra:#9a5a00;--paint-quality:#0a6ea8;--paint-combined:#9b3f73;--paint-closed:#5f656e;--c-infra:#9a5a00;--c-critical:#b42318;--r:6px;--shadow:0 1px 2px rgba(22,25,29,.12),0 4px 14px rgba(22,25,29,.08);--stencil:'Big Shoulders Stencil Display','Hind',system-ui,sans-serif;--sans:'Hind','Segoe UI',system-ui,sans-serif;--pat-infra:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M-2 2l4-4M0 8l8-8M6 10l4-4' stroke='%23fff' stroke-opacity='.3' stroke-width='2'/%3E%3C/svg%3E\");--pat-quality:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%23fff' fill-opacity='.38'/%3E%3C/svg%3E\");--pat-combined:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Cpath d='M0 0l9 9M9 0L0 9' stroke='%23fff' stroke-opacity='.3' stroke-width='1.5'/%3E%3C/svg%3E\");font-family:var(--sans);color:var(--ink)} .ds-card{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:.95rem 1.1rem}.ds-card h2{font:700 .8rem/1.5 var(--sans);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2);margin:0 0 .55rem}.ds-card p{margin:0;font:1.02rem/1.5 var(--sans)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Tank Band",
+    "overview": "Every sensor point is a municipal overhead water tank: its number stencilled in white on a painted band whose colour and pattern are its state. The same band appears on the map marker, on the node page as a poster-sized tile, in the status bands, on the most-urgent alert and at the head of every row of the alert register. An operator learns one object and reads it everywhere.\n\nThe ground is limewash (a cool off-white, never cream), the shell header is municipal-blue enamel, the ink is stencil black. The default theme is light, built for a daytime control room and a classroom projector; the night theme lays the same paints on deep tank-blue and draws a pale keyline round each painted band so it holds its edge on the dark ground. The density is that of an operations tool: full-width, tight vertical rhythm, every figure in tabular numerals. The world rejects the category default of neon status dots on a dark console beside a grid of white cards.\n\nHue is rationed. The map tiles are greyscale, the chrome is neutral or enamel blue, and the paint is the only colour that means anything. Because colour alone is never enough, every state also has a shape, a pattern and a word.",
+    "keyCharacteristics": [
+      "One painted, stencil-numbered band repeated on the map, the node page, the status bands, the urgent plate and the register.",
+      "State is carried four times: paint colour, fill pattern (solid, hatched, dotted, crossed), shape icon (circle, triangle, diamond, octagon with an exclamation mark) and the word.",
+      "Light limewash by default, deep tank-blue at night; the paints stay the same in both themes.",
+      "Stencil type only for node numbers and the wordmark; Hind for every word and every count.",
+      "Data provenance is always visible: \"Demo network · fictional layout\" in the header pill and on the map, \"Alerts: dry run\" in the header, \"Simulated data\" in the footer."
+    ],
+    "rules": [
+      {
+        "name": "The Paint Carries the Hue Rule",
+        "body": "Map tiles are filtered to greyscale (tinted tank-blue at night) so that on the map only the state paint has colour. No decorative colour enters the map or the status surfaces.",
+        "section": "colors"
+      },
+      {
+        "name": "The Four Carriers Rule",
+        "body": "Every status is shown as colour plus shape icon plus word, and a painted fill also carries its pattern: Normal solid with a circle, Infrastructure hatched with a triangle, Quality dotted with a diamond, Combined crossed with an octagon. A marker too crowded for its label still shows its state icon and word under the plate.",
+        "section": "colors"
+      },
+      {
+        "name": "The Measured Pair Rule",
+        "body": "A new foreground/background pair ships only with its contrast measured: 4.5:1 for text, 3:1 for control edges and non-text state, white numerals on paint at 5.4:1 or more.",
+        "section": "colors"
+      },
+      {
+        "name": "The Stencil Is for Numbers Rule",
+        "body": "Big Shoulders Stencil is used only for node numbers and the wordmark. Counts and every other figure are set in Hind: the stencil 0 reads as \"()\".",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Figures Rule",
+        "body": "Every number that can change or align (counts, times, confidence, chart ticks, table numbers) uses tabular numerals.",
+        "section": "typography"
+      },
+      {
+        "name": "The Only Lift Is on the Map Rule",
+        "body": "Cards, charts and tables do not cast shadows; they are bordered panels. Shadow is reserved for objects laid over the map and for the urgent plate.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** draw every status as paint colour plus pattern plus shape icon plus word, including on a crowded map.",
+      "**Do** set node numbers in Big Shoulders Stencil 800 in white on paint, and every count and word in Hind.",
+      "**Do** keep map tiles greyscale (tank-blue tinted at night) and tile fade off.",
+      "**Do** give only the single most urgent alert the reversed ink plate.",
+      "**Do** strike closed alerts through and keep them in the register and the table.",
+      "**Do** keep the provenance labels (\"Demo network · fictional layout\", \"Alerts: dry run\", \"Simulated data\") visible on every route and in both themes.",
+      "**Do** keep the control border on buttons and selects only, and measure every new colour pair to WCAG 2.1 AA.",
+      "**Do** stack the signal charts as full-width rows on one shared time axis."
+    ],
+    "donts": [
+      "**Don't** show a status by colour alone, or a painted plate without its state icon and word nearby.",
+      "**Don't** set counts or prose in the stencil face.",
+      "**Don't** add hue to the chrome, the map tiles or the panels; the paint is the only colour with meaning.",
+      "**Don't** reverse more than one alert on a screen.",
+      "**Don't** remove closed alerts from view.",
+      "**Don't** fall back to neon status dots on a dark console beside a grid of white cards.",
+      "**Don't** use typed Unicode arrows or glyphs as icons; use the drawn 16-unit icons."
+    ]
+  }
+}

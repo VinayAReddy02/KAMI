@@ -25,3 +25,7 @@ docs/teacher_scope_items.json
 .agents/
 .claude/skills/
 skills-lock.json
+
+# impeccable working files (Round 9): review captures and the hook cache stay local
+.impeccable/review/
+.impeccable/hook.cache.json

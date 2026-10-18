@@ -1,0 +1,45 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>KAMI · Network Drawing</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Hind:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;background:#eef3f7;color:#1b1f24;font:15px/1.4 Hind,sans-serif}
+.tb{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.06em}
+header{height:56px;border-bottom:2px solid #2b3a8c;display:flex;align-items:center;gap:24px;padding:0 24px;color:#2b3a8c}
+header .brand{font-size:26px;font-weight:700}
+nav a{margin-right:18px;font-weight:600;color:#2b3a8c}
+nav a.on{border-bottom:3px solid #2b3a8c;padding-bottom:4px}
+.ctl{height:48px;display:flex;gap:14px;align-items:center;padding:0 24px;border-bottom:1px solid #b8c4d6;font-size:14px}
+.ctl select,.ctl button{font:inherit;border:1px solid #2b3a8c;background:#fff;border-radius:3px;padding:4px 10px}
+main{display:grid;grid-template-columns:1fr 380px;height:764px}
+.sheet{position:relative;border-right:2px solid #2b3a8c;background-image:linear-gradient(#d7e1ee 1px,transparent 1px),linear-gradient(90deg,#d7e1ee 1px,transparent 1px);background-size:40px 40px}
+.sheet svg{position:absolute;inset:0}
+.nd{position:absolute;width:30px;height:30px;border:2px solid #2b3a8c;border-radius:50%;background:#eef3f7;display:grid;place-items:center;font-weight:700;color:#2b3a8c}
+.nd.alert{border-color:#c0392b;color:#c0392b}
+.cloud{position:absolute;border:2px dashed #c0392b;border-radius:40px;padding:6px 12px;color:#c0392b;font-size:13px;background:rgba(255,255,255,.7)}
+.block{padding:16px;display:flex;flex-direction:column;gap:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border:1px solid #2b3a8c;padding:4px 6px;text-align:left}
+th{background:#dde6f2}
+.rev{color:#c0392b;font-weight:600}
+.titleblock{border:2px solid #2b3a8c;padding:10px;font-size:13px}
+</style></head><body>
+<header><span class="brand tb">KAMI</span><nav class="tb"><a class="on">Overview</a><a>Alerts</a><a>Complaints</a><a>Method</a></nav><span style="margin-left:auto;font-size:13px">Demo network · fictional layout</span></header>
+<div class="ctl"><button>Pause</button><span>Replay time 2018-01-07 14:25</span><select><option>Burst (sudden)</option></select><select><option>4 · Bagayam</option></select><button>Inject event</button></div>
+<main><div class="sheet">
+<svg viewBox="0 0 1060 764"><path d="M120 140 L520 140 L640 330 L700 600 M520 140 L300 300 L410 470 L560 480 L640 330 M300 300 L380 640" stroke="#2b3a8c" stroke-width="3" fill="none"/></svg>
+<div class="nd" style="left:505px;top:125px">1</div><div class="nd alert" style="left:625px;top:315px">2</div><div class="nd" style="left:285px;top:285px">3</div>
+<div class="nd" style="left:685px;top:585px">4</div><div class="nd" style="left:395px;top:455px">5</div><div class="nd" style="left:545px;top:465px">6</div>
+<div class="nd" style="left:105px;top:125px">7</div><div class="nd" style="left:365px;top:625px">8</div>
+<div class="cloud" style="left:670px;top:290px">REV 2 · Infrastructure · High · 14:20</div>
+</div>
+<div class="block">
+<div class="titleblock tb">Node schedule · Demo network, fictional layout · Simulated data</div>
+<table><tr><th>No.</th><th>Sensor point</th><th>Ward</th><th>State</th></tr>
+<tr><td>1</td><td>Katpadi Intake</td><td>1</td><td>Normal</td></tr><tr class="rev"><td>2</td><td>Gandhi Nagar Tank</td><td>2</td><td>Infra · High</td></tr>
+<tr><td>3</td><td>Sathuvachari Main</td><td>3</td><td>Normal</td></tr><tr><td>4</td><td>Bagayam Booster</td><td>4</td><td>Normal</td></tr>
+<tr><td>5</td><td>Old Town Junction</td><td>5</td><td>Normal</td></tr><tr><td>6</td><td>Fort Road Valve</td><td>6</td><td>Normal</td></tr>
+<tr><td>7</td><td>Viruthampet Outlet</td><td>7</td><td>Normal</td></tr><tr><td>8</td><td>Thorapadi Reservoir</td><td>8</td><td>Normal</td></tr></table>
+<div class="titleblock"><b class="rev">REV 2</b> Gandhi Nagar Tank: pressure and flow unusual for 2.1 h, started suddenly. Confidence 0.69.</div>
+<div style="font-size:13px">Alerts: dry run</div>
+</div></main></body></html>

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Category, SeriesPoint } from "../types";
 
 interface Props {
@@ -7,11 +7,13 @@ interface Props {
   label: string;
   unit: string;
   log?: boolean;
+  /** only the last chart of the stack shows the shared time labels */
+  timeAxis?: boolean;
 }
 
-const W = 640;
-const H = 150;
-const PAD = { l: 48, r: 10, t: 10, b: 22 };
+const PAD_L = 52;
+const PAD_R = 12;
+const PAD_T = 10;
 
 // Anomaly shading: consecutive non-Normal steps (gaps up to GAP steps bridged) form one band. The band takes the
 // most severe category present (Combined > the most frequent of Infrastructure/Quality). Each category has its own texture.
@@ -34,7 +36,18 @@ function runs(points: SeriesPoint[]): { a: number; b: number; cat: Category }[] 
   });
 }
 
-export function TimeSeries({ points, field, label, unit, log = false }: Props) {
+export function TimeSeries({ points, field, label, unit, log = false, timeAxis = true }: Props) {
+  const box = useRef<HTMLDivElement>(null);
+  const [W, setW] = useState(640);
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setW(Math.max(260, Math.round(el.clientWidth))));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const H = timeAxis ? 128 : 106;
+  const PAD = { l: PAD_L, r: PAD_R, t: PAD_T, b: timeAxis ? 24 : 8 };
   const geo = useMemo(() => {
     const vals = points.map((p) => p[field]).filter((v): v is number => v !== null && Number.isFinite(v));
     if (vals.length < 2) return null;
@@ -64,7 +77,8 @@ export function TimeSeries({ points, field, label, unit, log = false }: Props) {
     });
     const unlog = (v: number) => (log ? Math.pow(10, v) : v);
     return { d, x, lo: unlog(lo + pad), hi: unlog(hi - pad), last: vals[vals.length - 1] };
-  }, [points, field, log]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [points, field, log, W, H]);
 
   const shade = useMemo(() => runs(points), [points]);
   const fmt = (v: number) => (Math.abs(v) >= 100 ? v.toFixed(0) : v.toFixed(2));
@@ -73,7 +87,7 @@ export function TimeSeries({ points, field, label, unit, log = false }: Props) {
     return (
       <figure className="chart">
         <figcaption>{label}</figcaption>
-        <p className="state empty">Waiting for data…</p>
+        <div ref={box} className="chart-box"><p className="state empty">Waiting for data…</p></div>
       </figure>
     );
   }
@@ -87,7 +101,8 @@ export function TimeSeries({ points, field, label, unit, log = false }: Props) {
           {fmt(geo.last)} {unit}
         </span>
       </figcaption>
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${label} over the last ${points.length} steps, latest ${fmt(geo.last)} ${unit}. Shaded bands mark anomalies.`}>
+      <div ref={box} className="chart-box">
+      <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img" aria-label={`${label} over the last ${points.length} steps, latest ${fmt(geo.last)} ${unit}. Shaded bands mark anomalies.`}>
         <defs>
           <pattern id="hatch-infra" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
             <rect width="6" height="6" fill="var(--c-infra)" fillOpacity="0.16" />
@@ -119,9 +134,10 @@ export function TimeSeries({ points, field, label, unit, log = false }: Props) {
         <path d={geo.d} className="series-line" fill="none" />
         <text x={PAD.l - 6} y={PAD.t + 8} textAnchor="end" className="tick">{fmt(geo.hi)}</text>
         <text x={PAD.l - 6} y={H - PAD.b} textAnchor="end" className="tick">{fmt(geo.lo)}</text>
-        <text x={PAD.l} y={H - 5} className="tick">{first}</text>
-        <text x={W - PAD.r} y={H - 5} textAnchor="end" className="tick">{lastTs}</text>
+        {timeAxis && <text x={PAD.l} y={H - 5} className="tick">{first}</text>}
+        {timeAxis && <text x={W - PAD.r} y={H - 5} textAnchor="end" className="tick">{lastTs}</text>}
       </svg>
+      </div>
     </figure>
   );
 }

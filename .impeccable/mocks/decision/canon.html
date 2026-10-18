@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>KAMI · Category standard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;background:#f3f4f6;color:#111827;font:14px/1.45 system-ui,sans-serif;display:grid;grid-template-columns:220px 1fr}
+aside{background:#fff;border-right:1px solid #e5e7eb;padding:20px 14px}
+aside b{font-size:20px;display:block;margin-bottom:20px}
+aside a{display:block;padding:8px 10px;border-radius:6px;color:#374151;margin-bottom:2px}
+aside a.on{background:#eff6ff;color:#2563eb;font-weight:600}
+main{padding:20px 24px;display:flex;flex-direction:column;gap:16px}
+.bar{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:10px 14px}
+.bar button,.bar select{font:inherit;border:1px solid #d1d5db;border-radius:6px;padding:5px 10px;background:#fff}
+.bar .p{background:#2563eb;color:#fff;border-color:#2563eb}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi div{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px}
+.kpi b{font-size:26px;display:block}
+.grid{display:grid;grid-template-columns:1fr 360px;gap:16px;flex:1}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px}
+.map{background:#e5e7eb;border-radius:8px;height:520px;position:relative}
+.dot{position:absolute;width:14px;height:14px;border-radius:50%;background:#10b981;border:2px solid #fff}
+.row{padding:8px 0;border-bottom:1px solid #f3f4f6}
+</style></head><body>
+<aside><b>KAMI</b><a class="on">Overview</a><a>Alerts</a><a>Complaints</a><a>Method</a><p style="margin-top:20px;font-size:12px;color:#6b7280">Demo network · fictional layout</p></aside>
+<main>
+<div class="bar"><button>Pause</button><span>Replay time 2018-01-07 14:25</span><select><option>Burst (sudden)</option></select><select><option>4 · Bagayam</option></select><button class="p">Inject event</button></div>
+<div class="kpi"><div><b>6</b>Normal</div><div><b>1</b>Infrastructure</div><div><b>1</b>Quality</div><div><b>0</b>Combined</div></div>
+<div class="grid"><div class="card"><div class="map"><span class="dot" style="left:300px;top:120px"></span><span class="dot" style="left:420px;top:260px;background:#f59e0b"></span><span class="dot" style="left:200px;top:300px;background:#3b82f6"></span><span class="dot" style="left:520px;top:400px"></span></div></div>
+<div class="card"><b>Live alerts</b><div class="row">Gandhi Nagar Tank (node-2 · Ward 2) · Infrastructure · High</div><div class="row">Old Town Junction (node-5 · Ward 5) · Quality · Medium</div><p style="font-size:12px;color:#6b7280;margin-top:10px">Alerts: dry run · Simulated data</p></div></div>
+</main></body></html>

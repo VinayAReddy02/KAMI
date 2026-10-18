@@ -49,7 +49,7 @@ test("the Alerts table filters by node and category", async ({ page }) => {
   await expect(rows.first()).toBeVisible();
   const n = await rows.count();
   await expect(count).toHaveText(new RegExp(`^${n} of \\d+ alerts$`));
-  for (const cell of await rows.locator("td:nth-child(3)").allInnerTexts()) expect(cell).toBe(NODE.label); // the short form is hidden at this width
+  for (const cell of await rows.locator("td:nth-child(3) a").allInnerTexts()) expect(cell).toBe(NODE.label); // the link text; the short form is hidden at this width (Round 9: a number plate precedes the link)
   await filters.getByLabel("Category").selectOption("Infrastructure");
   await expect(rows.first()).toBeVisible();
   for (const cell of await rows.locator("td:nth-child(2)").allTextContents()) expect(cell).toContain("Infrastructure");
@@ -98,17 +98,17 @@ test("numbered marker labels fit their marker at phone width (390 px)", async ({
   }
 });
 
-test("the theme toggle switches between dark and light and is remembered", async ({ page }) => {
+test("the theme toggle switches between light and dark and is remembered", async ({ page }) => {
   await page.goto("/#/");
   const html = page.locator("html");
-  await expect(html).toHaveAttribute("data-theme", "dark");
-  const dark = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-  await page.getByRole("button", { name: /Light/ }).click();
-  await expect(html).toHaveAttribute("data-theme", "light");
+  await expect(html).toHaveAttribute("data-theme", "light"); // Round 9: the daytime control room and the projector open light
+  const light = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
   await expect(page.getByRole("button", { name: /Dark/ })).toHaveAttribute("aria-pressed", "true");
-  expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).not.toBe(dark);
-  await page.reload();
-  await expect(html).toHaveAttribute("data-theme", "light");
   await page.getByRole("button", { name: /Dark/ }).click();
   await expect(html).toHaveAttribute("data-theme", "dark");
+  expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).not.toBe(light);
+  await page.reload();
+  await expect(html).toHaveAttribute("data-theme", "dark");
+  await page.getByRole("button", { name: /Light/ }).click();
+  await expect(html).toHaveAttribute("data-theme", "light");
 });

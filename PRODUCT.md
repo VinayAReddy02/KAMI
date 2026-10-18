@@ -38,7 +38,7 @@ KAMI is an anomaly-intelligence system for water networks, built as a solo colle
 
 ## Brand Commitments
 - Name: **KAMI**.
-- Binding look from the user's design brief (CLAUDE.md): dark **operations-console** look, light theme available via a toggle, **map-centred**; every status as colour plus icon plus text; loading, empty and error states, keyboard focus styles, responsive layout; no default template look.
+- Look **released for a full redesign** (user, 2026-10-18): the dark operations-console default and the old layout no longer bind. Still binding: every status as colour plus icon plus text; the **map as a core view**; a light/dark toggle; WCAG 2.1 AA; loading, empty and error states, keyboard focus, responsive layout; and it must **not look generic** (no admin template, no neon-on-black, no card grid).
 - Data labels are part of the identity and must stay visible: "Demo network, fictional layout", "Simulated data", "semi-synthetic", "dry run", and `real` only for the GECCO test.
 
 ## Evidence on Hand

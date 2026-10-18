@@ -1,0 +1,110 @@
+{
+  "title": "Choose the visual world for the KAMI dashboard",
+  "question": "The roll assigned Tank Band. Keep it, take an alternate, or re-roll. (You were away; Claude builds the assigned direction unless you pick another here.)",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Tank Band",
+      "kicker": "THE ROLL",
+      "lineage": "painted municipal overhead water tanks with stencilled ward numbers, Tamil Nadu",
+      "thesis": "Every sensor point wears its tank band: a stencilled ward number on a painted band whose colour and pattern are its state.",
+      "palette": ["#183a63", "#f1f3ef", "#17191c", "#e69f00", "#56b4e9", "#009e73", "#cc79a7"],
+      "materials": ["limewash ground", "municipal-blue enamel band", "stencilled numerals", "Hind for every word"],
+      "viewport": "Municipal-blue header with tabs, replay strip, the map with band markers left, four status bands and the live alert register right; the top alert alone on a reversed plate.",
+      "risk": "Stencil type turns into an industrial costume if it leaves the numbers.",
+      "raised": [
+        {"from": "challenger-metro", "raise": "Poster-scale type ramp: the node number is stencilled at poster size on its own page, caption-size everywhere else."},
+        {"from": "challenger-timetable", "raise": "Rank by weight, case and reversal: only the single most urgent alert is set on a reversed plate."},
+        {"from": "challenger-ticket", "raise": "Nothing disappears, it cancels: closed alerts stay in the register, struck with a CLOSED mark."},
+        {"from": "challenger-folio", "raise": "Registration: the four signal charts share one time axis and one onset mark."},
+        {"from": "challenger-feed", "raise": "One subject owns the node page: the node's band, number and state lead it."}
+      ],
+      "html": ".impeccable/mocks/decision/assigned.html",
+      "board": "https://impeccable.style/worlds/cards/digital-design-canon-metro-typographic-tiles.webp"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "Network Drawing",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "PWD / TWAD water-supply network drawings, diazo prints",
+      "thesis": "The network as the department's own drawing: diazo-blue lines, a title block per node, red-pencil revisions for alerts.",
+      "palette": ["#eef3f7", "#2b3a8c", "#c0392b", "#1b1f24"],
+      "materials": ["diazo print", "title block", "red pencil"],
+      "viewport": "Drawing-sheet ground, the map as the drawing, a title-block schedule of 8 nodes right, alerts as red revision clouds.",
+      "risk": "Blueprint is where most 'technical' redesigns land; familiar rather than new.",
+      "html": ".impeccable/mocks/decision/model-pick.html"
+    },
+    {
+      "id": "challenger-emission",
+      "kind": "challenger",
+      "catalogId": "operate-c-emission-line-rail",
+      "label": "Emission-Line Rail",
+      "verdict": "competitive",
+      "lineage": "spectrogram plates on a viewing box",
+      "thesis": "State as line form, not hue: each node's evidence drawn as hairlines on one calibrated rail.",
+      "palette": ["#2a2c30", "#e8e4da", "#f2c14e", "#7fb7e8"],
+      "materials": ["charcoal continuum", "hairline emission lines", "bone legends"],
+      "viewport": "Charcoal ground, the map left, a rail of 8 nodes right where solid, dashed, half-height and doubled lines carry state.",
+      "case": "Holds clarity (state encoded twice, by form and colour); operators do not know spectrograms.",
+      "risk": "Dark, abstract and quiet; may read as lab equipment.",
+      "html": ".impeccable/mocks/decision/challenger-emission.html",
+      "hero": "https://impeccable.style/worlds/cards/operate-c-emission-line-rail-hero.webp"
+    },
+    {
+      "id": "challenger-metro", "kind": "challenger", "catalogId": "digital-design-canon-metro-typographic-tiles",
+      "label": "Metro Tiles", "verdict": "declined", "lineage": "flat tile interfaces",
+      "thesis": "Giant lowercase type and colour tiles as the interface.", "palette": ["#000000", "#00aba9", "#ffffff"],
+      "materials": ["flat tiles", "cropped type"], "viewport": "A panorama of node tiles.", "risk": "Tiles replace the map.",
+      "case": "Loses both: operators do not identify with it and tiles bury the map.", "kept": "Poster-scale type ramp for the node number.",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-metro-typographic-tiles-hero.webp"
+    },
+    {
+      "id": "challenger-feed", "kind": "challenger", "catalogId": "pop-culture-shelf-vertical-video-feed-surface",
+      "label": "Vertical Feed", "verdict": "declined", "lineage": "full-screen video feeds",
+      "thesis": "One node per screen, flick to the next.", "palette": ["#000000", "#ffffff"],
+      "materials": ["full-bleed media", "glyph rail"], "viewport": "One node fills the viewport.", "risk": "Hides the network overview.",
+      "case": "Loses both: an operator needs the whole network at once.", "kept": "One subject owns the node page.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-vertical-video-feed-surface-hero.webp"
+    },
+    {
+      "id": "challenger-timetable", "kind": "challenger", "catalogId": "rw-timetable-slide-rack",
+      "label": "Timetable Slide Rack", "verdict": "declined", "lineage": "pocket airline timetables",
+      "thesis": "One type size; rank by weight, case, reversal and rule.", "palette": ["#d9a520", "#1d1d1b", "#f3ecd9", "#c0392b"],
+      "materials": ["tinted glass", "goldenrod bed"], "viewport": "Raked slides of node rows.", "risk": "The rake costs legibility.",
+      "case": "Loses both: the rake and single size slow reading.", "kept": "Only the most urgent alert gets a reversed plate.",
+      "hero": "https://impeccable.style/worlds/cards/rw-timetable-slide-rack-hero.webp"
+    },
+    {
+      "id": "challenger-folio", "kind": "challenger", "catalogId": "editorial-sequence-montage-botanical-folio-season",
+      "label": "Botanical Folio", "verdict": "declined", "lineage": "botanical plate folios",
+      "thesis": "Same scale and ground on every plate.", "palette": ["#efe6d2", "#3d6b35", "#b3261e"],
+      "materials": ["engraved plates", "sepia rules"], "viewport": "Nodes as plates.", "risk": "Decorative for an operator.",
+      "case": "Loses both: no link to water operations.", "kept": "Registration: charts share one time axis and onset mark.",
+      "hero": "https://impeccable.style/worlds/cards/editorial-sequence-montage-botanical-folio-season-hero.webp"
+    },
+    {
+      "id": "challenger-ticket", "kind": "challenger", "catalogId": "vernacular-ephemera-jet-age-ticket-wallet",
+      "label": "Ticket Wallet", "verdict": "declined", "lineage": "jet-age airline ticket wallets",
+      "thesis": "States stamp themselves; nothing disappears, it cancels.", "palette": ["#1b2a52", "#c8102e", "#ffffff", "#6b4c9a"],
+      "materials": ["carbon coupons", "VOID stamp"], "viewport": "Alerts as coupons.", "risk": "Airline nostalgia, foreign to the audience.",
+      "case": "Loses both: no audience link; coupons hide the map.", "kept": "Closed alerts stay listed, struck with CLOSED.",
+      "hero": "https://impeccable.style/worlds/cards/vernacular-ephemera-jet-age-ticket-wallet-hero.webp"
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code"},
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "The category standard",
+    "thesis": "A clean light operations dashboard: side navigation, white panels, one blue accent, executed impeccably.",
+    "palette": ["#ffffff", "#111827", "#2563eb", "#f3f4f6"],
+    "materials": ["clean grid", "soft panels"],
+    "viewport": "Side rail, KPI row, map and alert table in white panels.",
+    "risk": "Indistinguishable from every admin dashboard by design.",
+    "html": ".impeccable/mocks/decision/canon.html"
+  },
+  "steer": true
+}

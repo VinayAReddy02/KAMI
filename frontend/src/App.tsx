@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AlertPushStatus } from "./components/AlertPushStatus";
+import { MoonIcon, SunIcon } from "./components/Icons";
 import { ControlBar } from "./components/ControlBar";
 import { LiveProvider, useLive } from "./live";
 import { Alerts } from "./pages/Alerts";
@@ -21,9 +22,9 @@ function useHash(): string {
 function useTheme(): [string, () => void] {
   const [theme, setTheme] = useState<string>(() => {
     try {
-      return localStorage.getItem("kami-theme") ?? "dark";
+      return localStorage.getItem("kami-theme") ?? "light"; // daytime control room and classroom projector (Round 9)
     } catch {
-      return "dark";
+      return "light";
     }
   });
   useEffect(() => {
@@ -50,9 +51,9 @@ function Shell() {
       <a className="skip" href="#main">Skip to content</a>
       <header className="topbar">
         <div className="brand">
-          <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c5 7 9 11.500 9 16a9 9 0 0 1-18 0c0-4.500 4-9 9-16z" fill="var(--c-quality)" /></svg>
-          <span>KAMI</span>
+          <span className="wordmark">KAMI</span>
           <span className="chip" title="All data are replayed public datasets with injected scenarios">Demo network · fictional layout</span>
+          <AlertPushStatus chip />
         </div>
         <nav aria-label="Main">
           <a href="#/" aria-current={page === "overview" ? "page" : undefined}>Overview</a>
@@ -67,11 +68,12 @@ function Shell() {
           </span>
           {status && <span className="chip" title="Backend mode">{status.mode === "docker" ? "MQTT + TimescaleDB" : "Fallback: in-process bus + SQLite"}</span>}
           <button type="button" className="btn" onClick={toggle} aria-pressed={theme === "light"}>
-            {theme === "dark" ? "☀ Light" : "☾ Dark"}
+            {theme === "dark" ? <><SunIcon /> Light</> : <><MoonIcon /> Dark</>}
           </button>
         </div>
       </header>
       {page === "overview" && <ControlBar />}
+      {page === "node" && nodeMatch && <ControlBar key={nodeMatch[1]} defaultNode={decodeURIComponent(nodeMatch[1])} />}
       <main id="main" tabIndex={-1}>
         {page === "overview" && <Overview />}
         {page === "node" && nodeMatch && <NodeDetail id={decodeURIComponent(nodeMatch[1])} />}

@@ -1,8 +1,8 @@
 {
- "created_utc": "2026-10-18T07:43:07.425Z",
+ "created_utc": "2026-10-18T14:02:22.742Z",
  "made_by": "frontend/e2e/screens.spec.ts (Playwright, Chromium); not edited by hand",
  "data": "semi-synthetic replay; alert push in dry run",
- "replay_time": "2018-01-07T14:40:00",
+ "replay_time": "2018-01-07T14:35:00",
  "injected_event": {
   "type": "infra_burst",
   "node": "node-2",
@@ -16,7 +16,7 @@
    "page": "overview",
    "theme": "dark",
    "viewport": "1440x900",
-   "bytes": 526258,
+   "bytes": 559085,
    "map_tiles_loaded": true
   },
   {
@@ -24,28 +24,28 @@
    "page": "node_detail_injected_event",
    "theme": "dark",
    "viewport": "1440x900",
-   "bytes": 98139
+   "bytes": 144867
   },
   {
    "file": "alerts_dark_desktop_1440x900.png",
    "page": "alerts",
    "theme": "dark",
    "viewport": "1440x900",
-   "bytes": 46542
+   "bytes": 57110
   },
   {
    "file": "method_dark_desktop_1440x900.png",
    "page": "method",
    "theme": "dark",
    "viewport": "1440x900",
-   "bytes": 90439
+   "bytes": 142083
   },
   {
    "file": "overview_light_desktop_1440x900.png",
    "page": "overview",
    "theme": "light",
    "viewport": "1440x900",
-   "bytes": 549616,
+   "bytes": 470266,
    "map_tiles_loaded": true
   },
   {
@@ -53,28 +53,28 @@
    "page": "node_detail_injected_event",
    "theme": "light",
    "viewport": "1440x900",
-   "bytes": 97791
+   "bytes": 140692
   },
   {
    "file": "alerts_light_desktop_1440x900.png",
    "page": "alerts",
    "theme": "light",
    "viewport": "1440x900",
-   "bytes": 46585
+   "bytes": 55660
   },
   {
    "file": "method_light_desktop_1440x900.png",
    "page": "method",
    "theme": "light",
    "viewport": "1440x900",
-   "bytes": 92687
+   "bytes": 138356
   },
   {
    "file": "overview_dark_phone_390x844.png",
    "page": "overview",
    "theme": "dark",
    "viewport": "390x844",
-   "bytes": 249856,
+   "bytes": 296085,
    "map_tiles_loaded": true
   },
   {
@@ -82,28 +82,28 @@
    "page": "node_detail_injected_event",
    "theme": "dark",
    "viewport": "390x844",
-   "bytes": 96827
+   "bytes": 121726
   },
   {
    "file": "alerts_dark_phone_390x844.png",
    "page": "alerts",
    "theme": "dark",
    "viewport": "390x844",
-   "bytes": 33767
+   "bytes": 36945
   },
   {
    "file": "method_dark_phone_390x844.png",
    "page": "method",
    "theme": "dark",
    "viewport": "390x844",
-   "bytes": 84137
+   "bytes": 128162
   },
   {
    "file": "overview_light_phone_390x844.png",
    "page": "overview",
    "theme": "light",
    "viewport": "390x844",
-   "bytes": 257335,
+   "bytes": 244981,
    "map_tiles_loaded": true
   },
   {
@@ -111,21 +111,21 @@
    "page": "node_detail_injected_event",
    "theme": "light",
    "viewport": "390x844",
-   "bytes": 96587
+   "bytes": 119122
   },
   {
    "file": "alerts_light_phone_390x844.png",
    "page": "alerts",
    "theme": "light",
    "viewport": "390x844",
-   "bytes": 33006
+   "bytes": 36517
   },
   {
    "file": "method_light_phone_390x844.png",
    "page": "method",
    "theme": "light",
    "viewport": "390x844",
-   "bytes": 84370
+   "bytes": 122658
   }
  ]
 }

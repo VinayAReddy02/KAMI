@@ -1,0 +1,44 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>KAMI · Emission-Line Rail</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;background:linear-gradient(90deg,#26282c,#2f3237 40%,#2a2c30);color:#e8e4da;font:14px/1.4 Hind,sans-serif}
+header{height:52px;display:flex;align-items:center;gap:28px;padding:0 24px;border-bottom:1px solid #4a4d53}
+nav a{margin-right:16px;color:#bdb8ac}nav a.on{color:#e8e4da;border-bottom:1px solid #f2c14e}
+.ctl{height:46px;display:flex;gap:14px;align-items:center;padding:0 24px;border-bottom:1px solid #4a4d53;font-size:13px;color:#bdb8ac}
+.ctl button,.ctl select{font:inherit;background:#3a3d42;color:#e8e4da;border:1px solid #6b6f76;border-radius:3px;padding:3px 9px}
+main{display:grid;grid-template-columns:1fr 520px;height:802px}
+.map{position:relative;border-right:1px solid #4a4d53}
+.map i{position:absolute;width:2px;height:26px;background:#e8e4da}
+.map span{position:absolute;font-size:12px;color:#bdb8ac}
+.rail{position:relative;padding:24px}
+.rail .axis{position:absolute;left:160px;top:24px;bottom:24px;width:1px;background:#6b6f76}
+.r{position:relative;height:84px;display:flex;align-items:center}
+.r .name{width:140px;font-size:13px}
+.r .line{position:absolute;left:150px;height:2px;background:#7fb7e8}
+.r .live{height:40px;width:2px;left:220px;background:#7fb7e8;position:absolute}
+.r .dash{height:40px;width:0;border-left:2px dashed #e8e4da;left:300px;position:absolute}
+.r .dbl{height:56px;width:6px;border-left:2px solid #f2c14e;border-right:2px solid #f2c14e;left:420px;position:absolute}
+.plate{background:#3a3d42;padding:12px;margin-top:8px;font-size:13px}
+</style></head><body>
+<header><b>KAMI</b><nav><a class="on">Overview</a><a>Alerts</a><a>Complaints</a><a>Method</a></nav><span style="margin-left:auto;font-size:12px;color:#bdb8ac">Demo network · fictional layout · Simulated data</span></header>
+<div class="ctl"><button>Pause</button><span>Replay time 2018-01-07 14:25</span><select><option>Burst (sudden)</option></select><select><option>4 · Bagayam</option></select><button>Inject event</button></div>
+<main><div class="map">
+<i style="left:520px;top:140px"></i><span style="left:530px;top:142px">1 · Katpadi</span>
+<i style="left:600px;top:320px;background:#f2c14e;width:6px;border-left:2px solid #f2c14e"></i><span style="left:614px;top:322px;color:#f2c14e">2 · Gandhi Nagar · Infrastructure High</span>
+<i style="left:280px;top:290px"></i><span style="left:290px;top:292px">3 · Sathuvachari</span>
+<i style="left:700px;top:570px"></i><span style="left:710px;top:572px">4 · Bagayam</span>
+<i style="left:420px;top:430px"></i><span style="left:430px;top:432px">5 · Old Town</span>
+<i style="left:560px;top:480px"></i><span style="left:570px;top:482px">6 · Fort Road</span>
+<i style="left:330px;top:110px"></i><span style="left:340px;top:112px">7 · Viruthampet</span>
+<i style="left:380px;top:640px"></i><span style="left:390px;top:642px">8 · Thorapadi</span>
+</div>
+<div class="rail"><div class="axis"></div>
+<div class="r"><span class="name">2 · Gandhi Nagar</span><span class="dbl"></span></div>
+<div class="r"><span class="name">5 · Old Town</span><span class="dash"></span></div>
+<div class="r"><span class="name">1 · Katpadi</span><span class="live"></span></div>
+<div class="r"><span class="name">4 · Bagayam</span><span class="live"></span></div>
+<div class="plate">Gandhi Nagar Tank (node-2 · Ward 2): Infrastructure · High · confidence 0.69. Pressure and flow unusual for 2.1 h.</div>
+<div style="margin-top:14px;font-size:12px;color:#bdb8ac">Line form = state: solid live, dashed pending, doubled outranks. Alerts: dry run.</div>
+</div></main></body></html>

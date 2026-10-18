@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { api } from "../api";
 import { nodeShort } from "../labels";
+import { PauseIcon, PlayIcon } from "./Icons";
 import { useLive } from "../live";
 
 const SPEEDS = [60, 300, 600, 1200, 3000, 6000];
@@ -38,7 +39,7 @@ export function ControlBar({ defaultNode }: { defaultNode?: string }) {
     <section className="controls" aria-label="Replay controls">
       <div className="ctl-group">
         <button type="button" className="btn" disabled={!status || busy} onClick={() => run(() => api.control({ paused: !status?.paused }), status?.paused ? "Resumed" : "Paused")}>
-          {status?.paused ? "▶ Resume" : "❚❚ Pause"}
+          {status?.paused ? <><PlayIcon /> Resume</> : <><PauseIcon /> Pause</>}
         </button>
         <label>
           Speed
@@ -51,7 +52,7 @@ export function ControlBar({ defaultNode }: { defaultNode?: string }) {
           </select>
         </label>
         <span className="sim-time" title="Simulated time of the replayed data">
-          Replay time {status?.ts ? status.ts.replace("T", " ").slice(0, 16) : "–"}
+          Replay time <b>{status?.ts ? status.ts.replace("T", " ").slice(0, 16) : "–"}</b>
         </span>
       </div>
       <div className="ctl-group">

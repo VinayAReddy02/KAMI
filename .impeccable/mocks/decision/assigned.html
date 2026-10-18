@@ -1,0 +1,78 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>KAMI · Tank Band</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@600;800&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;background:#f1f3ef;color:#17191c;font:15px/1.4 Hind,sans-serif}
+.st{font-family:"Big Shoulders Stencil Display",sans-serif;font-weight:800;letter-spacing:.02em}
+header{height:58px;background:#183a63;color:#f1f3ef;display:flex;align-items:center;gap:28px;padding:0 24px}
+header .brand{font-size:28px}
+header nav{display:flex;gap:4px}
+header nav a{color:#c9d6e6;text-decoration:none;font-weight:600;padding:8px 14px;border-radius:6px}
+header nav a.on{background:#f1f3ef;color:#183a63}
+header .right{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:13px;color:#c9d6e6}
+.prov{border:1px solid #6f8bb0;border-radius:99px;padding:2px 10px}
+.ctl{height:52px;display:flex;align-items:center;gap:16px;padding:0 24px;border-bottom:1px solid #c9cfc6;background:#e7eae4;font-size:14px}
+.ctl select,.ctl button{font:inherit;border:1px solid #6f8199;border-radius:6px;padding:5px 10px;background:#fff}
+.ctl .go{background:#183a63;color:#fff;border-color:#183a63;font-weight:600}
+.ctl .clock{font-variant-numeric:tabular-nums;color:#40464f}
+main{display:grid;grid-template-columns:1fr 400px;gap:20px;padding:18px 24px;height:740px}
+.map{position:relative;border-radius:10px;overflow:hidden;background:#dfe5dd;border:1px solid #c9cfc6}
+.map svg{position:absolute;inset:0}
+.mk{position:absolute;display:flex;align-items:stretch;border-radius:5px;overflow:hidden;box-shadow:0 2px 6px rgba(23,25,28,.25);font-size:12px}
+.mk .num{width:38px;display:grid;place-items:center;color:#fff;font-size:24px}
+.mk .lbl{background:#fff;padding:3px 8px;line-height:1.15}
+.mk .lbl b{display:block;font-size:13px}
+.n .num{background:#00785a}.i .num{background:#a35f00;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(255,255,255,.22) 5px 8px)}
+.q .num{background:#0a6ea8;background-image:radial-gradient(rgba(255,255,255,.3) 1.5px,transparent 2px);background-size:7px 7px}
+.legend{position:absolute;left:14px;bottom:14px;background:#fff;border-radius:6px;padding:6px 10px;font-size:12px;color:#40464f}
+aside{display:flex;flex-direction:column;gap:14px}
+.bands{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.band{border-radius:6px;padding:8px 12px;color:#fff;display:flex;align-items:baseline;gap:10px}
+.band .c{font-size:34px;line-height:1}
+.band span{font-weight:600}
+.b-n{background:#00785a}.b-i{background:#a35f00}.b-q{background:#0a6ea8}.b-c{background:#9b3f73}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:#40464f}
+.plate{background:#17191c;color:#f1f3ef;border-radius:8px;padding:14px;display:grid;grid-template-columns:62px 1fr;gap:12px}
+.plate .num{background:#a35f00;color:#fff;font-size:38px;display:grid;place-items:center;border-radius:5px;background-image:repeating-linear-gradient(45deg,transparent 0 6px,rgba(255,255,255,.22) 6px 9px)}
+.plate b{font-size:17px}
+.plate .meta{font-size:13px;color:#c8ccd2;font-variant-numeric:tabular-nums}
+.row{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #d6dbd3}
+.row .num{color:#fff;font-size:20px;text-align:center;border-radius:4px;padding:2px 0}
+.row.closed{color:#5f656e}.row.closed b{text-decoration:line-through}
+.row .s{font-size:12px;font-weight:600}
+footer{position:absolute;bottom:0;left:0;right:0;height:32px;display:flex;gap:20px;align-items:center;padding:0 24px;font-size:13px;color:#40464f;border-top:1px solid #c9cfc6}
+</style></head><body>
+<header><span class="brand st">KAMI</span>
+<nav><a class="on">Overview</a><a>Alerts</a><a>Complaints</a><a>Method</a></nav>
+<div class="right"><span class="prov">Demo network · fictional layout</span><span>● Live</span><span>Light / Dark</span></div></header>
+<div class="ctl"><button>Pause</button><label>Speed <select><option>×1200</option></select></label><span class="clock">Replay time 2018-01-07 14:25</span>
+<label>Event <select><option>Burst (sudden)</option></select></label><label>Node <select><option>4 · Bagayam</option></select></label><button class="go">Inject event</button></div>
+<main>
+<div class="map">
+<svg viewBox="0 0 1000 740" preserveAspectRatio="none"><path d="M60 120 C300 160 520 90 940 200" stroke="#b9c4b6" stroke-width="10" fill="none"/><path d="M180 700 C300 500 420 380 560 300 S820 120 900 60" stroke="#c4cbc0" stroke-width="6" fill="none"/><path d="M80 420 C320 400 640 460 960 430" stroke="#9fb6cf" stroke-width="14" fill="none" opacity=".6"/></svg>
+<div class="mk n" style="left:520px;top:120px"><span class="num st">1</span><span class="lbl"><b>Katpadi</b>Normal</span></div>
+<div class="mk i" style="left:600px;top:300px"><span class="num st">2</span><span class="lbl"><b>Gandhi Nagar</b>Infrastructure · High</span></div>
+<div class="mk n" style="left:280px;top:280px"><span class="num st">3</span><span class="lbl"><b>Sathuvachari</b>Normal</span></div>
+<div class="mk n" style="left:700px;top:560px"><span class="num st">4</span><span class="lbl"><b>Bagayam</b>Normal</span></div>
+<div class="mk q" style="left:420px;top:420px"><span class="num st">5</span><span class="lbl"><b>Old Town</b>Quality · Medium</span></div>
+<div class="mk n" style="left:560px;top:470px"><span class="num st">6</span><span class="lbl"><b>Fort Road</b>Normal</span></div>
+<div class="mk n" style="left:330px;top:110px"><span class="num st">7</span><span class="lbl"><b>Viruthampet</b>Normal</span></div>
+<div class="mk n" style="left:380px;top:620px"><span class="num st">8</span><span class="lbl"><b>Thorapadi</b>Normal</span></div>
+<div class="legend">Band colour and pattern = state · Demo network, fictional layout</div>
+</div>
+<aside>
+<div class="bands"><div class="band b-n"><span class="c st">6</span><span>Normal</span></div><div class="band b-i"><span class="c st">1</span><span>Infrastructure</span></div>
+<div class="band b-q"><span class="c st">1</span><span>Quality</span></div><div class="band b-c"><span class="c st">0</span><span>Combined</span></div></div>
+<h2>Most urgent</h2>
+<div class="plate"><span class="num st">2</span><div><b>Gandhi Nagar Tank (node-2 · Ward 2)</b><div class="meta">Infrastructure · High · confidence 0.69 · since 14:20</div>
+<div style="font-size:13px;margin-top:4px">Pressure and flow unusual for 2.1 h, started suddenly.</div></div></div>
+<h2>Alert register</h2>
+<div class="row"><span class="num st" style="background:#0a6ea8">5</span><div><b>Old Town Junction</b><div class="s">Quality · Medium · 13:55</div></div><span class="s">Active</span></div>
+<div class="row closed"><span class="num st" style="background:#5f656e">4</span><div><b>Bagayam Booster</b><div class="s">Infrastructure · High · 11:40</div></div><span class="s">CLOSED</span></div>
+<div class="row closed"><span class="num st" style="background:#5f656e">7</span><div><b>Viruthampet Outlet</b><div class="s">Quality · Low · 09:15</div></div><span class="s">CLOSED</span></div>
+</aside>
+</main>
+<footer><span>○ Alerts: dry run · 0 sent</span><span>Simulated data · demo network</span></footer>
+</body></html>

@@ -346,3 +346,43 @@ Fictional schedule, wards and notices; authored questions; synthetic-speech eval
 - **Left (recorded, not changed):** Leaflet attribution links 14 px high (target size is a WCAG 2.2 rule); Unicode glyphs beside the theme and replay button text instead of drawn icons; the coloured left edge of status-strip items and alert cards is kept because it is a status colour paired with an icon and a word. Chart ticks remain about 7 px on a 390 px phone.
 - **Skill files:** the locally installed `make-interfaces-feel-better` skill (`.agents/`, `.claude/skills/` symlink, `skills-lock.json`) is git-ignored (user decision; CLAUDE.md: no symlinks).
 - **Line endings after the history rewrite:** after the repository was made public (commit `6e5bfc1`, history rewritten, all earlier hashes changed) the checkout has CRLF line endings (`core.autocrlf=true`). `scripts/build_citizen_data.py --check` compared raw bytes and failed; it now ignores CRLF vs LF, as the freeze's hashing already does. The check scripts still name pre-rewrite base commits (`ROUND_BASE`); those objects still exist in this local repository, so the comparisons still work here, but a fresh clone would not have them (left as is; noted for the user).
+
+## Round 9: full dashboard redesign, "Tank Band" (2026-10-18)
+- **Request and decisions (user):** a full redesign with the impeccable plugin and the make-interfaces-feel-better skill. The look is released; still binding: colour + icon + text for every status, the map as a core view, a light/dark toggle, WCAG 2.1 AA and the provenance labels; scope is the whole dashboard; it must not look generic. The impeccable finish-reviewer and documenter agents are allowed for this round.
+- **Direction round:** seven grounded worlds from the audience's own visual culture: PWD diazo network drawings, IMD weather maps, railway boards, government registers, painted municipal water tanks, The Hindu civic notices, kolam. `concept-seed` assigned no. 5: Tank Band (seed:83d4855761145007). Challenger verdicts: Emission-Line Rail competitive; the other five declined, with one discipline kept from each (poster-scale number, one reversed plate, closed alerts struck, one shared time axis, one subject per node page). The decision page closed unanswered while the user was away (the user had said to proceed), so the assigned direction was built. Alternates are kept in `.impeccable/mocks/decision/`. Contract: `.impeccable/surfaces/frontend-src-app-tsx.md`.
+- **World (code-led, no image generation in this harness):**
+  - Ground and shell: limewash ground with a municipal-blue shell.
+  - Status bands: stencil-numbered plates in five state paints (colour + pattern + shape icon + word), on map markers, in the register, on the node page (poster size) and in the Alerts table.
+  - Map: greyscale tiles, so only the paint carries hue.
+  - Alerts: the single most urgent alert sits on a reversed plate; closed alerts are struck through and stay listed.
+  - Charts: four full-width rows on one time axis.
+  - Type: Hind for words (it is Devanagari-ready for the planned Hindi round) and Big Shoulders Stencil for node numbers and the wordmark; both are OFL and self-hosted via @fontsource 5.3.0.
+  - Icons: drawn SVG icons replace the Unicode glyphs.
+  - Default theme: light (daytime control room and projector); dark is a night variant on the toggle.
+  - Contrast: measured for every pair; paint under white numerals is 5.4:1 or more, and control borders are 3.5:1 or more.
+- **Finish review** (`results/redesign/review.md`): fix, then recapture (captures were invalid: tile fade and changed state), then fix, then a final verdict of fix with one partial item. That item was phone markers without room for a label losing their state icon and word. Claude fixed it after the verdict (state icon and word under the plate), but the reviewer has not scored that change, because two rounds is the unattended budget. Fixes made across the rounds:
+  - Map: fits all nodes (half-step zoom, tile fade off) and places labels greedily (right, left, or plate with icon and word underneath).
+  - Dry-run state: an "Alerts: dry run" pill in the header.
+  - Tiles: greyscale.
+  - Charts: stacked on one time axis.
+  - Status bands: in the right column, count first, with counts in Hind (the stencil 0 reads as "()"; contract amended).
+  - Node page: replay strip under the header.
+  - Alerts table: closed rows struck through.
+  - Arrows: drawn instead of Unicode.
+  - Layout: full-width main.
+- **Bugs found while looking and testing:**
+  - Status-band text was overridden by the `.cat-*` colour.
+  - A hidden label escaped the table scroll box at 320 px.
+  - The node header was too wide at 320 px.
+  - The brand row did not wrap on phones.
+  - The Combined icon's "!" did not draw (found by the documenter: the `--on-status` token was lost in the rewrite).
+- **Test edits (behaviour unchanged):**
+  - The Alerts-table cell test now reads the link text (a number plate precedes it).
+  - The theme test now starts light.
+  - The 320 px test now waits for late content and names the elements that overflow.
+- **Results:**
+  - Tests: 45 Playwright (including the zero-violation WCAG 2.1 AA scan) and 17 Vitest pass.
+  - Detector: `impeccable detect` on `frontend/src` reports nothing.
+  - Records: DESIGN.md and `.impeccable/design.json` were written by the documenter from the built world.
+  - Screenshots: the 16 paper screenshots were regenerated.
+- **Known behaviour, unchanged:** an alert stays open until its closing rule fires while markers show the latest assessment, so a marker can read Normal next to an open alert. Proposed (not built): draw open-alert windows as their own band on the map marker and the charts.
