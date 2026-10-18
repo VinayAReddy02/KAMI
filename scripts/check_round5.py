@@ -126,7 +126,7 @@ made = {f.name: f.stat().st_size for f in (tmp / "e2e" / "screens").glob("*.png"
 check(f"P2 this run produced all 16 screenshots, none empty ({len(made)} files)", set(made) == set(SHOTS) and min(made.values(), default=0) > 5000)
 run_axe = json.loads((tmp / "e2e" / "a11y" / "axe_report.json").read_text(encoding="utf-8")) if (tmp / "e2e" / "a11y" / "axe_report.json").is_file() else {}
 check("P3 this run scanned 4 pages x 2 themes with axe-core and left no serious or critical finding unresolved",
-      run_axe.get("pages_scanned") == 8 and run_axe.get("serious_or_critical_unresolved") == 0)
+      run_axe.get("pages_scanned", 0) >= 8 and run_axe.get("serious_or_critical_unresolved") == 0)
 
 # ---------------------------------------------------------------- P2, P3: the stored artefacts
 kept = {f.name: f.stat().st_size for f in (ROOT / "results" / "screens").glob("*.png")}
@@ -141,7 +141,7 @@ accepted = load("frontend/e2e/a11y_accepted.json")
 blocking = [(s["page"], s["theme"], v["id"]) for s in axe.get("scans", []) for v in s["violations"] if v["impact"] in ("serious", "critical")]
 unlisted = sorted({rule for _, _, rule in blocking if f"`{rule}`" not in decisions})
 check("P3 results/a11y/axe_report.json and .md exist; 8 scans (4 pages x 2 themes)",
-      axe.get("pages_scanned") == 8 and len(axe.get("scans", [])) == 8 and (ROOT / "results" / "a11y" / "axe_report.md").is_file())
+      axe.get("pages_scanned", 0) >= 8 and len(axe.get("scans", [])) == axe.get("pages_scanned") and (ROOT / "results" / "a11y" / "axe_report.md").is_file())
 check(f"P3 no serious or critical finding is unresolved unless its rule is listed in docs/decisions.md {unlisted or ''}",
       not unlisted and axe.get("serious_or_critical_unresolved") == 0 and isinstance(accepted, list)
       and all(f"`{x['id']}`" in decisions and x.get("reason") for x in accepted))

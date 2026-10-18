@@ -20,3 +20,8 @@ docs/reference/senior_project/
 docs/reference/paper_format/
 docs/reference/faculty/
 docs/teacher_scope_items.json
+
+# Locally installed agent skills (npx skills add): kept out of git (Round 8; CLAUDE.md: no symlinks)
+.agents/
+.claude/skills/
+skills-lock.json

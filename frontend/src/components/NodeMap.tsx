@@ -4,6 +4,17 @@ import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { nodeLabel, nodeShort } from "../labels";
 import type { Assessment, Category, Complaint, Network } from "../types";
 
+/** Leaflet makes markers focusable buttons, but Enter only opens a popup (KAMI has none): act on Enter and Space like a click. */
+function onKey(act: () => void) {
+  return (e: L.LeafletEvent) => {
+    const k = (e as L.LeafletKeyboardEvent).originalEvent;
+    if (k.key === "Enter" || k.key === " ") {
+      k.preventDefault();
+      act();
+    }
+  };
+}
+
 const GLYPH: Record<Category, string> = {
   Normal: '<circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="2"/>',
   Infrastructure: '<path d="M8 1.5 15 14H1z" fill="currentColor"/>',
@@ -58,7 +69,7 @@ export function NodeMap({ network, latest, onSelect, complaints = [], onComplain
               position={[n.lat, n.lon]}
               icon={markerIcon(nodeShort(n), cat, a?.priority)}
               title={`${nodeLabel(n)}: ${cat}${a && cat !== "Normal" ? ", " + a.priority + " priority" : ""}`}
-              eventHandlers={{ click: () => onSelect(n.id) }}
+              eventHandlers={{ click: () => onSelect(n.id), keydown: onKey(() => onSelect(n.id)) }}
             />
           );
         })}
@@ -69,7 +80,7 @@ export function NodeMap({ network, latest, onSelect, complaints = [], onComplain
             icon={ticketIcon(c.id)}
             zIndexOffset={600}
             title={`Citizen report ${c.id}, ${c.status}${c.node_id ? ", nearest sensor point " + nodeLabel({ id: c.nearest_node_id, name: c.nearest_node_name, number: c.node_number, ward: c.ward }) : ""}`}
-            eventHandlers={{ click: () => onComplaint?.() }}
+            eventHandlers={{ click: () => onComplaint?.(), keydown: onKey(() => onComplaint?.()) }}
           />
         ))}
       </MapContainer>

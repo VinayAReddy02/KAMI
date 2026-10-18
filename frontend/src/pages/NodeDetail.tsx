@@ -63,7 +63,7 @@ export function NodeDetail({ id }: { id: string }) {
           <TimeSeries points={state.series} field="pressure" label="Pressure" unit="m" />
           <TimeSeries points={state.series} field="turbidity" label="Turbidity" unit="FNU" log />
           <TimeSeries points={state.series} field="tds" label="TDS" unit="mg/L" log />
-          <p className="legend" aria-label="Shading legend">
+          <p className="legend">
             Shading: <span className="lg infra">hatched = Infrastructure</span> <span className="lg quality">dotted = Quality</span>{" "}
             <span className="lg combined">crossed = Combined</span>. Turbidity and TDS are on a log scale.
           </p>

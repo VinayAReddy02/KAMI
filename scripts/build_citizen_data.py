@@ -47,7 +47,8 @@ def main() -> int:
     a = ap.parse_args()
     text = build()
     if a.check:
-        same = OUT.is_file() and OUT.read_bytes() == text.encode("utf-8")
+        # line endings are not content: a checkout with core.autocrlf=true has CRLF on disk (Round 8, after the repo history was rewritten)
+        same = OUT.is_file() and OUT.read_bytes().replace(b"\r\n", b"\n") == text.encode("utf-8")
         print("schedule file matches the seeded build" if same else "schedule file DIFFERS from the seeded build")
         return 0 if same else 1
     OUT.parent.mkdir(parents=True, exist_ok=True)

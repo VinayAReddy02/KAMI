@@ -56,7 +56,7 @@ export function Alerts() {
         <div className="table-wrap">
           <table>
             <thead>
-              <tr><th>Status</th><th>Category / priority</th><th>Node</th><th>Started</th><th>Last update</th><th>Confidence</th><th>Explanation</th></tr>
+              <tr><th>Status</th><th>Category / priority</th><th>Node</th><th>Started</th><th>Last update</th><th className="num">Confidence</th><th>Explanation</th></tr>
             </thead>
             <tbody>
               {rows.map((a) => (
@@ -66,7 +66,7 @@ export function Alerts() {
                   <td><a className="link" href={`#/node/${a.node_id}`}><NodeName node={index[a.node_id]} id={a.node_id} /></a></td>
                   <td>{fmtTs(a.start_ts)}</td>
                   <td>{fmtTs(a.status === "active" ? a.last_ts : a.end_ts)}</td>
-                  <td>{a.confidence == null ? "–" : a.confidence.toFixed(2)}</td>
+                  <td className="num">{a.confidence == null ? "–" : a.confidence.toFixed(2)}</td>
                   <td className="expl">{a.explanation}</td>
                 </tr>
               ))}

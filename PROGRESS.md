@@ -3,7 +3,7 @@
 Update this file after every task. A new session must be able to resume from here alone.
 
 **Last updated:** 2026-10-12
-**Current step:** ROUND 7 DONE and pushed (origin/master at 4156dfb plus this note). STOPPED as planned. Next, with the user: the paper. Nothing is running; Docker containers stay stopped.
+**Current step:** ROUND 8 DONE (demo polish, WCAG 2.1 AA) and pushed (hash in the log). STOPPED. Next, with the user: the paper, or the Hindi dashboard round (required by PRODUCT.md, not built).
 **Mode:** unattended allowed; never wait for answers. Opus 5.5 high effort, single-agent execution, token-efficient (see CLAUDE.md *Working mode*).
 
 ## Steps
@@ -57,6 +57,10 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-12 Round 8 P3/P4: screenshots and axe report regenerated (10 scans, 0 WCAG 2.1 A/AA violations); check_round8.py passes (build, Vitest, 45 Playwright tests, earlier quick checks). Found while verifying: after the history rewrite the checkout has CRLF endings, which broke build_citizen_data.py --check (byte compare); it now ignores line endings. Full earlier chain (check_round7 without --quick) not re-run in this round.
+- 2026-10-12 Round 8 P2: fixed F01 keyboard on map markers (Enter/Space), F02 reflow at 320 px (nav wraps), F03 aria-label on <p>, F04 chart ticks 13 units + tabular, F05 --control-border token (>=3.5:1), F06 --c-critical token, F07 Method side tab -> neutral note, F08 tabular numbers. Tests: frontend/e2e/demo_polish.spec.ts (8, F01 failed on the old code), a11y.spec.ts now fails on any WCAG 2.1 A/AA violation and scans Complaints (10 scans, 0). check_round5 accepts >= 8 axe scans.
+- 2026-10-12 Round 8 P1 audit: results/demo_polish/audit.md, score 14/20. axe WCAG 2.1 A/AA: 0 violations on 10 scans; text contrast passes in both themes. P1: map markers not keyboard-operable (2.1.1; Leaflet Enter only opens a popup), no reflow at 320 px (top nav 367 px). P2: aria-label on <p>, tiny chart ticks, faint control borders, hard-coded critical colour. P3: side-tab border on Method, non-tabular numbers. Temporary audit spec removed.
+- 2026-10-12 Round 8 P0: PLAN_ROUND8.md, scripts/check_round8.py, .gitignore for the locally installed skill files (.agents/, .claude/skills/, skills-lock.json).
 - 2026-10-18 Design context: PRODUCT.md written via /impeccable init (user answers: primary user = control-room operator; next use = live demo/viva; binding: WCAG 2.1 AA and Hindi in the dashboard UI, the latter required but not built and to be planned as its own round). No DESIGN.md, no UI change.
 - 2026-10-18 Repo made public by the user. History rewritten (git filter-repo, all 36 commits kept) to remove docs/reference/senior_project/, paper_format/, faculty/ and docs/teacher_scope_items.json; force-pushed once with the user's OK; files kept locally (git-ignored, backup in D:\GYATT\5th sem\AI\KAMI_reference_backup). Commit hashes before this entry changed.
 - 2026-10-12 Round 7 push: git push origin master c75640d..4156dfb (pre-push checks: clean tree, .env untracked, no token pattern in tracked files).

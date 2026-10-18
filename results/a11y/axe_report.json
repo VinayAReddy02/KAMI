@@ -1,11 +1,13 @@
 {
  "tool": "axe-core 4.13.0 through @axe-core/playwright (Chromium, 1440x900)",
- "created_utc": "2026-10-17T16:03:19.687Z",
- "rule_set": "axe default rules (WCAG 2.x A and AA plus best practices)",
- "pages_scanned": 8,
+ "created_utc": "2026-10-18T07:42:52.068Z",
+ "rule_set": "axe default rules (WCAG 2.x A and AA plus best practices); WCAG 2.1 AA = rules tagged wcag2a, wcag2aa, wcag21a, wcag21aa",
+ "pages_scanned": 10,
  "violations_total": 0,
  "serious_or_critical": 0,
  "serious_or_critical_unresolved": 0,
+ "aa_violations": 0,
+ "aa_violations_unaccepted": 0,
  "accepted_rules": [],
  "scans": [
   {
@@ -37,10 +39,17 @@
    "violations": []
   },
   {
+   "page": "complaints",
+   "theme": "dark",
+   "url": "#/complaints",
+   "passes": 41,
+   "violations": []
+  },
+  {
    "page": "overview",
    "theme": "light",
    "url": "#/",
-   "passes": 45,
+   "passes": 42,
    "violations": []
   },
   {
@@ -62,6 +71,13 @@
    "theme": "light",
    "url": "#/method",
    "passes": 37,
+   "violations": []
+  },
+  {
+   "page": "complaints",
+   "theme": "light",
+   "url": "#/complaints",
+   "passes": 41,
    "violations": []
   }
  ]

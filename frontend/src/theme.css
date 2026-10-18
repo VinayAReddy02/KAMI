@@ -10,6 +10,8 @@
   --muted: #9fb0c6;
   --link: #7cc4f5;
   --focus: #ffd166;
+  --control-border: #66809f; /* >= 3.6:1 on every dark panel and background (buttons, selects) */
+  --c-critical: #ff6b6b;
   --on-status: #0b1320;
   --c-normal: #3fd0a5;
   --c-infra: #f0a83a;
@@ -29,6 +31,8 @@
   --muted: #4d5f7a;
   --link: #0b5fa5;
   --focus: #b45309;
+  --control-border: #6f8199; /* >= 3.5:1 on every light panel and background */
+  --c-critical: #b42318;
   --on-status: #ffffff;
   --c-normal: #007a5a;
   --c-infra: #8f5300; /* 6.2:1 on white (was #b36b00, 4.2:1: below WCAG AA for text) */
@@ -71,10 +75,11 @@ code { background: var(--panel-2); padding: 0 0.3em; border-radius: 4px; }
   font-size: 0.74rem; letter-spacing: 0; font-weight: 500; color: var(--muted);
   border: 1px solid var(--border); border-radius: 999px; padding: 0.1rem 0.6rem; background: var(--panel);
 }
-.topbar nav { display: flex; gap: 0.3rem; }
+.topbar nav { display: flex; flex-wrap: wrap; gap: 0.3rem; }
 .topbar nav a {
   text-decoration: none; color: var(--muted); padding: 0.35rem 0.8rem; border-radius: 8px; font-weight: 600;
 }
+@media (max-width: 400px) { .topbar nav a { padding: 0.35rem 0.55rem; } }
 .topbar nav a[aria-current="page"] { color: var(--text); background: var(--panel-2); box-shadow: inset 0 -2px 0 var(--link); }
 .top-right { margin-left: auto; display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
 .conn { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; }
@@ -85,7 +90,7 @@ code { background: var(--panel-2); padding: 0 0.3em; border-radius: 4px; }
 
 /* controls */
 .btn, select {
-  font: inherit; color: var(--text); background: var(--panel); border: 1px solid var(--border);
+  font: inherit; color: var(--text); background: var(--panel); border: 1px solid var(--control-border);
   border-radius: 8px; padding: 0.35rem 0.7rem;
 }
 .btn { cursor: pointer; font-weight: 600; }
@@ -173,8 +178,7 @@ main:focus { outline: none; }
 .prio-bars i:nth-child(1) { height: 5px; } .prio-bars i:nth-child(2) { height: 8px; }
 .prio-bars i:nth-child(3) { height: 11px; } .prio-bars i:nth-child(4) { height: 14px; }
 .prio-bars i.on { background: currentColor; }
-.prio-critical { color: #ff6b6b; } .prio-high { color: var(--c-infra); }
-[data-theme="light"] .prio-critical { color: #b42318; }
+.prio-critical { color: var(--c-critical); } .prio-high { color: var(--c-infra); }
 
 /* alert list */
 .alert-list { list-style: none; margin: 0 0 0.6rem; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
@@ -191,13 +195,14 @@ main:focus { outline: none; }
 .alert-text { font-size: 0.82rem; color: var(--text); opacity: 0.92; }
 .state { color: var(--muted); padding: 0.6rem 0; }
 .state.error { color: #ff8b8b; }
-[data-theme="light"] .state.error { color: #b42318; }
+.state.error { color: var(--c-critical); }
 .page-state { text-align: center; padding: 3rem 1rem; }
 
 /* node detail */
 .detail-head { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem; }
 .detail-head h1 { margin: 0; }
-.conf { color: var(--muted); }
+.conf { color: var(--muted); font-variant-numeric: tabular-nums; }
+td.num, th.num { font-variant-numeric: tabular-nums; text-align: right; }
 .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1rem; margin: 0.8rem 0; }
 .explain p { margin: 0.3rem 0 0.8rem; }
 .meta { color: var(--muted); font-size: 0.8rem; margin: 0.6rem 0 0 !important; }
@@ -218,7 +223,7 @@ main:focus { outline: none; }
 .chart svg { width: 100%; height: auto; display: block; }
 .series-line { stroke: var(--text); stroke-width: 1.6; }
 .axis { stroke: var(--border); stroke-width: 1; }
-.tick { fill: var(--muted); font-size: 10px; }
+.tick { fill: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
 
 /* alerts page */
 .filters { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; align-items: center; margin-bottom: 0.8rem; }
@@ -234,7 +239,7 @@ td.expl { max-width: 460px; color: var(--muted); }
 .leaflet-container .leaflet-control-attribution { background: var(--panel); color: var(--muted); }
 .leaflet-container .leaflet-control-attribution a { color: var(--link); }
 .method { max-width: 780px; }
-.method-version { border-left: 3px solid var(--c-quality); padding: 0.35rem 0.7rem; }
+.method-version { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.8rem; }
 .method-version .muted { color: var(--muted); }
 .footer { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; padding: 0.6rem 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; }
 .footer strong { color: var(--text); font-weight: 600; }
