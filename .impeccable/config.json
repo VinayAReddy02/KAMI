@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-10-18T13:23:33.303Z",
         "reason": "Claude: unchosen decision-round sketch (Emission-Line Rail), never shipped; Round 9 built Tank Band"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-18T14:05:29.972Z",
+        "reason": "Claude: unchosen decision-round sketch (Network Drawing) with its own type; never shipped; Round 9 built Tank Band"
       }
     ]
   }
