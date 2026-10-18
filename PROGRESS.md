@@ -57,6 +57,7 @@ Status values: not started, in progress, passed, blocked.
 
 ## Log
 (newest first; one line per task: date, what, result)
+- 2026-10-18 Repo made public by the user. History rewritten (git filter-repo, all 36 commits kept) to remove docs/reference/senior_project/, paper_format/, faculty/ and docs/teacher_scope_items.json; force-pushed once with the user's OK; files kept locally (git-ignored, backup in D:\GYATT\5th sem\AI\KAMI_reference_backup). Commit hashes before this entry changed.
 - 2026-10-12 Round 7 push: git push origin master c75640d..4156dfb (pre-push checks: clean tree, .env untracked, no token pattern in tracked files).
 - 2026-10-12 Round 7 N3: scripts/check_round7.py full passes (33 checks, incl. check_round6 --part a --part c -> check_round5 -> check_telegram -> check_round2 -> every check_step_N, pytest -q, npm build/test, Playwright). Docker Desktop part (check_round6 --part b) not re-run in Round 7: no Docker change; results/docker/part_b.json from Round 6 stands. Three Round 1 logs restored (time stamps only). CLAUDE.md round history updated. Final commit and push to origin follow (hash recorded below).
 - 2026-10-12 Round 7 G6: docs/gecco.md (numbers read from results/gecco by script), datasets.md row, real_data_search.md status, teacher_scope T4, README reproduce steps, decisions (Part G incl. tie-break wording note and the descriptive alert-time column), SUMMARY limitation line; check_round7 --quick passes.

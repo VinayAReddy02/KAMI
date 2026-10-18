@@ -14,3 +14,9 @@ test-results/
 playwright-report/
 data/citizen/uploads/
 data/citizen/tmp/
+
+# Third-party or private documents: kept locally, never committed (repo is public since 2026-10-18)
+docs/reference/senior_project/
+docs/reference/paper_format/
+docs/reference/faculty/
+docs/teacher_scope_items.json
