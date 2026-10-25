@@ -75,7 +75,7 @@ apart from every semi-synthetic number. Protocol `docs/gecco_protocol.md`, resul
 ```
 
 ### Round 2: frozen method, fresh test sets
-Round 1 results are kept in `results_round1/` (git tag `round1`). Round 2 re-tunes the decision rules on validation only (event F1, each detected event counted once, with at most 0.5 false alarms per day), freezes the configuration, and evaluates it once on fresh scenario test sets with bootstrap confidence intervals. See `PLAN_ROUND2.md`, `docs/decisions.md` (Round 2) and `results/SUMMARY.md`.
+Round 1 results are kept in `results_round1/` (git tag `round1`). Round 2 re-tunes the decision rules on validation only (event F1, each detected event counted once, with at most 0.5 false alarms per day), freezes the configuration, and evaluates it once on fresh scenario test sets with bootstrap confidence intervals. See `plans/PLAN_ROUND2.md`, `docs/decisions.md` (Round 2) and `results/SUMMARY.md`.
 
 ```powershell
 .\.venv\Scripts\python scripts\build_test_set.py --version v2 --seed 20261010   # held-out test events (secondary set)
@@ -159,7 +159,7 @@ tests/       step1 .. step6, round2, live, telegram, citizen, docker
 config/      nodes.json (fictional demo coordinates)
 docs/        decisions.md, datasets.md, scenarios.md, fusion.md, architecture.md, notifications.md, citizen.md, teacher_scope.md, demo_script.md, real_data_search.md, reference/
 results/     metrics, tables, figures, round2/, SUMMARY.md   (results_round1/ = Round 1 snapshot)
-PROGRESS.md  PLAN.md  PLAN_ROUND2.md  PLAN_ROUND4.md  PLAN_ROUND5.md  PLAN_ROUND6.md  PLAN_ROUND7.md  PLAN_ROUND7_OLD_DOCKER.md  CLAUDE.md  .env.example   (the Round 3 plan is superseded and kept as history)
+PROGRESS.md  plans/PLAN.md  plans/PLAN_ROUND2.md  plans/PLAN_ROUND4.md  plans/PLAN_ROUND5.md  plans/PLAN_ROUND6.md  plans/PLAN_ROUND7.md  plans/PLAN_ROUND7_OLD_DOCKER.md  CLAUDE.md  .env.example   (the Round 3 plan is superseded and kept as history)
 ```
 
 ## Honest scope notes

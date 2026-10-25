@@ -63,12 +63,12 @@ Status values: not started, in progress, passed, blocked.
 - 2026-10-12 Round 9 R3: impeccable-finish-reviewer disposition fix: map fit, dry-run always visible, grey tiles, stacked charts on one time axis, bands in the right column count-first, replay strip under the header on the node page, struck closed rows in the Alerts table, drawn arrows. All applied (+ full-width main, larger priority words, wrapping brand row, fractional map zoom). 45 Playwright + 17 Vitest pass; detector [].
 - 2026-10-12 Round 9 R2: Tank Band built code-led: theme.css rewritten (limewash/municipal-blue tokens per theme, measured contrast, pattern tiles for hatched/dotted/crossed states), self-hosted Hind + Big Shoulders Stencil (OFL, @fontsource 5.3.0), drawn SVG icons (Icons.tsx) instead of Unicode glyphs, painted status bands, stencil-number plates on map markers/register/alerts table/node page (poster size), the single most urgent alert on a reversed plate, closed alerts struck. Light theme is now the default (daytime control room, projector). Fixes found by looking/tests: band text overridden by .cat-* colour, stencil 0 reads as (), hidden label escaping the table scroll box at 320 px. Test edits: alerts-table cell reads the link text (plate added); theme test starts light.
 - 2026-10-12 Round 9 R1: direction round. My 7 grounded worlds: PWD diazo network drawings, IMD weather maps, railway station boards, government registers, painted municipal tanks with stencilled ward numbers, The Hindu civic notices, kolam grids; concept-seed assigned no. 5 (Tank Band). Challengers: Emission-Line Rail competitive; Metro Tiles, Vertical Feed, Timetable Rack, Botanical Folio, Ticket Wallet declined (one discipline kept from each). Decision page served; it closed unanswered while the user was away (user had said to proceed), so the assigned direction is built; alternates kept in .impeccable/mocks/decision/.
-- 2026-10-12 Round 9 R0: PLAN_ROUND9.md, scripts/check_round9.py, released design brief recorded in CLAUDE.md and PRODUCT.md (still binding: colour+icon+text, map core view, light/dark toggle, WCAG 2.1 AA, provenance labels; not generic).
+- 2026-10-12 Round 9 R0: plans/PLAN_ROUND9.md, scripts/check_round9.py, released design brief recorded in CLAUDE.md and PRODUCT.md (still binding: colour+icon+text, map core view, light/dark toggle, WCAG 2.1 AA, provenance labels; not generic).
 - 2026-10-18 Round 8 push: git push origin master 6e5bfc1..3341138 (pre-push checks: clean tree, .env untracked, no token pattern; author Vinay A).
 - 2026-10-12 Round 8 P3/P4: screenshots and axe report regenerated (10 scans, 0 WCAG 2.1 A/AA violations); check_round8.py passes (build, Vitest, 45 Playwright tests, earlier quick checks). Found while verifying: after the history rewrite the checkout has CRLF endings, which broke build_citizen_data.py --check (byte compare); it now ignores line endings. Full earlier chain (check_round7 without --quick) not re-run in this round.
 - 2026-10-12 Round 8 P2: fixed F01 keyboard on map markers (Enter/Space), F02 reflow at 320 px (nav wraps), F03 aria-label on <p>, F04 chart ticks 13 units + tabular, F05 --control-border token (>=3.5:1), F06 --c-critical token, F07 Method side tab -> neutral note, F08 tabular numbers. Tests: frontend/e2e/demo_polish.spec.ts (8, F01 failed on the old code), a11y.spec.ts now fails on any WCAG 2.1 A/AA violation and scans Complaints (10 scans, 0). check_round5 accepts >= 8 axe scans.
 - 2026-10-12 Round 8 P1 audit: results/demo_polish/audit.md, score 14/20. axe WCAG 2.1 A/AA: 0 violations on 10 scans; text contrast passes in both themes. P1: map markers not keyboard-operable (2.1.1; Leaflet Enter only opens a popup), no reflow at 320 px (top nav 367 px). P2: aria-label on <p>, tiny chart ticks, faint control borders, hard-coded critical colour. P3: side-tab border on Method, non-tabular numbers. Temporary audit spec removed.
-- 2026-10-12 Round 8 P0: PLAN_ROUND8.md, scripts/check_round8.py, .gitignore for the locally installed skill files (.agents/, .claude/skills/, skills-lock.json).
+- 2026-10-12 Round 8 P0: plans/PLAN_ROUND8.md, scripts/check_round8.py, .gitignore for the locally installed skill files (.agents/, .claude/skills/, skills-lock.json).
 - 2026-10-18 Design context: PRODUCT.md written via /impeccable init (user answers: primary user = control-room operator; next use = live demo/viva; binding: WCAG 2.1 AA and Hindi in the dashboard UI, the latter required but not built and to be planned as its own round). No DESIGN.md, no UI change.
 - 2026-10-18 Repo made public by the user. History rewritten (git filter-repo, all 36 commits kept) to remove docs/reference/senior_project/, paper_format/, faculty/ and docs/teacher_scope_items.json; force-pushed once with the user's OK; files kept locally (git-ignored, backup in D:\GYATT\5th sem\AI\KAMI_reference_backup). Commit hashes before this entry changed.
 - 2026-10-12 Round 7 push: git push origin master c75640d..4156dfb (pre-push checks: clean tree, .env untracked, no token pattern in tracked files).
@@ -86,7 +86,7 @@ Status values: not started, in progress, passed, blocked.
 - 2026-10-12 Round 7 started (plan approved). Deviation recorded for later: GECCO code goes to src/kami/gecco/ (the planned paths are frozen-input globs of eval/freeze.py).
 - 2026-10-17 Live phone test of the citizen bot by the user: all steps worked (text en/hi, Hindi voice, no-information answer, notices, photo ticket on the Complaints page, Telegram alert after a burst at Bagayam and "possibly delayed" for Ward 4). Only finding: node numbers not shown (Round 7 N1). Repo pushed to the private GitHub repo VinayAReddy02/KAMI (origin).
 - 2026-10-12 Planning update (planning assistant): Part G added to Round 7 at the user's request: real-data test of the quality stream on GECCO 2019 (2018 as fallback); pre-registered protocol, variant A frozen transfer, variant B adapted, baselines, locked test part.
-- 2026-10-12 Planning update (planning assistant): live phone test in progress; the user could not tell which node was node 4 (the dashboard shows only names) -> new Round 7 (PLAN_ROUND7.md): node numbers everywhere; old PLAN_ROUND7.md renamed to PLAN_ROUND7_OLD_DOCKER.md.
+- 2026-10-12 Planning update (planning assistant): live phone test in progress; the user could not tell which node was node 4 (the dashboard shows only names) -> new Round 7 (plans/PLAN_ROUND7.md): node numbers everywhere; old plans/PLAN_ROUND7.md renamed to plans/PLAN_ROUND7_OLD_DOCKER.md.
 - 2026-10-12 Round 6 D5 close-out: README, architecture, decisions, teacher scope, demo script, SUMMARY limitation (via make_summary.py), CLAUDE.md; check_round6.py full run; commit `round 6b`. ROUND 6 DONE.
 - 2026-10-12 Round 6 D4: browser tests in docker mode: first 25 of 34 (injection before the nodes replayed); fixed with launcher wait + `GET /ready` (tests first); now 34 of 34.
 - 2026-10-12 Round 6 D3: separate processes (`kami.live.procs` nodes | ingest | api, control over MQTT), `launch_docker`, `run_demo.py --mode docker`, `tests/docker` (8 tests, 3 need the stack), `scripts/docker_checks.py`.
@@ -108,18 +108,18 @@ Status values: not started, in progress, passed, blocked.
 - 2026-10-12 Round 6 C1: data/citizen/ demo_fictional wards (8, Ward N <-> node-N), 16 notices, seeded 47-row tanker schedule (scripts/build_citizen_data.py); ScheduleService derives scheduled / en route / delivered / delayed from the replay clock and marks pending tankers as possibly delayed when the ward node has an open High/Critical alert.
 - 2026-10-12 Round 6 C0: docs/citizen.md (design), scripts/check_round6.py (first version). Found: all AI4Bharat models on Hugging Face (IndicTrans2, Indic Parler-TTS, IndicConformer) are gated (login + licence click), so per the plan they are not used; open alternatives: faster-whisper, NLLB-200 / OPUS-MT, Piper / MMS-TTS. Download speed about 1.3 to 2.4 MB/s.
 - 2026-10-12 User accepted the Round 3 check_step_6 criterion change (no longer open).
-- 2026-10-12 Planning update (planning assistant): Docker (former Round 7) merged into Round 6 as Part B at the user's request; PLAN_ROUND7.md marked superseded.
+- 2026-10-12 Planning update (planning assistant): Docker (former Round 7) merged into Round 6 as Part B at the user's request; plans/PLAN_ROUND7.md marked superseded.
 - 2026-10-12 Ollama 0.40.3 installed by the user (local only). Docker Desktop not installed yet (needed for Round 6 Part B).
 - 2026-10-12 Docker Desktop installed and verified by the user: Docker 29.8.2, Compose v5.5.1, WSL2 backend (Docker VM 7.66 GiB RAM, 24 CPUs), `docker run --rm hello-world` OK.
 - 2026-10-12 Planning update (planning assistant): Bhashini dropped (registration asks for incubator/organisation details); Round 6 speech, translation and TTS use local open models on the user's laptop (i7 14th gen, 16 GB RAM, RTX 4070 8 GB).
-- 2026-10-12 Planning update (planning assistant): Round 6 = citizen interface (PLAN_ROUND6.md, user decisions: Hindi + English, retrieval + local Ollama LLM, tickets without CV); Docker moved to Round 7 (PLAN_ROUND7.md); CLAUDE.md scope and secrets rules updated.
+- 2026-10-12 Planning update (planning assistant): Round 6 = citizen interface (plans/PLAN_ROUND6.md, user decisions: Hindi + English, retrieval + local Ollama LLM, tickets without CV); Docker moved to Round 7 (plans/PLAN_ROUND7.md); CLAUDE.md scope and secrets rules updated.
 - 2026-10-12 Round 5 P4: check_round5.py (full: Round 5 checks, 30 Playwright tests, check_telegram, check_round2, every check_step_N, pytest -q, npm build and test) all PASS, exit 0. The three Round 1 access logs were restored afterwards (time stamps only). Committed. Stopped.
 - 2026-10-12 Round 5 Q1: quiet demo, 14 simulated days, 8 nodes, no injection: 0 alert episodes (0 High or Critical). Positive control with one injected burst: 4 episodes at that node. results/demo_quiet/. Replayed rows are all inside the training period; no held-out data read.
 - 2026-10-12 Round 5 P3: axe-core on 4 pages x 2 themes: 3 rules with findings (2 contrast, 1 missing heading), all fixed, 0 left. results/a11y/.
 - 2026-10-12 Round 5 P2: 16 screenshots in results/screens/ (4 pages x 2 themes x 2 sizes) with manifest; scripts/screenshots.py.
 - 2026-10-12 Round 5 P1: Playwright + Chromium installed; 5 dashboard tests in frontend/e2e/; test server scripts/e2e_server.py is locked to dry run.
 - 2026-10-12 Round 5 M1: alert wording (model score vs confidence, plain reasons, generic action line, no cause, under 600 characters); alert records now carry the values; tests in tests/telegram/test_message.py. No real message sent.
-- 2026-10-12 Planning update (planning assistant): bot test passed (test message and one real alert delivered); Round 5 re-planned without Docker (M1, P1, P2, P3, Q1 quiet-demo measurement, P4); Docker moved to Round 6 (PLAN_ROUND6.md).
+- 2026-10-12 Planning update (planning assistant): bot test passed (test message and one real alert delivered); Round 5 re-planned without Docker (M1, P1, P2, P3, Q1 quiet-demo measurement, P4); Docker moved to Round 6 (plans/PLAN_ROUND6.md).
 - 2026-10-12 Round 4 T7: check_telegram.py (full: Round 4 checks, check_round2, every check_step_N, pytest -q, npm run build and test) all PASS, exit 0. Committed. Stopped.
 - 2026-10-12 Round 4 T6: docs/notifications.md rewritten for Telegram, README section, decisions.md (Round 4, T0 to T7). make_summary.py and SUMMARY.md had no mention, not touched.
 - 2026-10-12 Round 4 T5: tests/telegram (61 tests, mocked HTTP, real requests refused): trigger, escalation, cooldown, cap, fallback per setting, 401/400/403/404/429/5xx, retries, loop safety, secrets search (confirmed it fails on a planted leak), chat-id helper.
@@ -128,7 +128,7 @@ Status values: not started, in progress, passed, blocked.
 - 2026-10-12 Round 4 T2: src/kami/notify rebuilt for Telegram (plain-text sendMessage, no lifetime budget, state file with counts).
 - 2026-10-12 Round 4 T1: old notifier, its check and tests removed with git rm; frozen-rule test moved to tests/live; six old keys removed from .env by name; old request counter file removed.
 - 2026-10-12 Round 4 T0: inventory (below) and scripts/check_telegram.py.
-- 2026-10-12 Planning update (by the user's planning assistant): WhatsApp dropped after the Twilio template-only failure; new Round 4 = Telegram bot (PLAN_ROUND4.md); Docker/Playwright round renumbered to Round 5 (PLAN_ROUND5.md); PLAN_WHATSAPP.md marked superseded; CLAUDE.md rules 1 and 7 updated.
+- 2026-10-12 Planning update (by the user's planning assistant): WhatsApp dropped after the Twilio template-only failure; new Round 4 = Telegram bot (plans/PLAN_ROUND4.md); Docker/Playwright round renumbered to Round 5 (plans/PLAN_ROUND5.md); plans/PLAN_WHATSAPP.md marked superseded; CLAUDE.md rules 1 and 7 updated.
 - 2026-10-11 Round 3 W8: check_whatsapp.py (full: add-on checks, check_round2, every check_step_N, pytest -q, npm run build) all PASS, exit 0. README, decisions.md, SUMMARY.md limitation line updated. Committed. Stopped.
 - 2026-10-11 Round 3 W7: docs/notifications.md (setup, sandbox limits, budget, failures), scripts/send_test_alert.py (dry run unless enabled).
 - 2026-10-11 Round 3 W6: tests/whatsapp (34 tests, mocked HTTP, real requests refused): trigger, escalation, cooldown, hourly cap, budget, fallback, retries, window closed, secrets search, loop safety. Found and fixed: message could be exactly 600 characters.
@@ -147,7 +147,7 @@ Status values: not started, in progress, passed, blocked.
 - 2026-10-10 Step 0: BattLeDIM + USGS downloaded, loaders, docs/datasets.md, check_step_0 PASS
 
 ## Round 2 (done, 2026-10-10)
-See PLAN_ROUND2.md, docs/decisions.md (Round 2) and results/SUMMARY.md. Status: R0 to R8 done; `scripts/check_round2.py` passes with one documented exception (below).
+See plans/PLAN_ROUND2.md, docs/decisions.md (Round 2) and results/SUMMARY.md. Status: R0 to R8 done; `scripts/check_round2.py` passes with one documented exception (below).
 - **Result (test_v3, frozen rule):** no detectable difference between the selected fusion design F-B and threshold voting on event F1 (0.708 vs 0.667, paired difference +0.041 [-0.017, +0.101]; both 0.09 false alarms/day). F-B is detectably better on category accuracy (0.700 vs 0.617). On the secondary set test_v2 F-B beats voting (+0.101 [+0.027, +0.180]).
 - R0 tag round1 + results_round1/. R1 test_v2 (seed 20261010) and test_v3 (seed 20261011). R2 validation-only tuning, objective = event-counted F1 with at most 0.5 false alarms/day, frozen at `b88f6d5` / `d8e12bc`. R3 temporal ablation (5 seeds): helps F-A category accuracy, hurts F-B event F1 on validation. R4 One-Class SVM added, all baselines re-tuned with the same objective. R5 skipped (LeakDB). R6 final run, once per model, predictions stored. R7 SUMMARY regenerated by script.
 - **Documented exception:** the baselines were scored on test_v2 before the freeze (my mistake; evidence in results/round2/incident_test_v2/). test_v3 is the headline set for that reason; the user approved this.
@@ -155,7 +155,7 @@ See PLAN_ROUND2.md, docs/decisions.md (Round 2) and results/SUMMARY.md. Status: 
 - To re-check: `python scripts/check_round2.py` (add `--quick` to skip the Round 1 checks). The final evaluation cannot be repeated; `python -m kami.eval.run_final` only recomputes numbers from the stored predictions.
 
 ## Round 3: WhatsApp alert push (DONE 2026-10-11)
-See PLAN_WHATSAPP.md, docs/notifications.md and docs/decisions.md (Round 3).
+See plans/PLAN_WHATSAPP.md, docs/notifications.md and docs/decisions.md (Round 3).
 - W-1: the live demo runs the frozen Round 2 rule (read-only from `results/fusion/frozen_config.json`); live category equals the batch frozen rule on a fixed validation sample. Known and reported: the injected combined event shows as Infrastructure; a missing quality stream means "Not assessed".
 - W0 to W7: outbound alert push, dry run by default (`results/notifications/dryrun_log.jsonl`). WhatsApp through Twilio only with `KAMI_WHATSAPP_ENABLE=1` and all four credentials in `.env`, and only from `scripts/run_demo.py` and `scripts/send_test_alert.py`. Limits: 10 min per node, 30 per hour, 80 requests in total (`results/notifications/state.json`).
 - **2026-10-11/12, user test:** the user created `.env` and ran `send_test_alert.py`; Twilio rejected each request with error 21654 (ContentSid required). No WhatsApp message was delivered. This led to the Round 4 decision.
@@ -163,13 +163,13 @@ See PLAN_WHATSAPP.md, docs/notifications.md and docs/decisions.md (Round 3).
 - Not started: the paper and anything under "Proposed" in docs/decisions.md.
 
 ## Round 4: WhatsApp replaced by a Telegram bot (done)
-See PLAN_ROUND4.md, docs/notifications.md and docs/decisions.md (Round 4). Status: DONE 2026-10-12 (base commit `38232dd`). Tasks T0 to T7; check script `scripts/check_telegram.py`. Code only, no real Telegram request; stop after T7.
+See plans/PLAN_ROUND4.md, docs/notifications.md and docs/decisions.md (Round 4). Status: DONE 2026-10-12 (base commit `38232dd`). Tasks T0 to T7; check script `scripts/check_telegram.py`. Code only, no real Telegram request; stop after T7.
 - **T0 inventory** (`git grep -i -E "whatsapp|twilio"` at `38232dd`; hits per file):
   - code to remove or rewrite: `src/kami/notify/twilio.py` (17), `src/kami/notify/settings.py` (10), `src/kami/notify/manager.py` (6), `src/kami/notify/__init__.py` (6), `scripts/check_whatsapp.py` (19), `scripts/send_test_alert.py` (5), `scripts/run_demo.py` (2), `tests/whatsapp/test_notify.py` (69), `tests/conftest.py` (1)
   - one-line mentions to fix: `src/kami/api/app.py` (1), `src/kami/live/system.py` (1), `src/kami/live/frozen.py` (1, test path in the docstring)
   - frontend: `frontend/src/components/AlertPushStatus.tsx` (4), `AlertPushStatus.test.tsx` (3), `frontend/src/types.ts` (1)
   - settings and docs: `.env.example` (9), `README.md` (8), `docs/notifications.md` (39)
-  - history, allowed to stay: `docs/decisions.md` (15), `PLAN_WHATSAPP.md` (19), `PROGRESS.md` (14), `CLAUDE.md` (4), `docs/reference/faculty/Faculty_feedback.txt` (3)
+  - history, allowed to stay: `docs/decisions.md` (15), `plans/PLAN_WHATSAPP.md` (19), `PROGRESS.md` (14), `CLAUDE.md` (4), `docs/reference/faculty/Faculty_feedback.txt` (3)
   - no hits in `scripts/make_summary.py` or `results/SUMMARY.md` (nothing to regenerate)
   - not tracked: `.env` (exists, old keys to remove by name), `results/notifications/state.json` (old request counter, to remove)
 
@@ -178,7 +178,7 @@ See PLAN_ROUND4.md, docs/notifications.md and docs/decisions.md (Round 4). Statu
 - To re-check: `python scripts/check_telegram.py` (add `--quick` to skip the earlier checks). It cannot reach Telegram.
 
 ## Round 5: alert wording, browser tests, screenshots, accessibility, quiet demo (DONE 2026-10-12)
-See PLAN_ROUND5.md and docs/decisions.md (Round 5). Base commit `5aa9bcf`. Check: `python scripts/check_round5.py` (add `--quick` to skip the earlier checks).
+See plans/PLAN_ROUND5.md and docs/decisions.md (Round 5). Base commit `5aa9bcf`. Check: `python scripts/check_round5.py` (add `--quick` to skip the earlier checks).
 - **M1:** alert messages use plain words built from the real values, label the model score and the confidence as different things, and end with a generic action line. Sample in docs/notifications.md and README.
 - **P1:** 5 browser tests (`frontend/e2e/dashboard.spec.ts`). Run with `cd frontend; npm run build; npx playwright test`. They start `scripts/e2e_server.py` on port 8210.
 - **P2:** `results/screens/` (16 PNG + manifest.json). Regenerate with `python scripts/screenshots.py`.
@@ -188,7 +188,7 @@ See PLAN_ROUND5.md and docs/decisions.md (Round 5). Base commit `5aa9bcf`. Check
 - **For you to know:** (1) one injected event can show as several alert episodes at the node (the control run showed 4 for one burst), so at slow replay speeds one event can cause more than one Telegram message; listed under Proposed, not changed. (2) On a phone some map labels are cut off at the map edge; not fixed. (3) `run_demo.py` cannot use port 8000 on this machine (reserved by Windows): start it with `--port 8200`.
 
 ## Round 6: citizen interface, project documents, Docker (DONE 2026-10-12)
-See PLAN_ROUND6.md, docs/citizen.md and docs/decisions.md (Round 6). Base commit `ae67102`.
+See plans/PLAN_ROUND6.md, docs/citizen.md and docs/decisions.md (Round 6). Base commit `ae67102`.
 - **Part A (C0 to C8): DONE 2026-10-12, committed.** Citizen interface on the Telegram bot, off by default (`KAMI_CITIZEN_ENABLE`), only from `run_demo.py` and `run_citizen_bot.py`. Code `src/kami/citizen/`, tests `tests/citizen/` (87, mocked HTTP and fake models), browser test `frontend/e2e/complaints.spec.ts`, demo data `data/citizen/` (demo_fictional), evaluation `results/citizen/`, check `python scripts/check_round6.py --quick --part a`.
 - Speech packages: `requirements-citizen.txt` (installed in `.venv`; `requirements.txt` only gained `pillow`). Models are in the user-level caches, not in the repository.
 - **No real Telegram request was made by me.** `.env` was not changed.
@@ -197,4 +197,4 @@ See PLAN_ROUND6.md, docs/citizen.md and docs/decisions.md (Round 6). Base commit
 - **No real Telegram request was made by me in Part B either.**
 
 ## Round 7: merged into Round 6 (Part B)
-Its plan was renamed to PLAN_ROUND7_OLD_DOCKER.md (history only). The new Round 7 is PLAN_ROUND7.md (node numbers everywhere + live-test fixes).
+Its plan was renamed to plans/PLAN_ROUND7_OLD_DOCKER.md (history only). The new Round 7 is plans/PLAN_ROUND7.md (node numbers everywhere + live-test fixes).
